@@ -4,7 +4,7 @@ require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../service/UsuarioService.php");
 require_once(__DIR__ . "/../model/Usuario.php");
-require_once(__DIR__ . "/../model/enum/UsuarioPapel.php");
+require_once(__DIR__ . "/../model/enum/UsuarioTipo.php");
 
 class UsuarioController extends Controller {
 
@@ -30,7 +30,7 @@ class UsuarioController extends Controller {
 
     protected function create() {
         $dados['id'] = 0;
-        $dados['papeis'] = UsuarioPapel::getAllAsArray();
+        $dados['usuario'] = UsuarioTipo::getAllAsArray();
 
         $this->loadView("usuario/form.php", $dados);
     }
@@ -43,7 +43,7 @@ class UsuarioController extends Controller {
             $usuario->setSenha("");
             $dados["usuario"] = $usuario;
 
-            $dados['papeis'] = UsuarioPapel::getAllAsArray();
+            $dados['usuario'] = UsuarioTipo::getAllAsArray();
             
             $this->loadView("usuario/form.php", $dados);
         } else
@@ -53,19 +53,26 @@ class UsuarioController extends Controller {
     protected function save() {
         //Capturar os dados do formulário
         $id = $_POST['id'];
-        $nome = trim($_POST['nome']) != "" ? trim($_POST['nome']) : NULL;
-        $login = trim($_POST['login']) != "" ? trim($_POST['login']) : NULL;
+        $nomeCompleto = trim($_POST['nomeCompleto']) != "" ? trim($_POST['nomeCompleto']) : NULL;
+        $email = trim($_POST['email']) != "" ? trim($_POST['email']) : NULL;
         $senha = trim($_POST['senha']) != "" ? trim($_POST['senha']) : NULL;
-        $confSenha = trim($_POST['conf_senha']) != "" ? trim($_POST['conf_senha']) : NULL;
-        $papel = $_POST['papel'];
+        $confSenha = trim($_POST['confSenha']) != "" ? trim($_POST['confSenha']) : NULL;
+        $cpf = trim($_POST['cpf']) != "" ? trim($_POST['cpf']) : NULL;
+        $tipoUsuario = trim($_POST['tipoUsuario']) != "" ? trim($_POST['tipoUsuario']) : NULL;
+        $matricula = trim($_POST['matricula']) != "" ? trim($_POST['matricula']) : NULL;
+        $curso = trim($_POST['curso']) != "" ? trim($_POST['curso']) : NULL;
 
         //Criar o objeto Usuario
         $usuario = new Usuario();
         $usuario->setId($id);
-        $usuario->setNome($nome);
-        $usuario->setLogin($login);
+        $usuario->setNomeCompleto($nomeCompleto);
+        $usuario->setCpf($cpf);
         $usuario->setSenha($senha);
-        $usuario->setPapel($papel);
+        $usuario->setEmail($email);
+        $usuario->setMatricula($matricula);
+        $usuario->setCurso($curso);
+        $usuario->setTipoUsuario($tipoUsuario);
+
 
         //Validar os dados (camada service)
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);
@@ -88,8 +95,7 @@ class UsuarioController extends Controller {
 
         //Mostrar os erros
         $dados['id'] = $usuario->getId();
-        $dados['papeis'] = UsuarioPapel::getAllAsArray();
-        $dados["usuario"] = $usuario;
+        $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
         $dados['confSenha'] = $confSenha;
 
         $msgErro = implode("<br>", $erros);

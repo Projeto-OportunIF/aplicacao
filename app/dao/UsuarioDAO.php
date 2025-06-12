@@ -11,7 +11,7 @@ class UsuarioDAO {
     public function list() {
         $conn = Connection::getConn();
 
-        $sql = "SELECT * FROM usuarios u ORDER BY u.nome_usuario";
+        $sql = "SELECT * FROM usuarios u ORDER BY u.nomeCompleto";
         $stm = $conn->prepare($sql);    
         $stm->execute();
         $result = $stm->fetchAll();
@@ -76,10 +76,14 @@ class UsuarioDAO {
         $senhaCripto = password_hash($usuario->getSenha(), PASSWORD_DEFAULT);
 
         $stm = $conn->prepare($sql);
-        $stm->bindValue("nome", $usuario->getNome());
-        $stm->bindValue("login", $usuario->getLogin());
+        $stm->bindValue("nome", $usuario->getNomeCompleto());
+        $stm->bindValue("login", $usuario->getSenha());
         $stm->bindValue("senha", $senhaCripto);
-        $stm->bindValue("papel", $usuario->getPapel());
+        $stm->bindValue("papel", $usuario->getTipoUsuario());
+        $stm->bindValue("papel", $usuario->getCpf());
+        $stm->bindValue("papel", $usuario->getMatricula());
+         $stm->bindValue("papel", $usuario->getCurso());
+
         $stm->execute();
     }
 

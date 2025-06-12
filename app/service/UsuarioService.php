@@ -9,20 +9,29 @@ class UsuarioService {
         $erros = array();
 
         //Validar campos vazios
-        if(! $usuario->getNome())
+        if(! $usuario->getNomeCompleto())
             array_push($erros, "O campo [Nome] é obrigatório.");
 
-        if(! $usuario->getLogin())
-            array_push($erros, "O campo [Login] é obrigatório.");
+        if(! $usuario->getEmail())
+            array_push($erros, "O campo [Email] é obrigatório.");
+
+        if(! $usuario->getMatricula())
+            array_push($erros, "O campo [Matricula] é obrigatório.");
+
+        if(! $usuario->getCurso())
+            array_push($erros, "O campo [Curso] é obrigatório.");
 
         if(! $usuario->getSenha())
             array_push($erros, "O campo [Senha] é obrigatório.");
 
+        if(! $usuario->getCpf())
+            array_push($erros, "O campo [Cpf] é obrigatório.");
+
         if(! $confSenha)
             array_push($erros, "O campo [Confirmação da senha] é obrigatório.");
 
-        if(! $usuario->getPapel()) 
-            array_push($erros, "O campo [Papel] é obrigatório");
+        if(! $usuario->getTipoUsuario()) 
+            array_push($erros, "O campo [Usuario] é obrigatório");
 
 
         //Validar se a senha é igual a contra senha
