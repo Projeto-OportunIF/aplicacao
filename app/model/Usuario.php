@@ -2,31 +2,31 @@
 #Nome do arquivo: Usuario.php
 #Objetivo: classe Model para Usuario
 
-require_once(__DIR__ . "/enum/UsuarioPapel.php");
+require_once(__DIR__ . "/enum/UsuarioTipo.php");
+require_once(__DIR__ . "/Curso.php");
 
-class Usuario implements JsonSerializable {
+class Usuario {
 
     private ?int $id;
-    private ?string $nome;
-    private ?string $login;
+    private ?string $nomeCompleto;
+    private ?string $cpf;
     private ?string $senha;
-    private ?string $papel;
-    private ?string $fotoPerfil;
+    private ?string $tipoUsuario;
+    private ?string $email;
+    private ?Curso $curso;
+    private ?string $matricula;
 
-    public function jsonSerialize(): array
-    {
-        return array(
-            "id" => $this->id,
-            "nome" => $this->nome,
-            "login" => $this->login
-        );
-    }
-
+    /**
+     * Get the value of id
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Set the value of id
+     */
     public function setId(?int $id): self
     {
         $this->id = $id;
@@ -34,35 +34,53 @@ class Usuario implements JsonSerializable {
         return $this;
     }
 
-    public function getNome(): ?string
+    /**
+     * Get the value of nomeCompleto
+     */
+    public function getNomeCompleto(): ?string
     {
-        return $this->nome;
+        return $this->nomeCompleto;
     }
 
-    public function setNome(?string $nome): self
+    /**
+     * Set the value of nomeCompleto
+     */
+    public function setNomeCompleto(?string $nomeCompleto): self
     {
-        $this->nome = $nome;
+        $this->nomeCompleto = $nomeCompleto;
 
         return $this;
     }
 
-    public function getLogin(): ?string
+    /**
+     * Get the value of cpf
+     */
+    public function getCpf(): ?string
     {
-        return $this->login;
+        return $this->cpf;
     }
 
-    public function setLogin(?string $login): self
+    /**
+     * Set the value of cpf
+     */
+    public function setCpf(?string $cpf): self
     {
-        $this->login = $login;
+        $this->cpf = $cpf;
 
         return $this;
     }
 
+    /**
+     * Get the value of senha
+     */
     public function getSenha(): ?string
     {
         return $this->senha;
     }
 
+    /**
+     * Set the value of senha
+     */
     public function setSenha(?string $senha): self
     {
         $this->senha = $senha;
@@ -70,27 +88,78 @@ class Usuario implements JsonSerializable {
         return $this;
     }
 
-    public function getPapel(): ?string
+    /**
+     * Get the value of tipoUsuario
+     */
+    public function getTipoUsuario(): ?string
     {
-        return $this->papel;
+        return $this->tipoUsuario;
     }
 
-    public function setPapel(?string $papel): self
+    /**
+     * Set the value of tipoUsuario
+     */
+    public function setTipoUsuario(?string $tipoUsuario): self
     {
-        $this->papel = $papel;
+        $this->tipoUsuario = $tipoUsuario;
 
         return $this;
     }
 
-    public function getFotoPerfil(): ?string
+    /**
+     * Get the value of email
+     */
+    public function getEmail(): ?string
     {
-        return $this->fotoPerfil;
+        return $this->email;
     }
 
-    public function setFotoPerfil(?string $fotoPerfil): self
+    /**
+     * Set the value of email
+     */
+    public function setEmail(?string $email): self
     {
-        $this->fotoPerfil = $fotoPerfil;
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of matricula
+     */
+    public function getMatricula(): ?string
+    {
+        return $this->matricula;
+    }
+
+    /**
+     * Set the value of matricula
+     */
+    public function setMatricula(?string $matricula): self
+    {
+        $this->matricula = $matricula;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of curso
+     */
+    public function getCurso(): ?Curso
+    {
+        return $this->curso;
+    }
+
+    /**
+     * Set the value of curso
+     */
+    public function setCurso(?Curso $curso): self
+    {
+        $this->curso = $curso;
 
         return $this;
     }
 }
+    
+
+    

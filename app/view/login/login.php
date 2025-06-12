@@ -15,10 +15,10 @@ require_once(__DIR__ . "/../include/header.php");
                 <!-- Formulário de login -->
                 <form id="frmLogin" action="./LoginController.php?action=logon" method="POST" >
                     <div class="mb-3">
-                        <label class="form-label" for="txtLogin">Login:</label>
-                        <input type="text" class="form-control" name="login" id="txtLogin"
-                            maxlength="15" placeholder="Informe o login"
-                            value="<?php echo isset($dados['login']) ? $dados['login'] : '' ?>" />        
+                        <label class="form-label" for="txtEmail">Email:</label>
+                        <input type="text" class="form-control" name="email" id="txtEmail"
+                            maxlength="45" placeholder="Informe o email"
+                            value="<?php echo isset($dados['email']) ? $dados['email'] : '' ?>" />        
                     </div>
 
                     <div class="mb-3">
@@ -31,6 +31,9 @@ require_once(__DIR__ . "/../include/header.php");
                     <button type="submit" class="btn btn-success mt-3">Logar</button>
                 </form>
             </div>
+
+            <span>Não possui cadastro?</span>
+            <a href="./CadastroController.php?action=cadastrar">Clique aqui</a>
         </div>
 
         <div class="col-6">

@@ -42,13 +42,13 @@ class UsuarioDAO {
 
 
     //Método para buscar um usuário por seu login e senha
-    public function findByLoginSenha(string $login, string $senha) {
+    public function findByEmailSenha(string $email, string $senha) {
         $conn = Connection::getConn();
 
         $sql = "SELECT * FROM usuarios u" .
-               " WHERE BINARY u.login = ?";
+               " WHERE BINARY u.email = ?";
         $stm = $conn->prepare($sql);    
-        $stm->execute([$login]);
+        $stm->execute([$email]);
         $result = $stm->fetchAll();
 
         $usuarios = $this->mapUsuarios($result);
@@ -139,12 +139,18 @@ class UsuarioDAO {
         $usuarios = array();
         foreach ($result as $reg) {
             $usuario = new Usuario();
-            $usuario->setId($reg['id_usuario']);
-            $usuario->setNome($reg['nome_usuario']);
-            $usuario->setLogin($reg['login']);
+            $usuario->setId($reg['idUsuarios']);
+            $usuario->setNomeCompleto($reg['nomeCompleto']);
+            $usuario->setEmail($reg['email']);
             $usuario->setSenha($reg['senha']);
-            $usuario->setPapel($reg['papel']);
-            $usuario->setFotoPerfil($reg['foto_perfil']);
+            $usuario->setMatricula($reg['matricula']);
+            $usuario->setTipoUsuario($reg['tipoUsuario']);
+
+            //
+            $curso = new Curso();
+            $curso->setId($reg['idCursos']);
+            $usuario->setCurso($curso);
+
             array_push($usuarios, $usuario);
         }
 

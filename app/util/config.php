@@ -7,14 +7,14 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 //Banco de dados: conexão MySQL
-define('DB_HOST', 'mysql-server');
-define('DB_NAME', 'proj_integrador');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'oportunif');
 define('DB_USER', 'root');
-define('DB_PASSWORD', 'root');
+define('DB_PASSWORD', '');
 
 //Caminho para adionar imagens, scripts e chamar páginas no sistema
 //Deve ter o nome da pasta do projeto no servidor APACHE
-define('BASEURL', '/crud_pi_template/app');
+define('BASEURL', '/aplicacao/app');
 
 //Nome do sistema
 define('APP_NAME', 'Template do Projeto Integrador');
@@ -31,7 +31,7 @@ define('HOME_PAGE', BASEURL . '/controller/HomeController.php?action=home');
 //Sessão do usuário
 define('SESSAO_USUARIO_ID', "usuarioLogadoId");
 define('SESSAO_USUARIO_NOME', "usuarioLogadoNome");
-define('SESSAO_USUARIO_PAPEL', "usuarioLogadoPapel");
+define('SESSAO_USUARIO_TIPO', "usuarioLogadoTipo");
 
 //Arquivos
 define('PATH_ARQUIVOS', __DIR__ . "/../../arquivos");
