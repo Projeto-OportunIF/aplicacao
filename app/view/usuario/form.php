@@ -4,6 +4,7 @@
 
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
+
 ?>
 
 <h3 class="text-center">
@@ -19,45 +20,67 @@ require_once(__DIR__ . "/../include/menu.php");
             <form id="frmUsuario" method="POST" 
                 action="<?= BASEURL ?>/controller/UsuarioController.php?action=save" >
                 <div class="mb-3">
-                    <label class="form-label" for="txtNome">Nome:</label>
-                    <input class="form-control" type="text" id="txtNome" name="nome" 
+                    <label class="form-label" for="txtNomeCompleto">Nome Completo:</label>
+                    <input class="form-control" type="text" id="txtNomeCompleto" name="nomeCompleto" 
                         maxlength="70" placeholder="Informe o nome"
-                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNome() : ''); ?>" />
+                        value="<?php echo (isset($dados["usuarios"]) ? $dados["usuarios"]->getNomeCompleto() : ''); ?>" />
                 </div>
-                
-                <div class="mb-3">
-                    <label class="form-label" for="txtLogin">Login:</label>
-                    <input class="form-control" type="text" id="txtLogin" name="login" 
-                        maxlength="15" placeholder="Informe o login"
-                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getLogin() : ''); ?>"/>
+                 
+                 <div class="mb-3">
+                    <label class="form-label" for="txtCpf">CPF:</label>
+                    <input class="form-control" type="text" id="txtcpf" name="cpf" 
+                        maxlength="70" placeholder="Informe o CPF"
+                        value="<?php echo (isset($dados["usuarios"]) ? $dados["usuarios"]->getCpf() : ''); ?>" />
                 </div>
 
+                 <div class="mb-3">
+                    <label class="form-label" for="txtmatricula">Matricula ou Siap:</label>
+                    <input class="form-control" type="text" id="txtmatricula" name="matricula" 
+                        maxlength="70" placeholder="Informe a Matricula"
+                        value="<?php echo (isset($dados["usuarios"]) ? $dados["usuarios"]->getMatricula() : ''); ?>" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="txtemail">E-mail:</label>
+                    <input class="form-control" type="text" id="txtemail" name="email" 
+                        maxlength="70" placeholder="Informe o e-mail"
+                        value="<?php echo (isset($dados["usuarios"]) ? $dados["usuarios"]->getEmail() : ''); ?>" />
+                </div>
+
+                 <div class="mb-3">
+                    <label class="form-label" for="txtCurso">Curso:</label>
+                    <input class="form-control" type="text" id="txtCurso" name="curso"
+                        maxlength="70" placeholder="Informe o curso"
+                        value="<?php echo (isset($dados["usuarios"]) ? $dados["usuarios"]->getCurso() : ''); ?>" />
+                </div>
+
+    
                 <div class="mb-3">
                     <label class="form-label" for="txtSenha">Senha:</label>
-                    <input class="form-control" type="password" id="txtPassword" name="senha" 
-                        maxlength="15" placeholder="Informe a senha"
-                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>"/>
+                    <input class="form-control" type="text" id="txtSenha" name="senha" 
+                        maxlength="90" placeholder="Informe a senha"
+                        value="<?php echo (isset($dados["usuarios"]) ? $dados["usuarios"]->getSenha() : ''); ?>" />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="txtConfSenha">Confirmação da senha:</label>
-                    <input class="form-control" type="password" id="txtConfSenha" name="conf_senha" 
+                    <label class="form-label" for="txtconf_senha">Confirmação da senha:</label>
+                    <input class="form-control" type="password" id="txtconf_senha" name="conf_senha" 
                         maxlength="15" placeholder="Informe a confirmação da senha"
-                        value="<?php echo isset($dados['confSenha']) ? $dados['confSenha'] : '';?>"/>
+                        value="<?php echo isset($dados['usuarios']) ? $dados['usuarios'] : '';?>"/>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="selPapel">Papel:</label>
-                    <select class="form-select" name="papel" id="selPapel">
-                        <option value="">Selecione o papel</option>
-                        <?php foreach($dados["papeis"] as $papel): ?>
-                            <option value="<?= $papel ?>" 
+                    <label class="form-label" for="seltipoUsuario">Tipo Usuario:</label>
+                    <select class="form-select" name="tipoUsuario" id="seltipoUsuario">
+                        <option value="">Selecione o usuario</option>
+                        <?php foreach($dados["tipoUsuario"] as $tipoUsuario): ?>
+                            <option value="<?= $tipoUsuario ?>" 
                                 <?php 
-                                    if(isset($dados["usuario"]) && $dados["usuario"]->getPapel() == $papel) 
+                                    if(isset($dados["usuarios"]) && $dados["usuarios"]->getTipoUsuario() == $tipoUsuario) 
                                         echo "selected";
                                 ?>    
                             >
-                                <?= $papel ?>
+                                <?= $tipoUsuario ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -88,3 +111,4 @@ require_once(__DIR__ . "/../include/menu.php");
 <?php  
 require_once(__DIR__ . "/../include/footer.php");
 ?>
+

@@ -11,6 +11,7 @@ class CadastroController extends Controller {
 
     protected function cadastrar() {
         echo "Chamou cadastrar!";
+        
     }
 
 }

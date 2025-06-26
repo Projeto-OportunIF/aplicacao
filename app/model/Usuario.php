@@ -52,6 +52,7 @@ class Usuario {
         return $this;
     }
 
+
     /**
      * Get the value of cpf
      */

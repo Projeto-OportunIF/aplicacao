@@ -24,7 +24,7 @@ class UsuarioDAO {
         $conn = Connection::getConn();
 
         $sql = "SELECT * FROM usuarios u" .
-               " WHERE u.id_usuario = ?";
+               " WHERE u.idUsuarios = ?";
         $stm = $conn->prepare($sql);    
         $stm->execute([$id]);
         $result = $stm->fetchAll();
@@ -70,19 +70,20 @@ class UsuarioDAO {
     public function insert(Usuario $usuario) {
         $conn = Connection::getConn();
 
-        $sql = "INSERT INTO usuarios (nome_usuario, login, senha, papel)" .
-               " VALUES (:nome, :login, :senha, :papel)";
+        $sql = "INSERT INTO usuarios (nome_usuario, login, senha, tipoUsuario, cpf, matricula, idCurso, email)" .
+       " VALUES (nome, login, senha, tipoUsuario, cpf, matricula, idCurso, email)";
         
         $senhaCripto = password_hash($usuario->getSenha(), PASSWORD_DEFAULT);
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNomeCompleto());
-        $stm->bindValue("login", $usuario->getSenha());
-        $stm->bindValue("senha", $senhaCripto);
-        $stm->bindValue("papel", $usuario->getTipoUsuario());
-        $stm->bindValue("papel", $usuario->getCpf());
-        $stm->bindValue("papel", $usuario->getMatricula());
-         $stm->bindValue("papel", $usuario->getCurso());
+        $stm->bindValue("senha", password_hash($usuario->getSenha(), PASSWORD_DEFAULT));
+        $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
+        $stm->bindValue("cpf", $usuario->getCpf());
+        $stm->bindValue("matricula", $usuario->getMatricula());
+        $stm->bindValue("idCurso", $usuario->getCurso() ? $usuario->getCurso()->getId() : null);
+        $stm->bindValue("email", $usuario->getEmail());
+
 
         $stm->execute();
     }
@@ -96,10 +97,13 @@ class UsuarioDAO {
                " WHERE id_usuario = :id";
         
         $stm = $conn->prepare($sql);
-        $stm->bindValue("nome", $usuario->getNome());
-        $stm->bindValue("login", $usuario->getLogin());
+        $stm->bindValue("nome", $usuario->getNomeCompleto());
+        $stm->bindValue("email", $usuario->getEmail());
         $stm->bindValue("senha", password_hash($usuario->getSenha(), PASSWORD_DEFAULT));
-        $stm->bindValue("papel", $usuario->getPapel());
+        $stm->bindValue("curso", $usuario->getCurso());
+        $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
+        $stm->bindValue("matricula", $usuario->getMatricula());
+        $stm->bindValue("cpf", $usuario->getCpf());
         $stm->bindValue("id", $usuario->getId());
         $stm->execute();
     }
@@ -114,7 +118,7 @@ class UsuarioDAO {
         $stm->bindValue("id", $id);
         $stm->execute();
     }
-
+/*
      //Método para alterar a foto de perfil de um usuário
      public function updateFotoPerfil(Usuario $usuario) {
         $conn = Connection::getConn();
@@ -124,7 +128,7 @@ class UsuarioDAO {
         $stm = $conn->prepare($sql);
         $stm->execute(array($usuario->getFotoPerfil(), $usuario->getId()));
     }
-
+*/
     //Método para retornar a quantidade de usuários salvos na base
     public function quantidadeUsuarios() {
         $conn = Connection::getConn();
@@ -149,6 +153,7 @@ class UsuarioDAO {
             $usuario->setSenha($reg['senha']);
             $usuario->setMatricula($reg['matricula']);
             $usuario->setTipoUsuario($reg['tipoUsuario']);
+            
 
             //
             $curso = new Curso();

@@ -6,6 +6,8 @@ $nome = "(Sessão expirada)";
 if (isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
 
+    
+
 ?>
 <nav class="navbar navbar-expand-md bg-light px-3 mb-3">
     <button class="navbar-toggler" type="button"
