@@ -1,12 +1,13 @@
 <?php
 
-class Curso {
+class Curso
+{
 
-    private ?string $id;
+    private ?int $id;
     private ?string $nome;
 
 
-    
+
     /**
      * Get the value of nome
      */
@@ -25,10 +26,11 @@ class Curso {
         return $this;
     }
 
+
     /**
      * Get the value of id
      */
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -36,7 +38,7 @@ class Curso {
     /**
      * Set the value of id
      */
-    public function setId(?string $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
 
