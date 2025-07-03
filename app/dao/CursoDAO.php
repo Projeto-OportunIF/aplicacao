@@ -6,10 +6,12 @@ include_once(__DIR__ . "/../connection/Connection.php");
 include_once(__DIR__ . "/../model/Curso.php");
 
 
-class CursoDAO {
+class CursoDAO
+{
 
     // Método para listar todos os cursos
-    public function list() {
+    public function list()
+    {
         $conn = Connection::getConn();
 
         $sql = "SELECT * FROM cursos ORDER BY nome";
@@ -21,7 +23,8 @@ class CursoDAO {
     }
 
     // Método para buscar um curso por ID
-    public function findById(int $id) {
+    public function findById(int $id)
+    {
         $conn = Connection::getConn();
 
         $sql = "SELECT * FROM cursos WHERE idCursos = ?";
@@ -38,9 +41,36 @@ class CursoDAO {
 
         die("CursoDAO.findById() - Erro: mais de um curso com o mesmo ID.");
     }
+    public function insert(Curso $curso)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "INSERT INTO cursos (nome) VALUES (?)";
+        $stm = $conn->prepare($sql);
+        $stm->execute([$curso->getNome()]);
+    }
+
+    public function update(Curso $curso)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "UPDATE cursos SET nome = ? WHERE idCursos = ?";
+        $stm = $conn->prepare($sql);
+        $stm->execute([$curso->getNome(), $curso->getId()]);
+    }
+
+    public function deleteById(int $id)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "DELETE FROM cursos WHERE idCursos = ?";
+        $stm = $conn->prepare($sql);
+        $stm->execute([$id]);
+    }
 
     // Método para converter registros do banco em objetos Curso
-    private function mapCursos($result) {
+    private function mapCursos($result)
+    {
         $cursos = [];
 
         foreach ($result as $reg) {
