@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-light text-muted" style="margin-top: 10px;">
+<footer class="text-center text-lg-start bg-light text-muted" style="margin-top: 25px;">
     <!-- Copyright -->
     <div class="text-center p-4">
         © 2023 Copyright:

@@ -24,8 +24,20 @@ class HomeController extends Controller {
 
         $this->loadView("home/home.php", $dados);
     }
+
+    protected function homeAluno() {
+    $dados["titulo"] = "";
+    $this->loadView("home/homeAluno.php", $dados);
+}
+
+    protected function homeProfessor() {
+    $dados["titulo"] = "";
+    $this->loadView("home/homeProfessor.php", $dados);
+}
+
     
 }
 
 //Criar o objeto do controller
 new HomeController();
+

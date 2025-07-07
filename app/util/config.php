@@ -1,4 +1,5 @@
 <?php
+
 #Nome do arquivo: config.php
 #Objetivo: define constantes para serem utilizadas no projeto
 
@@ -28,6 +29,8 @@ define('LOGOUT_PAGE', BASEURL . '/controller/LoginController.php?action=logout')
 //Página home do sistema
 define('HOME_PAGE', BASEURL . '/controller/HomeController.php?action=home');
 
+
+
 //Sessão do usuário
 define('SESSAO_USUARIO_ID', "usuarioLogadoId");
 define('SESSAO_USUARIO_NOME', "usuarioLogadoNome");
@@ -36,5 +39,3 @@ define('SESSAO_USUARIO_TIPO', "usuarioLogadoTipo");
 //Arquivos
 define('PATH_ARQUIVOS', __DIR__ . "/../../arquivos");
 define('BASEURL_ARQUIVOS', BASEURL . "/../arquivos");
-
-

@@ -31,13 +31,22 @@ class LoginController extends Controller {
         if(empty($erros)) {
             //Valida o login a partir do banco de dados
             $usuario = $this->usuarioDao->findByEmailSenha($email, $senha);
-            if($usuario) {
-                //Se encontrou o usuário, salva a sessão e redireciona para a HOME do sistema
-                $this->loginService->salvarUsuarioSessao($usuario);
+            if ($usuario) {
+    $this->loginService->salvarUsuarioSessao($usuario);
+    // Redirecionar para telas diferentes conforme o tipo de usuário
+    if ($usuario->getTipoUsuario() === UsuarioTipo::ADMINISTRADOR) {
+        header("location: " . BASEURL . "/controller/HomeController.php?action=home");
+    } elseif ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
+        header("location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
+    } elseif ($usuario->getTipoUsuario() === UsuarioTipo::PROFESSOR) {
+        header("location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
+    } else {
+        // Fallback para uma home genérica se tipo desconhecido
+        header("location: " . HOME_PAGE);
+    }
 
-                header("location: " . HOME_PAGE);
-                exit;
-            } else {
+    exit;
+}     {
                 $erros = ["Login ou senha informados são inválidos!"];
             }
         }
