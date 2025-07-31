@@ -92,7 +92,7 @@ protected function save()
 
         $msgErro = implode("<br>", $erros);
 
-        $this->loadView("usuario/form.php", $dados, $msgErro);
+        $this->loadView("cadastro/form.php", $dados, $msgErro);
 
 
 
