@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `inscricoes` (
 
 /* Senha: senha123*/
 INSERT INTO `usuarios` 
-(`nomeCompleto`, `email`, `cpf`, `senha`, `tipo_usuario`) 
+(`nomeCompleto`, `email`, `cpf`, `senha`, `tipoUsuario`) 
 VALUES 
 ('Roberta Silva', 'robertasilva@gmail.com', '123.456.789-00', '$2y$10$ZGHJ8Qgqc4h3xDZu4dVXP.t4vLlz1bb7.NcbQ7ovILuWiacinA2Ku', 'ADMIN');
 
