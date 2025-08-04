@@ -10,7 +10,7 @@ require_once(__DIR__ . "/../include/header.php");
     <div class="left-panel">
         <span>seja bem- vindo ao</span>
         <div class="logo">
-            <img src="<?= BASEURL ?>/view/img/cadastro1.png">
+            <img src="<?= BASEURL ?>/view/img/logo.png">
         </div>
         <p>
             Plataforma destinada à divulgação de oportunidades de estágios e projetos para os alunos do IFPR.
