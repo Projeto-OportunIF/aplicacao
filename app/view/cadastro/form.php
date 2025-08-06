@@ -14,9 +14,9 @@ require_once(__DIR__ . "/../include/header.php");
         <div class="logo">
             <img src="<?= BASEURL ?>/view/img/logo.png">
         </div>
-        <h5>
+        <p>
             Plataforma destinada à divulgação de oportunidades de estágios e projetos para os alunos do IFPR.
-</h5>
+        </p>
     </div>
 
 
@@ -173,12 +173,16 @@ body {
 
 /* Logo */
 .left-panel .logo img {
-    width: 400px;           /* Largura fixa da imagem */
+    width: 380px;           /* Largura fixa da imagem */
     margin-bottom: 20px;    /* Espaço abaixo da imagem */
 }
 
 
-
+/* Parágrafo de descrição */
+.left-panel p {
+    font-size: 20px;        /* Tamanho da fonte do texto */
+    line-height: 1.5;       /* Espaçamento entre linhas */
+}
 
 
 /* Formulário de cadastro */
@@ -199,7 +203,7 @@ body {
 .form-wrapper h3 {
     color: #c23956;         /* Cor do texto */
     font-weight: bold;
-    font-size: 28px;
+    font-size: 40px;
     margin-bottom: 30px;
     text-align: center;
 }
@@ -243,6 +247,7 @@ body {
     font-weight: bold;
     border-radius: 20px;
     transition: 0.3s;
+     margin-bottom: 30px;
 }
 
 
