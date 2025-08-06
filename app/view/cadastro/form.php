@@ -2,8 +2,10 @@
 #Nome do arquivo: usuario/list.php
 #Objetivo: interface para listagem dos usuários do sistema
 
+
 require_once(__DIR__ . "/../include/header.php");
 ?>
+
 
 
 <div class="container">
@@ -12,17 +14,19 @@ require_once(__DIR__ . "/../include/header.php");
         <div class="logo">
             <img src="<?= BASEURL ?>/view/img/logo.png">
         </div>
-        <p>
+        <h5>
             Plataforma destinada à divulgação de oportunidades de estágios e projetos para os alunos do IFPR.
-        </p>
+</h5>
     </div>
+
 
     <div class="form-wrapper">
         <h3>
             <?php if ($dados['id'] == 0) echo "Cadastro"; else echo "Alterar"; ?>
         </h3>
 
-        <form id="frmUsuario" method="POST" action="<?= BASEURL ?>/controller/CadastroController.php?action=save">
+
+    <form id="frmUsuario" method="POST" action="<?= BASEURL ?>/controller/CadastroController.php?action=save">
             <div class="mb-3">
                 <label class="form-label" for="txtNomeCompleto">Nome:</label>
                 <input class="form-control" type="text" id="txtNomeCompleto" name="nomeCompleto"
@@ -30,12 +34,15 @@ require_once(__DIR__ . "/../include/header.php");
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeCompleto() : ''); ?>" />
             </div>
 
+
+
             <div class="mb-3">
                 <label class="form-label" for="txtemail">Email:</label>
                 <input class="form-control" type="text" id="txtemail" name="email"
                     maxlength="70" placeholder="Informe o e-mail"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : ''); ?>" />
             </div>
+
 
             <div class="mb-3">
                 <label class="form-label" for="seltipoUsuario">Tipo de Usuário:</label>
@@ -53,6 +60,7 @@ require_once(__DIR__ . "/../include/header.php");
                 </select>
             </div>
 
+
             <div class="mb-3">
                 <label class="form-label" for="txtmatricula">Número Matrícula ou SIAPE (Professor):</label>
                 <input class="form-control" type="text" id="txtmatricula" name="matricula"
@@ -60,12 +68,14 @@ require_once(__DIR__ . "/../include/header.php");
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getMatricula() : ''); ?>" />
             </div>
 
+
             <div class="mb-3">
                 <label class="form-label" for="txtCpf">CPF:</label>
                 <input class="form-control" type="text" id="txtcpf" name="cpf"
                     maxlength="70" placeholder="Informe o CPF"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getCpf() : ''); ?>" />
             </div>
+
 
             <div class="mb-3">
                 <label class="form-label" for="selCurso">Curso:</label>
@@ -85,6 +95,7 @@ require_once(__DIR__ . "/../include/header.php");
                 </select>
             </div>
 
+
             <div class="mb-3">
                 <label class="form-label" for="txtSenha">Crie uma senha:</label>
                 <input class="form-control" type="password" id="txtSenha" name="senha"
@@ -101,6 +112,7 @@ require_once(__DIR__ . "/../include/header.php");
 
             <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
 
+
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Criar</button>
             </div>
@@ -115,144 +127,145 @@ require_once(__DIR__ . "/../include/header.php");
         </div>
     </div>
 </div>
-
 <style>
-    * {
-        box-sizing: border-box;
-    }
+   /* Define o corpo da página */
+body {
+    margin: 0; /* Remove espaçamento externo do navegador */
+    font-family: 'Arial', sans-serif; /* Fonte principal do conteúdo */
+    background-color: #c1dba5; /* Cor de fundo geral */
+}
 
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #d3e2be;
-    }
 
-    .container {
-        display: flex;
-        min-height: 100vh;
-        flex-wrap: wrap;
-    }
+/* Contêiner principal que agrupa o painel e o formulário */
+.container {
+    display: flex; /* Coloca os filhos lado a lado (painel e formulário) */
+    height: 100vh; /* Altura total da tela */
+    margin: 0;     /* Remove margens padrão */
+    padding: 0;    /* Remove preenchimento */
+    background-color: #c1dba5; /* Cor de fundo */
+}
 
-    .left-panel {
-        background-color: #c63d5d;
-        color: white;
-        flex: 1;
-        min-width: 500px;
-        padding: 60px 40px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-    }
 
-    .left-panel span {
-        font-size: 20px;
-    }
+/* Painel da esquerda */
+.left-panel {
+    background-color: #c23956; /* Cor de fundo vermelho escuro */
+    color: white;              /* Cor do texto */
+    padding: 60px 40px;        /* Espaço interno (top/bottom 60px, left/right 40px) */
+    width: 70%;                /* Ocupa 40% da largura da tela */
+    display: flex;             /* Layout flexível */
+    flex-direction: column;   /* Elementos empilhados verticalmente */
+    align-items: center;      /* Centraliza horizontalmente os filhos */
+    border-top-right-radius: 20px;  /* Arredonda o canto superior direito */
+    border-bottom-right-radius: 20px; /* Arredonda o canto inferior direito */
+    height: 103vh;            /* Garante que o painel ocupe toda a altura da tela */
+    box-sizing: border-box;   /* Inclui padding dentro da altura */
+}
 
-    .left-panel .logo {
-        margin: 10px 0;
-    }
 
-    .left-panel p {
-        font-size: 16px;
-        max-width: 300px;
-    }
+/* Texto de boas-vindas */
+.left-panel span {
+    font-size: 20px;        /* Tamanho da fonte */
+    margin-bottom: 20px;    /* Espaço inferior */
+    font-weight: 500;       /* Peso da fonte (meio negrito) */
+    text-align: center;     /* Centraliza o texto */
+}
 
-    .form-wrapper {
-        background-color: #e2edcd;
-        flex: 1;
-        min-width: 300px;
-        padding: 60px 80px;
-    }
 
-    .form-wrapper h3 {
-        font-size: 43px;
-        font-weight: 900;
-        color: #c63d5d;
-        text-align: center;
-        margin-bottom: 34px;
-        text-transform: uppercase;
-        
-    }
+/* Logo */
+.left-panel .logo img {
+    width: 400px;           /* Largura fixa da imagem */
+    margin-bottom: 20px;    /* Espaço abaixo da imagem */
+}
 
-    form .form-label {
-        font-weight: bold;
-        color: #444;
-        text-transform: uppercase;
-        font-size: 12px;
-        margin-bottom: 5px;
-    }
 
-    form input.form-control,
-    form select.form-select {
-        border: none;
-        border-bottom: 2px solid #aaa;
-        border-radius: 0;
-        padding: 10px 5px;
-        background-color: transparent;
-        margin-bottom: 20px;
-        font-size: 14px;
-        width: 100%;
-    }
 
-    form input::placeholder {
-        color: #aaa;
-    }
 
-    .btn-success {
-        background-color: #c63d5d;
-        border: none;
-        padding: 10px 25px;
-        font-size: 16px;
-        border-radius: 30px;
-        color: white;
-        width: 100%;
-        max-width: 180px;
-    }
 
-    .btn-success:hover {
-        background-color: #c63d5d;
-    }
+/* Formulário de cadastro */
+.form-wrapper {
+    width: 900px;           /* Largura do formulário */
+    background-color: #ecf7dc; /* Fundo verde claro */
+    padding: 40px;          /* Espaço interno */
+    display: flex;          /* Flex para layout vertical dos campos */
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 20px;    /* Borda arredondada */
+    margin-left: 100px;     /* Aproxima da esquerda (mais perto do painel) */
+    margin-top: 40px;       /* Distância do topo */
+}
 
-    .btn-secondary {
-        margin-top: 30px;
-    }
 
-    .text-center {
-        text-align: center;
-    }
+/* Título "Cadastro" ou "Alterar" */
+.form-wrapper h3 {
+    color: #c23956;         /* Cor do texto */
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+}
 
-    .img-logo {
-        max-width: 200%;
-        height: 200%;
-        margin: 10px 0;
-    }
 
-    @media (max-width: 768px) {
-        .container {
-            flex-direction: column;
-        }
+/* Rótulos dos campos */
+.form-label {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 1px;
+}
 
-        .form-wrapper,
-        .left-panel {
-            padding: 30px;
-            align-items: center;
-        }
 
-        .left-panel p {
-            max-width: 100%;
-            text-align: center;
-        }
+/* Estilo dos inputs e selects */
+.form-control, .form-select {
+    border: none;
+    border-bottom: 2px solid #333; /* Apenas a borda inferior */
+    background-color: transparent;
+    padding: 2px;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
 
-        .form-wrapper h3 {
-            font-size: 24px;
-        }
-    }
+
+/* Estilo especial para select */
+.form-select {
+    appearance: none;
+    background-color: #f1e9f6;
+    border: none;
+    height: 40px;
+}
+
+
+/* Botão de salvar/cadastrar */
+.btn-success {
+    background-color: #c23956;
+    border: none;
+    color: white;
+    padding: 10px 40px;
+    font-weight: bold;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+
+/* Hover do botão */
+.btn-success:hover {
+    background-color: #a52e45;
+}
+
+
+/* Botão de voltar */
+.btn-secondary {
+    margin-top: 5px;
+}
+
+
+/* Alinha os botões ao centro */
+.text-center {
+    text-align: center;
+}
+
+
 </style>
-
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>
-
