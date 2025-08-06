@@ -187,13 +187,16 @@ require_once(__DIR__ . "/../include/header.php");
     form input.form-control,
     form select.form-select {
         border: none;
-        border-bottom: 2px solid #aaa;
+        border-bottom: 2px solid black;
         border-radius: 0;
         padding: 10px 5px;
         background-color: transparent;
         margin-bottom: 20px;
         font-size: 14px;
         width: 100%;
+        outline: none; 
+        box-shadow: none;
+        
     }
 
     form input::placeholder {
