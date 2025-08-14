@@ -83,12 +83,6 @@ class OportunidadeController extends Controller
 
 
 
-
-   
-
-
-
-
     $oportunidade = new Oportunidade();
    
    
@@ -189,6 +183,9 @@ class OportunidadeController extends Controller
             $this->list("Erro ao excluir: " . $e->getMessage());
         }
     }
+
+
+
 }
 
 

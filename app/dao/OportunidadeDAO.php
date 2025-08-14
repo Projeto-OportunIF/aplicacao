@@ -25,6 +25,22 @@ class OportunidadeDAO
         return $this->mapOportunidades($result);
     }
 
+    
+// Lista oportunidades filtrando pelo tipo (Estágio, Pesquisa, Extensão)
+public function listByTipo(string $tipo)
+{
+    $conn = Connection::getConn();
+
+    $sql = "SELECT * FROM oportunidades o 
+            WHERE o.tipoOportunidade = :tipo
+            ORDER BY o.titulo";
+    $stm = $conn->prepare($sql);
+    $stm->bindValue(":tipo", $tipo);
+    $stm->execute();
+    $result = $stm->fetchAll();
+
+    return $this->mapOportunidades($result);
+}
 
     // Busca oportunidade por ID
     public function findById(int $id)
@@ -147,7 +163,7 @@ class OportunidadeDAO
              $oportunidade->setVaga($reg['vaga']);
 
 
-           
+            
             $curso = new Curso();
             $curso->setId($reg['idCursos']);
             $oportunidade->setCurso($curso);
@@ -159,6 +175,10 @@ class OportunidadeDAO
 
         return $oportunidades;
     }
+
+
+
+
 }
 
 

@@ -56,7 +56,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="selTipo">Tipo de Oportunidade:</label>
                     <select class="form-select" name="tipo" id="selTipo">
-    <option value="">Selecione o tipo</option>
+    
     <?php foreach (OportunidadeTipo::getAllAsArray() as $tipo): ?>
         <option value="<?= $tipo ?>"
             <?php
@@ -138,7 +138,7 @@
     <div class="row" style="margin-top: 30px;">
         <div class="col-12">
             <a class="btn btn-secondary"
-               href="<?= BASEURL ?>/controller/OportunidadeController.php?action=list">Voltar</a>
+               href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor">Voltar</a>
         </div>
     </div>
 </div>
