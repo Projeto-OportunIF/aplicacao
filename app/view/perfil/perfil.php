@@ -1,76 +1,245 @@
-<?php
-#Nome do arquivo: perfil/perfil.php
-#Objetivo: interface para perfil dos usuários do sistema
-
+<?php  
+# Carrega o cabeçalho do sistema
 require_once(__DIR__ . "/../include/header.php");
-require_once(__DIR__ . "/../include/menu.php");
 ?>
 
-<h3 class="text-center">
-    Perfil
-</h3>
+<!-- MENU LATERAL COM BOTÃO PARA A PÁGINA INICIAL -->
+<div id="sidebar" class="sidebar">
+    <a href="#" class="closebtn" onclick="toggleSidebar()">&times;</a>
+    <a href="<?= BASEURL ?>/view/home/home.php">Home</a>
+</div>
 
-<div class="container">
-
-    <div class="row mt-2">
-        <div class="col-12 mb-2">
-            <span class="fw-bold">Nome:</span>
-            <span><?= $dados['usuario']->getNome() ?></span>
-        </div>
-
-        <div class="col-12 mb-2">
-            <span class="fw-bold">Login:</span>
-            <span><?= $dados['usuario']->getLogin() ?></span>
-        </div>
-
-        <div class="col-12 mb-2">
-            <span class="fw-bold">Papel:</span>
-            <span><?= $dados['usuario']->getPapel() ?></span>
-        </div>
-
-        <div class="col-12 mb-2">
-            <div class="fw-bold">Foto:</div>
-            <?php if($dados['usuario']->getFotoPerfil()): ?>
-                <img src="<?= BASEURL_ARQUIVOS . '/' . $dados['usuario']->getFotoPerfil() ?>"
-                    height="300">
-            <?php endif; ?>
-        </div>
-
-    </div>
-    
-    <div class="row mt-5">
-        
-        <div class="col-6">
-            <form id="frmUsuario" method="POST" 
-                action="<?= BASEURL ?>/controller/PerfilController.php?action=save"
-                enctype="multipart/form-data" >
-                <div class="mb-3">
-                    <label class="form-label" for="txtFoto">Foto de perfil: </label>
-                    <input class="form-control" type="file" 
-                        id="txtFoto" name="foto" />
-                </div>
-
-                <input type="hidden" name="fotoAnterior" value="<?= $dados['usuario']->getFotoPerfil() ?>">
-                
-                <div class="mt-3">
-                    <button type="submit" class="btn btn-success">Gravar</button>
-                </div>
-            </form>            
-        </div>
-
-        <div class="col-6">
-            <?php require_once(__DIR__ . "/../include/msg.php"); ?>
-        </div>
+<!-- BARRA SUPERIOR COM LOGO E USUÁRIO -->
+<div class="top-bar">
+    <div class="logo">
+        <img src="<?= BASEURL ?>/view/img/logo.png">
     </div>
 
-    <div class="row" style="margin-top: 30px;">
-        <div class="col-12">
-        <a class="btn btn-secondary" 
-                href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
+    <div class="top-icons">
+        <div class="menu-icon" onclick="toggleSidebar()">
+            <img src="https://img.icons8.com/ios-filled/24/ffffff/menu--v1.png"/>
+        </div>
+        <div class="usuario-topo">
+            <?php
+                $fotoPerfil = ($dados['usuario']->getFotoPerfil() != null) ? $dados['usuario']->getFotoPerfil() : "avatar.jpg";
+            ?>
+
+            <img src="<?= BASEURL_ARQUIVOS . "/$fotoPerfil" ?>" alt="Foto de perfil">
+
+
+            <span><?= $dados['usuario']->getNomeCompleto() ?></span>
         </div>
     </div>
 </div>
 
-<?php  
-require_once(__DIR__ . "/../include/footer.php");
+<!-- CONTEÚDO DO PERFIL DO USUÁRIO -->
+<div class="perfil-container">
+    <h3 class="text-center">Perfil</h3>
+
+    <div class="perfil-info">
+        <div><span class="info-label">EMAIL:</span> <?= $dados['usuario']->getEmail() ?></div>
+        <div><span class="info-label">TIPO DE USUÁRIO:</span> <?= $dados['usuario']->getTipoUsuario() ?></div>
+        <div><span class="info-label">NÚMERO MATRÍCULA:</span> <?= $dados['usuario']->getMatricula() ?></div>
+        <div><span class="info-label">CURSO:</span> <?php $curso = $dados['usuario']->getCurso(); echo ($curso && method_exists($curso, 'getCurso')) ? $curso->getCurso() : "Curso não informado"; ?></div>
+        <div><span class="info-label">CPF:</span> <?= $dados['usuario']->getCpf() ?></div>
+
+        <form id="frmUsuario" method="POST" 
+            action="<?= BASEURL ?>/controller/PerfilController.php?action=save"
+            enctype="multipart/form-data">
+            
+            <input type="hidden" name="fotoAnterior" value="<?= $dados['usuario']->getFotoPerfil() ?>">
+
+
+            <div class="foto-upload-container">
+                <label for="txtFoto">
+                    <img src="https://img.icons8.com/ios-glyphs/30/ffffff/plus.png"/>
+                    <div>escolher foto de perfil.</div>
+                </label>
+                <input type="file" id="txtFoto" name="foto" onchange="document.getElementById('frmUsuario').submit();">
+            </div>
+
+              <!-- Botão Voltar -->
+            <div class="botao-voltar-container">
+                <a href="<?= BASEURL ?>/view/home/home.php" class="botao-voltar">← Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #b7cd8c;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    footer {
+        display: none !important;
+    }
+
+    .top-bar {
+        background-color: #d9426b;
+        color: white;
+        display: flex;
+        padding: 10px 25px;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 20px solid #b7cd8c;
+        height: 80px;
+    }
+
+    .logo img {
+        height: 200px;
+        object-fit: contain;
+    }
+
+    .top-icons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .menu-icon {
+        background-color: #b7cd8c;
+        border-radius: 60%;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .botao-voltar-container {
+    margin-top: 30px;
+    }
+
+    .botao-voltar {
+        display: inline-block;
+        background-color: #b7cd8c;
+        color: white;
+        padding: 10px 25px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .botao-voltar:hover {
+        background-color: #b73658;
+    }
+
+    .usuario-topo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #fcd0d0;
+        font-weight: bold;
+    }
+
+    .usuario-topo img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+    }
+
+    .perfil-container {
+        background-color: #e6f1d7;
+        width: 60%;
+        margin: 40px auto;
+        padding: 30px;
+        border-radius: 15px;
+    }
+
+    h3.text-center {
+        color: #d9426b;
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .perfil-info {
+        margin-top: 20px;
+    }
+
+    .perfil-info .info-label {
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 5px;
+        color: #000;
+    }
+
+    .foto-upload-container {
+        background-color: #d9426b;
+        color: white;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        width: 150px;
+        margin-top: 20px;
+    }
+
+    .foto-upload-container input[type="file"] {
+        display: none;
+    }
+
+    .foto-upload-container label {
+        cursor: pointer;
+    }
+
+    .mensagem-sucesso {
+        margin-top: 10px;
+        color: green;
+        font-size: 14px;
+    }
+
+    .sidebar {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        background-color: #e8aebcff;
+        overflow-x: hidden;
+        transition: 0.3s;
+        padding-top: 60px;
+    }
+
+    .sidebar a {
+        padding: 10px 30px;
+        text-decoration: none;
+        font-size: 22px;
+        color: white;
+        display: block;
+        transition: 0.2s;
+    }
+
+    .sidebar a:hover {
+        background-color: #b7cd8c;
+        color: #d9426b;
+    }
+
+    .closebtn {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 36px;
+        text-decoration: none;
+        color: white;
+    }
+</style>
+
+<script>
+    function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.style.width = (sidebar.style.width === "250px") ? "0" : "250px";
+    }
+</script>
+
+<?php 
+
+require_once(__DIR__ . "/../include/footer.php"); 
 ?>

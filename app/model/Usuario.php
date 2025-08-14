@@ -15,6 +15,7 @@ class Usuario {
     private ?string $email;
     private ?Curso $curso;
     private ?string $matricula;
+    private ?string $fotoPerfil = null; // ✅ Adicionado para armazenar o nome da foto de perfil
 
     /**
      * Get the value of id
@@ -51,7 +52,6 @@ class Usuario {
 
         return $this;
     }
-
 
     /**
      * Get the value of cpf
@@ -160,7 +160,18 @@ class Usuario {
 
         return $this;
     }
-}
-    
+
+    /**
+     * Get the value of foto
+     */
+    public function getFotoPerfil() {
+    return $this->fotoPerfil;
+    }
+
+    // Setter
+    public function setFotoPerfil($fotoPerfil) {
+        $this->fotoPerfil = $fotoPerfil;
+    }
 
     
+}

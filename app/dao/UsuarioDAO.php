@@ -99,11 +99,12 @@ class UsuarioDAO
         $conn = Connection::getConn();
 
         $sql = "UPDATE usuarios SET nomeCompleto = :nome, email = :email, cpf = :cpf, " .
-            " senha = :senha, tipoUsuario = :tipoUsuario, matricula = :matricula, idCursos = :idCursos" .
+            " senha = :senha, tipoUsuario = :tipoUsuario, matricula = :matricula, idCursos = :idCursos, fotoPerfil = :fotoPerfil" .
             " WHERE idUsuarios = :id";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNomeCompleto());
+        
         $stm->bindValue("email", $usuario->getEmail());
         $stm->bindValue("cpf", $usuario->getCpf());
         $stm->bindValue("senha", password_hash($usuario->getSenha(), PASSWORD_DEFAULT));
@@ -111,6 +112,9 @@ class UsuarioDAO
         $stm->bindValue("matricula", $usuario->getMatricula());
         $stm->bindValue("idCursos", $usuario->getCurso()->getId());
         $stm->bindValue("id", $usuario->getId());
+
+        $stm->bindValue("fotoPerfil", $usuario->getFotoPerfil());
+
         $stm->execute();
     }
 
@@ -125,7 +129,7 @@ class UsuarioDAO
         $stm->bindValue("id", $id);
         $stm->execute();
     }
-    /*
+    
      //Método para alterar a foto de perfil de um usuário
      public function updateFotoPerfil(Usuario $usuario) {
         $conn = Connection::getConn();
@@ -135,7 +139,7 @@ class UsuarioDAO
         $stm = $conn->prepare($sql);
         $stm->execute(array($usuario->getFotoPerfil(), $usuario->getId()));
     }
-*/
+
     //Método para retornar a quantidade de usuários salvos na base
     public function quantidadeUsuarios()
     {
@@ -164,7 +168,8 @@ class UsuarioDAO
             $usuario->setTipoUsuario($reg['tipoUsuario']);
             $usuario->setCpf($reg['cpf']);
 
-            //
+            $usuario->setFotoPerfil($reg['fotoPerfil']);
+            
             $curso = new Curso();
             $curso->setId($reg['idCursos']);
             $usuario->setCurso($curso);

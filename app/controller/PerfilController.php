@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
@@ -22,6 +22,7 @@ class PerfilController extends Controller {
         $this->handleAction();    
     }
 
+    // Carrega a view de perfil com os dados do usuário logado
     protected function view() {
         $idUsuarioLogado = $this->getIdUsuarioLogado();
         $usuario = $this->usuarioDao->findById($idUsuarioLogado);
@@ -30,21 +31,38 @@ class PerfilController extends Controller {
         $this->loadView("perfil/perfil.php", $dados);    
     }
 
+    // Salva a foto de perfil do usuário
     protected function save() {
-        $foto = $_FILES["foto"];
-        
-        //Validar se o usuário mandou a foto de perfil
-        $erros = $this->usuarioService->validarFotoPerfil($foto);
-        if(! $erros) {
-            //1- Salvar a foto em um arquivo
-            $this->arquivoService->salvarArquivo($foto);
-            echo "Arquivo salvo!";
-            
-            //2- Atualizar o registro do usuário com o nome da foto
-            
-            exit;
+        $erros = [];
+
+        // Verifica se a foto foi enviada
+        if (isset($_FILES['foto']) && !empty($_FILES['foto']['name'])) {
+            $foto = $_FILES["foto"];
+
+            // Valida a imagem usando o serviço
+            $erros = $this->usuarioService->validarFotoPerfil($foto);
+
+            if (! $erros) {
+                // 1 - Salva o arquivo da imagem
+                $fotoNome = $this->arquivoService->salvarArquivo($foto);
+
+                // 2 - Atualiza o nome do arquivo de imagem no usuário
+                $idUsuarioLogado = $this->getIdUsuarioLogado();
+                $usuario = $this->usuarioDao->findById($idUsuarioLogado);
+
+                $usuario->setFotoPerfil($fotoNome);
+                
+                
+                // TODO: Certifique-se de que o método update atualiza a foto
+                $this->usuarioDao->update($usuario); 
+
+            }
+        } else {
+            // Nenhuma imagem foi enviada
+            $erros[] = "Nenhuma foto foi enviada.";
         }
 
+        // Carrega novamente os dados e exibe os erros na view
         $idUsuarioLogado = $this->getIdUsuarioLogado();
         $usuario = $this->usuarioDao->findById($idUsuarioLogado);
         $dados['usuario'] = $usuario;
@@ -53,7 +71,6 @@ class PerfilController extends Controller {
 
         $this->loadView("perfil/perfil.php", $dados, $msgErro); 
     }
-
 }
 
 new PerfilController();
