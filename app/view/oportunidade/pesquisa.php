@@ -37,4 +37,12 @@ $oportunidades = $dao->listByTipo(OportunidadeTipo::PROJETOPESQUISA);
 <?php endif; ?>
 </div>
 
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-12">
+            <a class="btn btn-secondary"
+               href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno">Voltar</a>
+        </div>
+    </div>
+</div>
+
 <?php require_once(__DIR__ . "/../include/footer.php"); ?>

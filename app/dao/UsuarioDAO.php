@@ -70,6 +70,24 @@ class UsuarioDAO
             " - Erro: mais de um usuário encontrado.");
     }
 
+ public function findByEmail(string $email)
+{
+    $conn = Connection::getConn();
+
+    $sql = "SELECT * FROM usuarios WHERE email = ?";
+    $stm = $conn->prepare($sql);
+    $stm->execute([$email]);
+
+    $result = $stm->fetchAll();
+    $usuarios = $this->mapUsuarios($result);
+
+    if (count($usuarios) > 0) {
+        return $usuarios[0]; // Retorna o primeiro usuário encontrado
+    }
+
+    return null; // Não encontrado
+}
+
     //Método para inserir um Usuario
     public function insert(Usuario $usuario)
     {

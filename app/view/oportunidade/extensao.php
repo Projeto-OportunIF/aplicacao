@@ -36,5 +36,11 @@ $oportunidades = $dao->listByTipo(OportunidadeTipo::PROJETOEXTENSAO);
     <p>Não há oportunidades de projeto de extensão no momento.</p>
 <?php endif; ?>
 </div>
+ <div class="row" style="margin-top: 30px;">
+        <div class="col-12">
+            <a class="btn btn-secondary"
+               href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno">Voltar</a>
+        </div>
+    </div>
 
 <?php require_once(__DIR__ . "/../include/footer.php"); ?>
