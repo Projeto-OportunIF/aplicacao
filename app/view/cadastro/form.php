@@ -7,6 +7,9 @@ require_once(__DIR__ . "/../include/header.php");
 ?>
 
 
+<!-- Link para CSS externo -->
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro.css"> 
+
 
 <div class="container">
     <div class="left-panel">
@@ -128,9 +131,6 @@ require_once(__DIR__ . "/../include/header.php");
     </div>
 </div>
 
-
-<!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro.css">
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

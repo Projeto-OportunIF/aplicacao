@@ -30,7 +30,8 @@ require_once(__DIR__ . "/../include/menu.php");
     <h3>Estágio</h3>
     <p>Estágio é uma vivência prática que complementa a formação do estudante, aproximando-o do mercado de trabalho.</p>
     <img src="<?= BASEURL ?>/view/img/estagio.png" alt="Estágio" class="icon">
-    <a href="<?= BASEURL ?>/view/oportunidade/estagio.php" class="btn-visualizar">Visualizar</a>
+    <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=estagios" class="btn-visualizar">Visualizar</a>
+
   </div>
 </div>
 

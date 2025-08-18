@@ -185,6 +185,13 @@ class OportunidadeController extends Controller
     }
 
 
+    protected function estagios()
+    {
+        $dados["oportunidades"] = $this->oportunidadeDao->listByTipo(OportunidadeTipo::ESTAGIO);
+        $this->loadView("oportunidade/estagio.php", $dados);
+    }
+
+
 
 }
 
