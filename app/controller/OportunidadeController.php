@@ -37,7 +37,7 @@ class OportunidadeController extends Controller
     protected function list(string $msgErro = "", string $msgSucesso = "")
     {
         $dados["lista"] = $this->oportunidadeDao->list();
-        $this->loadView("oportunidade/list.php", $dados, $msgErro, $msgSucesso);
+        $this->loadView("oportunidade/oportunidade_list.php", $dados, $msgErro, $msgSucesso);
     }
 
 
@@ -46,7 +46,7 @@ class OportunidadeController extends Controller
         $dados['id'] = 0;
         $dados['nome'] = "Jefferson";
         $dados['cursos'] = $this->cursoDao->list();
-        $this->loadView("oportunidade/form.php", $dados);
+        $this->loadView("oportunidade/oportunidade_cadastro.php", $dados);
     }
 
 
@@ -60,7 +60,7 @@ class OportunidadeController extends Controller
             $dados["id"] = $oportunidade->getId();
             $dados["oportunidade"] = $oportunidade;
             $dados["cursos"] = $this->cursoDao->list();
-            $this->loadView("oportunidade/form.php", $dados);
+            $this->loadView("oportunidade/oportunidade_cadastro.php", $dados);
         } else {
             $this->list("Oportunidade não encontrada.");
         }
@@ -133,7 +133,7 @@ class OportunidadeController extends Controller
         $dados['id'] = 0;
 
 
-        $this->loadView("oportunidade/form.php", $dados, $msgErro);
+        $this->loadView("oportunidade/oportunidade_cadastro.php", $dados, $msgErro);
         return;
     }
 
@@ -168,7 +168,7 @@ class OportunidadeController extends Controller
 
         $dados['oportunidade'] = $oportunidade;
         $dados['cursos'] = $this->cursoDao->list();
-        $this->loadView("oportunidade/form.php", $dados, $msgErro);
+        $this->loadView("oportunidade/oportunidade_cadastro.php", $dados, $msgErro);
     }
 }
     protected function delete()
@@ -186,11 +186,33 @@ class OportunidadeController extends Controller
 
 
     protected function estagios()
-    {
-        $dados["oportunidades"] = $this->oportunidadeDao->listByTipo(OportunidadeTipo::ESTAGIO);
-        $this->loadView("oportunidade/estagio.php", $dados);
-    }
+{
+    $usuarioLogado = $this->usuarioDao->findById($_SESSION["usuarioLogadoId"]);
+    $idCurso = $usuarioLogado->getCurso()->getId();
 
+    $dados["oportunidades"] = $this->oportunidadeDao->listByTipoECurso(OportunidadeTipo::ESTAGIO, $idCurso);
+    $this->loadView("oportunidade/estagio.php", $dados);
+}
+
+
+   protected function projetopesquisa()
+{
+    $usuarioLogado = $this->usuarioDao->findById($_SESSION["usuarioLogadoId"]);
+    $idCurso = $usuarioLogado->getCurso()->getId();
+
+    $dados["oportunidades"] = $this->oportunidadeDao->listByTipoECurso(OportunidadeTipo::PROJETOPESQUISA, $idCurso);
+    $this->loadView("oportunidade/pesquisa.php", $dados);
+}
+
+
+    protected function projetoextensao()
+{
+    $usuarioLogado = $this->usuarioDao->findById($_SESSION["usuarioLogadoId"]);
+    $idCurso = $usuarioLogado->getCurso()->getId();
+
+    $dados["oportunidades"] = $this->oportunidadeDao->listByTipoECurso(OportunidadeTipo::PROJETOEXTENSAO, $idCurso);
+    $this->loadView("oportunidade/pesquisa.php", $dados);
+}
 
 
 }

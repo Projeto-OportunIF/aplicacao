@@ -16,14 +16,14 @@ require_once(__DIR__ . "/../include/menu.php");
     <p>Projetos de pesquisa buscam responder perguntas ou aprofundar o conhecimento sobre temas específicos.</p>
     <!-- Imagem no lugar do ícone -->
     <img src="<?= BASEURL ?>/view/img/pesquisa.png" alt="Projeto de Pesquisa" class="icon">
-    <a href="<?= BASEURL ?>/view/oportunidade/pesquisa.php" class="btn-visualizar">Visualizar</a>
+    <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=projetopesquisa" class="btn-visualizar">Visualizar</a>
   </div>
 
   <div class="card">
     <h3>Projeto de Extensão</h3>
     <p>Projeto de extensão leva o conhecimento acadêmico à comunidade, com impacto social e educativo.</p>
     <img src="<?= BASEURL ?>/view/img/extensao.png" alt="Projeto de Extensão" class="icon">
-    <a href="<?= BASEURL ?>/view/oportunidade/extensao.php" class="btn-visualizar">Visualizar</a>
+    <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=projetoextensao" class="btn-visualizar">Visualizar</a>
   </div>
 
   <div class="card">

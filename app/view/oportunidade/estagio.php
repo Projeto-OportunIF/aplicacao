@@ -30,7 +30,7 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
             </div>
         <?php endforeach; ?>
     <?php else: ?>
-        <p>Não há oportunidades de estágio no momento.</p>
+        <p>Não há oportunidades de Estágio no momento.</p>
     <?php endif; ?>
 </div>
 
