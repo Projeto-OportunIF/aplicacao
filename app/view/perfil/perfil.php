@@ -60,7 +60,7 @@ require_once(__DIR__ . "/../include/header.php");
 
               <!-- Botão Voltar -->
             <div class="botao-voltar-container">
-                <a href="<?= BASEURL ?>/view/home/home.php" class="botao-voltar">← Voltar</a>
+                <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="botao-voltar">← Voltar</a>
             </div>
         </form>
     </div>
