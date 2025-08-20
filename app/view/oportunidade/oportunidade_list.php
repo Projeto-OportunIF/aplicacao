@@ -69,6 +69,13 @@ require_once(__DIR__ . "/../include/menu.php");
     </div>
 </div>
 
+    <div class="row" style="margin-top: 30px;">
+        
+            <a class="btn btn-secondary"
+               href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor">Voltar</a>
+        </div>
+    </div>
+</div>
 
 <?php  
 require_once(__DIR__ . "/../include/footer.php");

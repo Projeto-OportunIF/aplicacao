@@ -60,6 +60,14 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
 </nav>
 
 <style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
     .navbar {
     height: 70px; /* altura fixa da navbar */
 }

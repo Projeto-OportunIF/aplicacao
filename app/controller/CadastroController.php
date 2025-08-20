@@ -65,16 +65,24 @@ protected function save()
 
         //Validar os dados (camada service)
         $erros = $this->cadastroService->validarDados($usuario, $confSenha);
-        if (! $erros) {
-            //Inserir no Base de Dados
-            try {
-                if ($usuario->getId() == 0)
-                    $this->usuarioDao->insert($usuario);
-                else
-                    $this->usuarioDao->update($usuario);
-
+       if (! $erros) {
+    try {
+        if ($usuario->getId() == 0) {
+            // Verifica se e-mail já existe
+            $usuarioExistente = $this->usuarioDao->findByEmail($usuario->getEmail());
+            if ($usuarioExistente) {
+                array_push($erros, "Já existe um usuário com este e-mail!");
+            } else {
+                $this->usuarioDao->insert($usuario);
                 header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
                 exit;
+            }
+        } else {
+            $this->usuarioDao->update($usuario);
+            header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+            exit;
+        }
+
             } catch (PDOException $e) {
                 //Iserir erro no array
                 array_push($erros, "Erro ao gravar no banco de dados!");

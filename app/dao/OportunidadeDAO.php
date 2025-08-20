@@ -42,6 +42,26 @@ public function listByTipo(string $tipo)
     return $this->mapOportunidades($result);
 }
 
+//filtra para que as oportunidades que o professor cadastrou de um curso apareca somente para o aluno dessse determinado curso 
+public function listByTipoECurso(string $tipo, int $idCurso)
+{
+    $conn = Connection::getConn();
+
+    $sql = "SELECT * FROM oportunidades o 
+            WHERE o.tipoOportunidade = :tipo 
+              AND o.idCursos = :idCurso
+            ORDER BY o.titulo";
+
+    $stm = $conn->prepare($sql);
+    $stm->bindValue(":tipo", $tipo);
+    $stm->bindValue(":idCurso", $idCurso);
+    $stm->execute();
+    $result = $stm->fetchAll();
+
+    return $this->mapOportunidades($result);
+}
+
+
     // Busca oportunidade por ID
     public function findById(int $id)
     {
