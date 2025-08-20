@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
     `tipoUsuario` ENUM('ALUNO', 'PROFESSOR', 'ADMIN') NOT NULL,
     `matricula` VARCHAR(45),
     `idCursos` INT,
+    `fotoPerfil` varchar(255) DEFAULT NULL
     PRIMARY KEY (`idUsuarios`),
     CONSTRAINT `fk_usuarios_cursos1` FOREIGN KEY (`idCursos`) REFERENCES `cursos` (`idCursos`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
