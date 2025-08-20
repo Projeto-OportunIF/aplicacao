@@ -9,7 +9,12 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
     
 
 ?>
-<nav class="navbar navbar-expand-md bg-light px-3 mb-3">
+<nav class="navbar navbar-expand-md px-3 mb-3" style="background-color: #c23956"> 
+
+     <a class="navbar-brand" href="<?= HOME_PAGE ?>">
+        <img src="<?= BASEURL ?>/view/img/logo.png">
+    </a>
+
     <button class="navbar-toggler" type="button"
         data-bs-toggle="collapse" data-bs-target="#navSite">
         <span class="navbar-toggler-icon"></span>
@@ -53,3 +58,17 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
         </ul>
     </div>
 </nav>
+
+<style>
+    .navbar {
+    height: 70px; /* altura fixa da navbar */
+}
+
+.navbar-brand img {
+    max-height: 180px; /* a imagem não passa da altura da navbar */
+    max-width: 180px; /* mas não fica maior que 200px largura */
+    width: auto;      /* largura automática para manter proporção */
+    height: auto;     /* altura automática para manter proporção */
+}
+
+</style>
