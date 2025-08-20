@@ -8,6 +8,9 @@ $nome = "(Sessão expirada)";
 if (isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
 
+$fotoPerfil = "avatar.jpg";
+if (isset($_SESSION[SESSAO_USUARIO_FOTO_PERFIL]) && $_SESSION[SESSAO_USUARIO_FOTO_PERFIL])
+    $fotoPerfil = $_SESSION[SESSAO_USUARIO_FOTO_PERFIL];
     
 $homePage = HOME_PAGE_ADMIN;
 if($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::ALUNO)
@@ -47,9 +50,12 @@ elseif($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
 
         <ul class="navbar-nav ms-auto mr-3">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarUsuario"
+                <a class="nav-link dropdown-toggle usuario-topo" href="#" id="navbarUsuario"
                     data-bs-toggle="dropdown">
-                    <?= $nome ?>
+                    
+                    <img src="<?= BASEURL_ARQUIVOS . "/$fotoPerfil" ?>" alt="Foto de perfil">
+
+                    <span><?= $nome ?></span>
                 </a>
 
                 <div class="dropdown-menu">
@@ -57,6 +63,7 @@ elseif($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
                         href="<?= BASEURL . '/controller/PerfilController.php?action=view' ?>">Perfil</a>
                     <a class="dropdown-item" href="<?= LOGOUT_PAGE ?>">Sair</a>
                 </div>
+                
             </li>
         </ul>
     </div>
@@ -80,6 +87,22 @@ elseif($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     max-width: 180px; /* mas não fica maior que 200px largura */
     width: auto;      /* largura automática para manter proporção */
     height: auto;     /* altura automática para manter proporção */
+}
+
+.usuario-topo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #fcd0d0;
+        font-weight: bold;
+    }
+
+.usuario-topo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
 }
 
 </style>

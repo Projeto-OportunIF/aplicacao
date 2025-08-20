@@ -35,14 +35,14 @@ class LoginController extends Controller {
     $this->loginService->salvarUsuarioSessao($usuario);
     // Redirecionar para telas diferentes conforme o tipo de usuário
     if ($usuario->getTipoUsuario() === UsuarioTipo::ADMINISTRADOR) {
-        header("location: " . BASEURL . "/controller/HomeController.php?action=home");
+        header("location: " . HOME_PAGE_ADMIN);
     } elseif ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
-        header("location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
+        header("location: " . HOME_PAGE_ALUNO);
     } elseif ($usuario->getTipoUsuario() === UsuarioTipo::PROFESSOR) {
-        header("location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
+        header("location: " . HOME_PAGE_PROFESSOR);
     } else {
         // Fallback para uma home genérica se tipo desconhecido
-        header("location: " . HOME_PAGE);
+        header("location: " . HOME_PAGE_ALUNO);
     }
 
     exit;

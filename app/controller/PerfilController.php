@@ -4,12 +4,14 @@ require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../service/UsuarioService.php");
 require_once(__DIR__ . "/../service/ArquivoService.php");
+require_once(__DIR__ . "/../service/LoginService.php");
 
 class PerfilController extends Controller {
 
     private UsuarioDAO $usuarioDao;
     private UsuarioService $usuarioService;
     private ArquivoService $arquivoService;
+    private LoginService $loginService;
 
     public function __construct() {
         if(! $this->usuarioEstaLogado())
@@ -18,6 +20,7 @@ class PerfilController extends Controller {
         $this->usuarioDao = new UsuarioDAO();
         $this->usuarioService = new UsuarioService();
         $this->arquivoService = new ArquivoService();
+        $this->loginService = new LoginService();
 
         $this->handleAction();    
     }
@@ -50,11 +53,10 @@ class PerfilController extends Controller {
                 $idUsuarioLogado = $this->getIdUsuarioLogado();
                 $usuario = $this->usuarioDao->findById($idUsuarioLogado);
 
-                $usuario->setFotoPerfil($fotoNome);
-                
+                $usuario->setFotoPerfil($fotoNome);                
                 
                 // TODO: Certifique-se de que o método update atualiza a foto
-                $this->usuarioDao->update($usuario); 
+                $this->usuarioDao->update($usuario);
 
             }
         } else {
@@ -65,12 +67,26 @@ class PerfilController extends Controller {
         // Carrega novamente os dados e exibe os erros na view
         $idUsuarioLogado = $this->getIdUsuarioLogado();
         $usuario = $this->usuarioDao->findById($idUsuarioLogado);
+
+        $this->loginService->salvarUsuarioSessao($usuario);
+
         $dados['usuario'] = $usuario;
 
         $msgErro = implode("<br>", $erros);
 
         $this->loadView("perfil/perfil.php", $dados, $msgErro); 
     }
+
+    protected function editarPerfil() {
+         
+    }
+
+    protected function salvarEdicaoPerfil() {
+        //Chamar o UsuarioDAO para fazer o update no banco
+
+    }
+
+
 }
 
 new PerfilController();

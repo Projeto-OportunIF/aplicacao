@@ -37,6 +37,7 @@ define('HOME_PAGE_ADMIN', BASEURL . '/controller/HomeController.php?action=home'
 define('SESSAO_USUARIO_ID', "usuarioLogadoId");
 define('SESSAO_USUARIO_NOME', "usuarioLogadoNome");
 define('SESSAO_USUARIO_TIPO', "usuarioLogadoTipo");
+define('SESSAO_USUARIO_FOTO_PERFIL', "usuarioLogadoFotoPerfil");
 
 //Arquivos
 define('PATH_ARQUIVOS', __DIR__ . "/../../arquivos");

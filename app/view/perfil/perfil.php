@@ -2,6 +2,12 @@
 # Carrega o cabeçalho do sistema
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
+
+$homePage = HOME_PAGE_ADMIN;
+if($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::ALUNO)
+    $homePage = HOME_PAGE_ALUNO;
+elseif($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
+    $homePage = HOME_PAGE_PROFESSOR;
 ?>
 
 <!-- CONTEÚDO DO PERFIL DO USUÁRIO -->
@@ -33,7 +39,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
               <!-- Botão Voltar -->
             <div class="botao-voltar-container">
-                <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="botao-voltar">← Voltar</a>
+                <a href="<?= $homePage ?>" class="botao-voltar">← Voltar</a>
             </div>
         </form>
     </div>
@@ -100,22 +106,6 @@ require_once(__DIR__ . "/../include/menu.php");
 
     .botao-voltar:hover {
         background-color: #b73658;
-    }
-
-    .usuario-topo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: #fcd0d0;
-        font-weight: bold;
-    }
-
-    .usuario-topo img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid white;
     }
 
     .perfil-container {
