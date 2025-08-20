@@ -1,46 +1,19 @@
 <?php  
 # Carrega o cabeçalho do sistema
 require_once(__DIR__ . "/../include/header.php");
+require_once(__DIR__ . "/../include/menu.php");
 ?>
-
-<!-- MENU LATERAL COM BOTÃO PARA A PÁGINA INICIAL -->
-<div id="sidebar" class="sidebar">
-    <a href="#" class="closebtn" onclick="toggleSidebar()">&times;</a>
-    <a href="<?= BASEURL ?>/view/home/home.php">Home</a>
-</div>
-
-<!-- BARRA SUPERIOR COM LOGO E USUÁRIO -->
-<div class="top-bar">
-    <div class="logo">
-        <img src="<?= BASEURL ?>/view/img/logo.png">
-    </div>
-
-    <div class="top-icons">
-        <div class="menu-icon" onclick="toggleSidebar()">
-            <img src="https://img.icons8.com/ios-filled/24/ffffff/menu--v1.png"/>
-        </div>
-        <div class="usuario-topo">
-            <?php
-                $fotoPerfil = ($dados['usuario']->getFotoPerfil() != null) ? $dados['usuario']->getFotoPerfil() : "avatar.jpg";
-            ?>
-
-            <img src="<?= BASEURL_ARQUIVOS . "/$fotoPerfil" ?>" alt="Foto de perfil">
-
-
-            <span><?= $dados['usuario']->getNomeCompleto() ?></span>
-        </div>
-    </div>
-</div>
 
 <!-- CONTEÚDO DO PERFIL DO USUÁRIO -->
 <div class="perfil-container">
     <h3 class="text-center">Perfil</h3>
 
     <div class="perfil-info">
+        <div><span class="info-label">NOME:</span> <?= $dados['usuario']->getNomeCompleto() ?></div>
         <div><span class="info-label">EMAIL:</span> <?= $dados['usuario']->getEmail() ?></div>
         <div><span class="info-label">TIPO DE USUÁRIO:</span> <?= $dados['usuario']->getTipoUsuario() ?></div>
         <div><span class="info-label">NÚMERO MATRÍCULA:</span> <?= $dados['usuario']->getMatricula() ?></div>
-        <div><span class="info-label">CURSO:</span> <?php $curso = $dados['usuario']->getCurso(); echo ($curso && method_exists($curso, 'getCurso')) ? $curso->getCurso() : "Curso não informado"; ?></div>
+        <div><span class="info-label">CURSO:</span> <?php echo ($dados['usuario']->getCurso() ? $dados['usuario']->getCurso()->getNome() : "Curso não informado") ?></div>
         <div><span class="info-label">CPF:</span> <?= $dados['usuario']->getCpf() ?></div>
 
         <form id="frmUsuario" method="POST" 

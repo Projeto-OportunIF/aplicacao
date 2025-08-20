@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `oportunidades` (
     `dataInicio` DATE NOT NULL,
     `dataFim` DATE NOT NULL,
     `documentoAnexo` VARCHAR(100) NULL,
+    `vaga` INTEGER NOT NULL,
     `idUsuarios` INT NOT NULL,
     `idCursos` INT NOT NULL,
     PRIMARY KEY (`idOportunidades`),

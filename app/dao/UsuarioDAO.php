@@ -26,8 +26,9 @@ class UsuarioDAO
     {
         $conn = Connection::getConn();
 
-        $sql = "SELECT * FROM usuarios u" .
-            " WHERE u.idUsuarios = ?";
+        $sql = "SELECT u.*, c.nome AS nomeCursos FROM usuarios u" . 
+                    " LEFT JOIN cursos c ON (c.idCursos = u.idCursos)" .
+               " WHERE u.idUsuarios = ?";
         $stm = $conn->prepare($sql);
         $stm->execute([$id]);
         $result = $stm->fetchAll();
@@ -95,8 +96,6 @@ class UsuarioDAO
 
         $sql = "INSERT INTO usuarios (nomeCompleto, senha, tipoUsuario, cpf, matricula, idCursos, email)" .
             " VALUES (:nome, :senha, :tipoUsuario, :cpf, :matricula, :idCursos, :email)";
-
-        $senhaCripto = password_hash($usuario->getSenha(), PASSWORD_DEFAULT);
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNomeCompleto());
@@ -190,6 +189,9 @@ class UsuarioDAO
             
             $curso = new Curso();
             $curso->setId($reg['idCursos']);
+            if(isset($reg["nomeCursos"]))
+                $curso->setNome($reg["nomeCursos"]);
+
             $usuario->setCurso($curso);
 
             array_push($usuarios, $usuario);
