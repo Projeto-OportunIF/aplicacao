@@ -20,7 +20,7 @@ class CursoController extends Controller
     protected function create()
     {
         $dados['id'] = 0;
-        $this->loadView("curso/form.php", $dados);
+        $this->loadView("curso/cadastro_curso_form.php", $dados);
     }
 
     protected function save()
@@ -55,7 +55,7 @@ class CursoController extends Controller
         $dados['id'] = $id;
         $dados['curso'] = $curso;
 
-        $this->loadView("curso/form.php", $dados, $msgErro);
+        $this->loadView("curso/cadastro_curso_form.php", $dados, $msgErro);
     }
 
     protected function list()
@@ -63,7 +63,7 @@ class CursoController extends Controller
         $cursos = $this->cursoDAO->list();
         $dados['cursos'] = $cursos;
 
-        $this->loadView("curso/list.php", $dados);
+        $this->loadView("curso/curso_list.php", $dados);
     }
 
     protected function edit()
@@ -74,7 +74,7 @@ class CursoController extends Controller
         if ($curso) {
             $dados['id'] = $curso->getId();
             $dados['curso'] = $curso;
-            $this->loadView("curso/form.php", $dados);
+            $this->loadView("curso/cadastro_curso_form.php", $dados);
         } else {
             $this->list("Curso não encontrado.");
         }

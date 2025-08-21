@@ -40,7 +40,7 @@ class UsuarioController extends Controller
     {
         $dados["lista"] = $this->usuarioDao->list();
 
-        $this->loadView("usuario/list.php", $dados,  $msgErro, $msgSucesso);
+        $this->loadView("usuario/usuario_list.php", $dados,  $msgErro, $msgSucesso);
     }
 
     protected function create()
@@ -53,7 +53,7 @@ class UsuarioController extends Controller
         $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
         $dados['cursos'] = $this->cursoDAO->list();
 
-        $this->loadView("usuario/form.php", $dados);
+        $this->loadView("usuario/cadastro_usuario_form.php", $dados);
     }
 
     protected function edit()
@@ -69,7 +69,7 @@ class UsuarioController extends Controller
             $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
             $dados['cursos'] = $this->cursoDAO->list();
 
-            $this->loadView("usuario/form.php", $dados);
+            $this->loadView("usuario/cadastro_usuario_form.php", $dados);
         } else
             $this->list("Usuário não encontrado!");
     }
@@ -135,7 +135,7 @@ class UsuarioController extends Controller
 
         $msgErro = implode("<br>", $erros);
 
-        $this->loadView("usuario/form.php", $dados, $msgErro);
+        $this->loadView("usuario/cadastro_usuario_form.php", $dados, $msgErro);
     }
 
     protected function delete()

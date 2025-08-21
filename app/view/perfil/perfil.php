@@ -36,6 +36,7 @@ require_once(__DIR__ . "/../include/menu.php");
             <div class="botao-voltar-container">
                 <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="botao-voltar">← Voltar</a>
             </div>
+            
         </form>
     </div>
 </div>
