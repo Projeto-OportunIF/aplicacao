@@ -25,41 +25,41 @@ class OportunidadeDAO
         return $this->mapOportunidades($result);
     }
 
-    
-// Lista oportunidades filtrando pelo tipo (Estágio, Pesquisa, Extensão)
-public function listByTipo(string $tipo)
-{
-    $conn = Connection::getConn();
 
-    $sql = "SELECT * FROM oportunidades o 
+    // Lista oportunidades filtrando pelo tipo (Estágio, Pesquisa, Extensão)
+    public function listByTipo(string $tipo)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "SELECT * FROM oportunidades o 
             WHERE o.tipoOportunidade = :tipo
             ORDER BY o.titulo";
-    $stm = $conn->prepare($sql);
-    $stm->bindValue(":tipo", $tipo);
-    $stm->execute();
-    $result = $stm->fetchAll();
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":tipo", $tipo);
+        $stm->execute();
+        $result = $stm->fetchAll();
 
-    return $this->mapOportunidades($result);
-}
+        return $this->mapOportunidades($result);
+    }
 
-//filtra para que as oportunidades que o professor cadastrou de um curso apareca somente para o aluno dessse determinado curso 
-public function listByTipoECurso(string $tipo, int $idCurso)
-{
-    $conn = Connection::getConn();
+    //filtra para que as oportunidades que o professor cadastrou de um curso apareca somente para o aluno dessse determinado curso 
+    public function listByTipoECurso(string $tipo, int $idCurso)
+    {
+        $conn = Connection::getConn();
 
-    $sql = "SELECT * FROM oportunidades o 
+        $sql = "SELECT * FROM oportunidades o 
             WHERE o.tipoOportunidade = :tipo 
               AND o.idCursos = :idCurso
             ORDER BY o.titulo";
 
-    $stm = $conn->prepare($sql);
-    $stm->bindValue(":tipo", $tipo);
-    $stm->bindValue(":idCurso", $idCurso);
-    $stm->execute();
-    $result = $stm->fetchAll();
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":tipo", $tipo);
+        $stm->bindValue(":idCurso", $idCurso);
+        $stm->execute();
+        $result = $stm->fetchAll();
 
-    return $this->mapOportunidades($result);
-}
+        return $this->mapOportunidades($result);
+    }
 
 
     // Busca oportunidade por ID
@@ -116,12 +116,12 @@ public function listByTipoECurso(string $tipo, int $idCurso)
 
 
     // Atualizar oportunidade
-  public function update(Oportunidade $oportunidade)
-{
-    $conn = Connection::getConn();
+    public function update(Oportunidade $oportunidade)
+    {
+        $conn = Connection::getConn();
 
 
-    $sql = "UPDATE oportunidades SET
+        $sql = "UPDATE oportunidades SET
                 titulo = :titulo,
                 descricao = :descricao,
                 tipoOportunidade = :tipo,
@@ -133,23 +133,23 @@ public function listByTipoECurso(string $tipo, int $idCurso)
             WHERE idOportunidades = :id";
 
 
-    $stm = $conn->prepare($sql);
+        $stm = $conn->prepare($sql);
 
 
-    $stm->bindValue(":vaga", $oportunidade->getVaga());
-   
-    $stm->bindValue(":titulo", $oportunidade->getTitulo());
-    $stm->bindValue(":descricao", $oportunidade->getDescricao());
-    $stm->bindValue(":tipo", $oportunidade->getTipoOportunidade());
-    $stm->bindValue(":dataInicio", $oportunidade->getDataInicio());
-    $stm->bindValue(":dataFim", $oportunidade->getDataFim());
-    $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
-    $stm->bindValue(":idCursos", $oportunidade->getCurso() ? $oportunidade->getCurso()->getId() : null);
-    $stm->bindValue(":id", $oportunidade->getId());
+        $stm->bindValue(":vaga", $oportunidade->getVaga());
+
+        $stm->bindValue(":titulo", $oportunidade->getTitulo());
+        $stm->bindValue(":descricao", $oportunidade->getDescricao());
+        $stm->bindValue(":tipo", $oportunidade->getTipoOportunidade());
+        $stm->bindValue(":dataInicio", $oportunidade->getDataInicio());
+        $stm->bindValue(":dataFim", $oportunidade->getDataFim());
+        $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
+        $stm->bindValue(":idCursos", $oportunidade->getCurso() ? $oportunidade->getCurso()->getId() : null);
+        $stm->bindValue(":id", $oportunidade->getId());
 
 
-    $stm->execute();
-}
+        $stm->execute();
+    }
 
 
     // Excluir oportunidade
@@ -180,10 +180,10 @@ public function listByTipoECurso(string $tipo, int $idCurso)
             $oportunidade->setDataInicio($reg['dataInicio']);
             $oportunidade->setDataFim($reg['dataFim']);
             $oportunidade->setDocumentoAnexo($reg['documentoAnexo']);
-             $oportunidade->setVaga($reg['vaga']);
+            $oportunidade->setVaga($reg['vaga']);
 
 
-            
+
             $curso = new Curso();
             $curso->setId($reg['idCursos']);
             $oportunidade->setCurso($curso);
@@ -195,10 +195,4 @@ public function listByTipoECurso(string $tipo, int $idCurso)
 
         return $oportunidades;
     }
-
-
-
-
 }
-
-

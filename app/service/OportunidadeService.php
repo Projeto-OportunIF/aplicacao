@@ -33,7 +33,7 @@ class OportunidadeService
             array_push($erros, "O campo [Data de Fim] é obrigatório.");
 
 
-         if (!$oportunidade->getVaga())
+        if (!$oportunidade->getVaga())
             array_push($erros, "O campo [Vaga] é obrigatório.");
 
 
@@ -41,7 +41,7 @@ class OportunidadeService
             array_push($erros, "O campo [Curso] é obrigatório.");
 
 
-       
+
 
 
         // Validar se a data de início é menor que a de fim

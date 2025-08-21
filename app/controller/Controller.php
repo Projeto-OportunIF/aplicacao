@@ -41,7 +41,7 @@ class Controller
         $caminho = __DIR__ . "/../view/" . $path;
         //echo $caminho;
         if (file_exists($caminho)) {
-              extract($dados);  // <-- ESSA LINHA DEIXA AS VARIÁVEIS DISPONÍVEIS NA VIEW
+            extract($dados);  // <-- ESSA LINHA DEIXA AS VARIÁVEIS DISPONÍVEIS NA VIEW
             //Inclui e exibe a view a partir do controller
             require $caminho;
         } else {

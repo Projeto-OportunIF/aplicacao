@@ -1,11 +1,12 @@
-<?php 
+<?php
 #Nome do arquivo: Usuario.php
 #Objetivo: classe Model para Usuario
 
 require_once(__DIR__ . "/enum/UsuarioTipo.php");
 require_once(__DIR__ . "/Curso.php");
 
-class Usuario {
+class Usuario
+{
 
     private ?int $id;
     private ?string $nomeCompleto;
@@ -164,14 +165,14 @@ class Usuario {
     /**
      * Get the value of foto
      */
-    public function getFotoPerfil() {
-    return $this->fotoPerfil;
+    public function getFotoPerfil()
+    {
+        return $this->fotoPerfil;
     }
 
     // Setter
-    public function setFotoPerfil($fotoPerfil) {
+    public function setFotoPerfil($fotoPerfil)
+    {
         $this->fotoPerfil = $fotoPerfil;
     }
-
-    
 }

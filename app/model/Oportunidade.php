@@ -8,7 +8,8 @@ require_once(__DIR__ . "/Usuario.php");
 require_once(__DIR__ . "/enum/OportunidadeTipo.php");
 
 
-class Oportunidade {
+class Oportunidade
+{
 
 
     private ?int $id;
@@ -24,30 +25,24 @@ class Oportunidade {
 
 
     public function getVaga(): ?int
-{
-    return $this->vaga;
-}
+    {
+        return $this->vaga;
+    }
 
 
-public function setVaga(?int $vaga): void
-{
-    $this->vaga = $vaga;
-}
+    public function setVaga(?int $vaga): void
+    {
+        $this->vaga = $vaga;
+    }
 
 
-
-
-
-
-
-
-   public function getId(): ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
 
-   
+
     public function setId(?int $id): self
     {
         $this->id = $id;
@@ -57,29 +52,34 @@ public function setVaga(?int $vaga): void
     }
 
 
-    public function getTitulo(): ?string {
+    public function getTitulo(): ?string
+    {
         return $this->titulo;
     }
 
 
-    public function setTitulo(?string $titulo): self {
+    public function setTitulo(?string $titulo): self
+    {
         $this->titulo = $titulo;
         return $this;
     }
 
 
-    public function getDescricao(): ?string {
+    public function getDescricao(): ?string
+    {
         return $this->descricao;
     }
 
 
-    public function setDescricao(?string $descricao): self {
+    public function setDescricao(?string $descricao): self
+    {
         $this->descricao = $descricao;
         return $this;
     }
 
 
-    public function getTipoOportunidade(): ?string {
+    public function getTipoOportunidade(): ?string
+    {
         return $this->tipoOportunidade;
     }
 
@@ -95,58 +95,76 @@ public function setVaga(?int $vaga): void
     }
 
 
-
-
-    public function getDataInicio(): ?string {
+    public function getDataInicio(): ?string
+    {
         return $this->dataInicio;
     }
 
+    public function getDataInicioFormatada(): ?string
+    {
+        if ($this->dataInicio) {
+            $date = new DateTimeImmutable($this->dataInicio);
+            return $date->format('d/m/Y');
+        }
 
-    public function setDataInicio(?string $dataInicio): self {
+        return "";
+    }
+
+
+    public function setDataInicio(?string $dataInicio): self
+    {
         $this->dataInicio = $dataInicio;
         return $this;
     }
 
 
-    public function getDataFim(): ?string {
+    public function getDataFim(): ?string
+    {
         return $this->dataFim;
     }
 
 
-    public function setDataFim(?string $dataFim): self {
+    public function setDataFim(?string $dataFim): self
+    {
         $this->dataFim = $dataFim;
         return $this;
     }
 
 
-    public function getDocumentoAnexo(): ?string {
+    public function getDocumentoAnexo(): ?string
+    {
         return $this->documentoAnexo;
     }
 
 
-    public function setDocumentoAnexo(?string $documentoAnexo): self {
+    public function setDocumentoAnexo(?string $documentoAnexo): self
+    {
         $this->documentoAnexo = $documentoAnexo;
         return $this;
     }
 
 
-    public function getCurso(): ?Curso {
+    public function getCurso(): ?Curso
+    {
         return $this->curso;
     }
 
 
-    public function setCurso(?Curso $curso): self {
+    public function setCurso(?Curso $curso): self
+    {
         $this->curso = $curso;
         return $this;
     }
 
 
-    public function getProfessor(): ?Usuario {
+    public function getProfessor(): ?Usuario
+    {
         return $this->professor;
     }
 
 
-    public function setProfessor(?Usuario $professor): self {
+    public function setProfessor(?Usuario $professor): self
+    {
         $this->professor = $professor;
         return $this;
     }

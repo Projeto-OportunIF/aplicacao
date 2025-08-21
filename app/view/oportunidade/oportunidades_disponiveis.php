@@ -2,11 +2,11 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
-
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disponiveis.css"> <!-- Usando o mesmo CSS -->
 
-<h2 class="titulo-pagina">Oportunidades de Projeto de Pesquisa</h2>
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disponiveis.css">
+
+<h2 class="titulo-pagina">Oportunidades Disponíveis</h2>
 
 <div class="cards-container">
     <?php if (count($dados["oportunidades"]) > 0): ?>
@@ -24,13 +24,13 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
                 <p><strong>Vagas:</strong> <?= htmlspecialchars($op->getVaga()) ?></p>
 
 
-                <a href="#" class="btn-inscrever">INSCREVA-SE</a>
+                <a href="#" class="btn-inscrever">saiba mais</a>
 
 
-                </div>
+            </div>
         <?php endforeach; ?>
     <?php else: ?>
-        <p>Não há oportunidades de Projetos de Pesquisa no momento.</p>
+        <p>Não há oportunidades no momento.</p>
     <?php endif; ?>
 </div>
 
@@ -41,7 +41,4 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
     </div>
 </div>
 
-
 <?php require_once(__DIR__ . "/../include/footer.php"); ?>
-
-

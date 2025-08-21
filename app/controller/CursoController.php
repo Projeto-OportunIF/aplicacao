@@ -50,7 +50,7 @@ class CursoController extends Controller
                 array_push($erros, $e->getMessage());
             }
         }
-        
+
         $msgErro = implode("<br>", $erros);
         $dados['id'] = $id;
         $dados['curso'] = $curso;

@@ -8,7 +8,7 @@ require_once(__DIR__ . "/../include/header.php");
 
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro.css"> 
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/autocadastro.css">
 
 
 <div class="container">
@@ -19,17 +19,18 @@ require_once(__DIR__ . "/../include/header.php");
         </div>
         <h5>
             Plataforma destinada à divulgação de oportunidades de estágios e projetos para os alunos do IFPR.
-</h5>
+        </h5>
     </div>
 
 
     <div class="form-wrapper">
         <h3>
-            <?php if ($dados['id'] == 0) echo "Cadastro"; else echo "Alterar"; ?>
+            <?php if ($dados['id'] == 0) echo "Cadastro";
+            else echo "Alterar"; ?>
         </h3>
 
 
-    <form id="frmUsuario" method="POST" action="<?= BASEURL ?>/controller/CadastroController.php?action=save">
+        <form id="frmUsuario" method="POST" action="<?= BASEURL ?>/controller/CadastroController.php?action=save">
             <div class="mb-3">
                 <label class="form-label" for="txtNomeCompleto">Nome:</label>
                 <input class="form-control" type="text" id="txtNomeCompleto" name="nomeCompleto"
@@ -87,9 +88,11 @@ require_once(__DIR__ . "/../include/header.php");
                     <?php foreach ($dados["cursos"] as $curso): ?>
                         <option value="<?= $curso->getId() ?>"
                             <?php
-                            if (isset($dados["usuario"]) &&
+                            if (
+                                isset($dados["usuario"]) &&
                                 $dados["usuario"]->getCurso() != NULL &&
-                                $dados["usuario"]->getCurso()->getId() == $curso->getId())
+                                $dados["usuario"]->getCurso()->getId() == $curso->getId()
+                            )
                                 echo "selected";
                             ?>>
                             <?= $curso->getNome() ?>

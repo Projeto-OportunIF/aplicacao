@@ -37,6 +37,6 @@ require_once(__DIR__ . "/../include/menu.php");
 
 </div>
 
-<?php  
+<?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>

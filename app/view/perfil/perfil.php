@@ -1,4 +1,4 @@
-<?php  
+<?php
 # Carrega o cabeçalho do sistema
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
@@ -13,25 +13,26 @@ require_once(__DIR__ . "/../include/menu.php");
         <div><span class="info-label">EMAIL:</span> <?= $dados['usuario']->getEmail() ?></div>
         <div><span class="info-label">TIPO DE USUÁRIO:</span> <?= $dados['usuario']->getTipoUsuario() ?></div>
         <div><span class="info-label">NÚMERO MATRÍCULA:</span> <?= $dados['usuario']->getMatricula() ?></div>
-        <div><span class="info-label">CURSO:</span> <?php echo ($dados['usuario']->getCurso() ? $dados['usuario']->getCurso()->getNome() : "Curso não informado") ?></div>
+        <div><span class="info-label">CURSO:</span> <?php echo ($dados['usuario']->getCurso() && $dados['usuario']->getCurso()->getNome() ?
+                                                        $dados['usuario']->getCurso()->getNome() : "Curso não informado") ?></div>
         <div><span class="info-label">CPF:</span> <?= $dados['usuario']->getCpf() ?></div>
 
-        <form id="frmUsuario" method="POST" 
+        <form id="frmUsuario" method="POST"
             action="<?= BASEURL ?>/controller/PerfilController.php?action=save"
             enctype="multipart/form-data">
-            
+
             <input type="hidden" name="fotoAnterior" value="<?= $dados['usuario']->getFotoPerfil() ?>">
 
 
             <div class="foto-upload-container">
                 <label for="txtFoto">
-                    <img src="https://img.icons8.com/ios-glyphs/30/ffffff/plus.png"/>
+                    <img src="https://img.icons8.com/ios-glyphs/30/ffffff/plus.png" />
                     <div>escolher foto de perfil.</div>
                 </label>
                 <input type="file" id="txtFoto" name="foto" onchange="document.getElementById('frmUsuario').submit();">
             </div>
 
-              <!-- Botão Voltar -->
+            <!-- Botão Voltar -->
             <div class="botao-voltar-container">
                 <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="botao-voltar">← Voltar</a>
             </div>
@@ -84,7 +85,7 @@ require_once(__DIR__ . "/../include/menu.php");
     }
 
     .botao-voltar-container {
-    margin-top: 30px;
+        margin-top: 30px;
     }
 
     .botao-voltar {
@@ -212,7 +213,7 @@ require_once(__DIR__ . "/../include/menu.php");
     }
 </script>
 
-<?php 
+<?php
 
-require_once(__DIR__ . "/../include/footer.php"); 
+require_once(__DIR__ . "/../include/footer.php");
 ?>
