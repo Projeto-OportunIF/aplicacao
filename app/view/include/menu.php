@@ -4,6 +4,10 @@
 
 include_once(__DIR__ . "/../../model/enum/UsuarioTipo.php");
 
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}  
 $nome = "(Sessão expirada)";
 if (isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
@@ -28,22 +32,7 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     </button>
 
     <div class="collapse navbar-collapse" id="navSite">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                    data-bs-toggle="dropdown">
-                    Cadastros
-                </a>
-
-                <div class="dropdown-menu">
-                    <a class="dropdown-item"
-                        href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Usuários</a>
-                    <a class="dropdown-item"
-                        href="<?= BASEURL . '/controller/CursoController.php?action=list' ?>">Cursos</a>
-                </div>
-            </li>
-
-        </ul>
+       
 
         <ul class="navbar-nav ms-auto mr-3">
             <li class="nav-item dropdown">

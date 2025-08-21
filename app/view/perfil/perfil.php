@@ -32,10 +32,12 @@ require_once(__DIR__ . "/../include/menu.php");
                 <input type="file" id="txtFoto" name="foto" onchange="document.getElementById('frmUsuario').submit();">
             </div>
 
-            <!-- Botão Voltar -->
+                    <!-- Botão Voltar -->
             <div class="botao-voltar-container">
-                <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="botao-voltar">← Voltar</a>
+                <a href="<?= $homePage ?>" class="botao-voltar">← Voltar</a>
             </div>
+
+
             
         </form>
     </div>

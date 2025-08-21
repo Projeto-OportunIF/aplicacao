@@ -24,7 +24,7 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
                 <p><strong>Vagas:</strong> <?= htmlspecialchars($op->getVaga()) ?></p>
 
 
-                <a href="#" class="btn-inscrever">saiba mais</a>
+                <a href="<?= BASEURL ?>/view/inscricao/oportunidade_inscricao.php" class="btn-inscrever">saiba mais</a>
 
 
             </div>

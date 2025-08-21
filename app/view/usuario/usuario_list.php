@@ -49,8 +49,12 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><a class="btn btn-danger"
                                     onclick="return confirm('Confirma a exclusão do usuário?');"
                                     href="<?= BASEURL ?>/controller/UsuarioController.php?action=delete&id=<?= $usu->getId() ?>">
-                                    Excluir</a>
+                                    Excluir
+                                </a>
                             </td>
+
+
+                            
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

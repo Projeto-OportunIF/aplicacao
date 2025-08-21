@@ -1,31 +1,28 @@
 <?php
-#Nome do arquivo: usuario/list.php
-#Objetivo: interface para listagem dos usuários do sistema
-
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeAdmin.css">
 
-<h3 class="text-center">Página inicial do sistema</h3>
+<!-- Link para CSS externo -->
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeProfessor.css">
 
-<div class="container">
-    <span>Quantidade de usuários cadastrados no sistema : </span>
-    <span class="fonteBonita">
-        <?php echo $dados["qtdUsuarios"] ?>
-    </span>
-    <button class="btn btn-info"
-        onclick="carregarUsuarios('<?= BASEURL ?>')">Ajax</button>
+<h2 class="titulo">Adicionar ao Sistema</h2>
 
-    <div>
-        <ul id="listaUsuarios">
+<div class="container-botoes">
+    <a href="<?= BASEURL ?>/controller/UsuarioController.php?action=list" class="botao-opcao">
+        <div class="texto-botao">USUÁRIOS</div>
+        <div class="botao-quadrado">
+            <img src="<?= BASEURL ?>/view/img/add_usuario.png" alt="Adicionar">
+        </div>
+    </a>
 
-        </ul>
-    </div>
+    <a href="<?= BASEURL ?>/controller/CursoController.php?action=list" class="botao-opcao">
+        <div class="texto-botao">CURSOS</div>
+        <div class="botao-quadrado">
+            <img src="<?= BASEURL ?>/view/img/add_curso.png" alt="Visualizar">
+        </div>
+    </a>
 </div>
 
-<script src="<?= BASEURL ?>/view/js/home_ajax.js"></script>
+<?php require_once(__DIR__ . "/../include/footer.php"); ?>
 
-<?php
-require_once(__DIR__ . "/../include/footer.php");
-?>
