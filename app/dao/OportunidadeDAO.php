@@ -195,4 +195,19 @@ class OportunidadeDAO
 
         return $oportunidades;
     }
+
+    // Inscrever aluno em uma oportunidade
+    public function inscreverAluno(int $idAluno, int $idOportunidade)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "INSERT INTO inscricoes (idUsuarios, idOportunidades, status) 
+                VALUES (:idAluno, :idOportunidade, 'PENDENTE')";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":idAluno", $idAluno);
+        $stm->bindValue(":idOportunidade", $idOportunidade);
+
+        return $stm->execute(); // retorna true se deu certo
+    }
 }

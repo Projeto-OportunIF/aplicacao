@@ -3,6 +3,7 @@
 #Objetivo: interface para listagem dos usuários do sistema
 
 require_once(__DIR__ . "/../include/header.php");
+
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
@@ -33,6 +34,17 @@ require_once(__DIR__ . "/../include/menu.php");
     <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=estagios" class="btn-visualizar">Visualizar</a>
 
   </div>
+
+  <div class="cards-container">
+    <!-- Botão para visualizar inscrições -->
+    <div class="card">
+        <h3>Minhas Inscrições</h3>
+        <p>Visualize todas as oportunidades em que você se inscreveu e gerencie suas inscrições.</p>
+        <img src="<?= BASEURL ?>/view/img/inscricoes.png" alt="Minhas Inscrições" class="icon">
+        <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=listarInscricoes" class="btn-visualizar">Visualizar Inscrições</a>
+    </div>
+</div>
+
 </div>
 
 </div>
