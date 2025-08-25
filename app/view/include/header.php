@@ -4,6 +4,12 @@
 
 include_once(__DIR__ . "/../../util/config.php");
 ?>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 

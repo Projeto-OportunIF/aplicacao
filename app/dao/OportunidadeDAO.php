@@ -169,32 +169,35 @@ class OportunidadeDAO
 
     // Mapear resultado do banco em objetos Oportunidade
     private function mapOportunidades($result)
-    {
-        $oportunidades = array();
-        foreach ($result as $reg) {
-            $oportunidade = new Oportunidade();
-            $oportunidade->setId($reg['idOportunidades']);
-            $oportunidade->setTitulo($reg['titulo']);
-            $oportunidade->setDescricao($reg['descricao']);
-            $oportunidade->setTipoOportunidade($reg['tipoOportunidade']);
-            $oportunidade->setDataInicio($reg['dataInicio']);
-            $oportunidade->setDataFim($reg['dataFim']);
-            $oportunidade->setDocumentoAnexo($reg['documentoAnexo']);
-            $oportunidade->setVaga($reg['vaga']);
+{
+    $oportunidades = array();
+    foreach ($result as $reg) {
+        $oportunidade = new Oportunidade();
+        $oportunidade->setId($reg['idOportunidades']);
+        $oportunidade->setTitulo($reg['titulo']);
+        $oportunidade->setDescricao($reg['descricao']);
+        $oportunidade->setTipoOportunidade($reg['tipoOportunidade']);
+        $oportunidade->setDataInicio($reg['dataInicio']);
+        $oportunidade->setDataFim($reg['dataFim']);
+        $oportunidade->setDocumentoAnexo($reg['documentoAnexo']);
+        $oportunidade->setVaga($reg['vaga']);
 
+        // Curso
+        $curso = new Curso();
+        $curso->setId($reg['idCursos']);
+        $oportunidade->setCurso($curso);
 
+        // Professor
+        $professor = new Usuario(); // ou o nome da sua classe de usuário
+        $professor->setId($reg['idUsuarios']); // id do professor
+        $oportunidade->setProfessor($professor);
 
-            $curso = new Curso();
-            $curso->setId($reg['idCursos']);
-            $oportunidade->setCurso($curso);
-
-
-            array_push($oportunidades, $oportunidade);
-        }
-
-
-        return $oportunidades;
+        array_push($oportunidades, $oportunidade);
     }
+
+    return $oportunidades;
+}
+
 
     // Inscrever aluno em uma oportunidade
     public function inscreverAluno(int $idAluno, int $idOportunidade)
@@ -210,4 +213,5 @@ class OportunidadeDAO
 
         return $stm->execute(); // retorna true se deu certo
     }
+    
 }

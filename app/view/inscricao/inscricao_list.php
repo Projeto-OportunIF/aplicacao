@@ -1,12 +1,13 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
+
 ?>
 
 <h2 class="text-center">Minhas Inscrições</h2>
 
 <div class="container">
-    <?php if(count($dados['inscricoes']) > 0): ?>
+    <?php if (count($dados['inscricoes']) > 0): ?>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -22,7 +23,7 @@ require_once(__DIR__ . "/../include/menu.php");
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($dados['inscricoes'] as $inscricao): ?>
+                    <?php foreach ($dados['inscricoes'] as $inscricao): ?>
                         <tr>
                             <td><?= htmlspecialchars($inscricao->titulo) ?></td>
                             <td><?= nl2br(htmlspecialchars($inscricao->descricao)) ?></td>
@@ -31,14 +32,20 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><?= htmlspecialchars($inscricao->dataFim) ?></td>
                             <td><?= htmlspecialchars($inscricao->status) ?></td>
                             <td>
-                                <?php if($inscricao->documentosAnexo): ?>
+                                <?php if ($inscricao->documentosAnexo): ?>
                                     <a href="<?= BASEURL ?>/uploads/<?= $inscricao->documentosAnexo ?>" target="_blank">Ver Documento</a>
                                 <?php else: ?>
                                     Nenhum
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=cancelar&idInscricao=<?= $inscricao->idInscricoes ?>" class="btn btn-danger btn-sm">Cancelar</a>
+                                <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=cancelar&idInscricao=<?= $inscricao->idInscricoes ?>"
+                                    onclick="return confirm('Tem certeza que deseja cancelar sua inscrição?')"
+                                    class="btn btn-danger btn-sm">
+                                    Cancelar
+                                </a>
+
+
                             </td>
                         </tr>
                     <?php endforeach; ?>

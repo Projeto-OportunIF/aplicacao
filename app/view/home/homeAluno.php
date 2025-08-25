@@ -6,11 +6,26 @@ require_once(__DIR__ . "/../include/header.php");
 
 require_once(__DIR__ . "/../include/menu.php");
 ?>
+<?php if (!empty($_SESSION['msgSucesso'])): ?>
+  <div class="alert alert-success" style="margin: 15px 0; border-radius: 8px;">
+    <?= $_SESSION['msgSucesso'] ?>
+  </div>
+  <?php unset($_SESSION['msgSucesso']); ?>
+<?php endif; ?>
+
+<?php if (!empty($_SESSION['msgErro'])): ?>
+  <div class="alert alert-danger" style="margin: 15px 0; border-radius: 8px;">
+    <?= $_SESSION['msgErro'] ?>
+  </div>
+  <?php unset($_SESSION['msgErro']); ?>
+<?php endif; ?>
 
 <!-- Link para CSS externo -->
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeAluno.css">
 
 <h2>Escolha a modalidade que deseja visualizar</h2>
+
+
 <div class="cards-container">
   <div class="card">
     <h3>Projeto de Pesquisa</h3>
@@ -35,20 +50,19 @@ require_once(__DIR__ . "/../include/menu.php");
 
   </div>
 
-  <div class="cards-container">
+
     <!-- Botão para visualizar inscrições -->
     <div class="card">
         <h3>Minhas Inscrições</h3>
         <p>Visualize todas as oportunidades em que você se inscreveu e gerencie suas inscrições.</p>
-        <img src="<?= BASEURL ?>/view/img/inscricoes.png" alt="Minhas Inscrições" class="icon">
-        <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=listarInscricoes" class="btn-visualizar">Visualizar Inscrições</a>
+        <img src="<?= BASEURL ?>/view/img/visualizar_inscricao.png" alt="Minhas Inscrições" class="icon">
+        <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=listarInscricoes" class="btn-visualizar">Visualizar</a>
     </div>
 </div>
 
-</div>
 
-</div>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>
+

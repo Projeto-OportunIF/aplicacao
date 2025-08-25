@@ -211,7 +211,35 @@ class OportunidadeController extends Controller
         $dados["oportunidades"] = $this->oportunidadeDao->listByTipoECurso(OportunidadeTipo::PROJETOEXTENSAO, $idCurso);
         $this->loadView("oportunidade/oportunidades_disponiveis.php", $dados);
     }
+   
+    protected function visualizarInscritos()
+{
+    $idOport = $_GET['idOport'] ?? 0;
+
+    // Verifica se o professor logado é o dono da oportunidade
+    $idProfessor = $_SESSION['usuarioLogadoId'];
+    $oportunidade = $this->oportunidadeDao->findById($idOport);
+
+    if (!$oportunidade || $oportunidade->getProfessor()->getId() != $idProfessor) {
+        $_SESSION['msgErro'] = "Acesso negado!";
+        header("Location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
+        exit;
+    }
+
+    // Busca inscritos
+    require_once(__DIR__ . "/../dao/InscricaoDAO.php");
+    $inscricaoDao = new InscricaoDAO();
+    $inscritos = $inscricaoDao->listByOportunidadeDetalhado($idOport);
+
+    $dados["oportunidade"] = $oportunidade;
+    $dados["inscritos"] = $inscritos;
+
+    $this->loadView("oportunidade/visualizar_inscritos.php", $dados);
 }
+
+
+}
+
 
 
 new OportunidadeController();

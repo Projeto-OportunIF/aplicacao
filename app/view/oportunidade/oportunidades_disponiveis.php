@@ -4,6 +4,8 @@ require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 ?>
 
+
+
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disponiveis.css">
 
 <h2 class="titulo-pagina">Oportunidades Disponíveis</h2>
