@@ -26,10 +26,10 @@ require_once(__DIR__ . "/../include/menu.php");
                     <?php foreach ($dados['inscricoes'] as $inscricao): ?>
                         <tr>
                             <td><?= htmlspecialchars($inscricao->titulo) ?></td>
-                            <td><?= nl2br(htmlspecialchars($inscricao->descricao)) ?></td>
+                            <td><?= nl2br(strip_tags($inscricao->descricao)) ?></td>
                             <td><?= htmlspecialchars($inscricao->tipoOportunidade) ?></td>
-                            <td><?= htmlspecialchars($inscricao->dataInicio) ?></td>
-                            <td><?= htmlspecialchars($inscricao->dataFim) ?></td>
+                            <td><?= date('d/m/Y', strtotime($inscricao->dataInicio)) ?></td>
+                            <td><?= date('d/m/Y', strtotime($inscricao->dataFim)) ?></td>
                             <td><?= htmlspecialchars($inscricao->status) ?></td>
                             <td>
                                 <?php if ($inscricao->documentosAnexo): ?>

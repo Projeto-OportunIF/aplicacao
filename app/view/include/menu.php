@@ -7,7 +7,7 @@ include_once(__DIR__ . "/../../model/enum/UsuarioTipo.php");
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-}  
+}
 $nome = "(Sessão expirada)";
 if (isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
@@ -32,7 +32,7 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     </button>
 
     <div class="collapse navbar-collapse" id="navSite">
-       
+
 
         <ul class="navbar-nav ms-auto mr-3">
             <li class="nav-item dropdown">

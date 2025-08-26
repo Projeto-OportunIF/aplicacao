@@ -18,18 +18,12 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
                 <p><?= nl2br($op->getDescricao()) ?></p>
 
                 <p>
-                    <strong>Início:</strong> <?= htmlspecialchars($op->getDataInicio()) ?><br>
-                    <strong>Fim:</strong> <?= htmlspecialchars($op->getDataFim()) ?>
+                    <strong>Início:</strong> <?= htmlspecialchars($op->getDataInicioFormatada()) ?><br>
+                    <strong>Fim:</strong> <?= htmlspecialchars($op->getDataFimFormatada()) ?>
                 </p>
-
-
                 <p><strong>Vagas:</strong> <?= htmlspecialchars($op->getVaga()) ?></p>
 
-
                 <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=view&idOport=<?= $op->getId() ?>" class="btn-inscrever">saiba mais</a>
-
-
-
             </div>
         <?php endforeach; ?>
     <?php else: ?>

@@ -36,6 +36,7 @@ require_once(__DIR__ . "/../include/menu.php");
                         <th>Descrição</th>
                         <th>Tipo</th>
                         <th>Vagas</th>
+                        <th>Cursos</th> <!-- nova coluna -->
                         <th>Alterar</th>
                         <th>Excluir</th>
                         <th>Visualizar Inscritos</th>
@@ -50,6 +51,14 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><?= $op->getTipoOportunidade(); ?></td>
                             <td><?= $op->getVaga(); ?></td>
                             <td>
+                                <?php
+                                $nomesCursos = array_map(function ($c) {
+                                    return $c->getNome();
+                                }, $op->getCursos() ?? []);
+                                echo implode(", ", $nomesCursos);
+                                ?>
+                            </td>
+                            <td>
                                 <a class="btn btn-primary"
                                     href="<?= BASEURL ?>/controller/OportunidadeController.php?action=edit&id=<?= $op->getId() ?>">
                                     Alterar
@@ -61,14 +70,15 @@ require_once(__DIR__ . "/../include/menu.php");
                                     href="<?= BASEURL ?>/controller/OportunidadeController.php?action=delete&id=<?= $op->getId() ?>">
                                     Excluir
                                 </a>
-                                </td>
-                                <td>
-                                 <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $op->getId() ?>" 
-                                class="btn btn-info">Visualizar Inscritos</a>
-                                </td>
+                            </td>
+                            <td>
+                                <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $op->getId() ?>"
+                                    class="btn btn-info">Visualizar Inscritos</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
+
             </table>
         </div>
     </div>

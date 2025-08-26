@@ -17,7 +17,7 @@ class ArquivoService
         $arquivoNome = explode('.', $arquivo['name']);
         $arquivoExtensao = $arquivoNome[count($arquivoNome) - 1];
 
-        //A partir da extensão, o ideal é gerar um nome único para o arquivo
+
         //A função uniqid gera um identificador único do tipo UUID (hexadecimal)
         $nomeUnico = uniqid('arquivo_');
         $nomeArquivoSalvar = $nomeUnico . "." . $arquivoExtensao;

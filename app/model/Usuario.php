@@ -16,7 +16,7 @@ class Usuario
     private ?string $email;
     private ?Curso $curso;
     private ?string $matricula;
-    private ?string $fotoPerfil = null; // ✅ Adicionado para armazenar o nome da foto de perfil
+    private ?string $fotoPerfil = null;
 
     /**
      * Get the value of id

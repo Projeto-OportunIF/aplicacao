@@ -76,7 +76,7 @@ class OportunidadeController extends Controller
         $dataInicio = $_POST["dataInicio"];
         $dataFim = $_POST["dataFim"];
         $documento = trim($_POST["documento"]);
-        $idCurso = $_POST["curso"];
+        $idCursos = $_POST['cursos'] ?? []; // captura array de cursos selecionados
         $vaga = isset($_POST["vaga"]) && $_POST["vaga"] !== "" ? (int)$_POST["vaga"] : null;
 
 
@@ -98,14 +98,17 @@ class OportunidadeController extends Controller
 
 
 
-        if ($idCurso) {
-            $curso = new Curso();
-            $curso->setId($idCurso);
-            $oportunidade->setCurso($curso);
+        if (empty($idCursos)) {
+            $erros[] = "Selecione pelo menos um curso.";
         } else {
-            $oportunidade->setCurso(null);
+            $cursos = [];
+            foreach ($idCursos as $idCurso) {
+                $curso = new Curso();
+                $curso->setId($idCurso);
+                $cursos[] = $curso;
+            }
+            $oportunidade->setCursos($cursos); // criar setCursos() no model
         }
-
 
         // SETAR O PROFESSOR (usuário logado)
         if (isset($_SESSION["usuarioLogadoId"])) {
@@ -211,33 +214,47 @@ class OportunidadeController extends Controller
         $dados["oportunidades"] = $this->oportunidadeDao->listByTipoECurso(OportunidadeTipo::PROJETOEXTENSAO, $idCurso);
         $this->loadView("oportunidade/oportunidades_disponiveis.php", $dados);
     }
-   
+
     protected function visualizarInscritos()
-{
-    $idOport = $_GET['idOport'] ?? 0;
+    {
+        $idOport = $_GET['idOport'] ?? 0;
 
-    // Verifica se o professor logado é o dono da oportunidade
-    $idProfessor = $_SESSION['usuarioLogadoId'];
-    $oportunidade = $this->oportunidadeDao->findById($idOport);
+        // Verifica se o professor logado é o dono da oportunidade
+        $idProfessor = $_SESSION['usuarioLogadoId'];
+        $oportunidade = $this->oportunidadeDao->findById($idOport);
 
-    if (!$oportunidade || $oportunidade->getProfessor()->getId() != $idProfessor) {
-        $_SESSION['msgErro'] = "Acesso negado!";
-        header("Location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
-        exit;
+        if (!$oportunidade || $oportunidade->getProfessor()->getId() != $idProfessor) {
+            $_SESSION['msgErro'] = "Acesso negado!";
+            header("Location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
+            exit;
+        }
+
+        // Busca inscritos
+        require_once(__DIR__ . "/../dao/InscricaoDAO.php");
+        $inscricaoDao = new InscricaoDAO();
+        $inscritos = $inscricaoDao->listByOportunidadeDetalhado($idOport);
+
+        $dados["oportunidade"] = $oportunidade;
+        $dados["inscritos"] = $inscritos;
+
+        $this->loadView("oportunidade/visualizar_inscritos.php", $dados);
     }
 
-    // Busca inscritos
-    require_once(__DIR__ . "/../dao/InscricaoDAO.php");
-    $inscricaoDao = new InscricaoDAO();
-    $inscritos = $inscricaoDao->listByOportunidadeDetalhado($idOport);
+    public function alterarStatus()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idInscricao = (int) $_POST['idInscricao'];
+            $novoStatus = $_POST['novoStatus'];
 
-    $dados["oportunidade"] = $oportunidade;
-    $dados["inscritos"] = $inscritos;
+            require_once(__DIR__ . "/../dao/InscricaoDAO.php");
+            $dao = new InscricaoDAO();
+            $dao->updateStatus($idInscricao, $novoStatus);
 
-    $this->loadView("oportunidade/visualizar_inscritos.php", $dados);
-}
-
-
+            // Redireciona de volta para a lista de inscritos
+            header("Location: " . BASEURL . "/controller/OportunidadeController.php?action=visualizarInscritos&idOport=" . (int)$_POST['idOport']);
+            exit;
+        }
+    }
 }
 
 

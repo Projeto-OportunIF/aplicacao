@@ -14,16 +14,18 @@ class InscricaoDAO
     }
 
     // Inserir nova inscrição
-    public function insert(int $idAluno, int $idOportunidade, string $documento = null)
+    public function insert(int $idAluno, int $idOportunidade, string $documento = null, string $status = null)
     {
         $sql = "INSERT INTO inscricoes (documentosAnexo, status, idOportunidades, idUsuarios) 
-                VALUES (:documento, 'PENDENTE', :idOportunidade, :idAluno)";
+            VALUES (:documento, :status, :idOportunidade, :idAluno)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":documento", $documento);
+        $stmt->bindValue(":status", $status ?? 'PENDENTE'); // caso não informe, pode manter PENDENTE
         $stmt->bindValue(":idOportunidade", $idOportunidade, PDO::PARAM_INT);
         $stmt->bindValue(":idAluno", $idAluno, PDO::PARAM_INT);
         $stmt->execute();
     }
+
 
     // Verifica se o aluno já está inscrito naquela oportunidade
     public function findByAlunoEOportunidade(int $idAluno, int $idOportunidade)
@@ -50,16 +52,14 @@ class InscricaoDAO
     // Listar inscrições de um aluno
     public function listByAluno(int $idAluno)
     {
-        $sql = "SELECT i.*, o.titulo, o.descricao, o.tipoOportunidade, o.dataInicio, o.dataFim 
-                FROM inscricoes i
-                INNER JOIN oportunidades o ON i.idOportunidades = o.idOportunidades
-                WHERE i.idUsuarios = :idAluno
-                ORDER BY i.idInscricoes DESC";
-
+        $sql = "SELECT i.*, o.titulo, o.descricao, o.tipoOportunidade, o.dataInicio, o.dataFim
+            FROM inscricoes i
+            INNER JOIN oportunidades o ON i.idOportunidades = o.idOportunidades
+            WHERE i.idUsuarios = :idAluno
+            ORDER BY i.idInscricoes DESC";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":idAluno", $idAluno, PDO::PARAM_INT);
         $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -72,20 +72,31 @@ class InscricaoDAO
         $stmt->execute();
     }
 
-public function listByOportunidadeDetalhado(int $idOportunidade)
-{
-    $sql = "SELECT i.*, u.nomeCompleto as nomeAluno, u.email as emailAluno, u.matricula as matriculaAluno
+    public function listByOportunidadeDetalhado(int $idOportunidade)
+    {
+        $sql = "SELECT i.*, 
+                   u.nomeCompleto as nomeAluno, 
+                   u.email as emailAluno, 
+                   u.matricula as matriculaAluno,
+                   c.nome as cursoAluno
             FROM inscricoes i
             INNER JOIN usuarios u ON i.idUsuarios = u.idUsuarios
+            INNER JOIN cursos c ON u.idCursos = c.idCursos
             WHERE i.idOportunidades = :idOportunidade
             ORDER BY i.idInscricoes DESC";
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindValue(":idOportunidade", $idOportunidade, PDO::PARAM_INT);
-    $stmt->execute();
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":idOportunidade", $idOportunidade, PDO::PARAM_INT);
+        $stmt->execute();
 
-    return $stmt->fetchAll(PDO::FETCH_OBJ);
-}
-
-
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function updateStatus(int $idInscricao, string $novoStatus)
+    {
+        $sql = "UPDATE inscricoes SET status = :status WHERE idInscricoes = :idInscricao";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':status', $novoStatus);
+        $stmt->bindValue(':idInscricao', $idInscricao, PDO::PARAM_INT);
+        $stmt->execute();
+    }
 }

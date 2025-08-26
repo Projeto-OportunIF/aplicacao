@@ -51,13 +51,13 @@ require_once(__DIR__ . "/../include/menu.php");
   </div>
 
 
-    <!-- Botão para visualizar inscrições -->
-    <div class="card">
-        <h3>Minhas Inscrições</h3>
-        <p>Visualize todas as oportunidades em que você se inscreveu e gerencie suas inscrições.</p>
-        <img src="<?= BASEURL ?>/view/img/visualizar_inscricao.png" alt="Minhas Inscrições" class="icon">
-        <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=listarInscricoes" class="btn-visualizar">Visualizar</a>
-    </div>
+  <!-- Botão para visualizar inscrições -->
+  <div class="card">
+    <h3>Minhas Inscrições</h3>
+    <p>Visualize todas as oportunidades em que você se inscreveu e gerencie suas inscrições.</p>
+    <img src="<?= BASEURL ?>/view/img/visualizar_inscricao.png" alt="Minhas Inscrições" class="icon">
+    <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=listarInscricoes" class="btn-visualizar">Visualizar</a>
+  </div>
 </div>
 
 
@@ -65,4 +65,3 @@ require_once(__DIR__ . "/../include/menu.php");
 <?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>
-

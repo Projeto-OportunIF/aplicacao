@@ -4,7 +4,7 @@
 
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
-?> 
+?>
 
 
 
@@ -26,15 +26,15 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="row" style="margin-top: 20px;">
         <div class="col-12">
-         <form action="<?= BASEURL ?>/controller/InscricaoController.php?action=inscrever&idOport=<?= $dados['oportunidade']->getId() ?>" method="post" enctype="multipart/form-data">
-    <!-- Campo de upload obrigatório -->
-    <div class="mb-3">
-        <label class="form-label" for="documentoAluno">Enviar Documento (obrigatório):</label>
-        <input type="file" name="documentoAluno" id="documentoAluno" class="form-control" required>
-    </div>
+            <form action="<?= BASEURL ?>/controller/InscricaoController.php?action=inscrever&idOport=<?= $dados['oportunidade']->getId() ?>" method="post" enctype="multipart/form-data">
+                <!-- Campo de upload obrigatório -->
+                <div class="mb-3">
+                    <label class="form-label" for="documentoAluno">Enviar Documento (obrigatório):</label>
+                    <input type="file" name="documentoAluno" id="documentoAluno" class="form-control" required>
+                </div>
 
-    <button type="submit" class="btn btn-success">Inscrever-se</button>
-</form>
+                <button type="submit" class="btn btn-success">Inscrever-se</button>
+            </form>
 
 
         </div>
