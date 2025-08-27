@@ -48,7 +48,8 @@ require_once(__DIR__ . "/../include/menu.php");
 
                 <div class="mb-3">
                     <label class="form-label" for="selTipo">Tipo de Oportunidade:</label>
-                    <select class="form-select" name="tipo" id="selTipo">
+                    <select name="tipo" id="selTipo" class="form-select">
+                        <option value="">Selecione o Tipo de Oportunidade</option>
 
                         <?php foreach (OportunidadeTipo::getAllAsArray() as $tipo): ?>
                             <option value="<?= $tipo ?>"
@@ -67,6 +68,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
                     <div class="mb-3">
                         <label class="form-label" for="vaga">Quantidade de Vagas:</label>
+
                         <input type="number" class="form-control" name="vaga" id="vaga"
                             value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getVaga() : '' ?>">
                     </div>
@@ -91,8 +93,8 @@ require_once(__DIR__ . "/../include/menu.php");
                     <label class="form-label" for="documento">Possui Documento em Anexo? </label>
 
                     <label class="switch">
-                    <input class="checkbox" type="checkbox" value="false">
-                    <span class="slider round"></span>
+                        <input class="checkbox" type="checkbox" value="false">
+                        <span class="slider round"></span>
                     </label>
                 </div>
 
@@ -105,24 +107,26 @@ require_once(__DIR__ . "/../include/menu.php");
 
 
                 <div class="mb-3">
-                    <label class="form-label" for="curso">Curso:</label>
-                    <select name="curso" id="curso" class="form-select">
-                        <option value="">Selecione o curso</option>
+                    <label class="form-label">Cursos:</label>
+                    <div>
                         <?php foreach ($dados['cursos'] as $curso): ?>
-                            <option value="<?= $curso->getId() ?>"
-                                <?php
-                                if (
-                                    isset($dados['oportunidade']) &&
-                                    $dados['oportunidade']->getCurso() &&
-                                    $dados['oportunidade']->getCurso()->getId() == $curso->getId()
-                                )
-                                    echo "selected";
-                                ?>>
-                                <?= $curso->getNome() ?>
-                            </option>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                    name="cursos[]"
+                                    value="<?= $curso->getId() ?>"
+                                    <?php
+                                    if (isset($dados['oportunidadeCursos'])) {
+                                        foreach ($dados['oportunidadeCursos'] as $oc) {
+                                            if ($oc->getId() == $curso->getId()) echo "checked";
+                                        }
+                                    }
+                                    ?>>
+                                <label class="form-check-label"><?= $curso->getNome() ?></label>
+                            </div>
                         <?php endforeach; ?>
-                    </select>
+                    </div>
                 </div>
+
 
 
                 <div class="mt-3">
@@ -147,29 +151,26 @@ require_once(__DIR__ . "/../include/menu.php");
 </div>
 
 <script>
-
     let exibirCampoAnexos = false;
     let seletor = document.querySelector(".documento-seletor .checkbox");
     let anexos = document.querySelector(".documento-anexo");
 
 
-    seletor.addEventListener("click", ()=>{
+    seletor.addEventListener("click", () => {
         exibirCampoAnexos = seletor.checked;
 
-        if(exibirCampoAnexos == true){
+        if (exibirCampoAnexos == true) {
             anexos.style.display = "block";
-        }else {
+        } else {
             anexos.style.display = "none";
 
         }
     });
-
-
 </script>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
 <script>
-        new FroalaEditor("#txtDescricao");
+    new FroalaEditor("#txtDescricao");
 </script>
 
 

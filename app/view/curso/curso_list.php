@@ -48,7 +48,7 @@ require_once(__DIR__ . "/../include/menu.php");
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        
+
 
                     <?php endif; ?>
                 </tbody>

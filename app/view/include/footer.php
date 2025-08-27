@@ -1,18 +1,21 @@
 <!-- Adicione isso no <head> ou no seu arquivo CSS -->
 <style>
     body {
-        min-height: 100vh; /* ocupa altura total da tela */
+        min-height: 100vh;
+        /* ocupa altura total da tela */
         display: flex;
         flex-direction: column;
         margin: 0;
     }
 
     main {
-        flex: 1; /* empurra o footer para baixo */
+        flex: 1;
+        /* empurra o footer para baixo */
     }
 
     footer {
-        margin-top: auto; /* garante que o footer fique colado no fim */
+        margin-top: auto;
+        /* garante que o footer fique colado no fim */
     }
 </style>
 
@@ -32,4 +35,5 @@
     <!-- BOOTSTRAP: scripts requeridos pelo framework -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+
 </html>

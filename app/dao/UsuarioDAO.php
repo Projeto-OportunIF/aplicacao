@@ -26,9 +26,9 @@ class UsuarioDAO
     {
         $conn = Connection::getConn();
 
-        $sql = "SELECT u.*, c.nome AS nomeCursos FROM usuarios u" . 
-                    " LEFT JOIN cursos c ON (c.idCursos = u.idCursos)" .
-               " WHERE u.idUsuarios = ?";
+        $sql = "SELECT u.*, c.nome AS nomeCursos FROM usuarios u" .
+            " LEFT JOIN cursos c ON (c.idCursos = u.idCursos)" .
+            " WHERE u.idUsuarios = ?";
         $stm = $conn->prepare($sql);
         $stm->execute([$id]);
         $result = $stm->fetchAll();
@@ -71,23 +71,23 @@ class UsuarioDAO
             " - Erro: mais de um usuário encontrado.");
     }
 
- public function findByEmail(string $email)
-{
-    $conn = Connection::getConn();
+    public function findByEmail(string $email)
+    {
+        $conn = Connection::getConn();
 
-    $sql = "SELECT * FROM usuarios WHERE email = ?";
-    $stm = $conn->prepare($sql);
-    $stm->execute([$email]);
+        $sql = "SELECT * FROM usuarios WHERE email = ?";
+        $stm = $conn->prepare($sql);
+        $stm->execute([$email]);
 
-    $result = $stm->fetchAll();
-    $usuarios = $this->mapUsuarios($result);
+        $result = $stm->fetchAll();
+        $usuarios = $this->mapUsuarios($result);
 
-    if (count($usuarios) > 0) {
-        return $usuarios[0]; // Retorna o primeiro usuário encontrado
+        if (count($usuarios) > 0) {
+            return $usuarios[0]; // Retorna o primeiro usuário encontrado
+        }
+
+        return null; // Não encontrado
     }
-
-    return null; // Não encontrado
-}
 
     //Método para inserir um Usuario
     public function insert(Usuario $usuario)
@@ -121,7 +121,7 @@ class UsuarioDAO
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNomeCompleto());
-        
+
         $stm->bindValue("email", $usuario->getEmail());
         $stm->bindValue("cpf", $usuario->getCpf());
         $stm->bindValue("senha", password_hash($usuario->getSenha(), PASSWORD_DEFAULT));
@@ -146,9 +146,10 @@ class UsuarioDAO
         $stm->bindValue("id", $id);
         $stm->execute();
     }
-    
-     //Método para alterar a foto de perfil de um usuário
-     public function updateFotoPerfil(Usuario $usuario) {
+
+    //Método para alterar a foto de perfil de um usuário
+    public function updateFotoPerfil(Usuario $usuario)
+    {
         $conn = Connection::getConn();
 
         $sql = "UPDATE usuarios SET foto_perfil = ? WHERE id_usuario = ?";
@@ -186,10 +187,10 @@ class UsuarioDAO
             $usuario->setCpf($reg['cpf']);
 
             $usuario->setFotoPerfil($reg['fotoPerfil']);
-            
+
             $curso = new Curso();
             $curso->setId($reg['idCursos']);
-            if(isset($reg["nomeCursos"]))
+            if (isset($reg["nomeCursos"]))
                 $curso->setNome($reg["nomeCursos"]);
 
             $usuario->setCurso($curso);

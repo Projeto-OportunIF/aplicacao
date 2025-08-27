@@ -1,0 +1,27 @@
+<?php
+require_once(__DIR__ . "/../include/header.php");
+require_once(__DIR__ . "/../include/menu.php");
+?>
+
+<!-- Link para CSS externo -->
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeProfessor.css">
+
+<h2 class="titulo">Adicionar ao Sistema</h2>
+
+<div class="container-botoes">
+    <a href="<?= BASEURL ?>/controller/UsuarioController.php?action=list" class="botao-opcao">
+        <div class="texto-botao">USUÁRIOS</div>
+        <div class="botao-quadrado">
+            <img src="<?= BASEURL ?>/view/img/add_usuario.png" alt="Adicionar">
+        </div>
+    </a>
+
+    <a href="<?= BASEURL ?>/controller/CursoController.php?action=list" class="botao-opcao">
+        <div class="texto-botao">CURSOS</div>
+        <div class="botao-quadrado">
+            <img src="<?= BASEURL ?>/view/img/add_curso.png" alt="Visualizar">
+        </div>
+    </a>
+</div>
+
+<?php require_once(__DIR__ . "/../include/footer.php"); ?>

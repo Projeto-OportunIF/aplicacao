@@ -2,15 +2,12 @@
 # Nome do arquivo: Oportunidade.php
 # Objetivo: classe Model para Oportunidade
 
-
 require_once(__DIR__ . "/Curso.php");
 require_once(__DIR__ . "/Usuario.php");
 require_once(__DIR__ . "/enum/OportunidadeTipo.php");
 
-
-class Oportunidade {
-
-
+class Oportunidade
+{
     private ?int $id;
     private ?string $titulo;
     private ?string $descricao;
@@ -18,136 +15,159 @@ class Oportunidade {
     private ?string $dataInicio;
     private ?string $dataFim;
     private ?string $documentoAnexo;
-    private ?Curso $curso;
+    private array $cursos = []; // Agora é um array de cursos
     private ?Usuario $professor = null;
     private ?int $vaga;
 
+    // ----------------------
+    // GETTERS E SETTERS
+    // ----------------------
 
-    public function getVaga(): ?int
-{
-    return $this->vaga;
-}
-
-
-public function setVaga(?int $vaga): void
-{
-    $this->vaga = $vaga;
-}
-
-
-
-
-
-
-
-
-   public function getId(): ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-
-   
     public function setId(?int $id): self
     {
         $this->id = $id;
-
-
         return $this;
     }
 
-
-    public function getTitulo(): ?string {
+    public function getTitulo(): ?string
+    {
         return $this->titulo;
     }
 
-
-    public function setTitulo(?string $titulo): self {
+    public function setTitulo(?string $titulo): self
+    {
         $this->titulo = $titulo;
         return $this;
     }
 
-
-    public function getDescricao(): ?string {
+    public function getDescricao(): ?string
+    {
         return $this->descricao;
     }
 
-
-    public function setDescricao(?string $descricao): self {
+    public function setDescricao(?string $descricao): self
+    {
         $this->descricao = $descricao;
         return $this;
     }
 
-
-    public function getTipoOportunidade(): ?string {
+    public function getTipoOportunidade(): ?string
+    {
         return $this->tipoOportunidade;
     }
-
-
-
 
     public function setTipoOportunidade(?string $tipoOportunidade): self
     {
         $this->tipoOportunidade = $tipoOportunidade;
-
-
         return $this;
     }
 
-
-
-
-    public function getDataInicio(): ?string {
+    public function getDataInicio(): ?string
+    {
         return $this->dataInicio;
     }
 
+    public function getDataInicioFormatada(): ?string
+    {
+        if ($this->dataInicio) {
+            $date = new DateTimeImmutable($this->dataInicio);
+            return $date->format('d/m/Y');
+        }
+        return "";
+    }
 
-    public function setDataInicio(?string $dataInicio): self {
+    public function setDataInicio(?string $dataInicio): self
+    {
         $this->dataInicio = $dataInicio;
         return $this;
     }
 
-
-    public function getDataFim(): ?string {
+    public function getDataFim(): ?string
+    {
         return $this->dataFim;
     }
 
+    public function getDataFimFormatada(): ?string
+    {
+        if ($this->dataFim) {
+            $date = new DateTimeImmutable($this->dataFim);
+            return $date->format('d/m/Y');
+        }
+        return "";
+    }
 
-    public function setDataFim(?string $dataFim): self {
+    public function setDataFim(?string $dataFim): self
+    {
         $this->dataFim = $dataFim;
         return $this;
     }
 
-
-    public function getDocumentoAnexo(): ?string {
+    public function getDocumentoAnexo(): ?string
+    {
         return $this->documentoAnexo;
     }
 
-
-    public function setDocumentoAnexo(?string $documentoAnexo): self {
+    public function setDocumentoAnexo(?string $documentoAnexo): self
+    {
         $this->documentoAnexo = $documentoAnexo;
         return $this;
     }
 
-
-    public function getCurso(): ?Curso {
-        return $this->curso;
+    public function getVaga(): ?int
+    {
+        return $this->vaga;
     }
 
-
-    public function setCurso(?Curso $curso): self {
-        $this->curso = $curso;
-        return $this;
+    public function setVaga(?int $vaga): void
+    {
+        $this->vaga = $vaga;
     }
 
-
-    public function getProfessor(): ?Usuario {
+    public function getProfessor(): ?Usuario
+    {
         return $this->professor;
     }
 
-
-    public function setProfessor(?Usuario $professor): self {
+    public function setProfessor(?Usuario $professor): self
+    {
         $this->professor = $professor;
+        return $this;
+    }
+
+    // ----------------------
+    // NOVOS MÉTODOS PARA CURSOS
+    // ----------------------
+
+    public function getCursos(): array
+    {
+        return $this->cursos;
+    }
+
+    public function setCursos(array $cursos): self
+    {
+        $this->cursos = $cursos;
+        return $this;
+    }
+
+    // Para compatibilidade com antigo getCurso (retorna o primeiro curso, se existir)
+    public function getCurso(): ?Curso
+    {
+        return $this->cursos[0] ?? null;
+    }
+
+    // Para compatibilidade com antigo setCurso (substitui todos os cursos pelo passado)
+    public function setCurso(?Curso $curso): self
+    {
+        if ($curso) {
+            $this->cursos = [$curso];
+        } else {
+            $this->cursos = [];
+        }
         return $this;
     }
 }

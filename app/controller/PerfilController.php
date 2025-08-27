@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
@@ -6,15 +6,17 @@ require_once(__DIR__ . "/../service/UsuarioService.php");
 require_once(__DIR__ . "/../service/ArquivoService.php");
 require_once(__DIR__ . "/../service/LoginService.php");
 
-class PerfilController extends Controller {
+class PerfilController extends Controller
+{
 
     private UsuarioDAO $usuarioDao;
     private UsuarioService $usuarioService;
     private ArquivoService $arquivoService;
     private LoginService $loginService;
 
-    public function __construct() {
-        if(! $this->usuarioEstaLogado())
+    public function __construct()
+    {
+        if (! $this->usuarioEstaLogado())
             return;
 
         $this->usuarioDao = new UsuarioDAO();
@@ -22,20 +24,22 @@ class PerfilController extends Controller {
         $this->arquivoService = new ArquivoService();
         $this->loginService = new LoginService();
 
-        $this->handleAction();    
+        $this->handleAction();
     }
 
     // Carrega a view de perfil com os dados do usuário logado
-    protected function view() {
+    protected function view()
+    {
         $idUsuarioLogado = $this->getIdUsuarioLogado();
         $usuario = $this->usuarioDao->findById($idUsuarioLogado);
         $dados['usuario'] = $usuario;
 
-        $this->loadView("perfil/perfil.php", $dados);    
+        $this->loadView("perfil/perfil.php", $dados);
     }
 
     // Salva a foto de perfil do usuário
-    protected function save() {
+    protected function save()
+    {
         $erros = [];
 
         // Verifica se a foto foi enviada
@@ -53,11 +57,11 @@ class PerfilController extends Controller {
                 $idUsuarioLogado = $this->getIdUsuarioLogado();
                 $usuario = $this->usuarioDao->findById($idUsuarioLogado);
 
-                $usuario->setFotoPerfil($fotoNome);                
-                
+                $usuario->setFotoPerfil($fotoNome);
+
+
                 // TODO: Certifique-se de que o método update atualiza a foto
                 $this->usuarioDao->update($usuario);
-
             }
         } else {
             // Nenhuma imagem foi enviada
@@ -74,7 +78,7 @@ class PerfilController extends Controller {
 
         $msgErro = implode("<br>", $erros);
 
-        $this->loadView("perfil/perfil.php", $dados, $msgErro); 
+        $this->loadView("perfil/perfil.php", $dados, $msgErro);
     }
 
     protected function editarPerfil() {

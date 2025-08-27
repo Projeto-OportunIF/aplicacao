@@ -13,11 +13,12 @@
 }
 
 .card-oportunidade {
-    background-color: #cf4763; /* vermelho do protótipo */
+    background-color: #cf4763;
+    /* vermelho do protótipo */
     color: white;
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -46,7 +47,8 @@
 .btn-inscrever {
     margin-top: 15px;
     padding: 10px 20px;
-    background-color: #afc38b; /* verde do protótipo */
+    background-color: #afc38b;
+    /* verde do protótipo */
     color: white;
     border: none;
     border-radius: 25px;

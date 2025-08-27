@@ -1,6 +1,6 @@
 <?php
 if (isset($msgErro) && trim($msgErro) != "") {
-	echo("
+	echo ("
 	<div style='
 		background-color: #f8d7da;
 		color: #721c24;
@@ -14,10 +14,6 @@ if (isset($msgErro) && trim($msgErro) != "") {
 		$msgErro
 	</div>");
 }
-	if(isset($msgSucesso) and (trim($msgSucesso) != "")){
-		echo("<div class='alert alert-success'>" . $msgSucesso . "</div>");
-	}
-?>
-
-
-
+if (isset($msgSucesso) and (trim($msgSucesso) != "")) {
+	echo ("<div class='alert alert-success'>" . $msgSucesso . "</div>");
+}

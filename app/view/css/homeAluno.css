@@ -20,7 +20,7 @@ h2 {
 }
 
 .card {
-    background-color:#c23956;
+    background-color: #c23956;
     border-radius: 10px;
     padding: 90px 44px 120px 20px;
     width: 300px;
@@ -47,10 +47,10 @@ h2 {
 }
 
 .icon {
-    width: 175px;       
-    height: 165px;      
-    margin: 0 auto 10px; 
-    display: block;    
+    width: 175px;
+    height: 165px;
+    margin: 0 auto 10px;
+    display: block;
     margin: 0 auto 30px;
 }
 
@@ -69,11 +69,11 @@ h2 {
     transition: background-color 0.3s ease;
     text-decoration: none;
     text-align: center;
-   
-    
+
+
 }
 
 .btn-visualizar:hover {
     background-color: #e4d6d7;
-    
+
 }

@@ -9,29 +9,31 @@ require_once(__DIR__ . "/../model/Usuario.php");
 require_once(__DIR__ . "/../model/enum/UsuarioTipo.php");
 
 
-class CadastroController extends Controller {
+class CadastroController extends Controller
+{
 
     private UsuarioDAO $usuarioDao;
     private cadastroService $cadastroService;
     private CursoDAO $cursoDAO;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->usuarioDao = new UsuarioDAO();
         $this->cadastroService = new CadastroService();
         $this->cursoDAO = new CursoDAO();
 
         $this->handleAction();
     }
-      
-    protected function cadastrar() {
+
+    protected function cadastrar()
+    {
         $dados['id'] = 0;
         $dados['tipoUsuario'] = UsuarioTipo::getSemAdminAsArray();
         $dados['cursos'] = $this->cursoDAO->list();
 
-        $this->loadView("cadastro/form.php", $dados);
-
-}
-protected function save()
+        $this->loadView("autocadastro/autocadastro_form.php", $dados);
+    }
+    protected function save()
     {
         //Capturar os dados do formulário
         $id = $_POST['id'];
@@ -65,24 +67,23 @@ protected function save()
 
         //Validar os dados (camada service)
         $erros = $this->cadastroService->validarDados($usuario, $confSenha);
-       if (! $erros) {
-    try {
-        if ($usuario->getId() == 0) {
-            // Verifica se e-mail já existe
-            $usuarioExistente = $this->usuarioDao->findByEmail($usuario->getEmail());
-            if ($usuarioExistente) {
-                array_push($erros, "Já existe um usuário com este e-mail!");
-            } else {
-                $this->usuarioDao->insert($usuario);
-                header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
-                exit;
-            }
-        } else {
-            $this->usuarioDao->update($usuario);
-            header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
-            exit;
-        }
-
+        if (! $erros) {
+            try {
+                if ($usuario->getId() == 0) {
+                    // Verifica se e-mail já existe
+                    $usuarioExistente = $this->usuarioDao->findByEmail($usuario->getEmail());
+                    if ($usuarioExistente) {
+                        array_push($erros, "Já existe um usuário com este e-mail!");
+                    } else {
+                        $this->usuarioDao->insert($usuario);
+                        header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+                        exit;
+                    }
+                } else {
+                    $this->usuarioDao->update($usuario);
+                    header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+                    exit;
+                }
             } catch (PDOException $e) {
                 //Iserir erro no array
                 array_push($erros, "Erro ao gravar no banco de dados!");
@@ -100,13 +101,8 @@ protected function save()
 
         $msgErro = implode("<br>", $erros);
 
-        $this->loadView("cadastro/form.php", $dados, $msgErro);
-
-
-
+        $this->loadView("autocadastro/autocadastro_form.php", $dados, $msgErro);
     }
-
-
 }
 
 new CadastroController();

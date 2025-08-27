@@ -20,12 +20,12 @@ require_once(__DIR__ . "/../include/header.php");
                 <label for="txtEmail">EMAIL</label><br>
                 <input type="text" name="email" id="txtEmail"
                     maxlength="45" placeholder="Informe o email"
-                    value="<?php echo isset($dados['email']) ? $dados['email'] : '' ?>" />        
+                    value="<?php echo isset($dados['email']) ? $dados['email'] : '' ?>" />
 
                 <label for="txtSenha">SENHA</label><br>
                 <input type="password" name="senha" id="txtSenha"
                     maxlength="15" placeholder="Informe a senha"
-                    value="<?php echo isset($dados['senha']) ? $dados['senha'] : '' ?>" />        
+                    value="<?php echo isset($dados['senha']) ? $dados['senha'] : '' ?>" />
 
                 <button type="submit" class="login-btn">login</button>
             </form>
@@ -42,6 +42,6 @@ require_once(__DIR__ . "/../include/header.php");
     </div>
 </div>
 
-<?php  
+<?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>

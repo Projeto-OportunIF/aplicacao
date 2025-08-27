@@ -25,41 +25,43 @@ class OportunidadeDAO
         return $this->mapOportunidades($result);
     }
 
-    
-// Lista oportunidades filtrando pelo tipo (Estágio, Pesquisa, Extensão)
-public function listByTipo(string $tipo)
-{
-    $conn = Connection::getConn();
 
-    $sql = "SELECT * FROM oportunidades o 
+    // Lista oportunidades filtrando pelo tipo (Estágio, Pesquisa, Extensão)
+    public function listByTipo(string $tipo)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "SELECT * FROM oportunidades o 
             WHERE o.tipoOportunidade = :tipo
             ORDER BY o.titulo";
-    $stm = $conn->prepare($sql);
-    $stm->bindValue(":tipo", $tipo);
-    $stm->execute();
-    $result = $stm->fetchAll();
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":tipo", $tipo);
+        $stm->execute();
+        $result = $stm->fetchAll();
 
-    return $this->mapOportunidades($result);
-}
+        return $this->mapOportunidades($result);
+    }
 
-//filtra para que as oportunidades que o professor cadastrou de um curso apareca somente para o aluno dessse determinado curso 
-public function listByTipoECurso(string $tipo, int $idCurso)
-{
-    $conn = Connection::getConn();
+    //filtra para que as oportunidades que o professor cadastrou de um curso apareca somente para o aluno dessse determinado curso 
+    public function listByTipoECurso(string $tipo, int $idCurso)
+    {
+        $conn = Connection::getConn();
 
-    $sql = "SELECT * FROM oportunidades o 
-            WHERE o.tipoOportunidade = :tipo 
-              AND o.idCursos = :idCurso
+        $sql = "SELECT o.* FROM oportunidades o
+            INNER JOIN oportunidade_curso oc ON o.idOportunidades = oc.idOportunidade
+            WHERE o.tipoOportunidade = :tipo
+              AND oc.idCurso = :idCurso
             ORDER BY o.titulo";
 
-    $stm = $conn->prepare($sql);
-    $stm->bindValue(":tipo", $tipo);
-    $stm->bindValue(":idCurso", $idCurso);
-    $stm->execute();
-    $result = $stm->fetchAll();
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":tipo", $tipo);
+        $stm->bindValue(":idCurso", $idCurso);
+        $stm->execute();
+        $result = $stm->fetchAll();
 
-    return $this->mapOportunidades($result);
-}
+        return $this->mapOportunidades($result);
+    }
+
 
 
     // Busca oportunidade por ID
@@ -92,64 +94,77 @@ public function listByTipoECurso(string $tipo, int $idCurso)
     {
         $conn = Connection::getConn();
 
-
-        // ;
-
-
-        $sql = "INSERT INTO `oportunidades` (`titulo`, `descricao`, `tipoOportunidade`, `dataInicio`, `dataFim`, `documentoAnexo`, `idUsuarios`, `idCursos`, `vaga`) VALUES (:titulo, :descricao, :tipoOportunidade, :dataInicio, :dataFim, :documentoAnexo, :idUsuarios, :idCursos, :vaga)";
-
+        $sql = "INSERT INTO oportunidades 
+        (titulo, descricao, tipoOportunidade, dataInicio, dataFim, documentoAnexo, idUsuarios, vaga) 
+        VALUES (:titulo, :descricao, :tipoOportunidade, :dataInicio, :dataFim, :documentoAnexo, :idUsuarios, :vaga)";
 
         $stm = $conn->prepare($sql);
-        $stm->bindValue("titulo", $oportunidade->getTitulo());
-        $stm->bindValue("descricao", $oportunidade->getDescricao());
-        $stm->bindValue("tipoOportunidade", $oportunidade->getTipoOportunidade());
-        $stm->bindValue("dataInicio", $oportunidade->getDataInicio());
-        $stm->bindValue("dataFim", $oportunidade->getDataFim());
-        $stm->bindValue("documentoAnexo", $oportunidade->getDocumentoAnexo());
-        $stm->bindValue("idUsuarios", $oportunidade->getProfessor()->getId());
-        $stm->bindValue("idCursos", $oportunidade->getCurso() ? $oportunidade->getCurso()->getId() : null);
+        $stm->bindValue(":titulo", $oportunidade->getTitulo());
+        $stm->bindValue(":descricao", $oportunidade->getDescricao());
+        $stm->bindValue(":tipoOportunidade", $oportunidade->getTipoOportunidade());
+        $stm->bindValue(":dataInicio", $oportunidade->getDataInicio());
+        $stm->bindValue(":dataFim", $oportunidade->getDataFim());
+        $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
+        $stm->bindValue(":idUsuarios", $oportunidade->getProfessor()->getId());
         $stm->bindValue(":vaga", $oportunidade->getVaga());
-
-
         $stm->execute();
+
+        $idOportunidade = $conn->lastInsertId();
+
+        // Inserir cursos relacionados
+        foreach ($oportunidade->getCursos() as $curso) {
+            $sqlCurso = "INSERT INTO oportunidade_curso (idOportunidade, idCurso) VALUES (:idOportunidade, :idCurso)";
+            $stmCurso = $conn->prepare($sqlCurso);
+            $stmCurso->bindValue(":idOportunidade", $idOportunidade);
+            $stmCurso->bindValue(":idCurso", $curso->getId());
+            $stmCurso->execute();
+        }
     }
 
 
     // Atualizar oportunidade
-  public function update(Oportunidade $oportunidade)
-{
-    $conn = Connection::getConn();
+    public function update(Oportunidade $oportunidade)
+    {
+        $conn = Connection::getConn();
 
-
-    $sql = "UPDATE oportunidades SET
+        //  Atualizar dados da oportunidade (sem idCursos)
+        $sql = "UPDATE oportunidades SET
                 titulo = :titulo,
                 descricao = :descricao,
                 tipoOportunidade = :tipo,
                 dataInicio = :dataInicio,
                 dataFim = :dataFim,
                 documentoAnexo = :documentoAnexo,
-                idCursos = :idCursos,
-                 vaga = :vaga
+                vaga = :vaga
             WHERE idOportunidades = :id";
 
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":titulo", $oportunidade->getTitulo());
+        $stm->bindValue(":descricao", $oportunidade->getDescricao());
+        $stm->bindValue(":tipo", $oportunidade->getTipoOportunidade());
+        $stm->bindValue(":dataInicio", $oportunidade->getDataInicio());
+        $stm->bindValue(":dataFim", $oportunidade->getDataFim());
+        $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
+        $stm->bindValue(":vaga", $oportunidade->getVaga());
+        $stm->bindValue(":id", $oportunidade->getId());
+        $stm->execute();
 
-    $stm = $conn->prepare($sql);
+        //  Atualizar cursos relacionados
+        // 2a - Apagar cursos antigos
+        $sqlDelete = "DELETE FROM oportunidade_curso WHERE idOportunidade = :idOportunidade";
+        $stmDelete = $conn->prepare($sqlDelete);
+        $stmDelete->bindValue(":idOportunidade", $oportunidade->getId());
+        $stmDelete->execute();
 
-
-    $stm->bindValue(":vaga", $oportunidade->getVaga());
-   
-    $stm->bindValue(":titulo", $oportunidade->getTitulo());
-    $stm->bindValue(":descricao", $oportunidade->getDescricao());
-    $stm->bindValue(":tipo", $oportunidade->getTipoOportunidade());
-    $stm->bindValue(":dataInicio", $oportunidade->getDataInicio());
-    $stm->bindValue(":dataFim", $oportunidade->getDataFim());
-    $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
-    $stm->bindValue(":idCursos", $oportunidade->getCurso() ? $oportunidade->getCurso()->getId() : null);
-    $stm->bindValue(":id", $oportunidade->getId());
-
-
-    $stm->execute();
-}
+        // 2b - Inserir cursos novos
+        foreach ($oportunidade->getCursos() as $curso) {
+            $sqlInsert = "INSERT INTO oportunidade_curso (idOportunidade, idCurso) VALUES (:idOportunidade, :idCurso)";
+            $stmInsert = $conn->prepare($sqlInsert);
+            $stmInsert->bindValue(":idOportunidade", $oportunidade->getId());
+            $stmInsert->bindValue(":idCurso", $curso->getId());
+            $stmInsert->execute();
+        }
+    }
 
 
     // Excluir oportunidade
@@ -180,25 +195,38 @@ public function listByTipoECurso(string $tipo, int $idCurso)
             $oportunidade->setDataInicio($reg['dataInicio']);
             $oportunidade->setDataFim($reg['dataFim']);
             $oportunidade->setDocumentoAnexo($reg['documentoAnexo']);
-             $oportunidade->setVaga($reg['vaga']);
+            $oportunidade->setVaga($reg['vaga']);
 
+            // Professor
+            $professor = new Usuario();
+            $professor->setId($reg['idUsuarios']);
+            $oportunidade->setProfessor($professor);
 
-            
-            $curso = new Curso();
-            $curso->setId($reg['idCursos']);
-            $oportunidade->setCurso($curso);
+            // Cursos: agora você deve buscar na tabela oportunidade_curso
+            require_once(__DIR__ . "/CursoDAO.php");
+            $cursoDao = new CursoDAO();
+            $oportunidade->setCursos($cursoDao->getCursosByOportunidade($reg['idOportunidades']));
 
-
-            array_push($oportunidades, $oportunidade);
+            $oportunidades[] = $oportunidade;
         }
-
 
         return $oportunidades;
     }
 
 
 
+    // Inscrever aluno em uma oportunidade
+    public function inscreverAluno(int $idAluno, int $idOportunidade)
+    {
+        $conn = Connection::getConn();
 
+        $sql = "INSERT INTO inscricoes (idUsuarios, idOportunidades, status) 
+                VALUES (:idAluno, :idOportunidade, 'PENDENTE')";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":idAluno", $idAluno);
+        $stm->bindValue(":idOportunidade", $idOportunidade);
+
+        return $stm->execute(); // retorna true se deu certo
+    }
 }
-
-

@@ -6,6 +6,11 @@ class Curso
     private ?int $id;
     private ?string $nome;
 
+    public function __construct()
+    {
+        $this->nome = null;
+    }
+
 
 
     /**

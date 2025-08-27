@@ -82,4 +82,26 @@ class CursoDAO
 
         return $cursos;
     }
+
+    public function getCursosByOportunidade(int $idOportunidade): array
+    {
+        $conn = Connection::getConn();
+        $sql = "SELECT c.* FROM cursos c
+            INNER JOIN oportunidade_curso oc ON c.idCursos = oc.idCurso
+            WHERE oc.idOportunidade = :idOportunidade";
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":idOportunidade", $idOportunidade);
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        $cursos = [];
+        foreach ($result as $reg) {
+            $curso = new Curso();
+            $curso->setId($reg['idCursos']);
+            $curso->setNome($reg['nome']);
+            $cursos[] = $curso;
+        }
+
+        return $cursos;
+    }
 }
