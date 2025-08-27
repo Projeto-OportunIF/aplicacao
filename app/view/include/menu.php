@@ -37,7 +37,7 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle usuario-topo" href="#" id="navbarUsuario"
                     data-bs-toggle="dropdown">
-                    
+
                     <img src="<?= BASEURL_ARQUIVOS . "/$fotoPerfil" ?>" alt="Foto de perfil">
 
                     <span><?= $nome ?></span>
@@ -48,7 +48,7 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
                         href="<?= BASEURL . '/controller/PerfilController.php?action=view' ?>">Perfil</a>
                     <a class="dropdown-item" href="<?= LOGOUT_PAGE ?>">Sair</a>
                 </div>
-                
+
             </li>
         </ul>
     </div>
