@@ -50,23 +50,15 @@ require_once(__DIR__ . "/../include/header.php");
 
             <div class="mb-3">
                 <label class="form-label" for="seltipoUsuario">Tipo de Usuário:</label>
-                <select class="form-select" name="tipoUsuario" id="seltipoUsuario">
-                    <option value="">Select</option>
-                    <?php foreach ($dados["tipoUsuario"] as $tipoUsuario): ?>
-                        <option value="<?= $tipoUsuario ?>"
-                            <?php
-                            if (isset($dados["usuario"]) && $dados["usuario"]->getTipoUsuario() == $tipoUsuario)
-                                echo "selected";
-                            ?>>
-                            <?= $tipoUsuario ?>
-                        </option>
-                    <?php endforeach; ?>
+                <select class="form-select" name="tipoUsuario" id="seltipoUsuario" readonly>
+                    <option value="Aluno" selected>Selecione o seu tipo de usuário</option>
                 </select>
             </div>
 
 
+
             <div class="mb-3">
-                <label class="form-label" for="txtmatricula">Número Matrícula ou SIAPE (Professor):</label>
+                <label class="form-label" for="txtmatricula">Número Matrícula :</label>
                 <input class="form-control" type="text" id="txtmatricula" name="matricula"
                     maxlength="70" placeholder="Informe a Matrícula"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getMatricula() : ''); ?>" />
@@ -84,7 +76,7 @@ require_once(__DIR__ . "/../include/header.php");
             <div class="mb-3">
                 <label class="form-label" for="selCurso">Curso:</label>
                 <select class="form-select" name="curso" id="selCurso">
-                    <option value="">Select</option>
+                    <option value="">Selecione a qual curso você faz parte</option>
                     <?php foreach ($dados["cursos"] as $curso): ?>
                         <option value="<?= $curso->getId() ?>"
                             <?php

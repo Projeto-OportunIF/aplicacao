@@ -49,7 +49,7 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="selCurso">Curso:</label>
+                    <label class="form-label" for="selCurso">Curso (somente para alunos):</label>
                     <select class="form-select" name="curso" id="selCurso">
                         <option value="">Selecione o curso</option>
                         <?php foreach ($dados["cursos"] as $curso): ?>
@@ -63,6 +63,7 @@ require_once(__DIR__ . "/../include/menu.php");
                         <?php endforeach; ?>
                     </select>
                 </div>
+
 
 
                 <div class="mb-3">
