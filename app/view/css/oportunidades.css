@@ -1,4 +1,89 @@
-/* The switch - the box around the slider */
+/* ====== CONTAINER ====== */
+form {
+  max-width: 1000px; /* mais largo */
+  width: 100%;
+  margin: 20px auto;
+  background: #d3eba7; /* verde claro */
+  padding: 25px 35px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ====== TÍTULO PRINCIPAL ====== */
+h2, h3, h4 {
+  text-align: center;
+  color: #d6425c;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+
+/* ====== LABELS ====== */
+label {
+  font-weight: 600;
+  color: #d6425c;
+  margin-top: 15px;
+  display: block;
+}
+
+
+/* ====== CAMPOS DE TEXTO ====== */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #d6425c;
+  outline: none;
+}
+
+
+/* ====== BOTÃO SALVAR ====== */
+button, input[type="submit"] {
+  background-color: #d6425c; /* rosa */
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  margin-top: 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 200px; /* largura fixa menor para não quebrar linha */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+button:hover, input[type="submit"]:hover {
+  background-color: #a32e45;
+}
+
+
+/* ====== SWITCH PERSONALIZADO ====== */
+.documento-seletor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
 .switch {
   position: relative;
   display: inline-block;
@@ -6,14 +91,14 @@
   height: 28px;
 }
 
-/* Hide default HTML checkbox */
+
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* The slider */
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -22,9 +107,9 @@
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
   transition: .4s;
 }
+
 
 .slider:before {
   position: absolute;
@@ -34,34 +119,41 @@
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
   transition: .4s;
 }
 
-input:checked+.slider {
-  background-color: #2196F3;
+
+input:checked + .slider {
+  background-color: #d6425c;
 }
 
-input:focus+.slider {
-  box-shadow: 0 0 1px #2196F3;
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #d6425c;
 }
 
-input:checked+.slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
+
+input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Rounded sliders */
+
 .slider.round {
   border-radius: 28px;
 }
+
 
 .slider.round:before {
   border-radius: 50%;
 }
 
+
+/* ====== DOCUMENTO ANEXO ====== */
 .documento-anexo {
+  display: inline-block;
+  margin-left: 15px;
   transition: all 0.5s ease-in-out;
-  display: none;
+  vertical-align: middle;
 }
+
+
