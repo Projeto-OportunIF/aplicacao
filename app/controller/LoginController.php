@@ -46,7 +46,7 @@ class LoginController extends Controller
                     header("location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
                 } else {
                     // Fallback para uma home genérica se tipo desconhecido
-                    header("location: " . HOME_PAGE);
+                    echo "Tipo de usuário inválido!";
                 }
 
                 exit;

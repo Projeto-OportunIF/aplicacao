@@ -25,7 +25,7 @@ class LoginService
     public function salvarUsuarioSessao(Usuario $usuario)
     {
         //Habilitar o recurso de sessão no PHP nesta página
-        //session_start();
+        session_start();
 
         //Setar usuário na sessão do PHP
         $_SESSION[SESSAO_USUARIO_ID]   = $usuario->getId();
