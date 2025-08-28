@@ -8,7 +8,7 @@ require_once(__DIR__ . "/../include/header.php");
 
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/autocadastro.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/autocadastr.css">
 
 
 <div class="container">
@@ -50,8 +50,9 @@ require_once(__DIR__ . "/../include/header.php");
 
             <div class="mb-3">
                 <label class="form-label" for="seltipoUsuario">Tipo de Usuário:</label>
-                <select class="form-select" name="tipoUsuario" id="seltipoUsuario" readonly>
-                    <option value="Aluno" selected>Selecione o seu tipo de usuário</option>
+                <select class="form-select" name="tipoUsuario" id="seltipoUsuario" required>
+                    <option value="" disabled selected>Selecione o seu tipo de usuário</option>
+                    <option value="Aluno">Aluno</option>
                 </select>
             </div>
 
