@@ -1,17 +1,20 @@
+/* Estilo base da página */
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     background-color: #c1dba5;
 }
 
+/* Container principal para alinhar painéis lado a lado */
 .container {
     display: flex;
-    height: 100vh;
+    height: 107vh;
     margin: 0;
     padding: 0;
     background-color: #c1dba5;
 }
 
+/* Painel esquerdo com informações e logo */
 .left-panel {
     background-color: #c23956;
     color: white;
@@ -22,10 +25,11 @@ body {
     align-items: center;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    height: 103vh;
+    height: 107vh;
     box-sizing: border-box;
 }
 
+/* Estilo de textos e logo dentro do painel esquerdo */
 .left-panel span {
     font-size: 20px;
     margin-bottom: 20px;
@@ -43,70 +47,81 @@ body {
     line-height: 1.5;
 }
 
+/* Formulário principal */
 .form-wrapper {
     width: 900px;
+    height: 680px;
     background-color: #ecf7dc;
     padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-radius: 20px;
-    margin-left: 100px;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-left: 200px;
+    margin-top: 30px;
+    margin-bottom: 70px;
 }
 
+/* Título do formulário */
 .form-wrapper h3 {
     color: #c23956;
     font-weight: bold;
-    font-size: 40px;
-    margin-bottom: 30px;
+    font-size: 35px;
+    margin-bottom: 3px;
+    margin-top: 80px;
     text-align: center;
 }
 
+/* Rótulos dos campos do formulário */
 .form-label {
     font-weight: bold;
     font-size: 13px;
     margin-bottom: 1px;
 }
 
+/* Campos de entrada e select */
 .form-control,
 .form-select {
     border: none;
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid #222226;
     background-color: transparent;
     padding: 2px;
     width: 100%;
-    font-size: 14px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 15px;
 }
 
+/* Select com estilo customizado */
 .form-select {
     appearance: none;
     background-color: #f1e9f6;
     border: none;
-    height: 40px;
+    height: 30px;
 }
 
+/* Botão principal */
 .btn-success {
     background-color: #c23956;
     border: none;
     color: white;
-    padding: 10px 40px;
+    padding: 10px 50px;
     font-weight: bold;
     border-radius: 20px;
     transition: 0.3s;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
+/* Efeito hover do botão principal */
 .btn-success:hover {
     background-color: #a52e45;
 }
 
+/* Botão secundário */
 .btn-secondary {
-    margin-top: 5px;
+    margin-bottom: 4px;
 }
 
+/* Centraliza conteúdo */
 .text-center {
     text-align: center;
 }
