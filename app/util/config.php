@@ -30,6 +30,8 @@ define('LOGOUT_PAGE', BASEURL . '/controller/LoginController.php?action=logout')
 define('HOME_PAGE_PROFESSOR', BASEURL . '/controller/HomeController.php?action=homeProfessor');
 define('HOME_PAGE_ALUNO', BASEURL . '/controller/HomeController.php?action=homeAluno');
 define('HOME_PAGE_ADMIN', BASEURL . '/controller/HomeController.php?action=home');
+define('HOME_PAGE_EDITAR', BASEURL . '/app/view/perfil/perfilEdit.php?action=homeEditar');
+
 
 
 
