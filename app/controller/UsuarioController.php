@@ -76,18 +76,18 @@ class UsuarioController extends Controller
 
     protected function save()
     {
-        //Capturar os dados do formulário
-        $id = $_POST['id'];
-        $nomeCompleto = trim($_POST['nomeCompleto']) != "" ? trim($_POST['nomeCompleto']) : NULL;
-        $email = trim($_POST['email']) != "" ? trim($_POST['email']) : NULL;
-        $senha = trim($_POST['senha']) != "" ? trim($_POST['senha']) : NULL;
-        $confSenha = trim($_POST['conf_senha']) !== "" ? trim($_POST['conf_senha']) : null;
-        $cpf = trim($_POST['cpf']) != "" ? trim($_POST['cpf']) : NULL;
-        $tipoUsuario = trim($_POST['tipoUsuario']) != "" ? trim($_POST['tipoUsuario']) : NULL;
-        $matricula = trim($_POST['matricula']) != "" ? trim($_POST['matricula']) : NULL;
-        $idCurso = trim($_POST['curso']) != "" ? trim($_POST['curso']) : NULL;
+        // Captura os dados do formulário
+        $id = $_POST['id'] ?? 0;
+        $nomeCompleto = trim($_POST['nomeCompleto']) ?: null;
+        $email = trim($_POST['email']) ?: null;
+        $senha = trim($_POST['senha']) ?: null;
+        $confSenha = trim($_POST['conf_senha']) ?: null;
+        $cpf = trim($_POST['cpf']) ?: null;
+        $tipoUsuario = trim($_POST['tipoUsuario']) ?: null;
+        $matricula = trim($_POST['matricula']) ?: null;
+        $idCurso = trim($_POST['curso']) !== "" ? (int) $_POST['curso'] : null;
 
-        //Criar o objeto do modelo
+        // Cria o objeto Usuario
         $usuario = new Usuario();
         $usuario->setId($id);
         $usuario->setNomeCompleto($nomeCompleto);
@@ -96,43 +96,43 @@ class UsuarioController extends Controller
         $usuario->setEmail($email);
         $usuario->setMatricula($matricula);
 
+        // Seta o tipo de usuário
+        $usuario->setTipoUsuario($tipoUsuario);
+
+        // Seta o curso apenas se houver valor
         if ($idCurso) {
             $curso = new Curso();
             $curso->setId($idCurso);
             $usuario->setCurso($curso);
-        } else
-            $usuario->setCurso(NULL);
+        } else {
+            $usuario->setCurso(null);
+        }
 
-        $usuario->setTipoUsuario($tipoUsuario);
-
-
-        //Validar os dados (camada service)
+        // Valida os dados via Service
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);
-        if (! $erros) {
-            //Inserir no Base de Dados
+
+        if (!$erros) {
             try {
-                if ($usuario->getId() == 0)
+                if ($usuario->getId() == 0) {
                     $this->usuarioDao->insert($usuario);
-                else
+                } else {
                     $this->usuarioDao->update($usuario);
+                }
 
                 header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
                 exit;
             } catch (PDOException $e) {
-                //Iserir erro no array
-                array_push($erros, "Erro ao gravar no banco de dados!");
-                array_push($erros, $e->getMessage());
+                $erros[] = "Erro ao gravar no banco de dados!";
+                $erros[] = $e->getMessage();
             }
         }
 
-        //Mostrar os erros
+        // Preparar dados para reexibir o formulário com erros
         $dados['id'] = $usuario->getId();
         $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
         $dados['cursos'] = $this->cursoDAO->list();
-
         $dados['confSenha'] = $confSenha;
         $dados['usuario'] = $usuario;
-
         $msgErro = implode("<br>", $erros);
 
         $this->loadView("usuario/cadastro_usuario_form.php", $dados, $msgErro);
