@@ -35,7 +35,7 @@ class PerfilController extends Controller {
         $this->loadView("perfil/perfil.php", $dados); 
     } 
 
-    // Salva a foto de perfil do usuário 
+    // Salva apenas a foto de perfil 
     protected function save() { 
         $erros = []; 
 
@@ -64,6 +64,7 @@ class PerfilController extends Controller {
         $this->loadView("perfil/perfil.php", $dados, $msgErro); 
     } 
 
+    // Carrega tela de edição
     protected function editarPerfil() { 
         if (!isset($_SESSION[SESSAO_USUARIO_ID])) { 
             header("Location: " . BASEURL . "/controller/LoginController.php?action=login"); 
@@ -73,7 +74,6 @@ class PerfilController extends Controller {
         $idUsuario = $_SESSION[SESSAO_USUARIO_ID]; 
         $usuario = $this->usuarioDao->findById($idUsuario); 
 
-        // Instancia o CursoDAO para listar cursos
         require_once(__DIR__ . "/../dao/CursoDAO.php");
         $cursoDao = new CursoDAO();
         $cursos = $cursoDao->list();
@@ -90,6 +90,7 @@ class PerfilController extends Controller {
         $this->loadView("perfil/perfilEdit.php", $dados); 
     } 
 
+    // Salva todas as alterações do perfil
     protected function salvarEdicaoPerfil() { 
         if (!isset($_SESSION[SESSAO_USUARIO_ID])) { 
             header("Location: " . BASEURL . "/controller/LoginController.php?action=login"); 
@@ -102,11 +103,21 @@ class PerfilController extends Controller {
         if ($usuario) {
             $usuario->setNomeCompleto($_POST['nomeCompleto'] ?? $usuario->getNomeCompleto());
             $usuario->setEmail($_POST['email'] ?? $usuario->getEmail());
+            $usuario->setCpf($_POST['cpf'] ?? $usuario->getCpf());
+            $usuario->setMatricula($_POST['matricula'] ?? $usuario->getMatricula());
             $usuario->setTipoUsuario($_POST['tipoUsuario'] ?? $usuario->getTipoUsuario());
-            $usuario->setCursoId($_POST['curso_id'] ?? $usuario->getCursoId());
+            
+            if (!empty($_POST['curso_id'])) {
+                require_once(__DIR__ . "/../dao/CursoDAO.php");
+                $cursoDao = new CursoDAO();
+                $curso = $cursoDao->findById($_POST['curso_id']);
+                if ($curso) {
+                    $usuario->setCurso($curso); 
+                }
+            }
 
             $this->usuarioDao->update($usuario);
-            $this->loginService->salvarUsuarioSessao($usuario); // Atualiza sessão
+            $this->loginService->salvarUsuarioSessao($usuario); 
         }
 
         header("Location: " . BASEURL . "/controller/PerfilController.php?action=view");

@@ -32,25 +32,25 @@ $cursoDAO = new CursoDAO();
 # Busca informações do usuário
 $usuario = $usuarioDAO->findById($idUsuario);
 
-# Lista de tipos de usuário
-$tiposUsuario = ["Aluno", "Professor", "Administrador"];
-
 # Lista todos os cursos
 $cursos = $cursoDAO->list();
 ?>
 
 <div class="page-container">
     <div class="form-card">
-        <h2 class="form-title">Editar Perfil</h2>
-        <form action="<?php echo BASEURL . '/controller/UsuarioController.php?action=atualizar'; ?>" method="POST" enctype="multipart/form-data">
+        <h2 class="form-title text-center">Editar Perfil</h2> <!-- Centraliza o título -->
+
+        <!-- Formulário envia para salvarEdicaoPerfil -->
+        <form action="<?php echo BASEURL . '/controller/PerfilController.php?action=salvarEdicaoPerfil'; ?>" 
+              method="POST" enctype="multipart/form-data" class="edit-form">
             
             <!-- Campo oculto com ID -->
             <input type="hidden" name="id" value="<?php echo $usuario->getId(); ?>">
 
             <!-- Nome -->
             <div class="mb-3">
-                <label for="nome" class="form-label">Nome completo</label>
-                <input type="text" class="form-control" id="nome" name="nome" 
+                <label for="nomeCompleto" class="form-label">Nome completo</label>
+                <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" 
                        value="<?php echo htmlspecialchars($usuario->getNomeCompleto() ?? ''); ?>" required>
             </div>
 
@@ -75,31 +75,20 @@ $cursos = $cursoDAO->list();
                        value="<?php echo htmlspecialchars($usuario->getMatricula() ?? ''); ?>" required>
             </div>
 
-            <!-- Tipo de usuário -->
+            <!-- Tipo de usuário (somente leitura) -->
             <div class="mb-3">
-                <label for="tipo" class="form-label">Tipo de Usuário</label>
-                <select class="form-select" id="tipo" name="tipo" required>
-                    <?php foreach ($tiposUsuario as $tipo): ?>
-                        <option value="<?php echo $tipo; ?>" 
-                            <?php echo ($usuario->getTipoUsuario() === $tipo) ? 'selected' : ''; ?>>
-                            <?php echo $tipo; ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <label for="tipoUsuario" class="form-label">Tipo de Usuário</label>
+                <input type="text" class="form-control" id="tipoUsuario" 
+                       value="<?php echo htmlspecialchars($usuario->getTipoUsuario()); ?>" readonly>
+                <input type="hidden" name="tipoUsuario" value="<?php echo htmlspecialchars($usuario->getTipoUsuario()); ?>">
             </div>
 
-            <!-- Curso -->
+            <!-- Curso (somente leitura) -->
             <div class="mb-3">
                 <label for="curso" class="form-label">Curso</label>
-                <select class="form-select" id="curso" name="curso_id">
-                    <option value="">-- Selecione --</option>
-                    <?php foreach ($cursos as $curso): ?>
-                        <option value="<?php echo $curso['id']; ?>" 
-                            <?php echo ($usuario->getCurso()->getId() == $curso['id']) ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($curso['nome']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <input type="text" class="form-control" id="curso" 
+                       value="<?php echo htmlspecialchars($usuario->getCurso()->getNome()); ?>" readonly>
+                <input type="hidden" name="curso_id" value="<?php echo $usuario->getCurso()->getId(); ?>">
             </div>
 
             <!-- Foto de Perfil -->
@@ -113,110 +102,46 @@ $cursos = $cursoDAO->list();
                 <?php endif; ?>
             </div>
 
-            <!-- Botão -->
-            <div class="btn-submit">
-                <button type="submit" class="btn-submit">Salvar Alterações</button>
+            <!-- Botão Salvar -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-pink">Salvar Alterações</button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- CSS -->
-<style>
-    body {
-    background-color: #a9cba5;
-    font-family: Arial, sans-serif;
-}
+    <style>
+        /* Centraliza o card na tela */
+        .page-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
 
-/* Container da página */
-.page-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 20px;
-}
+        .form-card {
+            width: 100%;
+            max-width: 500px; /* largura máxima */
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
 
-/* Card do formulário */
-.form-card {
-    background: #e3f0d9;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    width: 100%;
-    max-width: 600px;
-}
+        /* Botão rosa personalizado */
+        .btn-pink {
+            background-color: #c2185b; /* rosa forte */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
 
-/* Título */
-.form-title {
-    text-align: center;
-    font-size: 26px;
-    font-weight: bold;
-    color: #b92b4c;
-    margin-bottom: 25px;
-}
-
-/* Labels */
-.form-label {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-    display: block;
-}
-
-/* Inputs e selects (sobrescreve bootstrap levemente) */
-.form-control, 
-.form-select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #999;
-    margin-bottom: 15px;
-    font-size: 15px;
-    background-color: #fff;
-}
-
-.form-control:focus, 
-.form-select:focus {
-    border-color: #b92b4c;
-    outline: none;
-    box-shadow: 0 0 5px rgba(185,43,76,0.5);
-}
-
-/* =====================
-   BOTÃO DE SALVAR
-===================== */
-.btn-submit {
-    background-color: #b92b4c !important;
-    color: #fff !important;
-    border: none !important;
-    padding: 12px 25px !important;
-    border-radius: 25px !important;
-    font-size: 16px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    transition: 0.3s;
-    display: block !important;
-    margin: 20px auto 0 auto !important;
-    text-align: center !important;
-}
-
-.btn-submit:hover {
-    background-color: #9d2340 !important;
-}
-
-/* Centraliza a div do botão */
-.button-container {
-    text-align: center;
-}
-
-/* Foto de perfil arredondada */
-img.rounded {
-    border-radius: 10px;
-    margin-top: 10px;
-    border: 2px solid #ccc;
-}
-    
-</style>
+        .btn-pink:hover {
+            background-color: #c2185b; /* rosa mais escuro no hover */
+        }
+    </style>
 
 <?php
  require_once(__DIR__ . "/../include/footer.php");
