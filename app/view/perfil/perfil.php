@@ -3,6 +3,8 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 
+
+$homeEditar = HOME_PAGE_EDITAR;
 $homePage = HOME_PAGE_ADMIN;
 if ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::ALUNO)
     $homePage = HOME_PAGE_ALUNO;
@@ -42,7 +44,11 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
             <div class="botao-voltar-container">
                 <a href="<?= $homePage ?>" class="botao-voltar">← Voltar</a>
             </div>
-
+            <div class="botao-editar-container">
+                <a href="<?php echo BASEURL . '/view/perfil/perfilEdit.php'; ?>">
+                    Editar dados pessoais
+                </a>
+            </div>
 
 
         </form>
