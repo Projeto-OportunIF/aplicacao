@@ -23,9 +23,16 @@ class UsuarioService
     if (!$usuario->getEmail())
         array_push($erros, "O campo [E-mail] é obrigatório.");
 
-    // Só exige curso se o usuário for Aluno
-    if ($usuario->getTipoUsuario() === "Aluno" && !$usuario->getCurso())
-        array_push($erros, "O campo [Curso] é obrigatório.");
+   // Só exige curso se o usuário for Aluno
+if ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
+    $curso = $usuario->getCurso();
+    if (!$curso || !$curso->getId()) {
+        $erros[] = "O campo [Curso] é obrigatório para alunos.";
+    }
+}
+
+
+
 
     if (!$usuario->getSenha())
         array_push($erros, "O campo [Senha] é obrigatório.");

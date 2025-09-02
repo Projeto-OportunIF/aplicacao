@@ -12,7 +12,7 @@ class Usuario
     private ?string $nomeCompleto;
     private ?string $cpf;
     private ?string $senha;
-    private ?string $tipoUsuario;
+    private ?string $tipoUsuario = null;
     private ?string $email;
     private ?Curso $curso;
     private ?string $matricula;
