@@ -6,7 +6,7 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 
 
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disponiveis.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_dispon.css">
 
 
 <div class="row" style="margin-top: 30px;">
