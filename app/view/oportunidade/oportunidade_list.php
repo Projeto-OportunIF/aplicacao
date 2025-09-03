@@ -1,95 +1,50 @@
 <?php
 #Nome do arquivo: oportunidadeList.php
 #Objetivo: interface para listagem das oportunidades do sistema
-
-
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
+
 ?>
 
+<!-- Link para CSS externo -->
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_list.css">
 
-<h3 class="text-center">Oportunidades</h3>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-3">
-            <a class="btn btn-success"
-                href="<?= BASEURL ?>/controller/OportunidadeController.php?action=create">
-                Inserir</a>
-        </div>
+<h3 class="text-center">Oportunidades Inseridas</h3>
 
 
-        <div class="col-9">
-            <?php require_once(__DIR__ . "/../include/msg.php"); ?>
-        </div>
-    </div>
-
-
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-12">
-            <table id="tabOportunidadeList" class='table table-striped table-bordered'>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Título</th>
-                        <th>Descrição</th>
-                        <th>Tipo</th>
-                        <th>Vagas</th>
-                        <th>Cursos</th> <!-- nova coluna -->
-                        <th>Alterar</th>
-                        <th>Excluir</th>
-                        <th>Visualizar Inscritos</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($dados['lista'] as $op): ?>
-                        <tr>
-                            <td><?= $op->getId(); ?></td>
-                            <td><?= $op->getTitulo(); ?></td>
-                            <td><?= $op->getDescricao(); ?></td>
-                            <td><?= $op->getTipoOportunidade(); ?></td>
-                            <td><?= $op->getVaga(); ?></td>
-                            <td>
-                                <?php
-                                $nomesCursos = array_map(function ($c) {
-                                    return $c->getNome();
-                                }, $op->getCursos() ?? []);
-                                echo implode(", ", $nomesCursos);
-                                ?>
-                            </td>
-                            <td>
-                                <a class="btn btn-primary"
-                                    href="<?= BASEURL ?>/controller/OportunidadeController.php?action=edit&id=<?= $op->getId() ?>">
-                                    Alterar
-                                </a>
-                            </td>
-                            <td>
-                                <a class="btn btn-danger"
-                                    onclick="return confirm('Confirma a exclusão da oportunidade?');"
-                                    href="<?= BASEURL ?>/controller/OportunidadeController.php?action=delete&id=<?= $op->getId() ?>">
-                                    Excluir
-                                </a>
-                            </td>
-                            <td>
-                                <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $op->getId() ?>"
-                                    class="btn btn-info">Visualizar Inscritos</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-
-            </table>
-        </div>
-    </div>
-</div>
-
-<div class="row" style="margin-top: 30px;">
-
+<div class="col-12">
     <a class="btn btn-secondary"
-        href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor">Voltar</a>
+        href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor">← Voltar</a>
 </div>
+
+<div class="cards-container">
+    <?php foreach ($dados['lista'] as $op): ?>
+        <div class="card-oportunidade">
+            <h3><?= $op->getTitulo(); ?></h3>
+            <p><strong>Descrição:</strong> <?= $op->getDescricao(); ?></p>
+            <p><strong>Tipo:</strong> <?= $op->getTipoOportunidade(); ?></p>
+            <p><strong>Vagas:</strong> <?= $op->getVaga(); ?></p>
+            <p><strong>Cursos:</strong>
+                <?php
+                $nomesCursos = array_map(fn($c) => $c->getNome(), $op->getCursos() ?? []);
+                echo implode(", ", $nomesCursos);
+                ?>
+            </p>
+
+            <div class="acoes">
+                <a class="btn btn-primary"
+                    href="<?= BASEURL ?>/controller/OportunidadeController.php?action=edit&id=<?= $op->getId() ?>">Alterar</a>
+                <a class="btn btn-danger"
+                    onclick="return confirm('Confirma a exclusão da oportunidade?');"
+                    href="<?= BASEURL ?>/controller/OportunidadeController.php?action=delete&id=<?= $op->getId() ?>">Excluir</a>
+                <a class="btn btn-info"
+                    href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $op->getId() ?>">Inscritos</a>
+            </div>
+        </div>
+    <?php endforeach; ?>
 </div>
+
+
 </div>
 
 <?php

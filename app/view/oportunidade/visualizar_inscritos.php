@@ -3,8 +3,15 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os status
 ?>
+<!-- Link para CSS externo -->
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritos.css">
 
 <h3 class="text-center">Inscritos na Oportunidade: <?= $dados['oportunidade']->getTitulo(); ?></h3>
+
+<div class="col-12">
+    <a class="btn btn-secondary"
+        href="<?= BASEURL ?>/controller/OportunidadeController.php?action=list">← Voltar</a>
+</div>
 
 <table class="table table-striped table-bordered">
     <thead>
@@ -52,8 +59,6 @@ require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os s
             <?php endforeach; ?>
     </tbody>
 </table>
-
-<a class="btn btn-secondary" href="<?= BASEURL ?>/controller/OportunidadeController.php?action=list">Voltar</a>
 
 
 

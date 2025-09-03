@@ -8,6 +8,14 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disponiveis.css">
 
+
+<div class="row" style="margin-top: 30px;">
+        <div class="col-12">
+            <a class="btn btn-secondary"
+                href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno"> ← Voltar</a>
+    </div>
+    </div>
+
 <h2 class="titulo-pagina">Oportunidades Disponíveis</h2>
 
 <div class="cards-container">
@@ -31,11 +39,6 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
     <?php endif; ?>
 </div>
 
-<div class="row" style="margin-top: 30px; max-width: 100%; text-align: center">
-    <div class="col-12">
-        <a class="btn btn-secondary"
-            href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno">Voltar</a>
-    </div>
-</div>
+
 
 <?php require_once(__DIR__ . "/../include/footer.php"); ?>
