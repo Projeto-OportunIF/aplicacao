@@ -156,7 +156,6 @@ class UsuarioDAO
             $stm3->execute();
 
             $conn->commit();
-
         } catch (PDOException $e) {
             $conn->rollBack();
             throw $e;

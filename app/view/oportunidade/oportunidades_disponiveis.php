@@ -10,11 +10,11 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 
 
 <div class="row" style="margin-top: 30px;">
-        <div class="col-12">
-            <a class="btn btn-secondary"
-                href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno"> ← Voltar</a>
+    <div class="col-12">
+        <a class="btn btn-secondary"
+            href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno"> ← Voltar</a>
     </div>
-    </div>
+</div>
 
 <h2 class="titulo-pagina">Oportunidades Disponíveis</h2>
 

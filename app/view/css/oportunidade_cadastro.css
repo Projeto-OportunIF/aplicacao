@@ -1,14 +1,16 @@
 /* Estilo base da página */
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #eafdc5;
-} /* ====== CONTAINER ====== */
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #eafdc5;
+}
+
+/* ====== CONTAINER ====== */
 form {
-  max-width: 1000px; 
+  max-width: 1000px;
   width: 100%;
   margin: 20px auto;
-  background: #d3eba7; 
+  background: #d3eba7;
   padding: 25px 35px;
   border-radius: 12px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
@@ -16,7 +18,9 @@ form {
 
 
 /* ====== TÍTULO PRINCIPAL ====== */
-h2, h3, h4 {
+h2,
+h3,
+h4 {
   text-align: center;
   color: #d6425c;
   margin-bottom: 20px;
@@ -58,8 +62,9 @@ select:focus {
 
 
 /* ====== BOTÃO SALVAR ====== */
-button, input[type="submit"] {
-  background-color: #d6425c; 
+button,
+input[type="submit"] {
+  background-color: #d6425c;
   color: #fff;
   border: none;
   padding: 12px 18px;
@@ -69,14 +74,15 @@ button, input[type="submit"] {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s ease;
-  width: 200px; 
+  width: 200px;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
 
-button:hover, input[type="submit"]:hover {
+button:hover,
+input[type="submit"]:hover {
   background-color: #a32e45;
 }
 
@@ -128,17 +134,17 @@ button:hover, input[type="submit"]:hover {
 }
 
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #d6425c;
 }
 
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px #d6425c;
 }
 
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   transform: translateX(26px);
 }
 
@@ -160,5 +166,3 @@ input:checked + .slider:before {
   transition: all 0.5s ease-in-out;
   vertical-align: middle;
 }
-
-

@@ -1,21 +1,23 @@
-<?php  
-require_once(__DIR__ . "/Controller.php"); 
-require_once(__DIR__ . "/../dao/UsuarioDAO.php"); 
-require_once(__DIR__ . "/../service/UsuarioService.php"); 
-require_once(__DIR__ . "/../service/ArquivoService.php"); 
-require_once(__DIR__ . "/../service/LoginService.php"); 
+<?php
+require_once(__DIR__ . "/Controller.php");
+require_once(__DIR__ . "/../dao/UsuarioDAO.php");
+require_once(__DIR__ . "/../service/UsuarioService.php");
+require_once(__DIR__ . "/../service/ArquivoService.php");
+require_once(__DIR__ . "/../service/LoginService.php");
 
-class PerfilController extends Controller { 
-    private UsuarioDAO $usuarioDao; 
-    private UsuarioService $usuarioService; 
-    private ArquivoService $arquivoService; 
-    private LoginService $loginService; 
+class PerfilController extends Controller
+{
+    private UsuarioDAO $usuarioDao;
+    private UsuarioService $usuarioService;
+    private ArquivoService $arquivoService;
+    private LoginService $loginService;
 
-    public function __construct() { 
-        $this->usuarioDao = new UsuarioDAO(); 
-        $this->usuarioService = new UsuarioService(); 
-        $this->arquivoService = new ArquivoService(); 
-        $this->loginService = new LoginService(); 
+    public function __construct()
+    {
+        $this->usuarioDao = new UsuarioDAO();
+        $this->usuarioService = new UsuarioService();
+        $this->arquivoService = new ArquivoService();
+        $this->loginService = new LoginService();
 
         // Verifica se o usuário está logado pela sessão
         session_start();
@@ -24,55 +26,58 @@ class PerfilController extends Controller {
             exit;
         }
 
-        $this->handleAction(); 
-    } 
+        $this->handleAction();
+    }
 
     // Carrega a view de perfil com os dados do usuário logado 
-    protected function view() { 
-        $idUsuarioLogado = $_SESSION[SESSAO_USUARIO_ID]; 
-        $usuario = $this->usuarioDao->findById($idUsuarioLogado); 
-        $dados['usuario'] = $usuario; 
-        $this->loadView("perfil/perfil.php", $dados); 
-    } 
+    protected function view()
+    {
+        $idUsuarioLogado = $_SESSION[SESSAO_USUARIO_ID];
+        $usuario = $this->usuarioDao->findById($idUsuarioLogado);
+        $dados['usuario'] = $usuario;
+        $this->loadView("perfil/perfil.php", $dados);
+    }
 
     // Salva apenas a foto de perfil 
-    protected function save() { 
-        $erros = []; 
+    protected function save()
+    {
+        $erros = [];
 
-        if (isset($_FILES['foto']) && !empty($_FILES['foto']['name'])) { 
-            $foto = $_FILES["foto"]; 
-            $erros = $this->usuarioService->validarFotoPerfil($foto); 
+        if (isset($_FILES['foto']) && !empty($_FILES['foto']['name'])) {
+            $foto = $_FILES["foto"];
+            $erros = $this->usuarioService->validarFotoPerfil($foto);
 
-            if (!$erros) { 
-                $fotoNome = $this->arquivoService->salvarArquivo($foto); 
-                $idUsuarioLogado = $_SESSION[SESSAO_USUARIO_ID]; 
-                $usuario = $this->usuarioDao->findById($idUsuarioLogado); 
-                $usuario->setFotoPerfil($fotoNome); 
-                $this->usuarioDao->update($usuario); 
+            if (!$erros) {
+                $fotoNome = $this->arquivoService->salvarArquivo($foto);
+                $idUsuarioLogado = $_SESSION[SESSAO_USUARIO_ID];
+                $usuario = $this->usuarioDao->findById($idUsuarioLogado);
+                $usuario->setFotoPerfil($fotoNome);
+                $this->usuarioDao->update($usuario);
 
                 // Atualiza sessão com nova foto
                 $this->loginService->salvarUsuarioSessao($usuario);
-            } 
-        } else { 
-            $erros[] = "Nenhuma foto foi enviada."; 
-        } 
+            }
+        } else {
+            $erros[] = "Nenhuma foto foi enviada.";
+        }
 
-        $idUsuarioLogado = $_SESSION[SESSAO_USUARIO_ID]; 
-        $usuario = $this->usuarioDao->findById($idUsuarioLogado); 
-        $dados['usuario'] = $usuario; 
-        $msgErro = implode("<br>", $erros); 
-        $this->loadView("perfil/perfil.php", $dados, $msgErro); 
-    } 
+        $idUsuarioLogado = $_SESSION[SESSAO_USUARIO_ID];
+        $usuario = $this->usuarioDao->findById($idUsuarioLogado);
+        $dados['usuario'] = $usuario;
+        $msgErro = implode("<br>", $erros);
+        $this->loadView("perfil/perfil.php", $dados, $msgErro);
+    }
 
     // Carrega tela de edição
-    protected function editarPerfil() { 
-        if (!isset($_SESSION[SESSAO_USUARIO_ID])) { 
-            header("Location: " . BASEURL . "/controller/LoginController.php?action=login"); 
-            exit; 
-        } 
+    protected function editarPerfil()
+    {
+        if (!isset($_SESSION[SESSAO_USUARIO_ID])) {
+            header("Location: " . BASEURL . "/controller/LoginController.php?action=login");
+            exit;
+        }
 
-        $idUsuario = $_SESSION[SESSAO_USUARIO_ID]; 
-        $usuario = $this->usuarioDao->findById($idUsuario); 
+        $idUsuario = $_SESSION[SESSAO_USUARIO_ID];
+        $usuario = $this->usuarioDao->findById($idUsuario);
 
         require_once(__DIR__ . "/../dao/CursoDAO.php");
         $cursoDao = new CursoDAO();
@@ -80,25 +85,26 @@ class PerfilController extends Controller {
 
         $tiposUsuario = ["Aluno", "Professor", "Administrador"];
 
-        $dados = [ 
-            "id" => $usuario->getId(), 
-            "usuario" => $usuario, 
-            "cursos" => $cursos, 
+        $dados = [
+            "id" => $usuario->getId(),
+            "usuario" => $usuario,
+            "cursos" => $cursos,
             "tipoUsuario" => $tiposUsuario,
-        ]; 
+        ];
 
-        $this->loadView("perfil/perfilEdit.php", $dados); 
-    } 
+        $this->loadView("perfil/perfilEdit.php", $dados);
+    }
 
     // Salva todas as alterações do perfil
-    protected function salvarEdicaoPerfil() { 
-        if (!isset($_SESSION[SESSAO_USUARIO_ID])) { 
-            header("Location: " . BASEURL . "/controller/LoginController.php?action=login"); 
-            exit; 
-        } 
+    protected function salvarEdicaoPerfil()
+    {
+        if (!isset($_SESSION[SESSAO_USUARIO_ID])) {
+            header("Location: " . BASEURL . "/controller/LoginController.php?action=login");
+            exit;
+        }
 
-        $idUsuario = $_SESSION[SESSAO_USUARIO_ID]; 
-        $usuario = $this->usuarioDao->findById($idUsuario); 
+        $idUsuario = $_SESSION[SESSAO_USUARIO_ID];
+        $usuario = $this->usuarioDao->findById($idUsuario);
 
         if ($usuario) {
             $usuario->setNomeCompleto($_POST['nomeCompleto'] ?? $usuario->getNomeCompleto());
@@ -106,23 +112,23 @@ class PerfilController extends Controller {
             $usuario->setCpf($_POST['cpf'] ?? $usuario->getCpf());
             $usuario->setMatricula($_POST['matricula'] ?? $usuario->getMatricula());
             $usuario->setTipoUsuario($_POST['tipoUsuario'] ?? $usuario->getTipoUsuario());
-            
+
             if (!empty($_POST['curso_id'])) {
                 require_once(__DIR__ . "/../dao/CursoDAO.php");
                 $cursoDao = new CursoDAO();
                 $curso = $cursoDao->findById($_POST['curso_id']);
                 if ($curso) {
-                    $usuario->setCurso($curso); 
+                    $usuario->setCurso($curso);
                 }
             }
 
             $this->usuarioDao->update($usuario);
-            $this->loginService->salvarUsuarioSessao($usuario); 
+            $this->loginService->salvarUsuarioSessao($usuario);
         }
 
         header("Location: " . BASEURL . "/controller/PerfilController.php?action=view");
         exit;
-    } 
-} 
+    }
+}
 
 new PerfilController();

@@ -1,6 +1,7 @@
 /* ======= ESTILO GERAL ======= */
 body {
-    background-color: #f7f0f2; /* fundo bem claro puxando pro verde */
+    background-color: #f7f0f2;
+    /* fundo bem claro puxando pro verde */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -22,7 +23,7 @@ h3 {
     background: #ffffff;
     padding: 25px;
     border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
     margin-top: 25px;
     border: 2px solid #c1dba5;
 }
@@ -44,7 +45,7 @@ table td {
     text-align: center;
     font-size: 14px;
     padding: 12px;
-   
+
 }
 
 
@@ -56,4 +57,3 @@ table td {
     padding: 5px 10px;
     transition: 0.3s;
 }
-
