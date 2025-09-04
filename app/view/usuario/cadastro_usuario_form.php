@@ -17,6 +17,12 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="row" style="margin-top: 10px;">
 
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-12">
+                <a class="btn btn-secondary"
+                    href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
+            </div>
+        </div>
         <div class="col-6">
             <form id="frmUsuario" method="POST"
                 action="<?= BASEURL ?>/controller/UsuarioController.php?action=save">
@@ -110,12 +116,7 @@ require_once(__DIR__ . "/../include/menu.php");
         </div>
     </div>
 
-    <div class="row" style="margin-top: 30px;">
-        <div class="col-12">
-            <a class="btn btn-secondary"
-                href="<?= BASEURL ?>/controller/HomeController.php?action=home">Voltar</a>
-        </div>
-    </div>
+
 </div>
 
 <?php
