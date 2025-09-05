@@ -1,19 +1,13 @@
 <?php
-#Nome do arquivo: usuario/list.php
-#Objetivo: interface para listagem dos usuários do sistema
-
-
 require_once(__DIR__ . "/../include/header.php");
 ?>
-
 
 <!-- Link para CSS externo -->
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/autocadastro.css">
 
-
 <div class="container">
     <div class="left-panel">
-        <span>seja bem- vindo ao</span>
+        <span>Seja bem-vindo ao</span>
         <div class="logo">
             <img src="<?= BASEURL ?>/view/img/logo.png">
         </div>
@@ -22,13 +16,11 @@ require_once(__DIR__ . "/../include/header.php");
         </h5>
     </div>
 
-
     <div class="form-wrapper">
         <h3>
             <?php if ($dados['id'] == 0) echo "Cadastro";
             else echo "Alterar"; ?>
         </h3>
-
 
         <form id="frmUsuario" method="POST" action="<?= BASEURL ?>/controller/CadastroController.php?action=save">
             <div class="mb-3">
@@ -38,15 +30,12 @@ require_once(__DIR__ . "/../include/header.php");
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeCompleto() : ''); ?>" />
             </div>
 
-
-
             <div class="mb-3">
                 <label class="form-label" for="txtemail">Email:</label>
                 <input class="form-control" type="text" id="txtemail" name="email"
                     maxlength="70" placeholder="Informe o e-mail"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : ''); ?>" />
             </div>
-
 
             <div class="mb-3">
                 <label class="form-label" for="seltipoUsuario">Tipo de Usuário:</label>
@@ -56,8 +45,6 @@ require_once(__DIR__ . "/../include/header.php");
                 </select>
             </div>
 
-
-
             <div class="mb-3">
                 <label class="form-label" for="txtmatricula">Número Matrícula :</label>
                 <input class="form-control" type="text" id="txtmatricula" name="matricula"
@@ -65,14 +52,12 @@ require_once(__DIR__ . "/../include/header.php");
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getMatricula() : ''); ?>" />
             </div>
 
-
             <div class="mb-3">
-                <label class="form-label" for="txtCpf">CPF:</label>
+                <label class="form-label" for="txtcpf">CPF:</label>
                 <input class="form-control" type="text" id="txtcpf" name="cpf"
-                    maxlength="70" placeholder="Informe o CPF"
+                    maxlength="14" placeholder="000.000.000-00"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getCpf() : ''); ?>" />
             </div>
-
 
             <div class="mb-3">
                 <label class="form-label" for="selCurso">Curso:</label>
@@ -94,7 +79,6 @@ require_once(__DIR__ . "/../include/header.php");
                 </select>
             </div>
 
-
             <div class="mb-3">
                 <label class="form-label" for="txtSenha">Crie uma senha:</label>
                 <input class="form-control" type="password" id="txtSenha" name="senha"
@@ -111,7 +95,6 @@ require_once(__DIR__ . "/../include/header.php");
 
             <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
 
-
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Criar</button>
             </div>
@@ -127,6 +110,30 @@ require_once(__DIR__ . "/../include/header.php");
     </div>
 </div>
 
+<!-- Script para máscara de CPF -->
+<script>
+    const cpfInput = document.getElementById('txtcpf');
+
+    cpfInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 11) value = value.slice(0, 11);
+
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+        e.target.value = value;
+    });
+
+    // Permite colar e já formatar corretamente
+    cpfInput.addEventListener('paste', function(e) {
+        e.preventDefault();
+        let pastedData = (e.clipboardData || window.clipboardData).getData('text');
+        pastedData = pastedData.replace(/\D/g, '');
+        e.target.value = pastedData.slice(0, 11);
+        cpfInput.dispatchEvent(new Event('input'));
+    });
+</script>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

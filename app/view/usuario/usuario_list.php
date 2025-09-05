@@ -16,12 +16,12 @@ require_once(__DIR__ . "/../include/menu.php");
                 href="<?= BASEURL ?>/controller/UsuarioController.php?action=create">
                 Inserir</a>
         </div>
- <div class="row" style="margin-top: 30px;">
-        <div class="col-12">
-            <a class="btn btn-secondary"
-                href="<?= BASEURL ?>/controller/HomeController.php?action=home">Voltar</a>
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-12">
+                <a class="btn btn-secondary"
+                    href="<?= BASEURL ?>/controller/HomeController.php?action=home">Voltar</a>
+            </div>
         </div>
-    </div>
         <div class="col-9">
             <?php require_once(__DIR__ . "/../include/msg.php"); ?>
         </div>

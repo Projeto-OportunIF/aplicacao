@@ -1,10 +1,6 @@
 <?php
-#Nome do arquivo: usuario/list.php
-#Objetivo: interface para listagem dos usuários do sistema
-
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
-
 ?>
 
 <h3 class="text-center">
@@ -14,18 +10,15 @@ require_once(__DIR__ . "/../include/menu.php");
 </h3>
 
 <div class="container">
-
     <div class="row" style="margin-top: 10px;">
-
         <div class="row" style="margin-top: 30px;">
             <div class="col-12">
-                <a class="btn btn-secondary"
-                    href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
+                <a class="btn btn-secondary" href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
             </div>
         </div>
+
         <div class="col-6">
-            <form id="frmUsuario" method="POST"
-                action="<?= BASEURL ?>/controller/UsuarioController.php?action=save">
+            <form id="frmUsuario" method="POST" action="<?= BASEURL ?>/controller/UsuarioController.php?action=save">
                 <div class="mb-3">
                     <label class="form-label" for="txtNomeCompleto">Nome Completo:</label>
                     <input class="form-control" type="text" id="txtNomeCompleto" name="nomeCompleto"
@@ -36,7 +29,7 @@ require_once(__DIR__ . "/../include/menu.php");
                 <div class="mb-3">
                     <label class="form-label" for="txtCpf">CPF:</label>
                     <input class="form-control" type="text" id="txtcpf" name="cpf"
-                        maxlength="70" placeholder="Informe o CPF"
+                        maxlength="14" placeholder="000.000.000-00"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getCpf() : ''); ?>" />
                 </div>
 
@@ -70,8 +63,6 @@ require_once(__DIR__ . "/../include/menu.php");
                     </select>
                 </div>
 
-
-
                 <div class="mb-3">
                     <label class="form-label" for="txtSenha">Senha:</label>
                     <input class="form-control" type="password" id="txtSenha" name="senha"
@@ -102,8 +93,7 @@ require_once(__DIR__ . "/../include/menu.php");
                     </select>
                 </div>
 
-                <input type="hidden" id="hddId" name="id"
-                    value="<?= $dados['id']; ?>" />
+                <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
 
                 <div class="mt-3">
                     <button type="submit" class="btn btn-success">Gravar</button>
@@ -115,9 +105,32 @@ require_once(__DIR__ . "/../include/menu.php");
             <?php require_once(__DIR__ . "/../include/msg.php"); ?>
         </div>
     </div>
-
-
 </div>
+
+<!-- Script para máscara de CPF -->
+<script>
+    const cpfInput = document.getElementById('txtcpf');
+
+    cpfInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 11) value = value.slice(0, 11);
+
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+        e.target.value = value;
+    });
+
+    // Permite colar e já formatar corretamente
+    cpfInput.addEventListener('paste', function(e) {
+        e.preventDefault();
+        let pastedData = (e.clipboardData || window.clipboardData).getData('text');
+        pastedData = pastedData.replace(/\D/g, '');
+        e.target.value = pastedData.slice(0, 11);
+        cpfInput.dispatchEvent(new Event('input'));
+    });
+</script>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

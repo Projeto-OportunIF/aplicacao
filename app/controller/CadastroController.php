@@ -4,7 +4,7 @@ require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../dao/CursoDAO.php");
 require_once(__DIR__ . "/../service/UsuarioService.php");
-require_once(__DIR__ . "/../service/CadastroService.php");
+require_once(__DIR__ . "/../service/AutoCadastroService.php");
 require_once(__DIR__ . "/../model/Usuario.php");
 require_once(__DIR__ . "/../model/enum/UsuarioTipo.php");
 

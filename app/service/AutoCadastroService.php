@@ -2,49 +2,44 @@
 
 require_once(__DIR__ . "/../model/Usuario.php");
 
-class UsuarioService
+class CadastroService
 {
     /* Método para validar os dados do usuário que vem do formulário */
     public function validarDados(Usuario $usuario, ?string $confSenha)
     {
         $erros = array();
 
-        //Validar campos obrigatórios
         if (!$usuario->getNomeCompleto())
-            array_push($erros, "O campo [Nome Completo] é obrigatório.");
+            $erros['nomeCompleto'] = "O campo [Nome Completo] é obrigatório.";
 
+        // CPF
         if (!$usuario->getCpf()) {
-            array_push($erros, "O campo [CPF] é obrigatório.");
+            $erros['cpf'] = "O campo [CPF] é obrigatório.";
         } elseif (!$this->validarCPF($usuario->getCpf())) {
-            array_push($erros, "CPF inválido.");
+            $erros['cpf'] = "CPF inválido.";
         }
 
         if (!$usuario->getMatricula())
-            array_push($erros, "O campo [Matrícula ou SIAPE] é obrigatório.");
+            $erros['matricula'] = "O campo [Matrícula] é obrigatório.";
 
         if (!$usuario->getEmail())
-            array_push($erros, "O campo [E-mail] é obrigatório.");
+            $erros['email'] = "O campo [E-mail] é obrigatório.";
 
-        // Só exige curso se o usuário for Aluno
-        if ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
-            $curso = $usuario->getCurso();
-            if (!$curso || !$curso->getId()) {
-                $erros[] = "O campo [Curso] é obrigatório para alunos.";
-            }
-        }
+        if (!$usuario->getCurso())
+            $erros['curso'] = "O campo [Curso] é obrigatório.";
 
         if (!$usuario->getSenha())
-            array_push($erros, "O campo [Senha] é obrigatório.");
+            $erros['senha'] = "O campo [Senha] é obrigatório.";
 
         if (!$confSenha)
-            array_push($erros, "O campo [Confirmação da senha] é obrigatório.");
+            $erros['confSenha'] = "O campo [Confirmação da senha] é obrigatório.";
 
         if (!$usuario->getTipoUsuario())
-            array_push($erros, "O campo [Tipo de usuário] é obrigatório.");
+            $erros['tipoUsuario'] = "O campo [Tipo de usuário] é obrigatório.";
 
-        //Validar se a senha é igual à confirmação
+        // senha e confirmação
         if ($usuario->getSenha() && $confSenha && $usuario->getSenha() != $confSenha)
-            array_push($erros, "O campo [Senha] deve ser igual ao [Confirmação da senha].");
+            $erros['confSenha'] = "O campo [Senha] deve ser igual ao [Confirmação da senha].";
 
         return $erros;
     }
@@ -60,10 +55,10 @@ class UsuarioService
         return $erros;
     }
 
-    /* Função privada para validar CPF */
+    /* Função para validar CPF */
     private function validarCPF(string $cpf): bool
     {
-        $cpf = preg_replace('/[^0-9]/', '', $cpf); // Remove caracteres não numéricos
+        $cpf = preg_replace('/[^0-9]/', '', $cpf); // tirq caracteres não numéricos
 
         if (strlen($cpf) != 11) {
             return false;
