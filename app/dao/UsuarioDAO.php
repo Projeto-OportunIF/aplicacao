@@ -22,7 +22,7 @@ class UsuarioDAO
     {
         $conn = Connection::getConn();
         $sql = "SELECT u.*, c.nome AS nomeCursos FROM usuarios u
-                LEFT JOIN cursos c ON (c.idCursos = u.idCursos)
+                LEFT JOIN cursos c ON c.idCursos = u.idCursos
                 WHERE u.idUsuarios = ?";
         $stm = $conn->prepare($sql);
         $stm->execute([$id]);
@@ -57,12 +57,32 @@ class UsuarioDAO
         die("UsuarioDAO.findByEmailSenha() - Erro: mais de um usuário encontrado.");
     }
 
+    // Mantida apenas uma versão de findByEmail
     public function findByEmail(string $email)
     {
         $conn = Connection::getConn();
-        $sql = "SELECT * FROM usuarios WHERE email = ?";
+        $sql = "SELECT u.*, c.nome AS nomeCursos
+                FROM usuarios u
+                LEFT JOIN cursos c ON c.idCursos = u.idCursos
+                WHERE u.email = ?";
         $stm = $conn->prepare($sql);
         $stm->execute([$email]);
+        $result = $stm->fetchAll();
+        $usuarios = $this->mapUsuarios($result);
+
+        return count($usuarios) > 0 ? $usuarios[0] : null;
+    }
+
+    // findByCpf
+    public function findByCpf(string $cpf)
+    {
+        $conn = Connection::getConn();
+        $sql = "SELECT u.*, c.nome AS nomeCursos 
+                FROM usuarios u
+                LEFT JOIN cursos c ON c.idCursos = u.idCursos
+                WHERE u.cpf = ?";
+        $stm = $conn->prepare($sql);
+        $stm->execute([$cpf]);
         $result = $stm->fetchAll();
         $usuarios = $this->mapUsuarios($result);
 
@@ -73,7 +93,6 @@ class UsuarioDAO
     {
         $conn = Connection::getConn();
 
-        // Validação de curso obrigatório para aluno
         if ($usuario->getTipoUsuario() === 'aluno') {
             if (!$usuario->getCurso() || !$usuario->getCurso()->getId()) {
                 throw new Exception("Aluno precisa ter um curso definido!");
@@ -102,7 +121,6 @@ class UsuarioDAO
     {
         $conn = Connection::getConn();
 
-        // Validação de curso obrigatório para aluno
         if ($usuario->getTipoUsuario() === 'aluno') {
             if (!$usuario->getCurso() || !$usuario->getCurso()->getId()) {
                 throw new Exception("Aluno precisa ter um curso definido!");
@@ -137,19 +155,16 @@ class UsuarioDAO
         try {
             $conn->beginTransaction();
 
-            // Apagar inscrições
             $sql1 = "DELETE FROM inscricoes WHERE idUsuarios = :id";
             $stm1 = $conn->prepare($sql1);
             $stm1->bindValue(":id", $id);
             $stm1->execute();
 
-            // Apagar oportunidades
             $sql2 = "DELETE FROM oportunidades WHERE idUsuarios = :id";
             $stm2 = $conn->prepare($sql2);
             $stm2->bindValue(":id", $id);
             $stm2->execute();
 
-            // Apagar usuário
             $sql3 = "DELETE FROM usuarios WHERE idUsuarios = :id";
             $stm3 = $conn->prepare($sql3);
             $stm3->bindValue(":id", $id);
@@ -200,7 +215,6 @@ class UsuarioDAO
                 $curso->setNome($reg["nomeCursos"]);
 
             $usuario->setCurso($curso);
-
             $usuarios[] = $usuario;
         }
 

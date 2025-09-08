@@ -22,7 +22,7 @@ require_once(__DIR__ . "/../include/header.php");
             else echo "Alterar"; ?>
         </h3>
 
-        <form id="frmUsuario" method="POST" action="<?= BASEURL ?>/controller/CadastroController.php?action=save">
+        <form id="frmUsuario" method="POST" action="<?= BASEURL ?>/controller/AutoCadastroController.php?action=save">
             <div class="mb-3">
                 <label class="form-label" for="txtNomeCompleto">Nome:</label>
                 <input class="form-control" type="text" id="txtNomeCompleto" name="nomeCompleto"

@@ -8,18 +8,16 @@ require_once(__DIR__ . "/../service/AutoCadastroService.php");
 require_once(__DIR__ . "/../model/Usuario.php");
 require_once(__DIR__ . "/../model/enum/UsuarioTipo.php");
 
-
 class CadastroController extends Controller
 {
-
     private UsuarioDAO $usuarioDao;
-    private cadastroService $cadastroService;
+    private AutoCadastroService $cadastroService;
     private CursoDAO $cursoDAO;
 
     public function __construct()
     {
         $this->usuarioDao = new UsuarioDAO();
-        $this->cadastroService = new CadastroService();
+        $this->cadastroService = new AutoCadastroService();
         $this->cursoDAO = new CursoDAO();
 
         $this->handleAction();
@@ -33,20 +31,21 @@ class CadastroController extends Controller
 
         $this->loadView("autocadastro/autocadastro_form.php", $dados);
     }
+
     protected function save()
     {
-        //Capturar os dados do formulário
+        // Capturar os dados do formulário
         $id = $_POST['id'];
-        $nomeCompleto = trim($_POST['nomeCompleto']) != "" ? trim($_POST['nomeCompleto']) : NULL;
-        $email = trim($_POST['email']) != "" ? trim($_POST['email']) : NULL;
-        $senha = trim($_POST['senha']) != "" ? trim($_POST['senha']) : NULL;
-        $confSenha = trim($_POST['conf_senha']) !== "" ? trim($_POST['conf_senha']) : null;
-        $cpf = trim($_POST['cpf']) != "" ? trim($_POST['cpf']) : NULL;
-        $tipoUsuario = trim($_POST['tipoUsuario']) != "" ? trim($_POST['tipoUsuario']) : NULL;
-        $matricula = trim($_POST['matricula']) != "" ? trim($_POST['matricula']) : NULL;
-        $idCurso = trim($_POST['curso']) != "" ? trim($_POST['curso']) : NULL;
+        $nomeCompleto = trim($_POST['nomeCompleto']) ?: null;
+        $email = trim($_POST['email']) ?: null;
+        $senha = trim($_POST['senha']) ?: null;
+        $confSenha = trim($_POST['conf_senha']) ?: null;
+        $cpf = trim($_POST['cpf']) ?: null;
+        $tipoUsuario = trim($_POST['tipoUsuario']) ?: null;
+        $matricula = trim($_POST['matricula']) ?: null;
+        $idCurso = trim($_POST['curso']) ?: null;
 
-        //Criar o objeto do modelo
+        // Criar o objeto do modelo
         $usuario = new Usuario();
         $usuario->setId($id);
         $usuario->setNomeCompleto($nomeCompleto);
@@ -59,43 +58,35 @@ class CadastroController extends Controller
             $curso = new Curso();
             $curso->setId($idCurso);
             $usuario->setCurso($curso);
-        } else
-            $usuario->setCurso(NULL);
+        } else {
+            $usuario->setCurso(null);
+        }
 
         $usuario->setTipoUsuario($tipoUsuario);
 
-
-        //Validar os dados (camada service)
+        // Validar os dados (camada service)
         $erros = $this->cadastroService->validarDados($usuario, $confSenha);
-        if (! $erros) {
+
+        if (!$erros) {
             try {
                 if ($usuario->getId() == 0) {
-                    // Verifica se e-mail já existe
-                    $usuarioExistente = $this->usuarioDao->findByEmail($usuario->getEmail());
-                    if ($usuarioExistente) {
-                        array_push($erros, "Já existe um usuário com este e-mail!");
-                    } else {
-                        $this->usuarioDao->insert($usuario);
-                        header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
-                        exit;
-                    }
+                    $this->usuarioDao->insert($usuario);
                 } else {
                     $this->usuarioDao->update($usuario);
-                    header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
-                    exit;
                 }
+
+                header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+                exit;
             } catch (PDOException $e) {
-                //Iserir erro no array
-                array_push($erros, "Erro ao gravar no banco de dados!");
-                array_push($erros, $e->getMessage());
+                $erros[] = "Erro ao gravar no banco de dados!";
+                $erros[] = $e->getMessage();
             }
         }
 
-        //Mostrar os erros
+        // Mostrar os erros
         $dados['id'] = $usuario->getId();
         $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
         $dados['cursos'] = $this->cursoDAO->list();
-
         $dados['confSenha'] = $confSenha;
         $dados['usuario'] = $usuario;
 
