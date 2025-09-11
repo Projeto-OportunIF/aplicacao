@@ -79,7 +79,7 @@ class UsuarioController extends Controller
         // Captura os dados do formulário
         $id = $_POST['id'] ?? 0;
         $nomeCompleto = trim($_POST['nomeCompleto']) ?: null;
-        $email = trim($_POST['email']) ?: null;
+        $email = trim($_POST['email']) ?: '';
         $senha = trim($_POST['senha']) ?: null;
         $confSenha = trim($_POST['conf_senha']) ?: null;
         $cpf = trim($_POST['cpf']) ?: null;

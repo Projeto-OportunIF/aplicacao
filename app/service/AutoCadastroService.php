@@ -35,14 +35,21 @@ class AutoCadastroService
         }
 
         // Validar email
-        if (!$usuario->getEmail()) {
+        $email = $usuario->getEmail();
+        if (!$email) {
             $erros[] = "O campo [E-mail] é obrigatório.";
         } else {
-            // Verifica duplicidade de email
-            $usuarioExistente = $this->usuarioDAO->findByEmail($usuario->getEmail());
+            // Verifica duplicidade de email somente se não estiver vazio
+            $usuarioExistente = $this->usuarioDAO->findByEmail((string)$email);
             if ($usuarioExistente) {
                 $erros[] = "Já existe um usuário cadastrado com este e-mail.";
             }
+        }
+
+        // Validar curso para alunos
+        $curso = $usuario->getCurso();
+        if (!$curso || !$curso->getId()) {
+            $erros[] = "O campo [Curso] é obrigatório.";
         }
 
         // Outras validações (senha, confirmação, curso etc.)
@@ -52,13 +59,7 @@ class AutoCadastroService
             $erros[] = "O campo [Senha] deve ser igual ao [Confirmação da senha].";
         }
 
-        // Validar curso para alunos
-        if ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
-            $curso = $usuario->getCurso();
-            if (!$curso || !$curso->getId()) {
-                $erros[] = "O campo [Curso] é obrigatório para alunos.";
-            }
-        }
+
 
         return $erros;
     }

@@ -38,14 +38,6 @@ require_once(__DIR__ . "/../include/header.php");
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="seltipoUsuario">Tipo de Usuário:</label>
-                <select class="form-select" name="tipoUsuario" id="seltipoUsuario" required>
-                    <option value="" disabled selected>Selecione o seu tipo de usuário</option>
-                    <option value="Aluno">Aluno</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
                 <label class="form-label" for="txtmatricula">Número Matrícula :</label>
                 <input class="form-control" type="text" id="txtmatricula" name="matricula"
                     maxlength="70" placeholder="Informe a Matrícula"
