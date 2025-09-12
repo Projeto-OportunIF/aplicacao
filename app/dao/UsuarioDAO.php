@@ -103,11 +103,11 @@ class UsuarioDAO
         }
 
         $sql = "INSERT INTO usuarios (nomeCompleto, senha, tipoUsuario, cpf, matricula, idCursos, email)
-                VALUES (:nome, :senha, :tipoUsuario, :cpf, :matricula, :idCursos, :email)";
+            VALUES (:nome, :senha, :tipoUsuario, :cpf, :matricula, :idCursos, :email)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNomeCompleto());
-        $stm->bindValue("senha", password_hash($usuario->getSenha(), PASSWORD_DEFAULT));
+        $stm->bindValue("senha", $usuario->getSenha()); // senha já vem hash
         $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
         $stm->bindValue("cpf", $usuario->getCpf());
         $stm->bindValue("matricula", $usuario->getMatricula());
@@ -131,14 +131,14 @@ class UsuarioDAO
         }
 
         $sql = "UPDATE usuarios SET nomeCompleto = :nome, email = :email, cpf = :cpf,
-                senha = :senha, tipoUsuario = :tipoUsuario, matricula = :matricula, idCursos = :idCursos, fotoPerfil = :fotoPerfil
-                WHERE idUsuarios = :id";
+            senha = :senha, tipoUsuario = :tipoUsuario, matricula = :matricula, idCursos = :idCursos, fotoPerfil = :fotoPerfil
+            WHERE idUsuarios = :id";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNomeCompleto());
         $stm->bindValue("email", $usuario->getEmail());
         $stm->bindValue("cpf", $usuario->getCpf());
-        $stm->bindValue("senha", password_hash($usuario->getSenha(), PASSWORD_DEFAULT));
+        $stm->bindValue("senha", $usuario->getSenha()); // senha já vem hash
         $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
         $stm->bindValue("matricula", $usuario->getMatricula());
         $stm->bindValue("idCursos", $idCurso);
@@ -147,6 +147,7 @@ class UsuarioDAO
 
         $stm->execute();
     }
+
 
     public function deleteById(int $id)
     {
