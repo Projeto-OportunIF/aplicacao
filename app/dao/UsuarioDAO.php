@@ -11,7 +11,10 @@ class UsuarioDAO
     public function list()
     {
         $conn = Connection::getConn();
-        $sql = "SELECT * FROM usuarios u ORDER BY u.nomeCompleto";
+        $sql = "SELECT u.*, c.nome AS nomeCursos
+            FROM usuarios u
+            LEFT JOIN cursos c ON c.idCursos = u.idCursos
+            ORDER BY u.nomeCompleto";
         $stm = $conn->prepare($sql);
         $stm->execute();
         $result = $stm->fetchAll();

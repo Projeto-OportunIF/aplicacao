@@ -1,0 +1,94 @@
+/* Fundo geral */
+body {
+    background-color: #d5ecab;
+    font-family: Arial, sans-serif;
+}
+
+/* Título */
+h3.text-center {
+    color: #a63a53;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Container do formulário */
+.container {
+    margin-left: 800px;
+    margin-top: 150px;
+}
+
+/* Centralizar o card dentro do container */
+#frmCurso {
+    background-color: #e8f0db;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    min-width: 300px;
+
+}
+
+/* Label */
+#frmCurso label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #222;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+/* Input */
+#frmCurso input[type="text"] {
+    border: none;
+    border-bottom: 1px solid #5a6945;
+    background: transparent;
+    width: 100%;
+    padding: 5px;
+    outline: none;
+    font-size: 14px;
+    text-align: center;
+}
+
+#frmCurso a.btn-secondary {
+
+    background-color: #92aa71;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+/* Botão */
+#frmCurso button[type="submit"] {
+    background-color: #a63a53;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin-top: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Container da imagem */
+.illustration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Imagem fixa na lateral esquerda */
+.illustration {
+    position: fixed;
+    left: 250px;
+    top: 200px;
+    width: 380px;
+    object-fit: cover;
+}

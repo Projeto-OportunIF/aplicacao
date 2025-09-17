@@ -2,12 +2,14 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro_curso_form.css">
 <h3 class="text-center">
     <?php if ($dados['id'] == 0) echo "Inserir";
     else echo "Alterar"; ?>
     Curso
 </h3>
+
+<img src="/aplicacao/app/view/img/cadastro_curso.png" alt="Ilustração" class="illustration">
 
 <div class="container">
 
@@ -28,9 +30,9 @@ require_once(__DIR__ . "/../include/menu.php");
 
                 <div class="mt-3">
                     <button type="submit" class="btn btn-success">Gravar</button>
-                    <a href="<?= BASEURL ?>/controller/CursoController.php?action=list"
-                        class="btn btn-secondary">Voltar</a>
+                    <a href="<?= BASEURL ?>/controller/CursoController.php?action=list" class="btn btn-secondary" type="button">Voltar</a>
                 </div>
+
             </form>
         </div>
 
