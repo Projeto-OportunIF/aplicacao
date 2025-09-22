@@ -5,10 +5,23 @@
 include_once(__DIR__ . "/../../model/enum/UsuarioTipo.php");
 
 
+
+// print_r( $_SESSION);
+// die;
+
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 $nome = "(Sessão expirada)";
+
+$fotoPerfil = "avatar.png";
+
+if (isset($_SESSION[SESSAO_USUARIO_FOTO_PERFIL]))
+    $fotoPerfil = $_SESSION[SESSAO_USUARIO_FOTO_PERFIL];
+
+
 if (isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
 
@@ -18,6 +31,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::ALUNO)
 elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     $homePage = HOME_PAGE_PROFESSOR;
 ?>
+
 <nav class="navbar navbar-expand-md px-3 mb-3" style="background-color: #c23956">
 
 
@@ -38,7 +52,9 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
                 <a class="nav-link dropdown-toggle usuario-topo" href="#" id="navbarUsuario"
                     data-bs-toggle="dropdown">
 
-                    <img src="<?= BASEURL_ARQUIVOS . "/$fotoPerfil" ?>" alt="Foto de perfil">
+                    <div class="foto-perfil-wrapper">
+                        <img class="foto-perfil" src="<?= BASEURL_ARQUIVOS . "/$fotoPerfil" ?>" alt="Foto de perfil">
+                    </div>
 
                     <span><?= $nome ?></span>
                 </a>
@@ -77,4 +93,25 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
         height: auto;
         /* altura automática para manter proporção */
     }
+
+    .navbar-nav .foto-perfil {
+        max-width: 120%;
+    }
+
+
+    .foto-perfil-wrapper {
+        width: 30px;
+        height: 30px;
+
+        border-radius: 50%;
+
+        text-align: center;
+        overflow: hidden;
+
+
+
+
+
+    }
+
 </style>

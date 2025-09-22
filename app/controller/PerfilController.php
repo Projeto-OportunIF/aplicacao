@@ -4,6 +4,8 @@ require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../service/UsuarioService.php");
 require_once(__DIR__ . "/../service/ArquivoService.php");
 require_once(__DIR__ . "/../service/LoginService.php");
+require_once(__DIR__ . "/../dao/CursoDAO.php");
+
 
 class PerfilController extends Controller
 {
@@ -38,31 +40,52 @@ class PerfilController extends Controller
         $this->loadView("perfil/perfil.php", $dados);
     }
 
-    // Salva apenas a foto de perfil 
     protected function save()
     {
+        
+        $idUsuario = $_SESSION[SESSAO_USUARIO_ID];
+        $usuario = $this->usuarioDao->findById($idUsuario);
+
         $erros = [];
 
-        if (isset($_FILES['foto']) && !empty($_FILES['foto']['name'])) {
-            $foto = $_FILES["foto"];
-            $erros = $this->usuarioService->validarFotoPerfil($foto);
+        if ($usuario) {
+            $usuario->setNomeCompleto($_POST['nomeCompleto'] ?? $usuario->getNomeCompleto());
+            $usuario->setEmail($_POST['email'] ?? $usuario->getEmail());
+            $usuario->setCpf($_POST['cpf'] ?? $usuario->getCpf());
+            $usuario->setMatricula($_POST['matricula'] ?? $usuario->getMatricula());
+            $usuario->setTipoUsuario($_POST['tipoUsuario'] ?? $usuario->getTipoUsuario());
+        }
 
-            if (!$erros) {
-                $fotoNome = $this->arquivoService->salvarArquivo($foto);
-                $idUsuarioLogado = $_SESSION[SESSAO_USUARIO_ID];
-                $usuario = $this->usuarioDao->findById($idUsuarioLogado);
-                $usuario->setFotoPerfil($fotoNome);
-                $this->usuarioDao->update($usuario);
-
-                // Atualiza sessão com nova foto
-                $this->loginService->salvarUsuarioSessao($usuario);
+        if (!empty($_POST['curso_id'])) {
+            $cursoDao = new CursoDAO();
+            $curso = $cursoDao->findById($_POST['curso_id']);
+            if ($curso) {
+                $usuario->setCurso($curso);
             }
-        } else {
+        }
+
+        if (isset($_FILES['foto']) && !empty($_FILES['foto']['name'])) {
+            
+            $foto = $_FILES["foto"];
+            $fotoNome = $this->arquivoService->salvarArquivo($foto);
+            $usuario->setFotoPerfil($fotoNome);
+
+        } else if($usuario->getFotoPerfil() == null){
             $erros[] = "Nenhuma foto foi enviada.";
         }
 
-        $idUsuarioLogado = $_SESSION[SESSAO_USUARIO_ID];
-        $usuario = $this->usuarioDao->findById($idUsuarioLogado);
+        $erros = $this->usuarioService->validarDados($usuario, $usuario->getSenha());
+
+        if (!$erros) {
+
+            $this->usuarioDao->update($usuario);
+
+            // Atualiza sessão com nova foto
+            $this->loginService->salvarUsuarioSessao($usuario);
+
+            header("Location: " . BASEURL . "/controller/PerfilController.php?action=view");
+        }
+
         $dados['usuario'] = $usuario;
         $msgErro = implode("<br>", $erros);
         $this->loadView("perfil/perfil.php", $dados, $msgErro);
@@ -96,38 +119,45 @@ class PerfilController extends Controller
     }
 
     // Salva todas as alterações do perfil
+    //TODO: Verificar se essa funcao continua sendo util
     protected function salvarEdicaoPerfil()
     {
-        if (!isset($_SESSION[SESSAO_USUARIO_ID])) {
-            header("Location: " . BASEURL . "/controller/LoginController.php?action=login");
-            exit;
-        }
+        // if (!isset($_SESSION[SESSAO_USUARIO_ID])) {
+        //     header("Location: " . BASEURL . "/controller/LoginController.php?action=login");
+        //     exit;
+        // }
 
-        $idUsuario = $_SESSION[SESSAO_USUARIO_ID];
-        $usuario = $this->usuarioDao->findById($idUsuario);
+        // $idUsuario = $_SESSION[SESSAO_USUARIO_ID];
+        // $usuario = $this->usuarioDao->findById($idUsuario);
 
-        if ($usuario) {
-            $usuario->setNomeCompleto($_POST['nomeCompleto'] ?? $usuario->getNomeCompleto());
-            $usuario->setEmail($_POST['email'] ?? $usuario->getEmail());
-            $usuario->setCpf($_POST['cpf'] ?? $usuario->getCpf());
-            $usuario->setMatricula($_POST['matricula'] ?? $usuario->getMatricula());
-            $usuario->setTipoUsuario($_POST['tipoUsuario'] ?? $usuario->getTipoUsuario());
+        // if ($usuario) {
+        //     $usuario->setNomeCompleto($_POST['nomeCompleto'] ?? $usuario->getNomeCompleto());
+        //     $usuario->setEmail($_POST['email'] ?? $usuario->getEmail());
+        //     $usuario->setCpf($_POST['cpf'] ?? $usuario->getCpf());
+        //     $usuario->setMatricula($_POST['matricula'] ?? $usuario->getMatricula());
+        //     $usuario->setTipoUsuario($_POST['tipoUsuario'] ?? $usuario->getTipoUsuario());
 
-            if (!empty($_POST['curso_id'])) {
-                require_once(__DIR__ . "/../dao/CursoDAO.php");
-                $cursoDao = new CursoDAO();
-                $curso = $cursoDao->findById($_POST['curso_id']);
-                if ($curso) {
-                    $usuario->setCurso($curso);
-                }
-            }
+        //     if (isset($foto) && $foto != ""){
+        //         $usuario->setFotoPerfil($foto);
+        //     }
+            
 
-            $this->usuarioDao->update($usuario);
-            $this->loginService->salvarUsuarioSessao($usuario);
-        }
+        //     if (!empty($_POST['curso_id'])) {
+        //         require_once(__DIR__ . "/../dao/CursoDAO.php");
+        //         $cursoDao = new CursoDAO();
+        //         $curso = $cursoDao->findById($_POST['curso_id']);
+        //         if ($curso) {
+        //             $usuario->setCurso($curso);
+        //         }
+        //     }
 
-        header("Location: " . BASEURL . "/controller/PerfilController.php?action=view");
-        exit;
+        //     $this->usuarioDao->update($usuario);
+            
+        //     $this->loginService->salvarUsuarioSessao($usuario);
+        // }
+
+        // header("Location: " . BASEURL . "/controller/PerfilController.php?action=view");
+        // exit;
     }
 }
 
