@@ -2,18 +2,27 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-
-<h3 class="text-center">
-    <?php if ($dados['id'] == 0) echo "Inserir";
-    else echo "Alterar"; ?>
-    Usuário
-</h3>
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro_usuario_form.css">
 
 <div class="container">
-    <div class="row" style="margin-top: 10px;">
-        <div class="row" style="margin-top: 30px;">
+    <!-- Coluna esquerda com imagem -->
+    <div class="banner">
+        <img src="<?= BASEURL ?>/view/img/cadastro_usuario.png" alt="Cadastro de usuários">
+    </div>
+
+    <!-- Coluna direita com o formulário -->
+    <div class="formulario">
+<!-- Título dentro do formulário -->
+        <h3 class="titulo-form">
+            <?php if ($dados['id'] == 0) echo "Inserir"; else echo "Alterar"; ?> Usuário
+        </h3>
+
+        <div class="row" style="margin-top: 10px;">
+
+
             <div class="col-12">
-                <a class="btn btn-secondary" href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
+                 <a class="btn-voltar" href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
+
             </div>
         </div>
 
@@ -63,19 +72,22 @@ require_once(__DIR__ . "/../include/menu.php");
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label" for="txtSenha">Senha:</label>
-                    <input class="form-control" type="password" id="txtSenha" name="senha"
-                        maxlength="90" placeholder="Informe a senha"
-                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
-                </div>
 
-                <div class="mb-3">
-                    <label class="form-label" for="txtconf_senha">Confirmação da senha:</label>
-                    <input class="form-control" type="password" id="txtconf_senha" name="conf_senha"
-                        maxlength="15" placeholder="Informe a confirmação da senha"
-                        value="<?php echo isset($dados['confSenha']) ? $dados['confSenha'] : ''; ?>" />
-                </div>
+                <?php if (isset($dados['resetarSenha']) && $dados['resetarSenha']): ?>
+                    <div class="mb-3">
+                        <label class="form-label">Senha (resetada para padrão)</label>
+                        <input class="form-control" type="text" name="senha" value="<?= $dados['usuario']->getSenha() ?>" readonly>
+                    </div>
+                <?php else: ?>
+                    <div class="mb-3">
+                        <?php if (isset($dados["usuario"]) && $dados["usuario"]->getId() > 0): ?>
+                            <label class="form-label">Senha (resetada para padrão)</label>
+                        <?php else: ?>
+                            <label class="form-label">Senha</label>
+                        <?php endif; ?>
+                        <input class="form-control" type="text" name="senha" value="<?= $dados['senhaPadrao'] ?>" readonly>
+                    </div>
+                <?php endif; ?>
 
                 <div class="mb-3">
                     <label class="form-label" for="seltipoUsuario">Tipo de usuário:</label>

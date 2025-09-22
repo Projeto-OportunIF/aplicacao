@@ -52,11 +52,7 @@ class UsuarioService
             }
         }
 
-        if (!$usuario->getSenha())
-            $erros[] = "O campo [Senha] é obrigatório.";
 
-        if (!$confSenha)
-            $erros[] = "O campo [Confirmação da senha] é obrigatório.";
 
         if (!$usuario->getTipoUsuario())
             $erros[] = "O campo [Tipo de usuário] é obrigatório.";

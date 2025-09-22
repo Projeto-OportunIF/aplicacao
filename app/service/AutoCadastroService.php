@@ -35,30 +35,60 @@ class AutoCadastroService
         }
 
         // Validar email
-        if (!$usuario->getEmail()) {
+        $email = $usuario->getEmail();
+        if (!$email) {
             $erros[] = "O campo [E-mail] é obrigatório.";
         } else {
-            // Verifica duplicidade de email
-            $usuarioExistente = $this->usuarioDAO->findByEmail($usuario->getEmail());
+            // Verifica duplicidade de email somente se não estiver vazio
+            $usuarioExistente = $this->usuarioDAO->findByEmail((string)$email);
             if ($usuarioExistente) {
                 $erros[] = "Já existe um usuário cadastrado com este e-mail.";
             }
         }
 
-        // Outras validações (senha, confirmação, curso etc.)
-        if (!$usuario->getSenha()) $erros[] = "O campo [Senha] é obrigatório.";
-        if (!$confSenha) $erros[] = "O campo [Confirmação da senha] é obrigatório.";
-        if ($usuario->getSenha() && $confSenha && $usuario->getSenha() != $confSenha) {
+        // Validar curso para alunos
+        $curso = $usuario->getCurso();
+        if (!$curso || !$curso->getId()) {
+            $erros[] = "O campo [Curso] é obrigatório.";
+        }
+
+        $senha = $usuario->getSenha();
+
+        // Validar senha obrigatória
+        if (!$senha) {
+            $erros[] = "O campo [Senha] é obrigatório.";
+        }
+
+        // Validar confirmação de senha
+        if (!$confSenha) {
+            $erros[] = "O campo [Confirmação da senha] é obrigatório.";
+        }
+
+        // Verificar se senha e confirmação batem
+        if ($senha && $confSenha && $senha !== $confSenha) {
             $erros[] = "O campo [Senha] deve ser igual ao [Confirmação da senha].";
         }
 
-        // Validar curso para alunos
-        if ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
-            $curso = $usuario->getCurso();
-            if (!$curso || !$curso->getId()) {
-                $erros[] = "O campo [Curso] é obrigatório para alunos.";
+        // Validar força da senha
+        if ($senha) {
+            if (strlen($senha) < 8) {
+                $erros[] = "A senha deve ter no mínimo 8 caracteres.";
+            }
+            if (!preg_match('/[A-Z]/', $senha)) {
+                $erros[] = "A senha deve conter pelo menos uma letra maiúscula.";
+            }
+            if (!preg_match('/[a-z]/', $senha)) {
+                $erros[] = "A senha deve conter pelo menos uma letra minúscula.";
+            }
+            if (!preg_match('/[0-9]/', $senha)) {
+                $erros[] = "A senha deve conter pelo menos um número.";
+            }
+            if (!preg_match('/[\W]/', $senha)) {
+                $erros[] = "A senha deve conter pelo menos um caracter especial.";
             }
         }
+
+
 
         return $erros;
     }

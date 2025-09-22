@@ -41,7 +41,6 @@ class CadastroController extends Controller
         $senha = trim($_POST['senha']) ?: null;
         $confSenha = trim($_POST['conf_senha']) ?: null;
         $cpf = trim($_POST['cpf']) ?: null;
-        $tipoUsuario = trim($_POST['tipoUsuario']) ?: null;
         $matricula = trim($_POST['matricula']) ?: null;
         $idCurso = trim($_POST['curso']) ?: null;
 
@@ -62,7 +61,7 @@ class CadastroController extends Controller
             $usuario->setCurso(null);
         }
 
-        $usuario->setTipoUsuario($tipoUsuario);
+        $usuario->setTipoUsuario(UsuarioTipo::ALUNO); // para o usuario que for fazer o autocadastro ser sempre aluno
 
         // Validar os dados (camada service)
         $erros = $this->cadastroService->validarDados($usuario, $confSenha);

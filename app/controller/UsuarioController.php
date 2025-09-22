@@ -28,7 +28,6 @@ class UsuarioController extends Controller
             return;
         }
 
-
         $this->usuarioDao = new UsuarioDAO();
         $this->usuarioService = new UsuarioService();
         $this->cursoDAO = new CursoDAO();
@@ -42,20 +41,16 @@ class UsuarioController extends Controller
 
         $this->loadView("usuario/usuario_list.php", $dados,  $msgErro, $msgSucesso);
     }
-
     protected function create()
     {
-
-        //Criar o objeto Usuario
-        $usuario = new Usuario();
-
         $dados['id'] = 0;
         $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
         $dados['cursos'] = $this->cursoDAO->list();
+        $dados['senhaPadrao'] = 'IFPR@SENHA123';
+
 
         $this->loadView("usuario/cadastro_usuario_form.php", $dados);
     }
-
     protected function edit()
     {
         //Busca o usuário na base pelo ID    
@@ -63,7 +58,9 @@ class UsuarioController extends Controller
 
         if ($usuario) {
             $dados['id'] = $usuario->getId();
-            $usuario->setSenha("");
+            $usuario->setSenha("IFPR@1234"); // senha padrão
+            $dados['resetarSenha'] = true;
+
             $dados["usuario"] = $usuario;
 
             $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
@@ -73,33 +70,30 @@ class UsuarioController extends Controller
         } else
             $this->list("Usuário não encontrado!");
     }
-
     protected function save()
     {
         // Captura os dados do formulário
         $id = $_POST['id'] ?? 0;
         $nomeCompleto = trim($_POST['nomeCompleto']) ?: null;
-        $email = trim($_POST['email']) ?: null;
-        $senha = trim($_POST['senha']) ?: null;
-        $confSenha = trim($_POST['conf_senha']) ?: null;
+        $email = trim($_POST['email']) ?: '';
+        $senhaPost = isset($_POST['senha']) ? trim($_POST['senha']) : null;
+        $confSenha = isset($_POST['conf_senha']) ? trim($_POST['conf_senha']) : null;
         $cpf = trim($_POST['cpf']) ?: null;
         $tipoUsuario = trim($_POST['tipoUsuario']) ?: null;
         $matricula = trim($_POST['matricula']) ?: null;
         $idCurso = trim($_POST['curso']) !== "" ? (int) $_POST['curso'] : null;
+        $resetSenha = isset($_POST['reset_senha']);
 
-        // Cria o objeto Usuario
+        // Cria o objeto Usuario (campos básicos)
         $usuario = new Usuario();
         $usuario->setId($id);
         $usuario->setNomeCompleto($nomeCompleto);
         $usuario->setCpf($cpf);
-        $usuario->setSenha($senha);
         $usuario->setEmail($email);
         $usuario->setMatricula($matricula);
-
-        // Seta o tipo de usuário
         $usuario->setTipoUsuario($tipoUsuario);
 
-        // Seta o curso apenas se houver valor
+
         if ($idCurso) {
             $curso = new Curso();
             $curso->setId($idCurso);
@@ -107,37 +101,86 @@ class UsuarioController extends Controller
         } else {
             $usuario->setCurso(null);
         }
+        // === Lógica de senha ===
+        if ($resetSenha) {
+            // admin pediu reset -> vamos prepara a senha padrão (visível) para validação
+            $senhaPadrao = "IFPR@1234";
+            // para validação colocamos a senha em texto no objeto e em confSenha
+            $usuario->setSenha($senhaPadrao);
+            $confSenha = $senhaPadrao;
+            // para a view mostrar a senha limpa
+            $dados['senhaVisivel'] = $senhaPadrao;
+        } else {
+            if ($id != 0) {
 
-        // Valida os dados via Service
+                $usuarioExistente = $this->usuarioDao->findById($id);
+                if ($usuarioExistente) {
+
+                    $usuario->setSenha($usuarioExistente->getSenha());
+
+                    $confSenha = $usuarioExistente->getSenha();
+                } else {
+
+                    $usuario->setSenha($senhaPost);
+                }
+            } else {
+
+                $usuario->setSenha($senhaPost);
+                // confSenha vem do form
+            }
+        }
+        // Validação via service
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);
 
         if (!$erros) {
             try {
+                // Antes de persistir, garantir que o que for salvo no banco é HASH
+                if ($id == 0 || $resetSenha) {
+                    // se for inserção ou reset, hash da senha em texto
+                    $plain = $resetSenha ? $senhaPadrao : $senhaPost;
+                    $usuario->setSenha(password_hash($plain, PASSWORD_DEFAULT));
+                }
+                // Se for edição sem reset, já colocamos o hash do DB no $usuario
+
                 if ($usuario->getId() == 0) {
                     $this->usuarioDao->insert($usuario);
+                    header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+                    exit;
                 } else {
                     $this->usuarioDao->update($usuario);
-                }
 
-                header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
-                exit;
+                    if ($resetSenha) {
+                        // Se resetou, NÃO redirecionamos: reexibimos o form com a senha visível
+                        $msgSucesso = "Senha resetada com sucesso.";
+                        // buscar dados atuais do usuário pro formulário
+                        $usuarioAtualizado = $this->usuarioDao->findById($usuario->getId());
+                        $dados['id'] = $usuarioAtualizado->getId();
+                        $dados['usuario'] = $usuarioAtualizado;
+                        $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
+                        $dados['cursos'] = $this->cursoDAO->list();
+                        $dados['confSenha'] = null;
+                        // já temos $dados['senhaVisivel'] definido acima
+                        $this->loadView("usuario/cadastro_usuario_form.php", $dados, "", $msgSucesso);
+                        return;
+                    } else {
+                        header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+                        exit;
+                    }
+                }
             } catch (PDOException $e) {
                 $erros[] = "Erro ao gravar no banco de dados!";
                 $erros[] = $e->getMessage();
             }
         }
-
-        // Preparar dados para reexibir o formulário com erros
+        // Se houver erros, reexibir form com dados e mensagens
         $dados['id'] = $usuario->getId();
         $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
         $dados['cursos'] = $this->cursoDAO->list();
         $dados['confSenha'] = $confSenha;
         $dados['usuario'] = $usuario;
         $msgErro = implode("<br>", $erros);
-
         $this->loadView("usuario/cadastro_usuario_form.php", $dados, $msgErro);
     }
-
     protected function delete()
     {
         //Busca o usuário na base pelo ID    
@@ -153,7 +196,6 @@ class UsuarioController extends Controller
             $this->list("Usuário não encontrado!");
         }
     }
-
     protected function listJson()
     {
         //Retornar uma lista de usuários em forma JSON
@@ -161,8 +203,6 @@ class UsuarioController extends Controller
         $json = json_encode($usuarios);
 
         echo $json;
-
-        //[{},{},{}]
     }
 
     private function findUsuarioById()
@@ -175,7 +215,5 @@ class UsuarioController extends Controller
         return $this->usuarioDao->findById($id);
     }
 }
-
-
 #Criar objeto da classe para assim executar o construtor
 new UsuarioController();
