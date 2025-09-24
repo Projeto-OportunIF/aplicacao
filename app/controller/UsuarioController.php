@@ -58,18 +58,27 @@ class UsuarioController extends Controller
 
         if ($usuario) {
             $dados['id'] = $usuario->getId();
-            $usuario->setSenha("IFPR@1234"); // senha padrão
-            $dados['resetarSenha'] = true;
 
-            $dados["usuario"] = $usuario;
+            // senha padrão em texto puro
+            $senhaPadrao = "IFPR@1234"; // senha que o admin verá
+            $usuario->setSenha(password_hash($senhaPadrao, PASSWORD_DEFAULT));
+            $this->usuarioDao->update($usuario);
+
+            // Passa a senha em texto puro para a view
+            $dados['resetarSenha'] = true;
+            $dados['usuario'] = $usuario;
+            $dados['senhaPadrao'] = $senhaPadrao; // <-- aqui!
+
 
             $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
             $dados['cursos'] = $this->cursoDAO->list();
 
             $this->loadView("usuario/cadastro_usuario_form.php", $dados);
-        } else
+        } else {
             $this->list("Usuário não encontrado!");
+        }
     }
+
     protected function save()
     {
         // Captura os dados do formulário

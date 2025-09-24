@@ -12,16 +12,17 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <!-- Coluna direita com o formulário -->
     <div class="formulario">
-<!-- Título dentro do formulário -->
+        <!-- Título dentro do formulário -->
         <h3 class="titulo-form">
-            <?php if ($dados['id'] == 0) echo "Inserir"; else echo "Alterar"; ?> Usuário
+            <?php if ($dados['id'] == 0) echo "Inserir";
+            else echo "Alterar"; ?> Usuário
         </h3>
 
         <div class="row" style="margin-top: 10px;">
 
 
             <div class="col-12">
-                 <a class="btn-voltar" href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
+                <a class="btn-voltar" href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
 
             </div>
         </div>
@@ -73,21 +74,27 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
 
 
-                <?php if (isset($dados['resetarSenha']) && $dados['resetarSenha']): ?>
-                    <div class="mb-3">
+                <div class="mb-3">
+                    <?php if (isset($dados['resetarSenha']) && $dados['resetarSenha']): ?>
+                        <!-- Edição com reset de senha -->
                         <label class="form-label">Senha (resetada para padrão)</label>
-                        <input class="form-control" type="text" name="senha" value="<?= $dados['usuario']->getSenha() ?>" readonly>
-                    </div>
-                <?php else: ?>
-                    <div class="mb-3">
+                        <input class="form-control" type="text" name="senha"
+                            value="<?= isset($dados['senhaPadrao']) ? $dados['senhaPadrao'] : '' ?>" readonly>
+                    <?php else: ?>
                         <?php if (isset($dados["usuario"]) && $dados["usuario"]->getId() > 0): ?>
-                            <label class="form-label">Senha (resetada para padrão)</label>
-                        <?php else: ?>
+                            <!-- Edição sem reset -->
                             <label class="form-label">Senha</label>
+                            <input class="form-control" type="text" name="senha"
+                                value="<?= isset($dados['senhaPadrao']) ? $dados['senhaPadrao'] : '' ?>" readonly>
+                        <?php else: ?>
+                            <!-- Cadastro de novo usuário -->
+                            <label class="form-label">Senha</label>
+                            <input class="form-control" type="text" name="senha"
+                                value="<?= isset($dados['senhaPadrao']) ? $dados['senhaPadrao'] : '' ?>" readonly>
                         <?php endif; ?>
-                        <input class="form-control" type="text" name="senha" value="<?= $dados['senhaPadrao'] ?>" readonly>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+
 
                 <div class="mb-3">
                     <label class="form-label" for="seltipoUsuario">Tipo de usuário:</label>
