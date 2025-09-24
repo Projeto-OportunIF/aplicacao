@@ -41,7 +41,7 @@ $cursos = $cursoDAO->list();
         <h2 class="form-title text-center">Editar Perfil</h2> <!-- Centraliza o título -->
 
         <!-- Formulário envia para salvarEdicaoPerfil -->
-        <form action="<?php echo BASEURL . '/controller/PerfilController.php?action=salvarEdicaoPerfil'; ?>"
+        <form action="<?php echo BASEURL . '/controller/PerfilController.php?action=save'; ?>"
             method="POST" enctype="multipart/form-data" class="edit-form">
 
             <!-- Campo oculto com ID -->
@@ -97,8 +97,9 @@ $cursos = $cursoDAO->list();
                 <input type="file" class="form-control" id="foto" name="foto">
                 <?php if (!empty($usuario->getFotoPerfil())): ?>
                     <p class="mt-2">Foto atual:</p>
-                    <img src="<?php echo BASEURL . '/uploads/' . $usuario->getFotoPerfil(); ?>"
-                        alt="Foto de perfil" width="120" class="rounded">
+
+                    <img class="foto-perfil" src="<?= BASEURL_ARQUIVOS . "/" . $usuario->getFotoPerfil(); ?>" alt="Foto de perfil" alt="Foto de perfil" width="120" class="rounded">
+
                 <?php endif; ?>
             </div>
 
