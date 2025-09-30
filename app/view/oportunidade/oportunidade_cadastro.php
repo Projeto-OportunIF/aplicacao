@@ -50,6 +50,15 @@ require_once(__DIR__ . "/../include/menu.php");
                         placeholder="Informe a descrição"><?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getDescricao() : ''; ?></textarea>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label" for="professor_responsavel">Professor Responsável:</label>
+                    <input class="form-control" type="text" id="professor_responsavel" name="professor_responsavel"
+                        placeholder="Informe o professor responsável"
+                        value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getProfessorResponsavel() : ''; ?>" />
+                </div>
+
+
+
 
                 <div class="mb-3">
                     <label class="form-label" for="selTipo">Tipo de Oportunidade:</label>

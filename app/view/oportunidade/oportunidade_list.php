@@ -22,6 +22,7 @@ require_once(__DIR__ . "/../include/menu.php");
         <div class="card-oportunidade">
             <h3><?= $op->getTitulo(); ?></h3>
             <p><strong>Descrição:</strong> <?= $op->getDescricao(); ?></p>
+            <p><strong>Professor Responsável:</strong> <?= $op->getProfessorResponsavel(); ?></p> <!-- Adicione esta linha -->
             <p><strong>Tipo:</strong> <?= $op->getTipoOportunidade(); ?></p>
             <p><strong>Vagas:</strong> <?= $op->getVaga(); ?></p>
             <p><strong>Cursos:</strong>
@@ -30,6 +31,8 @@ require_once(__DIR__ . "/../include/menu.php");
                 echo implode(", ", $nomesCursos);
                 ?>
             </p>
+
+
 
             <div class="acoes">
                 <a class="btn btn-primary"

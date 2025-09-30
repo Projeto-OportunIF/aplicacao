@@ -95,8 +95,8 @@ class OportunidadeDAO
         $conn = Connection::getConn();
 
         $sql = "INSERT INTO oportunidades 
-        (titulo, descricao, tipoOportunidade, dataInicio, dataFim, documentoAnexo, idUsuarios, vaga) 
-        VALUES (:titulo, :descricao, :tipoOportunidade, :dataInicio, :dataFim, :documentoAnexo, :idUsuarios, :vaga)";
+        (titulo, descricao, tipoOportunidade, dataInicio, dataFim, documentoAnexo, professor_responsavel, vaga) 
+        VALUES (:titulo, :descricao, :tipoOportunidade, :dataInicio, :dataFim, :documentoAnexo, :professor_responsavel, :vaga)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue(":titulo", $oportunidade->getTitulo());
@@ -105,7 +105,7 @@ class OportunidadeDAO
         $stm->bindValue(":dataInicio", $oportunidade->getDataInicio());
         $stm->bindValue(":dataFim", $oportunidade->getDataFim());
         $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
-        $stm->bindValue(":idUsuarios", $oportunidade->getProfessor()->getId());
+        $stm->bindValue(":professor_responsavel", $oportunidade->getProfessorResponsavel());
         $stm->bindValue(":vaga", $oportunidade->getVaga());
         $stm->execute();
 
@@ -129,14 +129,18 @@ class OportunidadeDAO
 
         //  Atualizar dados da oportunidade (sem idCursos)
         $sql = "UPDATE oportunidades SET
-                titulo = :titulo,
-                descricao = :descricao,
-                tipoOportunidade = :tipo,
-                dataInicio = :dataInicio,
-                dataFim = :dataFim,
-                documentoAnexo = :documentoAnexo,
-                vaga = :vaga
-            WHERE idOportunidades = :id";
+            titulo = :titulo,
+            descricao = :descricao,
+            tipoOportunidade = :tipo,
+            dataInicio = :dataInicio,
+            dataFim = :dataFim,
+            documentoAnexo = :documentoAnexo,
+            vaga = :vaga,
+            professor_responsavel = :professor_responsavel
+        WHERE idOportunidades = :id";
+
+
+
 
         $stm = $conn->prepare($sql);
         $stm->bindValue(":titulo", $oportunidade->getTitulo());
@@ -146,6 +150,7 @@ class OportunidadeDAO
         $stm->bindValue(":dataFim", $oportunidade->getDataFim());
         $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
         $stm->bindValue(":vaga", $oportunidade->getVaga());
+        $stm->bindValue(":professor_responsavel", $oportunidade->getProfessorResponsavel());
         $stm->bindValue(":id", $oportunidade->getId());
         $stm->execute();
 
@@ -198,9 +203,9 @@ class OportunidadeDAO
             $oportunidade->setVaga($reg['vaga']);
 
             // Professor
-            $professor = new Usuario();
-            $professor->setId($reg['idUsuarios']);
-            $oportunidade->setProfessor($professor);
+            $oportunidade->setProfessorResponsavel($reg['professor_responsavel']);
+
+
 
             // Cursos: agora você deve buscar na tabela oportunidade_curso
             require_once(__DIR__ . "/CursoDAO.php");

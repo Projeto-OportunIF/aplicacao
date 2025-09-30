@@ -15,6 +15,7 @@ require_once(__DIR__ . "/../include/menu.php");
                         <th>Título</th>
                         <th>Descrição</th>
                         <th>Tipo</th>
+                        <th>Professor</th>
                         <th>Início</th>
                         <th>Fim</th>
                         <th>Status</th>
@@ -28,6 +29,7 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><?= htmlspecialchars($inscricao->titulo) ?></td>
                             <td><?= nl2br(strip_tags($inscricao->descricao)) ?></td>
                             <td><?= htmlspecialchars($inscricao->tipoOportunidade) ?></td>
+                           <td><?= htmlspecialchars($inscricao->professor_responsavel ?? "Não definido") ?></td>
                             <td><?= date('d/m/Y', strtotime($inscricao->dataInicio)) ?></td>
                             <td><?= date('d/m/Y', strtotime($inscricao->dataFim)) ?></td>
                             <td><?= htmlspecialchars($inscricao->status) ?></td>

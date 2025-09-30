@@ -80,9 +80,6 @@ class OportunidadeController extends Controller
         $vaga = isset($_POST["vaga"]) && $_POST["vaga"] !== "" ? (int)$_POST["vaga"] : null;
 
 
-
-
-
         $oportunidade = new Oportunidade();
 
 
@@ -111,17 +108,11 @@ class OportunidadeController extends Controller
         }
 
         // SETAR O PROFESSOR (usuário logado)
-        if (isset($_SESSION["usuarioLogadoId"])) {
 
 
-            $id_profesor = $_SESSION["usuarioLogadoId"];
+        $professorResponsavel = trim($_POST["professor_responsavel"]);
+        $oportunidade->setProfessorResponsavel($professorResponsavel);
 
-
-            $professor = $this->usuarioDao->findById($id_profesor);
-
-
-            $oportunidade->setProfessor($professor);
-        }
 
 
         // VALIDAR
@@ -139,14 +130,6 @@ class OportunidadeController extends Controller
             $this->loadView("oportunidade/oportunidade_cadastro.php", $dados, $msgErro);
             return;
         }
-
-
-
-
-        // print "<pre>";
-        // print_r($oportunidade);
-        // print "</pre>";
-        // die;
 
 
         try {
@@ -218,16 +201,16 @@ class OportunidadeController extends Controller
     protected function visualizarInscritos()
     {
         $idOport = $_GET['idOport'] ?? 0;
-
-        // Verifica se o professor logado é o dono da oportunidade
-        $idProfessor = $_SESSION['usuarioLogadoId'];
         $oportunidade = $this->oportunidadeDao->findById($idOport);
 
-        if (!$oportunidade || $oportunidade->getProfessor()->getId() != $idProfessor) {
-            $_SESSION['msgErro'] = "Acesso negado!";
+        if (!$oportunidade) {
+            $_SESSION['msgErro'] = "Oportunidade não encontrada!";
             header("Location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
             exit;
         }
+
+        // segue com a lógica normal...
+
 
         // Busca inscritos
         require_once(__DIR__ . "/../dao/InscricaoDAO.php");

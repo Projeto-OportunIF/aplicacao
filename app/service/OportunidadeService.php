@@ -21,6 +21,11 @@ class OportunidadeService
             array_push($erros, "O campo [Descrição] é obrigatório.");
 
 
+
+        if (!$oportunidade->getProfessorResponsavel())
+            array_push($erros, "O campo [Professor Responsável] é obrigatório.");
+
+
         if (!$oportunidade->getTipoOportunidade())
             array_push($erros, "O campo [Tipo de oportunidade] é obrigatório.");
 

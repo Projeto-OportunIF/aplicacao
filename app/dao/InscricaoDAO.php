@@ -52,16 +52,26 @@ class InscricaoDAO
     // Listar inscrições de um aluno
     public function listByAluno(int $idAluno)
     {
-        $sql = "SELECT i.*, o.titulo, o.descricao, o.tipoOportunidade, o.dataInicio, o.dataFim
+        $sql = "SELECT i.*, 
+                   o.titulo, 
+                   o.descricao, 
+                   o.tipoOportunidade, 
+                   o.dataInicio, 
+                   o.dataFim,
+                   o.vaga,
+                   o.documentoAnexo,
+                   o.professor_responsavel
             FROM inscricoes i
             INNER JOIN oportunidades o ON i.idOportunidades = o.idOportunidades
             WHERE i.idUsuarios = :idAluno
             ORDER BY i.idInscricoes DESC";
+
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":idAluno", $idAluno, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
 
     // Deletar inscrição
     public function deleteById(int $idInscricao)

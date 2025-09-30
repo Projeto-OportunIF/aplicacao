@@ -15,7 +15,7 @@ require_once(__DIR__ . "/../include/menu.php");
         <div class="col-12">
             <div><strong>Nome:</strong> <?= htmlspecialchars($dados['oportunidade']->getTitulo()) ?></div>
             <div><strong>Descrição:</strong> <?= nl2br(strip_tags($dados['oportunidade']->getDescricao())) ?></div>
-
+            <div><strong>Professor Responsável:</strong> <?= htmlspecialchars($dados['oportunidade']->getProfessorResponsavel()) ?></div>
             <div><strong>Modalidade:</strong> <?= htmlspecialchars($dados['oportunidade']->getTipoOportunidade()) ?></div>
             <div><strong>Data de Início:</strong> <?= htmlspecialchars($dados['oportunidade']->getDataInicio()) ?></div>
             <div><strong>Data de Fim:</strong> <?= htmlspecialchars($dados['oportunidade']->getDataFim()) ?></div>
