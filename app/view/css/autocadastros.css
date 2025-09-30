@@ -101,25 +101,36 @@ body {
 
 /* Botão principal */
 .btn-success {
-    background-color: #c23956;
+    background-color: #7aac45;
     border: none;
     color: white;
     padding: 10px 50px;
     font-weight: bold;
     border-radius: 20px;
     transition: 0.3s;
-    margin-bottom: 20px;
+    margin-top: 40px;
 }
 
-/* Efeito hover do botão principal */
-.btn-success:hover {
-    background-color: #a52e45;
-}
 
 /* Botão secundário */
 .btn-secondary {
-    margin-bottom: 4px;
+    margin-top: 50px;
+    background-color: #c74460;
+    border: none;
+    color: white;
+    padding: 10px 40px;
+    font-weight: bold;
+    border-radius: 20px;
+    transition: 0.3s;
+    cursor: pointer; 
 }
+
+
+.btn-secondary:hover {
+    background-color: #a32e47; 
+    transform: scale(1.05);   
+}
+
 
 /* Centraliza conteúdo */
 .text-center {

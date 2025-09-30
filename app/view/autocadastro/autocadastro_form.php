@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../include/header.php");
 ?>
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/autocadastro.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/autocadastros.css">
 
 <div class="container">
     <div class="left-panel">
