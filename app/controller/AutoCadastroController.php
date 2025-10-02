@@ -68,6 +68,7 @@ class CadastroController extends Controller
 
         if (!$erros) {
             try {
+                $usuario->setSenha(password_hash($senha, PASSWORD_DEFAULT));
                 if ($usuario->getId() == 0) {
                     $this->usuarioDao->insert($usuario);
                 } else {
