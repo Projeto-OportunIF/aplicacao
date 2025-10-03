@@ -6,40 +6,42 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/inscricao_oportuni.css">
 
+<div class="container my-4">
+    <div class="row inscricao-container">
 
-<h3 class="text-center">Inscrição na Oportunidade</h3>
+        <!-- Coluna esquerda verde -->
+        <div class="col-md-5 inscricao-info">
+            <h2>Inscrição</h2>
 
-<div class="container" style="margin-top: 20px;">
-    <div class="row">
-        <div class="col-12">
-            <div><strong>Nome:</strong> <?= htmlspecialchars($dados['oportunidade']->getTitulo()) ?></div>
-            <div><strong>Descrição:</strong> <?= nl2br(strip_tags($dados['oportunidade']->getDescricao())) ?></div>
-            <div><strong>Professor Responsável:</strong> <?= htmlspecialchars($dados['oportunidade']->getProfessorResponsavel()) ?></div>
-            <div><strong>Modalidade:</strong> <?= htmlspecialchars($dados['oportunidade']->getTipoOportunidade()) ?></div>
-            <div><strong>Data de Início:</strong> <?= htmlspecialchars($dados['oportunidade']->getDataInicio()) ?></div>
-            <div><strong>Data de Fim:</strong> <?= htmlspecialchars($dados['oportunidade']->getDataFim()) ?></div>
-            <div><strong>Vagas:</strong> <?= htmlspecialchars($dados['oportunidade']->getVaga()) ?></div>
-            <div><strong>Documento Anexo:</strong> <?= htmlspecialchars($dados['oportunidade']->getDocumentoAnexo() ?? "Não há documento") ?></div>
-        </div>
-    </div>
+            <p><strong>Nome:</strong> <?= htmlspecialchars($dados['oportunidade']->getTitulo()) ?></p>
+            <p><strong>Descrição:</strong> <?= nl2br(strip_tags($dados['oportunidade']->getDescricao())) ?></p>
+            <p><strong>Professor Responsável:</strong> <?= htmlspecialchars($dados['oportunidade']->getProfessorResponsavel()) ?></p>
+            <p><strong>Modalidade:</strong> <?= htmlspecialchars($dados['oportunidade']->getTipoOportunidade()) ?></p>
+            <p><strong>Data de Início:</strong> <?= date('d/m/Y', strtotime($dados['oportunidade']->getDataInicio())) ?></p>
+            <p><strong>Data de Fim:</strong> <?= date('d/m/Y', strtotime($dados['oportunidade']->getDataFim())) ?></p>
+            <p><strong>Vagas:</strong> <?= htmlspecialchars($dados['oportunidade']->getVaga()) ?></p>
+            <p><strong>Documento Anexo:</strong> <?= htmlspecialchars($dados['oportunidade']->getDocumentoAnexo() ?? "Não há documento") ?></p>
 
-    <div class="row" style="margin-top: 20px;">
-        <div class="col-12">
+            <!-- Formulário -->
             <form action="<?= BASEURL ?>/controller/InscricaoController.php?action=inscrever&idOport=<?= $dados['oportunidade']->getId() ?>" method="post" enctype="multipart/form-data">
-                <!-- Campo de upload obrigatório -->
-                <div class="mb-3">
-                    <label class="form-label" for="documentoAluno">Enviar Documento (obrigatório):</label>
-                    <input type="file" name="documentoAluno" id="documentoAluno" class="form-control" required>
-                </div>
+                <label for="documentoAluno">Enviar Documento (obrigatório):</label>
+                <input type="file" name="documentoAluno" id="documentoAluno" class="form-control mb-3" required>
 
-                <button type="submit" class="btn btn-success">Inscrever-se</button>
+                <button type="submit" class="btn-inscrever">inscrever-me</button>
             </form>
-
-
         </div>
+
+        <!-- Coluna direita rosa -->
+        <div class="col-md-5 inscricao-figura">
+            <button class="btn-voltar" onclick="window.history.back()">voltar</button>
+            <img src="<?= BASEURL ?>/view/img/inscricao.png" alt="Figura inscrição">
+        </div>
+
     </div>
 </div>
+
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");
