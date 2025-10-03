@@ -55,19 +55,22 @@ require_once(__DIR__ . "/../include/header.php");
                 <label class="form-label" for="selCurso">Curso:</label>
                 <select class="form-select" name="curso" id="selCurso">
                     <option value="">Selecione a qual curso você faz parte</option>
-                    <?php foreach ($dados["cursos"] as $curso): ?>
-                        <option value="<?= $curso->getId() ?>"
-                            <?php
-                            if (
-                                isset($dados["usuario"]) &&
-                                $dados["usuario"]->getCurso() != NULL &&
-                                $dados["usuario"]->getCurso()->getId() == $curso->getId()
-                            )
-                                echo "selected";
-                            ?>>
-                            <?= $curso->getNome() ?>
-                        </option>
+                    <?php foreach ($dados['cursos'] as $curso): ?>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                name="cursos[]"
+                                value="<?= $curso->getId() ?>"
+                                <?php
+                                if (isset($dados['oportunidadeCursos'])) {
+                                    foreach ($dados['oportunidadeCursos'] as $oc) {
+                                        if ($oc->getId() == $curso->getId()) echo "checked";
+                                    }
+                                }
+                                ?>>
+                            <label class="form-check-label"><?= $curso->getNome() ?></label>
+                        </div>
                     <?php endforeach; ?>
+
                 </select>
             </div>
 
@@ -126,6 +129,9 @@ require_once(__DIR__ . "/../include/header.php");
         cpfInput.dispatchEvent(new Event('input'));
     });
 </script>
+
+
+
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

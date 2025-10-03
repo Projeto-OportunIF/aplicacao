@@ -234,4 +234,29 @@ class OportunidadeDAO
 
         return $stm->execute(); // retorna true se deu certo
     }
+
+    // Busca cursos associados a uma oportunidade específica
+    public function getCursosByOportunidade(int $idOportunidade): array
+    {
+        $conn = Connection::getConn();
+
+        $sql = "SELECT c.* 
+            FROM cursos c
+            INNER JOIN oportunidade_curso oc ON c.idCursos = oc.idCurso
+            WHERE oc.idOportunidade = :idOportunidade";
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":idOportunidade", $idOportunidade);
+        $stm->execute();
+
+        $cursos = [];
+        while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+            $curso = new Curso();
+            $curso->setId($row['idCursos']);
+            $curso->setNome($row['nome']);
+            $cursos[] = $curso;
+        }
+
+        return $cursos;
+    }
 }
