@@ -125,10 +125,10 @@ class OportunidadeController extends Controller
         if (count($erros) > 0) {
             $dados['oportunidade'] = $oportunidade;
             $dados['cursos'] = $this->cursoDao->list();
+            $dados['oportunidadeCursos'] = $oportunidade->getCursos(); // cursos selecionados no form
             $msgErro = implode("<br>", $erros);
 
-            $dados['id'] = 0;
-
+            $dados['id'] = $oportunidade->getId();
 
             $this->loadView("oportunidade/oportunidade_cadastro.php", $dados, $msgErro);
             return;
