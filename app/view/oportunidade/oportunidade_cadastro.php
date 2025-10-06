@@ -114,7 +114,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
 
                 <div class="mb-3 documento-anexo">
-                    <label class="form-label" for="documento">Documento Anexo (descreva separando por ponto e vírgula) :</label>
+                    <label class="form-label" for="documento">(Descreva o documento que deve ser anexado) :</label>
                     <input type="text" name="documento" id="documento" class="form-control"
                         value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDocumentoAnexo() : '' ?>">
                 </div>

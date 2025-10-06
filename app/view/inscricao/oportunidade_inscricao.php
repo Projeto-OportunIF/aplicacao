@@ -26,8 +26,13 @@ require_once(__DIR__ . "/../include/menu.php");
 
             <!-- Formulário -->
             <form action="<?= BASEURL ?>/controller/InscricaoController.php?action=inscrever&idOport=<?= $dados['oportunidade']->getId() ?>" method="post" enctype="multipart/form-data">
-                <label for="documentoAluno">Enviar Documento (obrigatório):</label>
-                <input type="file" name="documentoAluno" id="documentoAluno" class="form-control mb-3" required>
+                <?php if (!empty($dados['oportunidade']->getDocumentoAnexo())): ?>
+                    <label for="documentoAluno">Enviar Documento (obrigatório):</label>
+                    <input type="file" name="documentoAluno" id="documentoAluno" class="form-control mb-3" required>
+                <?php else: ?>
+                    <p>Não há documento anexo obrigatório para esta oportunidade.</p>
+                <?php endif; ?>
+
 
                 <button type="submit" class="btn-inscrever">inscrever-me</button>
             </form>
