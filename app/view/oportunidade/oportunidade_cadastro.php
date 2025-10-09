@@ -51,7 +51,7 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="professor_responsavel">Professor Responsável:</label>
+                    <label class="form-label" for="professor_responsavel">Professor Responsável pelas Informações da Oportundiade:</label>
                     <input class="form-control" type="text" id="professor_responsavel" name="professor_responsavel"
                         placeholder="Informe o professor responsável"
                         value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getProfessorResponsavel() : ''; ?>" />
@@ -114,7 +114,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
 
                 <div class="mb-3 documento-anexo">
-                    <label class="form-label" for="documento">Documento Anexo (descreva separando por ponto e vírgula) :</label>
+                    <label class="form-label" for="documento">(Descreva o documento que deve ser anexado) :</label>
                     <input type="text" name="documento" id="documento" class="form-control"
                         value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDocumentoAnexo() : '' ?>">
                 </div>
@@ -173,6 +173,39 @@ require_once(__DIR__ . "/../include/menu.php");
             anexos.style.display = "none";
 
         }
+    });
+</script>
+<script>
+    const tipoSelect = document.getElementById("selTipo");
+    const seletorDiv = document.querySelector(".documento-seletor");
+    const anexosDiv = document.querySelector(".documento-anexo");
+    const seletorCheckbox = seletorDiv.querySelector(".checkbox");
+
+    // Função para mostrar/ocultar campo de documento
+    function atualizarCampoDocumento() {
+        const tipo = tipoSelect.value;
+
+        if (tipo === "ESTAGIO") {
+            // Esconde os campos e limpa valores
+            seletorDiv.style.display = "none";
+            anexosDiv.style.display = "none";
+            seletorCheckbox.checked = false;
+            document.getElementById("documento").value = "";
+        } else {
+            // Mostra novamente
+            seletorDiv.style.display = "block";
+        }
+    }
+
+    // Detecta quando o tipo muda
+    tipoSelect.addEventListener("change", atualizarCampoDocumento);
+
+    // Executa ao carregar a página (caso esteja em modo de edição)
+    atualizarCampoDocumento();
+
+    // --- mantém a lógica do seletor de anexo ---
+    seletorCheckbox.addEventListener("click", () => {
+        anexosDiv.style.display = seletorCheckbox.checked ? "block" : "none";
     });
 </script>
 

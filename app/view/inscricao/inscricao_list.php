@@ -29,13 +29,14 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><?= htmlspecialchars($inscricao->titulo) ?></td>
                             <td><?= nl2br(strip_tags($inscricao->descricao)) ?></td>
                             <td><?= htmlspecialchars($inscricao->tipoOportunidade) ?></td>
-                           <td><?= htmlspecialchars($inscricao->professor_responsavel ?? "Não definido") ?></td>
+                            <td><?= htmlspecialchars($inscricao->professor_responsavel ?? "Não definido") ?></td>
                             <td><?= date('d/m/Y', strtotime($inscricao->dataInicio)) ?></td>
                             <td><?= date('d/m/Y', strtotime($inscricao->dataFim)) ?></td>
                             <td><?= htmlspecialchars($inscricao->status) ?></td>
                             <td>
                                 <?php if ($inscricao->documentosAnexo): ?>
-                                    <a href="<?= BASEURL ?>/uploads/<?= $inscricao->documentosAnexo ?>" target="_blank">Ver Documento</a>
+                                    <a href="<?= BASEURL ?>/../uploads/<?= $inscricao->documentosAnexo ?>" target="_blank">Ver Documento</a>
+
                                 <?php else: ?>
                                     Nenhum
                                 <?php endif; ?>

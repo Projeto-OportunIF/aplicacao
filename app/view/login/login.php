@@ -22,6 +22,8 @@ require_once(__DIR__ . "/../include/header.php");
                     maxlength="45" placeholder="Informe o email"
                     value="<?php echo isset($dados['email']) ? $dados['email'] : '' ?>" />
 
+
+
                 <label for="txtSenha">SENHA</label><br>
                 <input type="password" name="senha" id="txtSenha"
                     maxlength="15" placeholder="Informe a senha"

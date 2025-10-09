@@ -4,10 +4,7 @@ require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 ?>
 
-
-
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_dispon.css">
-
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disp.css">
 
 <div class="row" style="margin-top: 30px;">
     <div class="col-12">
@@ -32,16 +29,21 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
                 </p>
                 <p><strong>Vagas:</strong> <?= htmlspecialchars($op->getVaga()) ?></p>
 
+                <?php
+                $dataHoje = new DateTime(); // data atual
+                $dataFim = new DateTime($op->getDataFim()); // data final da oportunidade
+                ?>
 
-
-                <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=view&idOport=<?= $op->getId() ?>" class="btn-inscrever">saiba mais</a>
+                <?php if ($dataHoje <= $dataFim): ?>
+                    <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=view&idOport=<?= $op->getId() ?>" class="btn-inscrever">saiba mais</a>
+                <?php else: ?>
+                    <div class="btn-inscrever btn-disabled">Prazo de inscrição encerrado!</div>
+                <?php endif; ?>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
         <p>Não há oportunidades no momento.</p>
     <?php endif; ?>
 </div>
-
-
 
 <?php require_once(__DIR__ . "/../include/footer.php"); ?>

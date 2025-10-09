@@ -55,17 +55,20 @@ class OportunidadeController extends Controller
         $id = $_GET["id"] ?? 0;
         $oportunidade = $this->oportunidadeDao->findById($id);
 
-
         if ($oportunidade) {
             $dados["id"] = $oportunidade->getId();
             $dados["oportunidade"] = $oportunidade;
             $dados["cursos"] = $this->cursoDao->list();
+
+            // Buscar cursos associados à oportunidade
+            // Esse método precisa existir no OportunidadeDAO
+            $dados["oportunidadeCursos"] = $this->oportunidadeDao->getCursosByOportunidade($id);
+
             $this->loadView("oportunidade/oportunidade_cadastro.php", $dados);
         } else {
             $this->list("Oportunidade não encontrada.");
         }
     }
-
 
     protected function save()
     {
@@ -122,10 +125,10 @@ class OportunidadeController extends Controller
         if (count($erros) > 0) {
             $dados['oportunidade'] = $oportunidade;
             $dados['cursos'] = $this->cursoDao->list();
+            $dados['oportunidadeCursos'] = $oportunidade->getCursos(); // cursos selecionados no form
             $msgErro = implode("<br>", $erros);
 
-            $dados['id'] = 0;
-
+            $dados['id'] = $oportunidade->getId();
 
             $this->loadView("oportunidade/oportunidade_cadastro.php", $dados, $msgErro);
             return;

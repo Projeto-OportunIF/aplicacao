@@ -7,9 +7,10 @@ require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_lista.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_list.css">
 
 <h3 class="text-center">Oportunidades Inseridas</h3>
+
 
 
 <div class="col-12">
@@ -40,9 +41,13 @@ require_once(__DIR__ . "/../include/menu.php");
                 <a class="btn btn-danger"
                     onclick="return confirm('Confirma a exclusão da oportunidade?');"
                     href="<?= BASEURL ?>/controller/OportunidadeController.php?action=delete&id=<?= $op->getId() ?>">Excluir</a>
-                <a class="btn btn-info"
-                    href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $op->getId() ?>">Inscritos</a>
+
+                <?php if ($op->getTipoOportunidade() !== 'ESTAGIO'): ?>
+                    <a class="btn btn-info"
+                        href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $op->getId() ?>">Inscritos</a>
+                <?php endif; ?>
             </div>
+
         </div>
     <?php endforeach; ?>
 </div>

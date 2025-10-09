@@ -75,12 +75,21 @@ class InscricaoController extends Controller
         }
 
         //  Validação do documento obrigatório
-        $erros = $service->validarDados(['documento' => $documento]);
+        $oportunidade = $this->findOportunidadeById();
+
+        // Só valida documento se a oportunidade tiver documento anexo
+        $erros = [];
+        if (!empty($oportunidade->getDocumentoAnexo()) && !$documento) {
+            $erros[] = "O envio do documento é obrigatório para esta oportunidade.";
+        }
+
         if (count($erros) > 0) {
             $_SESSION['msgErro'] = implode("<br>", $erros);
             header("Location: " . BASEURL . "/controller/OportunidadeController.php?action=oportunidade_inscricao&idOport=$idOport");
             exit;
         }
+
+
 
         // Insere inscrição no banco
         $inscricaoDao->insert($idAluno, $idOport, $documento);

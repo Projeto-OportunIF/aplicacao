@@ -91,6 +91,21 @@ class UsuarioDAO
 
         return count($usuarios) > 0 ? $usuarios[0] : null;
     }
+// findByMatricula
+public function findByMatricula(string $matricula)
+{
+    $conn = Connection::getConn();
+    $sql = "SELECT u.*, c.nome AS nomeCursos
+            FROM usuarios u
+            LEFT JOIN cursos c ON c.idCursos = u.idCursos
+            WHERE u.matricula = ?";
+    $stm = $conn->prepare($sql);
+    $stm->execute([$matricula]);
+    $result = $stm->fetchAll();
+    $usuarios = $this->mapUsuarios($result);
+
+    return count($usuarios) > 0 ? $usuarios[0] : null;
+}
 
     public function insert(Usuario $usuario)
     {

@@ -1,0 +1,89 @@
+/* Fundo geral */
+body {
+    background-color: #eeffd0;
+    font-family: Arial, sans-serif;
+}
+
+.inscricao-container {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    min-height: 500px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Coluna esquerda (verde) */
+.inscricao-info {
+    background: #d5ecab;
+    padding: 45px;
+    flex: 2;
+}
+
+.inscricao-info h2 {
+    text-align: center;
+    color: #c33a52;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.inscricao-info p {
+    margin: 15px 0;
+    border-bottom: 1px solid #666;
+    padding-bottom: 5px;
+    font-size: 15px;
+    color: #333;
+}
+
+/* Botão inscrever */
+.btn-inscrever {
+    display: block;
+    margin: 20px auto 0;
+    background: #c33a52;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-inscrever:hover {
+    background: #a52d42;
+}
+
+/* Coluna direita (rosa) */
+.inscricao-figura {
+    background: #fbdede;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 2;
+}
+
+.inscricao-figura img {
+    max-width: 70%;
+}
+
+/* Botão voltar */
+.btn-voltar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: white;
+    color: #c33a52;
+    border: none;
+    padding: 8px 25px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-voltar:hover {
+    background: #faf1f1;
+}

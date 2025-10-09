@@ -31,8 +31,15 @@ class UsuarioService
             }
         }
 
-        if (!$usuario->getMatricula())
+         // Matrícula / SIAPE
+        if (!$usuario->getMatricula()) {
             $erros[] = "O campo [Matrícula ou SIAPE] é obrigatório.";
+        } else {
+            $existenteMatricula = $this->usuarioDao->findByMatricula($usuario->getMatricula());
+            if ($existenteMatricula && $existenteMatricula->getId() != $usuario->getId()) {
+                $erros[] = "Já existe um usuário cadastrado com esta matrícula.";
+            }
+        }
 
 
         $usuarioExistente = $this->usuarioDao->findByEmail($usuario->getEmail());

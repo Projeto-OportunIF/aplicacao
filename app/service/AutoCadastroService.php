@@ -34,6 +34,16 @@ class AutoCadastroService
             }
         }
 
+        // Validar matrícula
+        if (!$usuario->getMatricula()) {
+            $erros[] = "O campo [Matrícula] é obrigatório.";
+        } else {
+            // Verifica duplicidade de matrícula
+            $usuarioExistente = $this->usuarioDAO->findByMatricula($usuario->getMatricula());
+            if ($usuarioExistente) {
+                $erros[] = "Já existe um usuário cadastrado com esta matrícula.";
+            }
+        }
         // Validar email
         $email = $usuario->getEmail();
         if (!$email) {
