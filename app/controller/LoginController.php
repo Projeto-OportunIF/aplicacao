@@ -4,17 +4,22 @@ require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../service/LoginService.php");
 require_once(__DIR__ . "/../model/Usuario.php");
+require_once(__DIR__ . "/NotificacaoController.php");
+
 
 class LoginController extends Controller
 {
 
     private LoginService $loginService;
     private UsuarioDAO $usuarioDao;
+    private NotificacaoController $notificacaoController;
 
     public function __construct()
     {
         $this->loginService = new LoginService();
         $this->usuarioDao = new UsuarioDAO();
+        $this->notificacaoController = new NotificacaoController();
+
 
         $this->handleAction();
     }
@@ -59,6 +64,8 @@ class LoginController extends Controller
         $msg = implode("<br>", $erros);
         $dados["email"] = $email;
         $dados["senha"] = $senha;
+
+        $this->notificacaoController->countNotificacoesByUsuario();
 
         $this->loadView("login/login.php", $dados, $msg);
     }

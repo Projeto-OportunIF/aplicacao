@@ -15,17 +15,20 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $nome = "(Sessão expirada)";
-
 $fotoPerfil = "avatar.png";
+$notificacoes = 0;
 
 if (isset($_SESSION[SESSAO_USUARIO_FOTO_PERFIL]))
     $fotoPerfil = $_SESSION[SESSAO_USUARIO_FOTO_PERFIL];
 
-
 if (isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
 
+if (isset($_SESSION[SESSAO_USUARIO_NOTIFICACOES]))
+    $notificacoes = $_SESSION[SESSAO_USUARIO_NOTIFICACOES];
+
 $homePage = HOME_PAGE_ADMIN;
+
 if ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::ALUNO)
     $homePage = HOME_PAGE_ALUNO;
 elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
@@ -48,6 +51,9 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
 
 
         <ul class="navbar-nav ms-auto mr-3">
+
+            <li class="nav-item"><i class="bi bi-envelope"></i> <span>( <a href="#"><?= $notificacoes ?> </a>)</span></li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle usuario-topo" href="#" id="navbarUsuario"
                     data-bs-toggle="dropdown">

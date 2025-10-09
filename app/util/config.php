@@ -33,13 +33,13 @@ define('HOME_PAGE_ADMIN', BASEURL . '/controller/HomeController.php?action=home'
 define('HOME_PAGE_EDITAR', BASEURL . '/app/view/perfil/perfilEdit.php?action=homeEditar');
 
 
-
-
 //Sessão do usuário
 define('SESSAO_USUARIO_ID', "usuarioLogadoId");
 define('SESSAO_USUARIO_NOME', "usuarioLogadoNome");
 define('SESSAO_USUARIO_TIPO', "usuarioLogadoTipo");
 define('SESSAO_USUARIO_FOTO_PERFIL', "usuarioLogadoFotoPerfil");
+define('SESSAO_USUARIO_NOTIFICACOES', "usuarioLogadoNotificaçoes");
+
 
 //Arquivos
 define('PATH_ARQUIVOS', __DIR__ . "/../../arquivos");
