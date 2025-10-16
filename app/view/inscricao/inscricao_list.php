@@ -1,67 +1,62 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
-
 ?>
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/inscricao_list.css">
+<div class="container mt-5 mb-5">
+    <h2 class="text-center titulo-pagina mb-4">Minhas Inscrições</h2>
 
-<h2 class="text-center">Minhas Inscrições</h2>
+    <div class="text-center mt-5 mb-5">
+        <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="btn-voltar">
+            <i class="bi bi-arrow-left-circle"></i> Voltar
+        </a>
+    </div>
 
-<div class="container">
     <?php if (count($dados['inscricoes']) > 0): ?>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Descrição</th>
-                        <th>Tipo</th>
-                        <th>Professor</th>
-                        <th>Início</th>
-                        <th>Fim</th>
-                        <th>Status</th>
-                        <th>Documento</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($dados['inscricoes'] as $inscricao): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($inscricao->titulo) ?></td>
-                            <td><?= nl2br(strip_tags($inscricao->descricao)) ?></td>
-                            <td><?= htmlspecialchars($inscricao->tipoOportunidade) ?></td>
-                            <td><?= htmlspecialchars($inscricao->professor_responsavel ?? "Não definido") ?></td>
-                            <td><?= date('d/m/Y', strtotime($inscricao->dataInicio)) ?></td>
-                            <td><?= date('d/m/Y', strtotime($inscricao->dataFim)) ?></td>
-                            <td><?= htmlspecialchars($inscricao->status) ?></td>
-                            <td>
-                                <?php if ($inscricao->documentosAnexo): ?>
-                                    <a href="<?= BASEURL ?>/../uploads/<?= $inscricao->documentosAnexo ?>" target="_blank">Ver Documento</a>
+        <div class="cards-container">
+            <?php foreach ($dados['inscricoes'] as $inscricao): ?>
+                <div class="card-inscricao">
+                    <div class="conteudo-card">
+                        <h4 class="titulo-inscricao"><?= htmlspecialchars($inscricao->titulo) ?></h4>
 
-                                <?php else: ?>
-                                    Nenhum
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=cancelar&idInscricao=<?= $inscricao->idInscricoes ?>"
-                                    onclick="return confirm('Tem certeza que deseja cancelar sua inscrição?')"
-                                    class="btn btn-danger btn-sm">
-                                    Cancelar
+
+
+                        <p><strong>Tipo:</strong> <?= htmlspecialchars($inscricao->tipoOportunidade) ?></p>
+                        <p><strong>Professor:</strong> <?= htmlspecialchars($inscricao->professor_responsavel ?? "Não definido") ?></p>
+                        <p><strong>Início:</strong> <?= date('d/m/Y', strtotime($inscricao->dataInicio)) ?></p>
+                        <p><strong>Fim:</strong> <?= date('d/m/Y', strtotime($inscricao->dataFim)) ?></p>
+                        <p><strong>Status:</strong>
+                            <span class="status-badge <?= strtolower($inscricao->status) ?>">
+                                <?= htmlspecialchars($inscricao->status) ?>
+                            </span>
+                        </p>
+
+                        <p><strong>Documento:</strong>
+                            <?php if ($inscricao->documentosAnexo): ?>
+                                <a href="<?= BASEURL ?>/../uploads/<?= $inscricao->documentosAnexo ?>"
+                                    target="_blank" class="link-doc">
+                                    <i class="bi bi-file-earmark-text"></i> Ver Documento
                                 </a>
+                            <?php else: ?>
+                                <span class="sem-doc"><i class="bi bi-x-circle"></i> Nenhum</span>
+                            <?php endif; ?>
+                        </p>
+                    </div>
 
-
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=cancelar&idInscricao=<?= $inscricao->idInscricoes ?>"
+                        onclick="return confirm('Tem certeza que deseja cancelar sua inscrição?')"
+                        class="btn-cancelar">
+                        Cancelar
+                    </a>
+                </div>
+            <?php endforeach; ?>
         </div>
     <?php else: ?>
-        <p>Você ainda não se inscreveu em nenhuma oportunidade.</p>
+        <div class="alert alert-info text-center mt-4">
+            Você ainda não se inscreveu em nenhuma oportunidade.
+        </div>
     <?php endif; ?>
-</div>
 
-<div class="mt-3">
-    <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="btn btn-secondary">Voltar</a>
 </div>
 
 <?php

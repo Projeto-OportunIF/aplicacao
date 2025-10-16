@@ -48,12 +48,27 @@ table td {
 
 }
 
-
-
 /* ======= SELECT STATUS ======= */
 .form-select-sm {
     border-radius: 12px;
     border: 2px solid #c23956;
     padding: 5px 10px;
     transition: 0.3s;
+}
+
+.btn-voltar {
+    background-color: #c23956;
+    color: #fff;
+    border-radius: 25px;
+    padding: 10px 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+    margin: 10px 0 10px 10px; 
+}
+
+.btn-voltar:hover {
+    background-color: #6b1c2f;
+    transform: translateY(-2px);
 }

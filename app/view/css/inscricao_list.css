@@ -1,0 +1,144 @@
+
+    body {
+        background-color: #cfe6a6ff;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .titulo-pagina {
+        color: #c23956;
+        font-weight: 700;
+    }
+
+    .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    justify-items: center;
+}
+
+.card-inscricao {
+    background-color: #798660;
+    color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    max-width: 500px;
+    min-height: 300px; 
+}
+
+.card-inscricao:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.titulo-inscricao {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+
+.status-badge {
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+    font-size: 0.85rem;
+}
+
+.status-badge.aprovado {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-badge.pendente {
+    background-color: #ffb6b6ff;
+    color: #ac2424ff;
+}
+
+.status-badge.reprovado {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.link-doc {
+    color: #d1ffd1;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link-doc i {
+    margin-right: 5px;
+}
+
+.link-doc:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.sem-doc {
+    color: #ffb4b4;
+    font-weight: 600;
+}
+
+.sem-doc i {
+    color: #c01111ff;
+    margin-right: 5px;
+}
+
+
+/* Botão de cancelar */
+.btn-cancelar {
+    background-color: #fff;
+    color: #c23956;
+    font-weight: 600;
+    border: none;
+    border-radius: 25px;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 10px;
+    align-self: flex-end;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-cancelar:hover {
+    background-color: #a82f4b;
+    color: #fff;
+}
+
+.btn-voltar {
+    background-color: #c23956;
+    color: #fff;
+    border-radius: 25px;
+    padding: 10px 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #6b1c2f;
+}
+
+@media (max-width: 992px) {
+    .cards-container {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+    .card-inscricao {
+        min-height: 500px;
+    }
+}
+
+ 

@@ -6,7 +6,7 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/inscricao_oportuni.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_inscricao.css">
 
 <div class="container my-4">
     <div class="row inscricao-container">
@@ -45,7 +45,9 @@ require_once(__DIR__ . "/../include/menu.php");
 
         <!-- Coluna direita rosa -->
         <div class="col-md-5 inscricao-figura">
-            <button class="btn-voltar" onclick="window.history.back()">Voltar</button>
+            <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="btn-voltar">
+                <i class="bi bi-arrow-left-circle"></i> Voltar
+            </a>
             <img src="<?= BASEURL ?>/view/img/inscricao.png" alt="Figura inscrição">
         </div>
 

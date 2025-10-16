@@ -34,7 +34,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::ALUNO)
 elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     $homePage = HOME_PAGE_PROFESSOR;
 ?>
-
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/menu.css">
 <nav class="navbar navbar-expand-md px-3 mb-3" style="background-color: #c23956">
 
 
@@ -65,6 +65,7 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
                     <span><?= $nome ?></span>
                 </a>
 
+
                 <div class="dropdown-menu">
                     <a class="dropdown-item"
                         href="<?= BASEURL . '/controller/PerfilController.php?action=view' ?>">Perfil</a>
@@ -75,49 +76,3 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
         </ul>
     </div>
 </nav>
-
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-
-    .navbar {
-        height: 70px;
-        /* altura fixa da navbar */
-    }
-
-    .navbar-brand img {
-        max-height: 180px;
-        /* a imagem não passa da altura da navbar */
-        max-width: 180px;
-        /* mas não fica maior que 200px largura */
-        width: auto;
-        /* largura automática para manter proporção */
-        height: auto;
-        /* altura automática para manter proporção */
-    }
-
-    .navbar-nav .foto-perfil {
-        max-width: 120%;
-    }
-
-
-    .foto-perfil-wrapper {
-        width: 30px;
-        height: 30px;
-
-        border-radius: 50%;
-
-        text-align: center;
-        overflow: hidden;
-
-
-
-
-
-    }
-
-</style>
