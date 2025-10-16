@@ -91,6 +91,14 @@ $cursos = $cursoDAO->list();
                 <input type="hidden" name="curso_id" value="<?php echo $usuario->getCurso()->getId(); ?>">
             </div>
 
+            <!-- Senha do perfil -->
+            <div class="mb-3">
+                <label for="Senha" class="form-label">Senha</label>
+                <input type="text" class="form-control" id="Senha"
+                    value="<?php echo htmlspecialchars($usuario->getSenha()); ?>" readonly>
+                <input type="hidden" name="Senha" value="<?php echo $usuario->getSenha(); ?>">
+            </div>
+
             <!-- Foto de Perfil -->
             <div class="mb-3">
                 <label for="foto" class="form-label">Foto de Perfil</label>
@@ -112,28 +120,28 @@ $cursos = $cursoDAO->list();
 </div>
 
 <style>
-    /* Centraliza o card na tela */
+    
+    body {
+        background-color: #b7cd8c;
+        margin: 0;
+        padding: 0;
+    }
     .page-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 80vh;
+        min-height: calc(100vh - 60px); 
     }
-
     .form-card {
         width: 100%;
         max-width: 500px;
-        /* largura máxima */
-        padding: 20px;
-        background: #fff;
+        padding: 30px;
+        background: #e6f1d7;
         border-radius: 15px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-
-    /* Botão rosa personalizado */
     .btn-pink {
-        background-color: #c2185b;
-        /* rosa forte */
+        background-color: #d9426b;
         color: #fff;
         padding: 10px 20px;
         border: none;
@@ -142,8 +150,7 @@ $cursos = $cursoDAO->list();
     }
 
     .btn-pink:hover {
-        background-color: #c2185b;
-        /* rosa mais escuro no hover */
+        background-color: #d9426b;
     }
 </style>
 

@@ -24,6 +24,12 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
         <div><span class="info-label">CURSO:</span> <?php echo ($dados['usuario']->getCurso() && $dados['usuario']->getCurso()->getNome() ?
                                                         $dados['usuario']->getCurso()->getNome() : "Curso não informado") ?></div>
         <div><span class="info-label">CPF:</span> <?= $dados['usuario']->getCpf() ?></div>
+        
+        <div class="botao-editar-container">
+                <a href="<?php echo BASEURL . '/view/perfil/perfilEdit.php'; ?>">
+                    Editar dados pessoais
+                </a>
+            </div>
 
         <form id="frmUsuario" method="POST"
             action="<?= BASEURL ?>/controller/PerfilController.php?action=save"
@@ -44,12 +50,6 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
             <div class="botao-voltar-container">
                 <a href="<?= $homePage ?>" class="botao-voltar">← Voltar</a>
             </div>
-            <div class="botao-editar-container">
-                <a href="<?php echo BASEURL . '/view/perfil/perfilEdit.php'; ?>">
-                    Editar dados pessoais
-                </a>
-            </div>
-
 
         </form>
     </div>
