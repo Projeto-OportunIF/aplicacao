@@ -167,34 +167,36 @@ class UsuarioDAO
     }
 
 
-    public function deleteById(int $id)
-    {
-        $conn = Connection::getConn();
+   public function deleteById(int $id)
+{
+    $conn = Connection::getConn();
 
-        try {
-            $conn->beginTransaction();
+    try {
+        $conn->beginTransaction();
 
-            $sql1 = "DELETE FROM inscricoes WHERE idUsuarios = :id";
-            $stm1 = $conn->prepare($sql1);
-            $stm1->bindValue(":id", $id);
-            $stm1->execute();
+        $sql1 = "DELETE FROM inscricoes WHERE idUsuarios = :id";
+        $stm1 = $conn->prepare($sql1);
+        $stm1->bindValue(":id", $id);
+        $stm1->execute();
 
-            $sql2 = "DELETE FROM oportunidades WHERE idUsuarios = :id";
-            $stm2 = $conn->prepare($sql2);
-            $stm2->bindValue(":id", $id);
-            $stm2->execute();
+        // REMOVER essa parte, pois a tabela 'oportunidades' não tem 'idUsuarios'
+        // $sql2 = "DELETE FROM oportunidades WHERE idUsuarios = :id";
+        // $stm2 = $conn->prepare($sql2);
+        // $stm2->bindValue(":id", $id);
+        // $stm2->execute();
 
-            $sql3 = "DELETE FROM usuarios WHERE idUsuarios = :id";
-            $stm3 = $conn->prepare($sql3);
-            $stm3->bindValue(":id", $id);
-            $stm3->execute();
+        $sql3 = "DELETE FROM usuarios WHERE idUsuarios = :id";
+        $stm3 = $conn->prepare($sql3);
+        $stm3->bindValue(":id", $id);
+        $stm3->execute();
 
-            $conn->commit();
-        } catch (PDOException $e) {
-            $conn->rollBack();
-            throw $e;
-        }
+        $conn->commit();
+    } catch (PDOException $e) {
+        $conn->rollBack();
+        throw $e;
     }
+}
+
 
     public function updateFotoPerfil(Usuario $usuario)
     {
