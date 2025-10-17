@@ -15,15 +15,16 @@ class NotificacaoController extends Controller
         $this->handleAction();
     }
 
-    public function countNotificacoesByUsuario() {
+    public function countNotificacoesByUsuario()
+    {
 
         $id = $this->getIdUsuarioLogado();
         $notificacoes = $this->dao->countNotificacoesByUsuario($id);
-        $_SESSION[SESSAO_USUARIO_NOTIFICACOES]= $notificacoes["total_notificacoes"];
-        
+        $_SESSION[SESSAO_USUARIO_NOTIFICACOES] = $notificacoes["total_notificacoes"];
     }
 
-    public function  notificarUsuariosByCurso(){
+    public function  notificarUsuariosByCurso()
+    {
         $this->dao->notificarUsuariosByCurso("oii", [1]);
     }
 

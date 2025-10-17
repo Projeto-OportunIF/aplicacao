@@ -120,18 +120,19 @@ $cursos = $cursoDAO->list();
 </div>
 
 <style>
-    
     body {
         background-color: #b7cd8c;
         margin: 0;
         padding: 0;
     }
+
     .page-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: calc(100vh - 60px); 
+        min-height: calc(100vh - 60px);
     }
+
     .form-card {
         width: 100%;
         max-width: 500px;
@@ -140,6 +141,7 @@ $cursos = $cursoDAO->list();
         border-radius: 15px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
+
     .btn-pink {
         background-color: #d9426b;
         color: #fff;

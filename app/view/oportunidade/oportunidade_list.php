@@ -14,15 +14,15 @@ require_once(__DIR__ . "/../include/menu.php");
 
 
 <div class="container text-center" style="margin-top: 30px;">
-    <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor" 
-       class="btn-voltar">
+    <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor"
+        class="btn-voltar">
         <i class="bi bi-arrow-left-circle"></i> Voltar
     </a>
 </div>
 
 <div class="cards-container">
-            
- 
+
+
     <?php foreach ($dados['lista'] as $op): ?>
         <div class="card-oportunidade">
             <h3><?= $op->getTitulo(); ?></h3>

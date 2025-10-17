@@ -11,13 +11,13 @@ require_once(__DIR__ . "/../include/menu.php");
     <div class="row mb-3 align-items-center justify-content-center">
         <div class="col-auto">
             <a class="btn btn-secondary"
-               href="<?= BASEURL ?>/controller/HomeController.php?action=home">
+                href="<?= BASEURL ?>/controller/HomeController.php?action=home">
                 Voltar
             </a>
         </div>
         <div class="col-auto ms-2">
             <a class="btn btn-success"
-               href="<?= BASEURL ?>/controller/CursoController.php?action=create">
+                href="<?= BASEURL ?>/controller/CursoController.php?action=create">
                 Inserir
             </a>
         </div>
@@ -31,13 +31,13 @@ require_once(__DIR__ . "/../include/menu.php");
                     <p><strong>Nome do Curso:</strong> <?= $curso->getNome(); ?></p>
                     <div class="d-flex mt-3">
                         <a class="btn btn-primary me-2"
-                           href="<?= BASEURL ?>/controller/CursoController.php?action=edit&id=<?= $curso->getId() ?>">
-                           Alterar
+                            href="<?= BASEURL ?>/controller/CursoController.php?action=edit&id=<?= $curso->getId() ?>">
+                            Alterar
                         </a>
                         <a class="btn btn-danger"
-                           onclick="return confirm('Confirma a exclusão do curso?');"
-                           href="<?= BASEURL ?>/controller/CursoController.php?action=delete&id=<?= $curso->getId() ?>">
-                           Excluir
+                            onclick="return confirm('Confirma a exclusão do curso?');"
+                            href="<?= BASEURL ?>/controller/CursoController.php?action=delete&id=<?= $curso->getId() ?>">
+                            Excluir
                         </a>
                     </div>
                 </div>

@@ -20,9 +20,9 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="row" style="margin-top: 30px;">
         <div class="col-12">
-                 <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor" class="btn-voltar">
-            <i class="bi bi-arrow-left-circle"></i> Voltar
-        </a>
+            <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor" class="btn-voltar">
+                <i class="bi bi-arrow-left-circle"></i> Voltar
+            </a>
         </div>
     </div>
     <div class="row" style="margin-top: 10px;">

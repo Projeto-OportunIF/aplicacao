@@ -8,11 +8,11 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 
 <h2 class="titulo-pagina">Oportunidades Disponíveis</h2>
 
- <div class="text-center mt-5 mb-5">
-        <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="btn-voltar">
-            <i class="bi bi-arrow-left-circle"></i> Voltar
-        </a>
-    </div>
+<div class="text-center mt-5 mb-5">
+    <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="btn-voltar">
+        <i class="bi bi-arrow-left-circle"></i> Voltar
+    </a>
+</div>
 
 <div class="cards-container">
     <?php if (count($dados["oportunidades"]) > 0): ?>

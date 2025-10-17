@@ -13,9 +13,10 @@ class NotificacaoDAO
         $this->conn = Connection::getConn();
     }
 
-    public function countNotificacoesByUsuario(int $idUsuario){
-        
-        $sql="SELECT COUNT(*) AS total_notificacoes FROM notificacoes_usuarios WHERE idUsuario = :id;";
+    public function countNotificacoesByUsuario(int $idUsuario)
+    {
+
+        $sql = "SELECT COUNT(*) AS total_notificacoes FROM notificacoes_usuarios WHERE idUsuario = :id;";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":id", $idUsuario);
         $stmt->execute();
@@ -34,17 +35,16 @@ class NotificacaoDAO
 
         $idNotificacao = $this->conn->lastInsertId();
 
-        
+
         $sql = "INSERT INTO notificacoes_usuarios (idNotificacao, idUsuario) VALUES (:idNotificacao, :idUsuario)";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":idNotificacao", $idNotificacao);
         $stmt->bindValue(":idUsuario", $idUsuario);
         $stmt->execute();
-
     }
 
-        // Enviar nova notificação
+    // Enviar nova notificação
     public function notificarUsuariosByCurso(string $mensagem, array $cursos)
     {
         $sql = "INSERT INTO notificacoes (mensagem) VALUES (:mensagem)";
@@ -61,7 +61,7 @@ class NotificacaoDAO
 
 
 
-        foreach ($idUsuarios as $id){
+        foreach ($idUsuarios as $id) {
 
             $sql = "INSERT INTO notificacoes_usuarios (idNotificacao, idUsuario) VALUES (:idNotificacao, :idUsuario)";
 
@@ -69,9 +69,7 @@ class NotificacaoDAO
             $stmt->bindValue(":idNotificacao", $idNotificacao);
             $stmt->bindValue(":idUsuario", $id["idUsuarios"]);
             $stmt->execute();
-
         }
-
     }
 
     /*
