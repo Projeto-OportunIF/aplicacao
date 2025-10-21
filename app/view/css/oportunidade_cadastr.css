@@ -166,3 +166,17 @@ input:checked+.slider:before {
   transition: all 0.5s ease-in-out;
   vertical-align: middle;
 }
+
+.btn-voltar {
+    background-color: #c23956;
+    color: #fff;
+    border-radius: 25px;
+    padding: 10px 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #6b1c2f;
+}

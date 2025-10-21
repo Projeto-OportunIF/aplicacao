@@ -29,8 +29,9 @@ require_once(__DIR__ . "/../include/menu.php");
                 <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
 
                 <div class="mt-3">
-                    <button type="submit" class="btn btn-success">Gravar</button>
                     <a href="<?= BASEURL ?>/controller/CursoController.php?action=list" class="btn btn-secondary" type="button">Voltar</a>
+                    <button type="submit" class="btn btn-success">Gravar</button>
+
                 </div>
 
             </form>

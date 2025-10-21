@@ -4,16 +4,15 @@ require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disp.css">
-
-<div class="row" style="margin-top: 30px;">
-    <div class="col-12">
-        <a class="btn btn-secondary"
-            href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno"> ← Voltar</a>
-    </div>
-</div>
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disponiveis.css">
 
 <h2 class="titulo-pagina">Oportunidades Disponíveis</h2>
+
+<div class="text-center mt-5 mb-5">
+    <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="btn-voltar">
+        <i class="bi bi-arrow-left-circle"></i> Voltar
+    </a>
+</div>
 
 <div class="cards-container">
     <?php if (count($dados["oportunidades"]) > 0): ?>

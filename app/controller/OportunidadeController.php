@@ -46,7 +46,7 @@ class OportunidadeController extends Controller
         $dados['id'] = 0;
         $dados['nome'] = "Jefferson";
         $dados['cursos'] = $this->cursoDao->list();
-        $this->loadView("oportunidade/oportunidade_cadastro.php", $dados);
+        $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados);
     }
 
 
@@ -64,7 +64,7 @@ class OportunidadeController extends Controller
             // Esse método precisa existir no OportunidadeDAO
             $dados["oportunidadeCursos"] = $this->oportunidadeDao->getCursosByOportunidade($id);
 
-            $this->loadView("oportunidade/oportunidade_cadastro.php", $dados);
+            $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados);
         } else {
             $this->list("Oportunidade não encontrada.");
         }
@@ -130,7 +130,7 @@ class OportunidadeController extends Controller
 
             $dados['id'] = $oportunidade->getId();
 
-            $this->loadView("oportunidade/oportunidade_cadastro.php", $dados, $msgErro);
+            $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados, $msgErro);
             return;
         }
 
@@ -155,7 +155,7 @@ class OportunidadeController extends Controller
 
             $dados['oportunidade'] = $oportunidade;
             $dados['cursos'] = $this->cursoDao->list();
-            $this->loadView("oportunidade/oportunidade_cadastro.php", $dados, $msgErro);
+            $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados, $msgErro);
         }
     }
     protected function delete()

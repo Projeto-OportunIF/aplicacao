@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/10/2025 às 21:30
+-- Tempo de geração: 17/10/2025 às 20:18
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -57,13 +57,6 @@ CREATE TABLE `inscricoes` (
   `idUsuarios` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `inscricoes`
---
-
-INSERT INTO `inscricoes` (`idInscricoes`, `documentosAnexo`, `feedbackProfessor`, `status`, `idOportunidades`, `idUsuarios`) VALUES
-(20, '1759253988_atestadoIsabela.pdf', NULL, 'PENDENTE', 11, 33);
-
 -- --------------------------------------------------------
 
 --
@@ -77,6 +70,27 @@ CREATE TABLE `notificacoes` (
   `status` enum('ENVIADO','LIDO') NOT NULL,
   `idUsuarios` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `notificacoes_usuarios`
+--
+
+CREATE TABLE `notificacoes_usuarios` (
+  `idNotificacao` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `notificacoes_usuarios`
+--
+
+INSERT INTO `notificacoes_usuarios` (`idNotificacao`, `idUsuario`) VALUES
+(1, 33),
+(2, 33),
+(14, 33),
+(14, 34);
 
 -- --------------------------------------------------------
 
@@ -101,9 +115,9 @@ CREATE TABLE `oportunidades` (
 --
 
 INSERT INTO `oportunidades` (`idOportunidades`, `titulo`, `descricao`, `tipoOportunidade`, `dataInicio`, `dataFim`, `documentoAnexo`, `vaga`, `professor_responsavel`) VALUES
-(9, 'Estágio no Parque Tecnológico Itaipu (PTI)', '<p>O Itaipu Parquetec, tamb&eacute;m conhecido como PTI, oferece a oportunidade de est&aacute;gio para estudantes que desejam integrar um ambiente de inova&ccedil;&atilde;o, pesquisa e desenvolvimento tecnol&oacute;gico.&nbsp;</p><p data-start=\"717\" data-end=\"1039\" id=\"isPasted\">Todas as vagas de est&aacute;gio (incluindo est&aacute;gios n&atilde;o-obrigat&oacute;rios) s&atilde;o divulgadas e gerenciadas por meio do <strong data-start=\"848\" data-end=\"871\">Portal do Candidato</strong> do Itaipu Parquetec, em parceria com o CIEE. &Eacute; necess&aacute;rio manter o cadastro atualizado no CIEE para acessar e concorrer &agrave;s vagas. <span data-state=\"closed\"><span data-testid=\"webpage-citation-pill\"><a href=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\" alt=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\">candidato.itaipuparquetec.org.br</a></span></span><span data-state=\"closed\"><span data-testid=\"webpage-citation-pill\"><a href=\"https://www.pti.org.br/trabalheconosco?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\" alt=\"https://www.pti.org.br/trabalheconosco?utm_source=chatgpt.com\">Itaipu Parquetec</a></span></span></p><p data-start=\"1041\" data-end=\"1231\">Acesse o Portal do Candidato aqui: <strong data-start=\"1076\" data-end=\"1120\">[Portal do Candidato &ndash; Itaipu Parquetec]</strong>(<a data-start=\"1121\" data-end=\"1192\" rel=\"noopener\" target=\"_new\" href=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\">https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml</a>)&nbsp;</p>', 'ESTAGIO', '2025-09-02', '2025-10-07', '', 1, ''),
-(10, 'Teatro em Cena: Expressão, Cultura e Cidadania', '<p data-start=\"175\" data-end=\"512\" id=\"isPasted\"><strong data-start=\"175\" data-end=\"189\">Descri&ccedil;&atilde;o:</strong><br data-start=\"189\" data-end=\"192\">O projeto de extens&atilde;o <em data-start=\"214\" data-end=\"230\">Teatro em Cena</em> tem como objetivo promover a arte teatral como ferramenta de transforma&ccedil;&atilde;o social, cultural e educacional. A iniciativa busca oferecer oficinas de interpreta&ccedil;&atilde;o, express&atilde;o corporal, improvisa&ccedil;&atilde;o e montagem de pe&ccedil;as teatrais, abertas &agrave; comunidade acad&ecirc;mica e &agrave; popula&ccedil;&atilde;o em geral.</p><p data-start=\"880\" data-end=\"1072\">O projeto tamb&eacute;m prev&ecirc; apresenta&ccedil;&otilde;es p&uacute;blicas dos trabalhos desenvolvidos, democratizando o acesso ao teatro e incentivando a participa&ccedil;&atilde;o ativa da sociedade na valoriza&ccedil;&atilde;o da cultura local.</p>', 'PROJETOEXTENSAO', '2025-09-01', '2025-09-30', '', 12, ''),
-(11, 'Tecnologias Digitais na Educação: Impactos e Possibilidades', '<p data-start=\"191\" data-end=\"451\" id=\"isPasted\">Este projeto de pesquisa tem como objetivo analisar os impactos do uso de tecnologias digitais no processo de ensino e aprendizagem, identificando desafios e oportunidades que surgem com a integra&ccedil;&atilde;o de recursos tecnol&oacute;gicos em sala de aula.</p><p data-start=\"943\" data-end=\"1172\">Espera-se que os resultados possam oferecer subs&iacute;dios para a ado&ccedil;&atilde;o mais consciente e eficaz das tecnologias digitais na educa&ccedil;&atilde;o, contribuindo para pol&iacute;ticas p&uacute;blicas, forma&ccedil;&atilde;o de professores e pr&aacute;ticas pedag&oacute;gicas inovadoras.</p>', 'PROJETOPESQUISA', '2025-09-01', '2025-10-11', '', 14, 'Jefferson Chaves');
+(23, 'Teatro em Cena: Expressão, Cultura e Cidadania', '<p data-start=\"192\" data-end=\"633\" data-pasted=\"true\">O projeto <strong data-start=\"202\" data-end=\"254\">&ldquo;Teatro em Cena: Express&atilde;o, Cultura e Cidadania&rdquo;</strong> tem como objetivo promover a arte teatral como ferramenta de transforma&ccedil;&atilde;o social, incentivando a express&atilde;o pessoal, o pensamento cr&iacute;tico e o fortalecimento da cidadania. As apresenta&ccedil;&otilde;es teatrais resultantes das oficinas ser&atilde;o abertas ao p&uacute;blico, valorizando o protagonismo dos participantes e o di&aacute;logo com a comunidade.</p>', 'PROJETOEXTENSAO', '2025-09-04', '2025-11-22', 'certificado de teatro; certificado em artes cenicas', 20, 'Givaldo'),
+(25, 'Oportunidade de Estágio — Desenvolvimento Web no IFPR', '<p data-start=\"168\" data-end=\"488\" data-pasted=\"true\">Estamos divulgando uma vaga de <strong data-start=\"216\" data-end=\"277\">Est&aacute;gio em Tecnologia da Informa&ccedil;&atilde;o / Desenvolvimento Web</strong> em Curitiba. O estagi&aacute;rio vai atuar no suporte de projetos digitais, manuten&ccedil;&atilde;o de sistemas internos, implementa&ccedil;&atilde;o de novas funcionalidades e corre&ccedil;&atilde;o de bugs, sempre sob supervis&atilde;o de um profissional da &aacute;rea.</p><p data-start=\"490\" data-end=\"869\"><strong data-start=\"490\" data-end=\"515\">Exemplo real de vaga:</strong><br data-start=\"515\" data-end=\"518\">Est&aacute;gio TI &ndash; Dados / IA / Automa&ccedil;&atilde;o &mdash; Curitiba (INTERTECHNE Consultores) <span data-state=\"closed\"><span data-testid=\"webpage-citation-pill\"><a href=\"https://br.indeed.com/q-est%C3%A1gio-tecnologia-informa%C3%A7%C3%A3o-l-curitiba%2C-pr-vagas.html?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\" alt=\"https://br.indeed.com/q-est%C3%A1gio-tecnologia-informa%C3%A7%C3%A3o-l-curitiba%2C-pr-vagas.html?utm_source=chatgpt.com\">Indeed+2Indeed+2</a></span></span><br data-start=\"628\" data-end=\"631\">Voc&ecirc; pode ver mais detalhes e se inscrever aqui: <strong data-start=\"680\" data-end=\"829\"><a data-start=\"682\" data-end=\"827\" rel=\"noopener\" target=\"_new\">Vaga no Indeed / Intertechne &ndash; Est&aacute;gio TI</a></strong> <span data-state=\"closed\"><span data-testid=\"webpage-citation-pill\"><a href=\"https://br.indeed.com/q-est%C3%A1gio-tecnologia-informa%C3%A7%C3%A3o-l-curitiba%2C-pr-vagas.html?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\" alt=\"https://br.indeed.com/q-est%C3%A1gio-tecnologia-informa%C3%A7%C3%A3o-l-curitiba%2C-pr-vagas.html?utm_source=chatgpt.com\">Indeed</a></span></span></p><p data-start=\"871\" data-end=\"888\"><strong data-start=\"871\" data-end=\"886\">Requisitos:</strong></p><ul data-start=\"889\" data-end=\"1133\"><li data-start=\"889\" data-end=\"1015\"><p data-start=\"891\" data-end=\"1015\">Estar matriculado em curso de Tecnologia da Informa&ccedil;&atilde;o, Sistemas da Informa&ccedil;&atilde;o, Ci&ecirc;ncia da Computa&ccedil;&atilde;o ou &aacute;reas correlatas;</p></li><li data-start=\"1016\" data-end=\"1076\"><p data-start=\"1018\" data-end=\"1076\">Conhecimentos b&aacute;sicos em <strong data-start=\"1043\" data-end=\"1073\">HTML, CSS, JavaScript, SQL</strong>;</p></li><li data-start=\"1077\" data-end=\"1133\"><p data-start=\"1079\" data-end=\"1133\">Proatividade, vontade de aprender e boa comunica&ccedil;&atilde;o.</p></li></ul>', 'ESTAGIO', '2025-06-12', '2026-01-28', '', 2, 'Jefferson Chaves'),
+(26, 'Biodiversidade e Conservação de Plantas Nativas', '<p>O projeto de pesquisa &ldquo;Biodiversidade e Conserva&ccedil;&atilde;o de Plantas Nativas&rdquo; tem como objetivo identificar, catalogar e analisar esp&eacute;cies vegetais presentes em &aacute;reas de preserva&ccedil;&atilde;o do estado do Paran&aacute;. O aluno pesquisador participar&aacute; de coletas de campo, observa&ccedil;&atilde;o e registro de esp&eacute;cies, al&eacute;m de an&aacute;lises em laborat&oacute;rio sobre germina&ccedil;&atilde;o, crescimento e adapta&ccedil;&atilde;o das plantas. O projeto contribui para estudos de conserva&ccedil;&atilde;o ambiental e elabora&ccedil;&atilde;o de estrat&eacute;gias sustent&aacute;veis para preserva&ccedil;&atilde;o da flora local.</p>', 'PROJETOPESQUISA', '2025-01-29', '2025-08-13', '', 36, 'Vivian');
 
 -- --------------------------------------------------------
 
@@ -122,11 +136,15 @@ CREATE TABLE `oportunidade_curso` (
 --
 
 INSERT INTO `oportunidade_curso` (`id`, `idOportunidade`, `idCurso`) VALUES
-(19, 9, 1),
-(20, 9, 3),
-(21, 10, 1),
-(22, 10, 3),
-(37, 11, 1);
+(114, 23, 4),
+(115, 23, 1),
+(116, 23, 3),
+(117, 23, 5),
+(118, 25, 1),
+(119, 26, 4),
+(120, 26, 1),
+(121, 26, 3),
+(122, 26, 5);
 
 -- --------------------------------------------------------
 
@@ -152,8 +170,10 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`idUsuarios`, `nomeCompleto`, `email`, `cpf`, `senha`, `tipoUsuario`, `matricula`, `idCursos`, `fotoPerfil`) VALUES
 (1, 'Roberta Silva', 'robertasilva@gmail.com', '123.456.789-00', '$2a$12$1BDqobBHZGsw4dmj7lXgluXvyz.dnUFljz.1yc9BH8Va0xGVeyP9G', 'ADMIN', '', NULL, 'arquivo_68af3b57e44c4.jpeg'),
-(17, 'lucas', 'lucas@gmail.com', '740.528.379-91', '$2y$10$5JeNgmKoZyZQ4UuI/S/5V.vmGDwH6yM3kK.MYqt9xwTgABVx9k3MO', 'PROFESSOR', '20223024000', NULL, NULL),
-(33, 'julie', 'julie@gmail.com', '105.296.209-28', '$2y$10$ijMwp1uwRHyYigg2Ml2YJ.B8kIDeVB8CuPzuw3Un0asUsPGEZgukS', 'ALUNO', '20223024000', 1, NULL);
+(17, 'lucas', 'lucas@gmail.com', '740.528.379-91', '$2y$10$qrKXRUvw/gpPRRsudngtbOcJX/ifKrGcLHuYLW5wnNy3lVh8wjNta', 'PROFESSOR', '20223024000', NULL, NULL),
+(33, 'julie', 'julie@gmail.com', '105.296.209-28', '$2y$10$vA9aJrsVzjL9IXQ76MbeqOJVGQDYHIGNp.I.pQa7M1RJZf4M9MtoO', 'ALUNO', '20223024000', 1, NULL),
+(35, 'juliana', 'juliana@gmail.com', '079.150.660-64', '$2y$10$nHV0gCL7PW95AGd4ONpJLOJ4DF.PSCBBRYXxV5bQEiS41FCrLKl5K', 'ALUNO', '46541816516', 4, NULL),
+(36, 'ana', 'ana@gmail.com', '106.660.100-30', '$2y$10$xjLtAZzLFaqkDmNPt7TBhuHghrcgehENwqrMAIX1fkxvLepbMNFSS', 'ALUNO', '2312', 3, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -217,25 +237,25 @@ ALTER TABLE `cursos`
 -- AUTO_INCREMENT de tabela `inscricoes`
 --
 ALTER TABLE `inscricoes`
-  MODIFY `idInscricoes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idInscricoes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de tabela `oportunidades`
 --
 ALTER TABLE `oportunidades`
-  MODIFY `idOportunidades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idOportunidades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de tabela `oportunidade_curso`
 --
 ALTER TABLE `oportunidade_curso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `idUsuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Restrições para tabelas despejadas

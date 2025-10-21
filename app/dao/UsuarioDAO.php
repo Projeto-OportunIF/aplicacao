@@ -91,21 +91,21 @@ class UsuarioDAO
 
         return count($usuarios) > 0 ? $usuarios[0] : null;
     }
-// findByMatricula
-public function findByMatricula(string $matricula)
-{
-    $conn = Connection::getConn();
-    $sql = "SELECT u.*, c.nome AS nomeCursos
+    // findByMatricula
+    public function findByMatricula(string $matricula)
+    {
+        $conn = Connection::getConn();
+        $sql = "SELECT u.*, c.nome AS nomeCursos
             FROM usuarios u
             LEFT JOIN cursos c ON c.idCursos = u.idCursos
             WHERE u.matricula = ?";
-    $stm = $conn->prepare($sql);
-    $stm->execute([$matricula]);
-    $result = $stm->fetchAll();
-    $usuarios = $this->mapUsuarios($result);
+        $stm = $conn->prepare($sql);
+        $stm->execute([$matricula]);
+        $result = $stm->fetchAll();
+        $usuarios = $this->mapUsuarios($result);
 
-    return count($usuarios) > 0 ? $usuarios[0] : null;
-}
+        return count($usuarios) > 0 ? $usuarios[0] : null;
+    }
 
     public function insert(Usuario $usuario)
     {
@@ -167,34 +167,36 @@ public function findByMatricula(string $matricula)
     }
 
 
-    public function deleteById(int $id)
-    {
-        $conn = Connection::getConn();
+   public function deleteById(int $id)
+{
+    $conn = Connection::getConn();
 
-        try {
-            $conn->beginTransaction();
+    try {
+        $conn->beginTransaction();
 
-            $sql1 = "DELETE FROM inscricoes WHERE idUsuarios = :id";
-            $stm1 = $conn->prepare($sql1);
-            $stm1->bindValue(":id", $id);
-            $stm1->execute();
+        $sql1 = "DELETE FROM inscricoes WHERE idUsuarios = :id";
+        $stm1 = $conn->prepare($sql1);
+        $stm1->bindValue(":id", $id);
+        $stm1->execute();
 
-            $sql2 = "DELETE FROM oportunidades WHERE idUsuarios = :id";
-            $stm2 = $conn->prepare($sql2);
-            $stm2->bindValue(":id", $id);
-            $stm2->execute();
+        // REMOVER essa parte, pois a tabela 'oportunidades' não tem 'idUsuarios'
+        // $sql2 = "DELETE FROM oportunidades WHERE idUsuarios = :id";
+        // $stm2 = $conn->prepare($sql2);
+        // $stm2->bindValue(":id", $id);
+        // $stm2->execute();
 
-            $sql3 = "DELETE FROM usuarios WHERE idUsuarios = :id";
-            $stm3 = $conn->prepare($sql3);
-            $stm3->bindValue(":id", $id);
-            $stm3->execute();
+        $sql3 = "DELETE FROM usuarios WHERE idUsuarios = :id";
+        $stm3 = $conn->prepare($sql3);
+        $stm3->bindValue(":id", $id);
+        $stm3->execute();
 
-            $conn->commit();
-        } catch (PDOException $e) {
-            $conn->rollBack();
-            throw $e;
-        }
+        $conn->commit();
+    } catch (PDOException $e) {
+        $conn->rollBack();
+        throw $e;
     }
+}
+
 
     public function updateFotoPerfil(Usuario $usuario)
     {

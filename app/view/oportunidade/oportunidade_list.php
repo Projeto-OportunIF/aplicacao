@@ -7,18 +7,22 @@ require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_list.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_lis.css">
 
 <h3 class="text-center">Oportunidades Inseridas</h3>
 
 
 
-<div class="col-12">
-    <a class="btn btn-secondary"
-        href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor">← Voltar</a>
+<div class="container text-center" style="margin-top: 30px;">
+    <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor"
+        class="btn-voltar">
+        <i class="bi bi-arrow-left-circle"></i> Voltar
+    </a>
 </div>
 
 <div class="cards-container">
+
+
     <?php foreach ($dados['lista'] as $op): ?>
         <div class="card-oportunidade">
             <h3><?= $op->getTitulo(); ?></h3>

@@ -4,12 +4,17 @@ require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os status
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritos.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritoss.css">
 
 <h3 class="text-center">Inscritos na Oportunidade: <?= $dados['oportunidade']->getTitulo(); ?></h3>
 
 <div class="col-12">
-    <a class="btn btn-secondary" href="<?= BASEURL ?>/controller/OportunidadeController.php?action=list">← Voltar</a>
+    <div class="container text-center" style="margin-top: 30px;">
+        <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=list"
+            class="btn-voltar">
+            <i class="bi bi-arrow-left-circle"></i> Voltar
+        </a>
+    </div>
 </div>
 
 <table class="table table-striped table-bordered">

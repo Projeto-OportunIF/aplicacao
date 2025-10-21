@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastro.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastr.css">
 
 <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 
@@ -20,8 +20,9 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="row" style="margin-top: 30px;">
         <div class="col-12">
-            <a class="btn btn-secondary"
-                href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor"> ← Voltar</a>
+            <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor" class="btn-voltar">
+                <i class="bi bi-arrow-left-circle"></i> Voltar
+            </a>
         </div>
     </div>
     <div class="row" style="margin-top: 10px;">

@@ -42,7 +42,7 @@ class PerfilController extends Controller
 
     protected function save()
     {
-        
+
         $idUsuario = $_SESSION[SESSAO_USUARIO_ID];
         $usuario = $this->usuarioDao->findById($idUsuario);
 
@@ -65,12 +65,11 @@ class PerfilController extends Controller
         }
 
         if (isset($_FILES['foto']) && !empty($_FILES['foto']['name'])) {
-            
+
             $foto = $_FILES["foto"];
             $fotoNome = $this->arquivoService->salvarArquivo($foto);
             $usuario->setFotoPerfil($fotoNome);
-
-        } else if($usuario->getFotoPerfil() == null){
+        } else if ($usuario->getFotoPerfil() == null) {
             $erros[] = "Nenhuma foto foi enviada.";
         }
 
@@ -140,7 +139,7 @@ class PerfilController extends Controller
         //     if (isset($foto) && $foto != ""){
         //         $usuario->setFotoPerfil($foto);
         //     }
-            
+
 
         //     if (!empty($_POST['curso_id'])) {
         //         require_once(__DIR__ . "/../dao/CursoDAO.php");
@@ -152,7 +151,7 @@ class PerfilController extends Controller
         //     }
 
         //     $this->usuarioDao->update($usuario);
-            
+
         //     $this->loginService->salvarUsuarioSessao($usuario);
         // }
 

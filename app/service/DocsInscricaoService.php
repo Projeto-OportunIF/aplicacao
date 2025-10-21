@@ -16,6 +16,4 @@ class InscricaoService
 
         return $erros;
     }
-
-    
 }
