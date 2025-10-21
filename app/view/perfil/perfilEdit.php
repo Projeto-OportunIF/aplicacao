@@ -93,11 +93,11 @@ $cursos = $cursoDAO->list();
 
             <!-- Senha do perfil -->
             <div class="mb-3">
-                <label for="Senha" class="form-label">Senha</label>
-                <input type="text" class="form-control" id="Senha"
-                    value="<?php echo htmlspecialchars($usuario->getSenha()); ?>" readonly>
-                <input type="hidden" name="Senha" value="<?php echo $usuario->getSenha(); ?>">
+                <label for="Senha" class="form-label">Nova senha</label>
+                <input type="password" class="form-control" id="Senha" name="Senha"
+                    placeholder="Senha atual" autocomplete="new-password">
             </div>
+
 
             <!-- Foto de Perfil -->
             <div class="mb-3">
