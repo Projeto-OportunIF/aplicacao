@@ -8,8 +8,6 @@ include_once(__DIR__ . "/../../model/enum/UsuarioTipo.php");
 
 // print_r( $_SESSION);
 // die;
-
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -18,8 +16,22 @@ $nome = "(Sessão expirada)";
 $fotoPerfil = "avatar.png";
 $notificacoes = 0;
 
-if (isset($_SESSION[SESSAO_USUARIO_FOTO_PERFIL]))
+if (isset($_SESSION[SESSAO_USUARIO_FOTO_PERFIL])) {
     $fotoPerfil = $_SESSION[SESSAO_USUARIO_FOTO_PERFIL];
+}
+
+// Caminho real do arquivo de upload
+// Caminho real do arquivo de upload
+$caminhoLocalUpload = __DIR__ . "/../../../uploads/$fotoPerfil";
+$caminhoFotoGenerica = BASEURL . "/view/img/foto_generica_perfil.png";
+
+// Se a foto do usuário existir na pasta uploads, usa ela; caso contrário, usa a genérica
+if (file_exists($caminhoLocalUpload)) {
+  
+} else {
+    $caminhoFoto = $caminhoFotoGenerica;
+}
+
 
 if (isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
@@ -34,7 +46,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::ALUNO)
 elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     $homePage = HOME_PAGE_PROFESSOR;
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/menu.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/menus.css">
 <nav class="navbar navbar-expand-md px-3 mb-3" style="background-color: #c23956">
 
 
@@ -59,7 +71,8 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
                     data-bs-toggle="dropdown">
 
                     <div class="foto-perfil-wrapper">
-                        <img class="foto-perfil" src="<?= BASEURL_ARQUIVOS . "/$fotoPerfil" ?>" alt="Foto de perfil">
+                       <img class="foto-perfil" src="<?= $caminhoFoto ?>" alt="Foto de perfil">
+
                     </div>
 
                     <span><?= $nome ?></span>

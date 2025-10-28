@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os status
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritoss.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritos.css">
 
 <h3 class="text-center">Inscritos na Oportunidade: <?= $dados['oportunidade']->getTitulo(); ?></h3>
 
