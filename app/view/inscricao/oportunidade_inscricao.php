@@ -22,13 +22,17 @@ require_once(__DIR__ . "/../include/menu.php");
             <p><strong>Data de Início:</strong> <?= date('d/m/Y', strtotime($dados['oportunidade']->getDataInicio())) ?></p>
             <p><strong>Data de Fim:</strong> <?= date('d/m/Y', strtotime($dados['oportunidade']->getDataFim())) ?></p>
             <p><strong>Vagas:</strong> <?= htmlspecialchars($dados['oportunidade']->getVaga()) ?></p>
-            <p><strong>Documento Anexo:</strong> <?= htmlspecialchars($dados['oportunidade']->getDocumentoAnexo() ?? "Não há documento") ?></p>
+
+            <!-- Documento Anexo: só aparece se houver -->
+            <?php if (!empty($dados['oportunidade']->getDocumentoAnexo())): ?>
+                <p><strong>Documento Anexo:</strong> <?= htmlspecialchars($dados['oportunidade']->getDocumentoAnexo()) ?></p>
+            <?php endif; ?>
 
             <!-- Formulário / Mensagem -->
             <?php if ($dados['oportunidade']->getTipoOportunidade() !== 'ESTAGIO'): ?>
                 <form action="<?= BASEURL ?>/controller/InscricaoController.php?action=inscrever&idOport=<?= $dados['oportunidade']->getId() ?>" method="post" enctype="multipart/form-data">
 
-                    <!-- Campo de Documento -->
+                    <!-- Campo de Documento: só aparece se houver -->
                     <?php if (!empty($dados['oportunidade']->getDocumentoAnexo())): ?>
                         <label for="documentoAluno">Enviar Documento (obrigatório):</label>
                         <input type="file" name="documentoAluno" id="documentoAluno" class="form-control mb-3" required>
