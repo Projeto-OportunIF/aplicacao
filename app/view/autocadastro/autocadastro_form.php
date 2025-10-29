@@ -65,41 +65,42 @@ require_once(__DIR__ . "/../include/header.php");
                             }
                             ?>>
                             <label class="form-check-label"><?= $curso->getNome() ?></label>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
-        <?php endforeach; ?>
 
-        </select>
+            <div class="mb-3 position-relative">
+                <label class="form-label" for="txtSenha">Crie uma senha:</label>
+                <input class="form-control" type="password" id="txtSenha" name="senha"
+                    maxlength="90" placeholder="Informe a senha"
+                    value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
+                <span class="toggle-password" data-target="txtSenha" style="position:absolute; right:2px; top:23px; cursor:pointer;font-size: 20px;">👁️</span>
+            </div>
+
+            <div class="mb-3 position-relative">
+                <label class="form-label" for="txtconf_senha">Confirme a senha:</label>
+                <input class="form-control" type="password" id="txtconf_senha" name="conf_senha"
+                    maxlength="15" placeholder="Informe a confirmação da senha"
+                    value="<?php echo isset($dados['confSenha']) ? $dados['confSenha'] : ''; ?>" />
+                <span class="toggle-password" data-target="txtconf_senha" style="position:absolute;  right:2px; top:23px; cursor:pointer;font-size: 20px;">👁️</span>
+            </div>
+
+            <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">Criar</button>
+            </div>
+        </form>
+
+        <div class="mt-3">
+            <?php require_once(__DIR__ . "/../include/msg.php"); ?>
+        </div>
+
+        <div class="text-center">
+            <a class="btn btn-secondary" href="<?= BASEURL ?>/controller/LoginController.php?action=login">Voltar</a>
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label" for="txtSenha">Crie uma senha:</label>
-        <input class="form-control" type="password" id="txtSenha" name="senha"
-            maxlength="90" placeholder="Informe a senha"
-            value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label" for="txtconf_senha">Confirme a senha:</label>
-        <input class="form-control" type="password" id="txtconf_senha" name="conf_senha"
-            maxlength="15" placeholder="Informe a confirmação da senha"
-            value="<?php echo isset($dados['confSenha']) ? $dados['confSenha'] : ''; ?>" />
-    </div>
-
-    <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
-
-    <div class="text-center">
-        <button type="submit" class="btn btn-success">Criar</button>
-    </div>
-    </form>
-
-    <div class="mt-3">
-        <?php require_once(__DIR__ . "/../include/msg.php"); ?>
-    </div>
-
-    <div class="text-center">
-        <a class="btn btn-secondary" href="<?= BASEURL ?>/controller/LoginController.php?action=login">Voltar</a>
-    </div>
-</div>
 </div>
 
 <!-- Script para máscara de CPF -->
@@ -125,10 +126,20 @@ require_once(__DIR__ . "/../include/header.php");
         e.target.value = pastedData.slice(0, 11);
         cpfInput.dispatchEvent(new Event('input'));
     });
+
+    // Toggle olho da senha
+    document.addEventListener("DOMContentLoaded", function() {
+        const togglePassword = document.querySelectorAll(".toggle-password");
+        togglePassword.forEach(function(eye) {
+            const targetId = eye.getAttribute("data-target");
+            const input = document.getElementById(targetId);
+
+            eye.addEventListener("click", function() {
+                input.type = (input.type === "password") ? "text" : "password";
+            });
+        });
+    });
 </script>
-
-
-
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

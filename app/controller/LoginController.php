@@ -23,6 +23,9 @@ class LoginController extends Controller
         $this->usuarioDao = new UsuarioDAO();
         //$this->notificacaoController = new NotificacaoController();
 
+
+
+
         $this->handleAction();
     }
 
