@@ -69,11 +69,13 @@ $cursos = $cursoDAO->list();
             </div>
 
             <!-- Matrícula -->
+            <?php if (strtolower($usuario->getTipoUsuario()) === 'aluno') { ?>
             <div class="mb-3">
                 <label for="matricula" class="form-label">Matrícula</label>
                 <input type="text" class="form-control" id="matricula" name="matricula"
                     value="<?php echo htmlspecialchars($usuario->getMatricula() ?? ''); ?>" required>
             </div>
+        <?php } ?>
 
             <!-- Tipo de usuário (somente leitura) -->
             <div class="mb-3">
@@ -84,12 +86,15 @@ $cursos = $cursoDAO->list();
             </div>
 
             <!-- Curso (somente leitura) -->
+            <?php if (strtolower($usuario->getTipoUsuario()) === 'aluno') { ?>
             <div class="mb-3">
                 <label for="curso" class="form-label">Curso</label>
                 <input type="text" class="form-control" id="curso"
-                    value="<?php echo htmlspecialchars($usuario->getCurso()->getNome()); ?>" readonly>
-                <input type="hidden" name="curso_id" value="<?php echo $usuario->getCurso()->getId(); ?>">
+                    value="<?php echo htmlspecialchars($usuario->getCurso() ? $usuario->getCurso()->getNome() : ''); ?>" readonly>
+                <input type="hidden" name="curso_id"
+                    value="<?php echo htmlspecialchars($usuario->getCurso() ? $usuario->getCurso()->getId() : ''); ?>">
             </div>
+        <?php } ?>
 
             <!-- Senha do perfil -->
             <div class="mb-3">
