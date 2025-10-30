@@ -20,13 +20,41 @@ class NotificacaoController extends Controller
         $this->dao->notificarUsuariosByCurso("Olá! Existe uma oportunidade de estágio", [1]);
     }
 
+    public function  notificarUsuarioById()
+    {
+        $this->dao->notificarUsuarioById("Olá! tudo bem?", 33);
+    }
 
-    // private function listar()
-    // {
-    //     $idUsuario = $_SESSION['usuarioLogadoId'] ?? 0;
-    //     $notificacoes = $this->dao->listByUsuario($idUsuario);
-    //     include("../view/notificacao/notificacao_list.php");
-    // }
+
+    public function listar()
+    {
+        $dados['notificacoes'] = $this->dao->listByUsuario($this->getIdUsuarioLogado());
+
+        // print '<pre>';
+        // print_r($dados['notificacoes']);
+        // print '</pre>';
+
+        // [0] => Array
+        // (
+        //     [idNotificacoes] => 2
+        //     [mensagem] => Olá! Existe uma oportunidade de estágio
+        //     [dataEnvio] => 2025-10-30
+        //     [status] => ENVIADO
+        // )
+
+        $this->loadView("notificacoes/notificacoes.php", $dados);
+
+    }
+
+    public function atualizarStatusPorUsuario(){
+
+        $idNotificacao = $_GET['id_notificacao'];
+
+        $this->dao->atualizarStatusPorUsuario($this->getIdUsuarioLogado(), $idNotificacao);
+
+        $this->listar();
+
+    }
 
     // private function visualizar()
     // {

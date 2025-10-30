@@ -6,6 +6,8 @@ require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../model/Oportunidade.php");
 require_once(__DIR__ . "/../model/Usuario.php");
 require_once(__DIR__ . "/../service/OportunidadeService.php");
+require_once(__DIR__ . "/../service/NotificacaoService.php");
+
 
 
 class OportunidadeController extends Controller
@@ -15,6 +17,8 @@ class OportunidadeController extends Controller
     private UsuarioDAO $usuarioDao;
     private Usuario $usuario;
     private OportunidadeService $service;
+    private NotificacaoService $notificacaoService;
+
 
 
     public function __construct()
@@ -28,6 +32,7 @@ class OportunidadeController extends Controller
 
 
         $this->service = new OportunidadeService();
+        $this->notificacaoService = new NotificacaoService();
 
 
         $this->handleAction();
@@ -43,6 +48,7 @@ class OportunidadeController extends Controller
 
     protected function create()
     {
+        //TODO: VERIFICAR 
         $dados['id'] = 0;
         $dados['nome'] = "Jefferson";
         $dados['cursos'] = $this->cursoDao->list();
@@ -96,8 +102,6 @@ class OportunidadeController extends Controller
         $oportunidade->setVaga($vaga);
 
 
-
-
         if (empty($idCursos)) {
             $erros[] = "Selecione pelo menos um curso.";
         } else {
@@ -139,6 +143,10 @@ class OportunidadeController extends Controller
             if ($oportunidade->getId() == 0) {
 
                 $this->oportunidadeDao->insert($oportunidade);
+
+                $this->notificacaoService->notificarUsuariosByCurso("uma nova oportunidade foi criada: $titulo ", $idCursos);
+
+
             } else {
                 $this->oportunidadeDao->update($oportunidade);
             }
