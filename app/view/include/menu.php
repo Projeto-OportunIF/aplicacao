@@ -3,7 +3,7 @@
 #Objetivo: menu da aplicação para ser incluído em outras páginas
 
 include_once(__DIR__ . "/../../model/enum/UsuarioTipo.php");
-
+include_once(__DIR__ . "/../../service/NotificacaoService.php");
 
 
 // print_r( $_SESSION);
@@ -33,11 +33,16 @@ if (file_exists($caminhoLocalUpload)) {
 }
 
 
-if (isset($_SESSION[SESSAO_USUARIO_NOME]))
+if (isset($_SESSION[SESSAO_USUARIO_NOME])){
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
+}
 
-if (isset($_SESSION[SESSAO_USUARIO_NOTIFICACOES]))
+if (isset($_SESSION[SESSAO_USUARIO_NOTIFICACOES])){
     $notificacoes = $_SESSION[SESSAO_USUARIO_NOTIFICACOES];
+} else {
+    NotificacaoService::countNotificacoesByUsuario();
+    $notificacoes = $_SESSION[SESSAO_USUARIO_NOTIFICACOES];
+}
 
 $homePage = HOME_PAGE_ADMIN;
 

@@ -28,6 +28,12 @@ require_once(__DIR__ . "/../include/header.php");
                 <input class="form-control" type="text" id="txtNomeCompleto" name="nomeCompleto"
                     maxlength="70" placeholder="Informe o nome"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeCompleto() : ''); ?>" />
+
+                <?php if(isset($dados['erros']['nome'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['nome'] ?></span>
+                <?php endif; ?>
+
+
             </div>
 
             <div class="mb-3">
@@ -49,6 +55,12 @@ require_once(__DIR__ . "/../include/header.php");
                 <input class="form-control" type="text" id="txtcpf" name="cpf"
                     maxlength="14" placeholder="000.000.000-00"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getCpf() : ''); ?>" />
+
+
+                <?php if(isset($dados['erros']['cpf'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['cpf'] ?></span>
+                <?php endif; ?>
+
             </div>
 
             <div class="mb-3">
@@ -88,18 +100,20 @@ require_once(__DIR__ . "/../include/header.php");
 
             <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
 
-            <div class="text-center">
+            <div class="text-center mt-5 d-flex justify-content-evenly">
+                
+                <a class="btn btn-secondary" href="<?= BASEURL ?>/controller/LoginController.php?action=login">Voltar</a>
+
                 <button type="submit" class="btn btn-success">Criar</button>
             </div>
         </form>
 
-        <div class="mt-3">
-            <?php require_once(__DIR__ . "/../include/msg.php"); ?>
-        </div>
-
+        <!--
         <div class="text-center">
             <a class="btn btn-secondary" href="<?= BASEURL ?>/controller/LoginController.php?action=login">Voltar</a>
         </div>
+        -->
+
     </div>
 </div>
 

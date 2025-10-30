@@ -18,19 +18,19 @@ class AutoCadastroService
 
         // Validar nome
         if (!$usuario->getNomeCompleto()) {
-            $erros[] = "O campo [Nome Completo] é obrigatório.";
+            $erros['nome'] = "O campo [Nome Completo] é obrigatório.";
         }
 
         // Validar CPF
         if (!$usuario->getCpf()) {
-            $erros[] = "O campo [CPF] é obrigatório.";
+            $erros['cpf'] = "O campo [CPF] é obrigatório.";
         } elseif (!$this->validarCPF($usuario->getCpf())) {
-            $erros[] = "CPF inválido.";
+            $erros['cpf'] = "CPF inválido.";
         } else {
             // Verifica duplicidade de CPF
             $usuarioExistente = $this->usuarioDAO->findByCpf($usuario->getCpf());
             if ($usuarioExistente) {
-                $erros[] = "Já existe um usuário cadastrado com este CPF.";
+                $erros['cpf'] = "Já existe um usuário cadastrado com este CPF.";
             }
         }
 

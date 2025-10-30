@@ -83,16 +83,21 @@ class CadastroController extends Controller
             }
         }
 
-        // Mostrar os erros
+        // Quando houverem erros, o algoritmos seguirá...
         $dados['id'] = $usuario->getId();
         $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
         $dados['cursos'] = $this->cursoDAO->list();
         $dados['confSenha'] = $confSenha;
         $dados['usuario'] = $usuario;
 
-        $msgErro = implode("<br>", $erros);
+        $dados['erros'] = $erros;
 
-        $this->loadView("autocadastro/autocadastro_form.php", $dados, $msgErro);
+        //print_r($erros);
+        //die;
+
+        //$msgErro = implode("<br>", $erros);
+
+        $this->loadView("autocadastro/autocadastro_form.php", $dados);
     }
 }
 
