@@ -29,7 +29,7 @@ require_once(__DIR__ . "/../include/header.php");
                     maxlength="70" placeholder="Informe o nome"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeCompleto() : ''); ?>" />
 
-                <?php if(isset($dados['erros']['nome'])): ?>
+                <?php if (isset($dados['erros']['nome'])): ?>
                     <span class="form_error_message"><?= $dados['erros']['nome'] ?></span>
                 <?php endif; ?>
 
@@ -41,6 +41,10 @@ require_once(__DIR__ . "/../include/header.php");
                 <input class="form-control" type="text" id="txtemail" name="email"
                     maxlength="70" placeholder="Informe o e-mail"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : ''); ?>" />
+
+                <?php if (isset($dados['erros']['email'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['email'] ?></span>
+                <?php endif; ?>
             </div>
 
             <div class="mb-3">
@@ -48,6 +52,10 @@ require_once(__DIR__ . "/../include/header.php");
                 <input class="form-control" type="text" id="txtmatricula" name="matricula"
                     maxlength="70" placeholder="Informe a Matrícula"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getMatricula() : ''); ?>" />
+
+                <?php if (isset($dados['erros']['matricula'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['matricula'] ?></span>
+                <?php endif; ?>
             </div>
 
             <div class="mb-3">
@@ -57,7 +65,7 @@ require_once(__DIR__ . "/../include/header.php");
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getCpf() : ''); ?>" />
 
 
-                <?php if(isset($dados['erros']['cpf'])): ?>
+                <?php if (isset($dados['erros']['cpf'])): ?>
                     <span class="form_error_message"><?= $dados['erros']['cpf'] ?></span>
                 <?php endif; ?>
 
@@ -68,19 +76,36 @@ require_once(__DIR__ . "/../include/header.php");
                 <select class="form-select" name="curso" id="selCurso">
                     <option value="">Selecione a qual curso você faz parte</option>
                     <?php foreach ($dados['cursos'] as $curso): ?>
-                        <option value="<?= $curso->getId() ?>"
-                            <?php
-                            if (isset($dados['oportunidadeCursos'])) {
-                                foreach ($dados['oportunidadeCursos'] as $oc) {
-                                    if ($oc->getId() == $curso->getId()) echo "checked";
+                        <?php
+                        // Verifica se há curso selecionado previamente
+                        $cursoSelecionado = '';
+
+                        // Se veio do POST (por exemplo, após erro de validação)
+                        if (isset($_POST['curso']) && $_POST['curso'] == $curso->getId()) {
+                            $cursoSelecionado = 'selected';
+                        }
+
+                        // Se veio do banco (por exemplo, ao editar oportunidade)
+                        elseif (isset($dados['oportunidadeCursos'])) {
+                            foreach ($dados['oportunidadeCursos'] as $oc) {
+                                if ($oc->getIdCurso() == $curso->getId()) {
+                                    $cursoSelecionado = 'selected';
+                                    break;
                                 }
                             }
-                            ?>>
-                            <label class="form-check-label"><?= $curso->getNome() ?></label>
+                        }
+                        ?>
+                        <option value="<?= $curso->getId() ?>" <?= $cursoSelecionado ?>>
+                            <?= $curso->getNome() ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
+
+                <?php if (isset($dados['erros']['curso'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['curso'] ?></span>
+                <?php endif; ?>
             </div>
+
 
             <div class="mb-3 position-relative">
                 <label class="form-label" for="txtSenha">Crie uma senha:</label>
@@ -88,6 +113,10 @@ require_once(__DIR__ . "/../include/header.php");
                     maxlength="90" placeholder="Informe a senha"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
                 <span class="toggle-password" data-target="txtSenha" style="position:absolute; right:2px; top:23px; cursor:pointer;font-size: 20px;">👁️</span>
+
+                <?php if (isset($dados['erros']['senha'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['senha'] ?></span>
+                <?php endif; ?>
             </div>
 
             <div class="mb-3 position-relative">
@@ -96,12 +125,17 @@ require_once(__DIR__ . "/../include/header.php");
                     maxlength="15" placeholder="Informe a confirmação da senha"
                     value="<?php echo isset($dados['confSenha']) ? $dados['confSenha'] : ''; ?>" />
                 <span class="toggle-password" data-target="txtconf_senha" style="position:absolute;  right:2px; top:23px; cursor:pointer;font-size: 20px;">👁️</span>
+
+                <?php if (isset($dados['erros']['confsenha'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['confsenha'] ?></span>
+                <?php endif; ?>
+
             </div>
 
             <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
 
             <div class="text-center mt-5 d-flex justify-content-evenly">
-                
+
                 <a class="btn btn-secondary" href="<?= BASEURL ?>/controller/LoginController.php?action=login">Voltar</a>
 
                 <button type="submit" class="btn btn-success">Criar</button>

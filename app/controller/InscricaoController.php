@@ -19,7 +19,7 @@ class InscricaoController extends Controller
     }
 
 
-    protected function view(string $msgErro = "", string $msgSucesso = "")
+    public function view(string $msgErro = "", string $msgSucesso = "")
     {
         $oportunidade = $this->findOportunidadeById();
 
@@ -38,49 +38,47 @@ class InscricaoController extends Controller
         return $this->oportunidadeDao->findById($id);
     }
 
-    protected function inscrever()
+    public function inscrever()
     {
         $idOport = $_GET['idOport'] ?? 0;
         $idAluno = $_SESSION['usuarioLogadoId'];
 
         require_once(__DIR__ . "/../dao/InscricaoDAO.php");
-        require_once(__DIR__ . "/../service/DocsInscricaoService.php");
 
         $inscricaoDao = new InscricaoDAO();
-        $service = new InscricaoService();
 
-        //  Verifica se já existe inscrição (evita duplicidade)
+        // Evita duplicidade
         if ($inscricaoDao->findByAlunoEOportunidade($idAluno, $idOport)) {
             $_SESSION['msgErro'] = "Você não pode se inscrever nesta oportunidade pois já está inscrito na mesma!";
             header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
             exit;
         }
 
-        //  Diretório de upload
+        $oportunidade = $this->findOportunidadeById();
         $uploadDir = __DIR__ . "/../../uploads/";
 
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
 
-        //  Captura o arquivo enviado
-        $documento = null;
-        if (isset($_FILES['documentoAluno']) && $_FILES['documentoAluno']['error'] === 0) {
-            $nomeArquivo = time() . "_" . basename($_FILES['documentoAluno']['name']);
-            $caminho = $uploadDir . $nomeArquivo;
+        $documentosSalvos = [];
 
-            if (move_uploaded_file($_FILES['documentoAluno']['tmp_name'], $caminho)) {
-                $documento = $nomeArquivo;
+        if (isset($_FILES['documentoAluno'])) {
+            foreach ($_FILES['documentoAluno']['tmp_name'] as $key => $tmpName) {
+                if ($_FILES['documentoAluno']['error'][$key] === 0 && !empty($tmpName)) {
+                    $nomeArquivo = time() . "_" . basename($_FILES['documentoAluno']['name'][$key]);
+                    $caminho = $uploadDir . $nomeArquivo;
+                    if (move_uploaded_file($tmpName, $caminho)) {
+                        $documentosSalvos[] = $nomeArquivo;
+                    }
+                }
             }
         }
 
-        //  Validação do documento obrigatório
-        $oportunidade = $this->findOportunidadeById();
-
-        // Só valida documento se a oportunidade tiver documento anexo
+        // Validação do documento obrigatório
         $erros = [];
-        if (!empty($oportunidade->getDocumentoAnexo()) && !$documento) {
-            $erros[] = "O envio do documento é obrigatório para esta oportunidade.";
+        if (!empty($oportunidade->getDocumentoAnexo()) && count($documentosSalvos) === 0) {
+            $erros[] = "O envio de pelo menos um documento é obrigatório para esta oportunidade.";
         }
 
         if (count($erros) > 0) {
@@ -89,12 +87,11 @@ class InscricaoController extends Controller
             exit;
         }
 
+        // Salva nomes separados por vírgula no banco
+        $documentosString = implode(',', $documentosSalvos);
 
+        $inscricaoDao->insert($idAluno, $idOport, $documentosString);
 
-        // Insere inscrição no banco
-        $inscricaoDao->insert($idAluno, $idOport, $documento);
-
-        //  Mensagem de sucesso e redirecionamento
         $_SESSION['msgSucesso'] = "Inscrição realizada com sucesso! Vá em \"Minhas Inscrições\" para visualizar.";
         header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
         exit;

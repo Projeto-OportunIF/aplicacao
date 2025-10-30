@@ -36,65 +36,65 @@ class AutoCadastroService
 
         // Validar matrícula
         if (!$usuario->getMatricula()) {
-            $erros[] = "O campo [Matrícula] é obrigatório.";
+            $erros['matricula'] = "O campo [Matrícula] é obrigatório.";
         } else {
             // Verifica duplicidade de matrícula
             $usuarioExistente = $this->usuarioDAO->findByMatricula($usuario->getMatricula());
             if ($usuarioExistente) {
-                $erros[] = "Já existe um usuário cadastrado com esta matrícula.";
+                $erros['matricula'] = "Já existe um usuário cadastrado com esta matrícula.";
             }
         }
         // Validar email
         $email = $usuario->getEmail();
         if (!$email) {
-            $erros[] = "O campo [E-mail] é obrigatório.";
+            $erros['email'] = "O campo [E-mail] é obrigatório.";
         } else {
             // Verifica duplicidade de email somente se não estiver vazio
             $usuarioExistente = $this->usuarioDAO->findByEmail((string)$email);
             if ($usuarioExistente) {
-                $erros[] = "Já existe um usuário cadastrado com este e-mail.";
+                $erros['email'] = "Já existe um usuário cadastrado com este e-mail.";
             }
         }
 
         // Validar curso para alunos
         $curso = $usuario->getCurso();
         if (!$curso || !$curso->getId()) {
-            $erros[] = "O campo [Curso] é obrigatório.";
+            $erros['curso'] = "O campo [Curso] é obrigatório.";
         }
 
         $senha = $usuario->getSenha();
 
         // Validar senha obrigatória
         if (!$senha) {
-            $erros[] = "O campo [Senha] é obrigatório.";
+            $erros['senha'] = "O campo [Senha] é obrigatório.";
         }
 
         // Validar confirmação de senha
         if (!$confSenha) {
-            $erros[] = "O campo [Confirmação da senha] é obrigatório.";
+            $erros['confsenha'] = "O campo [Confirmação da senha] é obrigatório.";
         }
 
         // Verificar se senha e confirmação batem
         if ($senha && $confSenha && $senha !== $confSenha) {
-            $erros[] = "O campo [Senha] deve ser igual ao [Confirmação da senha].";
+            $erros['confsenha'] = "O campo [Senha] deve ser igual ao [Confirmação da senha].";
         }
 
         // Validar força da senha
         if ($senha) {
             if (strlen($senha) < 8) {
-                $erros[] = "A senha deve ter no mínimo 8 caracteres.";
+                $erros['senha'] = "A senha deve ter no mínimo 8 caracteres.";
             }
             if (!preg_match('/[A-Z]/', $senha)) {
-                $erros[] = "A senha deve conter pelo menos uma letra maiúscula.";
+                $erros['senha'] = "A senha deve conter pelo menos uma letra maiúscula.";
             }
             if (!preg_match('/[a-z]/', $senha)) {
-                $erros[] = "A senha deve conter pelo menos uma letra minúscula.";
+                $erros['senha'] = "A senha deve conter pelo menos uma letra minúscula.";
             }
             if (!preg_match('/[0-9]/', $senha)) {
-                $erros[] = "A senha deve conter pelo menos um número.";
+                $erros['senha'] = "A senha deve conter pelo menos um número.";
             }
             if (!preg_match('/[\W]/', $senha)) {
-                $erros[] = "A senha deve conter pelo menos um caracter especial.";
+                $erros['senha'] = "A senha deve conter pelo menos um caracter especial.";
             }
         }
 
