@@ -22,11 +22,14 @@ body {
     width: 70%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+   justify-content: center; /* opcional, centraliza também verticalmente */
+    text-align: center; /* garante alinhamento do texto */
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     height: 107vh;
     box-sizing: border-box;
+
+    
 }
 
 /* Estilo de textos e logo dentro do painel esquerdo */
@@ -58,8 +61,8 @@ body {
     justify-content: center;
     border-radius: 20px;
     margin-left: 200px;
-    margin-top: 30px;
-    margin-bottom: 70px;
+    margin-top: 75px;
+    margin-bottom: 145px;
 }
 
 /* Título do formulário */
@@ -88,7 +91,9 @@ body {
     padding: 2px;
     width: 100%;
     font-size: 16px;
-    margin-bottom: 15px;
+   margin-top: 1px;
+    margin-bottom: 1px;
+    
 }
 
 /* Select com estilo customizado */
