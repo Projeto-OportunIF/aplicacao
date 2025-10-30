@@ -31,16 +31,18 @@ require_once(__DIR__ . "/../include/menu.php");
                             </span>
                         </p>
 
-                        <p><strong>Documento:</strong>
+                        <p><strong>Documentos:</strong>
                             <?php if ($inscricao->documentosAnexo): ?>
-                                <a href="<?= BASEURL ?>/../uploads/<?= $inscricao->documentosAnexo ?>"
-                                    target="_blank" class="link-doc">
-                                    <i class="bi bi-file-earmark-text"></i> Ver Documento
-                                </a>
+                                <?php foreach (explode(',', $inscricao->documentosAnexo) as $doc): ?>
+                                    <a href="<?= BASEURL ?>/../uploads/<?= trim($doc) ?>" target="_blank" class="link-doc">
+                                        <i class="bi bi-file-earmark-text"></i> <?= htmlspecialchars($doc) ?>
+                                    </a><br>
+                                <?php endforeach; ?>
                             <?php else: ?>
                                 <span class="sem-doc"><i class="bi bi-x-circle"></i> Nenhum</span>
                             <?php endif; ?>
                         </p>
+
                     </div>
 
                     <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=cancelar&idInscricao=<?= $inscricao->idInscricoes ?>"
