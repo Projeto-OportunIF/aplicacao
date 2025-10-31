@@ -39,6 +39,7 @@ require_once(__DIR__ . "/../include/menu.php");
                             <input type="file" name="documentoAluno[]" class="form-control mb-2" required>
                         </div>
                         <button type="button" id="adicionarArquivo" class="btn btn-secondary btn-sm">Adicionar mais arquivo</button>
+
                     </div>
 
 

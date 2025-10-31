@@ -98,3 +98,8 @@ body {
 .btn-success:hover {
     background: #7b8d5b;
 }
+
+.form_error_message {
+    color: #cf3b4aff;
+    font-style: italic;
+}

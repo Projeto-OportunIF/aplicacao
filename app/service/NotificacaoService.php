@@ -23,16 +23,16 @@ class NotificacaoService
         $_SESSION[SESSAO_USUARIO_NOTIFICACOES] = $notificacoes["total_notificacoes"];
     }
 
-    
-    public function  notificarUsuariosByCurso( $mensagem, array $cursos)
+
+    public function  notificarUsuariosByCurso($mensagem, array $cursos)
     {
         //validar se os cursos existem 
 
-        $this->dao->notificarUsuariosByCurso( $mensagem, $cursos);
+        $this->dao->notificarUsuariosByCurso($mensagem, $cursos);
     }
 
-    public function  notificarUsuarioById( $mensagem, $id)
+    public function  notificarUsuarioById($mensagem, $id)
     {
-        $this->dao->notificarUsuarioById( $mensagem, $id);
+        $this->dao->notificarUsuarioById($mensagem, $id);
     }
 }

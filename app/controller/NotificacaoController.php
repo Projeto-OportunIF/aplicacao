@@ -43,17 +43,16 @@ class NotificacaoController extends Controller
         // )
 
         $this->loadView("notificacoes/notificacoes.php", $dados);
-
     }
 
-    public function atualizarStatusPorUsuario(){
+    public function atualizarStatusPorUsuario()
+    {
 
         $idNotificacao = $_GET['id_notificacao'];
 
         $this->dao->atualizarStatusPorUsuario($this->getIdUsuarioLogado(), $idNotificacao);
 
         $this->listar();
-
     }
 
     // private function visualizar()

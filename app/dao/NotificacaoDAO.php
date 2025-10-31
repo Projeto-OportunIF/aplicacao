@@ -101,7 +101,7 @@ class NotificacaoDAO
                 INNER JOIN notificacoes_usuarios AS nu
                 ON n.idNotificacoes = nu.idNotificacao
                 WHERE nu.idUsuario = :idUsuario AND nu.status != 'LIDO'";
-        
+
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":idUsuario", $idUsuario, PDO::PARAM_INT);
         $stmt->execute();

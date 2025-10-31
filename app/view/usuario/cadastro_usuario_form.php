@@ -34,6 +34,11 @@ require_once(__DIR__ . "/../include/menu.php");
                     <input class="form-control" type="text" id="txtNomeCompleto" name="nomeCompleto"
                         maxlength="70" placeholder="Informe o nome"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeCompleto() : ''); ?>" />
+
+                    <?php if (isset($dados['erros']['nome'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['nome'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="mb-3">
@@ -41,6 +46,11 @@ require_once(__DIR__ . "/../include/menu.php");
                     <input class="form-control" type="text" id="txtcpf" name="cpf"
                         maxlength="14" placeholder="000.000.000-00"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getCpf() : ''); ?>" />
+
+                    <?php if (isset($dados['erros']['cpf'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['cpf'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="mb-3">
@@ -48,6 +58,11 @@ require_once(__DIR__ . "/../include/menu.php");
                     <input class="form-control" type="text" id="txtmatricula" name="matricula"
                         maxlength="70" placeholder="Informe a Matricula"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getMatricula() : ''); ?>" />
+
+                    <?php if (isset($dados['erros']['matricula'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['matricula'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="mb-3">
@@ -55,6 +70,11 @@ require_once(__DIR__ . "/../include/menu.php");
                     <input class="form-control" type="text" id="txtemail" name="email"
                         maxlength="70" placeholder="Informe o e-mail"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : ''); ?>" />
+
+                    <?php if (isset($dados['erros']['email'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['email'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="mb-3">
@@ -71,6 +91,10 @@ require_once(__DIR__ . "/../include/menu.php");
                             </option>
                         <?php endforeach; ?>
                     </select>
+
+                    <?php if (isset($dados['erros']['curso'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['curso'] ?></span>
+                    <?php endif; ?>
                 </div>
 
 
@@ -110,6 +134,11 @@ require_once(__DIR__ . "/../include/menu.php");
                             </option>
                         <?php endforeach; ?>
                     </select>
+
+                    <?php if (isset($dados['erros']['tipousu'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['tipousu'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />

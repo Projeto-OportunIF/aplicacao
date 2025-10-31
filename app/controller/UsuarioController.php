@@ -187,8 +187,8 @@ class UsuarioController extends Controller
         $dados['cursos'] = $this->cursoDAO->list();
         $dados['confSenha'] = $confSenha;
         $dados['usuario'] = $usuario;
-        $msgErro = implode("<br>", $erros);
-        $this->loadView("usuario/cadastro_usuario_form.php", $dados, $msgErro);
+        $dados['erros'] = $erros;
+        $this->loadView("usuario/cadastro_usuario_form.php", $dados);
     }
     protected function delete()
     {

@@ -92,3 +92,7 @@ h3.text-center {
     width: 380px;
     object-fit: cover;
 }
+.form_error_message {
+    color: #cf3b4aff;
+    font-style: italic;
+}

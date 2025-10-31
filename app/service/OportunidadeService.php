@@ -7,32 +7,32 @@ class OportunidadeService
     /* Método para validar os dados da oportunidade que vêm do formulário */
     public function validarDados(Oportunidade $oportunidade): array
     {
-        $erros = array();
+        $erros = [];
 
         // Validar campos obrigatórios
         if (!$oportunidade->getTitulo())
-            array_push($erros, "O campo [Título] é obrigatório.");
+            $erros['titulo'] = "O campo Título é obrigatório.";
 
         if (!$oportunidade->getDescricao())
-            array_push($erros, "O campo [Descrição] é obrigatório.");
+            $erros['descricao'] = "O campo Descrição é obrigatório.";
 
         if (!$oportunidade->getProfessorResponsavel())
-            array_push($erros, "O campo [Professor Responsável] é obrigatório.");
+            $erros['profresponsavel'] = "O campo Professor Responsável é obrigatório.";
 
         if (!$oportunidade->getTipoOportunidade())
-            array_push($erros, "O campo [Tipo de oportunidade] é obrigatório.");
+            $erros['tipooport'] = "O campo Tipo de oportunidade é obrigatório.";
 
         if (!$oportunidade->getDataInicio())
-            array_push($erros, "O campo [Data de Início] é obrigatório.");
+            $erros['datainicio'] = "O campo Data de Início é obrigatório.";
 
         if (!$oportunidade->getDataFim())
-            array_push($erros, "O campo [Data de Fim] é obrigatório.");
+            $erros['datafim'] =  "O campo Data de Fim é obrigatório.";
 
         if (!$oportunidade->getVaga())
-            array_push($erros, "O campo [Vaga] é obrigatório.");
+            $erros['vaga'] = "O campo Vaga é obrigatório.";
 
         if (!$oportunidade->getCurso())
-            array_push($erros, "O campo [Curso] é obrigatório.");
+            $erros['curso'] =  "O campo Curso é obrigatório.";
 
         // Validar se a data de início é menor que a de fim
         if ($oportunidade->getDataInicio() && $oportunidade->getDataFim()) {
@@ -40,14 +40,14 @@ class OportunidadeService
             $fim = strtotime($oportunidade->getDataFim());
 
             if ($inicio > $fim)
-                array_push($erros, "A [Data de Início] deve ser anterior à [Data de Fim].");
+                array_push($erros, "A Data de Início deve ser anterior à [Data de Fim].");
         }
 
 
         // NOVA VALIDAÇÃO: Documento Anexo
         $temDocumento = isset($_POST['temDocumento']) && $_POST['temDocumento'] == "1";
         if ($temDocumento && trim($oportunidade->getDocumentoAnexo()) === "") {
-            array_push($erros, "Você marcou que existe documento anexo, mas não informou a descrição do documento.");
+            $erros['documento'] = "Você marcou que existe documento anexo, mas não informou a descrição do documento.";
         }
 
         return $erros;

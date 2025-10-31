@@ -29,12 +29,22 @@ require_once(__DIR__ . "/../include/menu.php");
                     <label class="form-label" for="txtTitulo">Título:</label>
                     <input class="form-control" type="text" id="txtTitulo" name="titulo" placeholder="Informe o título"
                         value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getTitulo() : ''; ?>" />
+
+                    <?php if (isset($dados['erros']['titulo'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['titulo'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="txtDescricao">Descrição:</label>
                     <textarea class="form-control" id="txtDescricao" name="descricao"
                         placeholder="Informe a descrição"><?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getDescricao() : ''; ?></textarea>
+
+                    <?php if (isset($dados['erros']['descricao'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['descricao'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="mb-3">
@@ -42,6 +52,11 @@ require_once(__DIR__ . "/../include/menu.php");
                     <input class="form-control" type="text" id="professor_responsavel" name="professor_responsavel"
                         placeholder="Informe o professor responsável"
                         value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getProfessorResponsavel() : ''; ?>" />
+
+                    <?php if (isset($dados['erros']['profresponsavel'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['profresponsavel'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="mb-3">
@@ -54,24 +69,42 @@ require_once(__DIR__ . "/../include/menu.php");
                             </option>
                         <?php endforeach; ?>
                     </select>
+
+                    <?php if (isset($dados['erros']['tipooport'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['tipooport'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="vaga">Quantidade de Vagas:</label>
                     <input type="number" class="form-control" name="vaga" id="vaga"
                         value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getVaga() : '' ?>">
+
+                    <?php if (isset($dados['erros']['vaga'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['vaga'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="dataInicio">Data de Início:</label>
                     <input type="date" name="dataInicio" id="dataInicio" class="form-control"
                         value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDataInicio() : '' ?>">
+
+                    <?php if (isset($dados['erros']['datainicio'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['datainicio'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="dataFim">Data de Fim:</label>
                     <input type="date" name="dataFim" id="dataFim" class="form-control"
                         value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDataFim() : '' ?>">
+
+                    <?php if (isset($dados['erros']['datafim'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['datafim'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <!-- Checkbox Documento Anexo -->
@@ -82,6 +115,8 @@ require_once(__DIR__ . "/../include/menu.php");
                             <?= isset($dados['oportunidade']) && $dados['oportunidade']->getDocumentoAnexo() != "" ? 'checked' : '' ?>>
                         <span class="slider round"></span>
                     </label>
+
+
                 </div>
 
                 <!-- Campo descrição do documento -->
@@ -89,6 +124,11 @@ require_once(__DIR__ . "/../include/menu.php");
                     <label class="form-label" for="documento">(Descreva o documento que deve ser anexado):</label>
                     <input type="text" name="documento" id="documento" class="form-control"
                         value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDocumentoAnexo() : '' ?>">
+
+                    <?php if (isset($dados['erros']['documento'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['documento'] ?></span>
+                    <?php endif; ?>
+
                 </div>
 
                 <!-- Cursos -->
@@ -103,6 +143,10 @@ require_once(__DIR__ . "/../include/menu.php");
                             </div>
                         <?php endforeach; ?>
                     </div>
+
+                    <?php if (isset($dados['erros']['curso'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['curso'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <div class="mt-3">

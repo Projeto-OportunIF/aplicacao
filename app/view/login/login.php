@@ -22,6 +22,10 @@ require_once(__DIR__ . "/../include/header.php");
                     maxlength="45" placeholder="Informe o email"
                     value="<?php echo isset($dados['email']) ? $dados['email'] : '' ?>" />
 
+                <?php if (isset($dados['erros']['email'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['email'] ?></span>
+                <?php endif; ?>
+
 
 
                 <label for="txtSenha">SENHA</label><br>
@@ -30,6 +34,9 @@ require_once(__DIR__ . "/../include/header.php");
                         maxlength="90" placeholder="Informe a senha"
                         autocomplete="new-password"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
+                    <?php if (isset($dados['erros']['senha'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['senha'] ?></span>
+                    <?php endif; ?>
 
                     <!-- Olho customizado -->
                     <span class="toggle-password" data-target="txtSenha"

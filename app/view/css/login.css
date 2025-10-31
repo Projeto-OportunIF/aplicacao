@@ -66,3 +66,7 @@ body {
 .illustration {
     max-width: 600px;
 }
+.form_error_message {
+    color: #cf3b4aff;
+    font-style: italic;
+}

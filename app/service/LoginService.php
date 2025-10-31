@@ -13,11 +13,11 @@ class LoginService
 
         //Valida o campo nome
         if (! $email)
-            $erros['email'] = "O campo [Email] é obrigatório.";
+            $erros['email'] = "O campo Email é obrigatório.";
 
         //Valida o campo login
         if (! $senha)
-            $erros['senha'] = "O campo [Senha] é obrigatório.";
+            $erros['senha'] = "O campo Senha é obrigatório.";
 
         return $erros;
     }

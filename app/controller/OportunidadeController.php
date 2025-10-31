@@ -130,11 +130,10 @@ class OportunidadeController extends Controller
             $dados['oportunidade'] = $oportunidade;
             $dados['cursos'] = $this->cursoDao->list();
             $dados['oportunidadeCursos'] = $oportunidade->getCursos(); // cursos selecionados no form
-            $msgErro = implode("<br>", $erros);
-
             $dados['id'] = $oportunidade->getId();
+            $dados['erros'] = $erros;
 
-            $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados, $msgErro);
+            $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados);
             return;
         }
 
@@ -145,8 +144,6 @@ class OportunidadeController extends Controller
                 $this->oportunidadeDao->insert($oportunidade);
 
                 $this->notificacaoService->notificarUsuariosByCurso("uma nova oportunidade foi criada: $titulo ", $idCursos);
-
-
             } else {
                 $this->oportunidadeDao->update($oportunidade);
             }

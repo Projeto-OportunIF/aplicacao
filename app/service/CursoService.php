@@ -8,11 +8,11 @@ class CursoService
     /* Método para validar os dados do curso que vem do formulário */
     public function validarDados(Curso $curso)
     {
-        $erros = array();
+        $erros = [];
 
         //Validar campos vazios
         if (! $curso->getNome())
-            array_push($erros, "O campo [Nome ] é obrigatório.");
+            $erros['nome'] = "O campo Nome do Curso é obrigatório.";
 
         return $erros;
     }
