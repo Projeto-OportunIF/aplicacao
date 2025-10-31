@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1deb3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Tempo de geração: 30/10/2025 às 14:08
--- Versão do servidor: 8.0.43-0ubuntu0.24.04.1
--- Versão do PHP: 8.3.6
+-- Host: 127.0.0.1
+-- Tempo de geração: 31/10/2025 às 17:17
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cursos` (
-  `idCursos` int NOT NULL,
-  `nome` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `idCursos` int(11) NOT NULL,
+  `nome` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -49,12 +49,12 @@ INSERT INTO `cursos` (`idCursos`, `nome`) VALUES
 --
 
 CREATE TABLE `inscricoes` (
-  `idInscricoes` int NOT NULL,
-  `documentosAnexo` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `feedbackProfessor` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `status` enum('PENDENTE','APROVADO','REPROVADO') COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idOportunidades` int NOT NULL,
-  `idUsuarios` int NOT NULL
+  `idInscricoes` int(11) NOT NULL,
+  `documentosAnexo` varchar(100) DEFAULT NULL,
+  `feedbackProfessor` varchar(45) DEFAULT NULL,
+  `status` enum('PENDENTE','APROVADO','REPROVADO') DEFAULT NULL,
+  `idOportunidades` int(11) NOT NULL,
+  `idUsuarios` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -71,19 +71,24 @@ INSERT INTO `inscricoes` (`idInscricoes`, `documentosAnexo`, `feedbackProfessor`
 --
 
 CREATE TABLE `notificacoes` (
-  `idNotificacoes` int NOT NULL,
-  `mensagem` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  `dataEnvio` date NOT NULL,
-  `status` enum('ENVIADO','LIDO') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'ENVIADO',
-  `idUsuarios` int NOT NULL
+  `idNotificacoes` int(11) NOT NULL,
+  `mensagem` longtext NOT NULL,
+  `dataEnvio` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `notificacoes`
 --
 
-INSERT INTO `notificacoes` (`idNotificacoes`, `mensagem`, `dataEnvio`, `status`, `idUsuarios`) VALUES
-(1, 'Oieeee', '2025-10-30', 'ENVIADO', 1);
+INSERT INTO `notificacoes` (`idNotificacoes`, `mensagem`, `dataEnvio`) VALUES
+(1, 'Oieeee', '2025-10-30'),
+(2, 'Olá! Existe uma oportunidade de estágio', '2025-10-30'),
+(3, 'Olá! Existe uma oportunidade de estágio', '2025-10-30'),
+(4, 'Olá! Existe uma oportunidade de estágio', '2025-10-30'),
+(5, 'Olá! tudo bem?', '2025-10-30'),
+(6, 'uma nova oportunidade foi criada: Vaga no Clu', '2025-10-30'),
+(7, 'uma nova oportunidade foi criada: Nova oportu', '2025-10-30'),
+(8, 'uma nova oportunidade foi criada: Musica ', '2025-10-30');
 
 -- --------------------------------------------------------
 
@@ -92,17 +97,27 @@ INSERT INTO `notificacoes` (`idNotificacoes`, `mensagem`, `dataEnvio`, `status`,
 --
 
 CREATE TABLE `notificacoes_usuarios` (
-  `idNotificacao` int NOT NULL,
-  `idUsuario` int NOT NULL
+  `idNotificacao` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `status` enum('ENVIADO','LIDO') DEFAULT 'ENVIADO'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `notificacoes_usuarios`
 --
 
-INSERT INTO `notificacoes_usuarios` (`idNotificacao`, `idUsuario`) VALUES
-(1, 1),
-(1, 1);
+INSERT INTO `notificacoes_usuarios` (`idNotificacao`, `idUsuario`, `status`) VALUES
+(1, 1, ''),
+(1, 1, ''),
+(2, 33, 'LIDO'),
+(3, 33, 'LIDO'),
+(4, 33, 'LIDO'),
+(5, 33, 'LIDO'),
+(6, 33, 'LIDO'),
+(7, 33, 'LIDO'),
+(7, 34, ''),
+(8, 33, 'LIDO'),
+(8, 34, 'ENVIADO');
 
 -- --------------------------------------------------------
 
@@ -111,25 +126,30 @@ INSERT INTO `notificacoes_usuarios` (`idNotificacao`, `idUsuario`) VALUES
 --
 
 CREATE TABLE `oportunidades` (
-  `idOportunidades` int NOT NULL,
-  `titulo` longtext COLLATE utf8mb4_general_ci,
-  `descricao` longtext COLLATE utf8mb4_general_ci,
-  `tipoOportunidade` enum('ESTAGIO','PROJETOEXTENSAO','PROJETOPESQUISA') COLLATE utf8mb4_general_ci NOT NULL,
+  `idOportunidades` int(11) NOT NULL,
+  `titulo` longtext DEFAULT NULL,
+  `descricao` longtext DEFAULT NULL,
+  `tipoOportunidade` enum('ESTAGIO','PROJETOEXTENSAO','PROJETOPESQUISA') NOT NULL,
   `dataInicio` date NOT NULL,
   `dataFim` date NOT NULL,
-  `documentoAnexo` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `vaga` int NOT NULL,
-  `professor_responsavel` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+  `documentoAnexo` varchar(100) DEFAULT NULL,
+  `vaga` int(11) NOT NULL,
+  `professor_responsavel` varchar(255) NOT NULL,
+  `documentoEdital` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `oportunidades`
 --
 
-INSERT INTO `oportunidades` (`idOportunidades`, `titulo`, `descricao`, `tipoOportunidade`, `dataInicio`, `dataFim`, `documentoAnexo`, `vaga`, `professor_responsavel`) VALUES
-(9, 'Estágio no Parque Tecnológico Itaipu (PTI)', '<p>O Itaipu Parquetec, tamb&eacute;m conhecido como PTI, oferece a oportunidade de est&aacute;gio para estudantes que desejam integrar um ambiente de inova&ccedil;&atilde;o, pesquisa e desenvolvimento tecnol&oacute;gico.&nbsp;</p><p data-start=\"717\" data-end=\"1039\" id=\"isPasted\">Todas as vagas de est&aacute;gio (incluindo est&aacute;gios n&atilde;o-obrigat&oacute;rios) s&atilde;o divulgadas e gerenciadas por meio do <strong data-start=\"848\" data-end=\"871\">Portal do Candidato</strong> do Itaipu Parquetec, em parceria com o CIEE. &Eacute; necess&aacute;rio manter o cadastro atualizado no CIEE para acessar e concorrer &agrave;s vagas. <span data-state=\"closed\"><span data-testid=\"webpage-citation-pill\"><a href=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\" alt=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\">candidato.itaipuparquetec.org.br</a></span></span><span data-state=\"closed\"><span data-testid=\"webpage-citation-pill\"><a href=\"https://www.pti.org.br/trabalheconosco?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\" alt=\"https://www.pti.org.br/trabalheconosco?utm_source=chatgpt.com\">Itaipu Parquetec</a></span></span></p><p data-start=\"1041\" data-end=\"1231\">Acesse o Portal do Candidato aqui: <strong data-start=\"1076\" data-end=\"1120\">[Portal do Candidato &ndash; Itaipu Parquetec]</strong>(<a data-start=\"1121\" data-end=\"1192\" rel=\"noopener\" target=\"_new\" href=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\">https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml</a>)&nbsp;</p>', 'ESTAGIO', '2025-09-02', '2025-10-07', '', 1, ''),
-(10, 'Teatro em Cena: Expressão, Cultura e Cidadania', '<p data-start=\"175\" data-end=\"512\" id=\"isPasted\"><strong data-start=\"175\" data-end=\"189\">Descri&ccedil;&atilde;o:</strong><br data-start=\"189\" data-end=\"192\">O projeto de extens&atilde;o <em data-start=\"214\" data-end=\"230\">Teatro em Cena</em> tem como objetivo promover a arte teatral como ferramenta de transforma&ccedil;&atilde;o social, cultural e educacional. A iniciativa busca oferecer oficinas de interpreta&ccedil;&atilde;o, express&atilde;o corporal, improvisa&ccedil;&atilde;o e montagem de pe&ccedil;as teatrais, abertas &agrave; comunidade acad&ecirc;mica e &agrave; popula&ccedil;&atilde;o em geral.</p><p data-start=\"880\" data-end=\"1072\">O projeto tamb&eacute;m prev&ecirc; apresenta&ccedil;&otilde;es p&uacute;blicas dos trabalhos desenvolvidos, democratizando o acesso ao teatro e incentivando a participa&ccedil;&atilde;o ativa da sociedade na valoriza&ccedil;&atilde;o da cultura local.</p>', 'PROJETOEXTENSAO', '2025-09-01', '2025-09-30', '', 12, ''),
-(11, 'Tecnologias Digitais na Educação: Impactos e Possibilidades', '<p data-start=\"191\" data-end=\"451\" id=\"isPasted\">Este projeto de pesquisa tem como objetivo analisar os impactos do uso de tecnologias digitais no processo de ensino e aprendizagem, identificando desafios e oportunidades que surgem com a integra&ccedil;&atilde;o de recursos tecnol&oacute;gicos em sala de aula.</p><p data-start=\"943\" data-end=\"1172\">Espera-se que os resultados possam oferecer subs&iacute;dios para a ado&ccedil;&atilde;o mais consciente e eficaz das tecnologias digitais na educa&ccedil;&atilde;o, contribuindo para pol&iacute;ticas p&uacute;blicas, forma&ccedil;&atilde;o de professores e pr&aacute;ticas pedag&oacute;gicas inovadoras.</p>', 'PROJETOPESQUISA', '2025-09-01', '2025-10-11', '', 14, 'Jefferson Chaves');
+INSERT INTO `oportunidades` (`idOportunidades`, `titulo`, `descricao`, `tipoOportunidade`, `dataInicio`, `dataFim`, `documentoAnexo`, `vaga`, `professor_responsavel`, `documentoEdital`) VALUES
+(9, 'Estágio no Parque Tecnológico Itaipu (PTI)', '<p>O Itaipu Parquetec, tamb&eacute;m conhecido como PTI, oferece a oportunidade de est&aacute;gio para estudantes que desejam integrar um ambiente de inova&ccedil;&atilde;o, pesquisa e desenvolvimento tecnol&oacute;gico.&nbsp;</p><p data-start=\"717\" data-end=\"1039\" id=\"isPasted\">Todas as vagas de est&aacute;gio (incluindo est&aacute;gios n&atilde;o-obrigat&oacute;rios) s&atilde;o divulgadas e gerenciadas por meio do <strong data-start=\"848\" data-end=\"871\">Portal do Candidato</strong> do Itaipu Parquetec, em parceria com o CIEE. &Eacute; necess&aacute;rio manter o cadastro atualizado no CIEE para acessar e concorrer &agrave;s vagas. <span data-state=\"closed\"><span data-testid=\"webpage-citation-pill\"><a href=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\" alt=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\">candidato.itaipuparquetec.org.br</a></span></span><span data-state=\"closed\"><span data-testid=\"webpage-citation-pill\"><a href=\"https://www.pti.org.br/trabalheconosco?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\" alt=\"https://www.pti.org.br/trabalheconosco?utm_source=chatgpt.com\">Itaipu Parquetec</a></span></span></p><p data-start=\"1041\" data-end=\"1231\">Acesse o Portal do Candidato aqui: <strong data-start=\"1076\" data-end=\"1120\">[Portal do Candidato &ndash; Itaipu Parquetec]</strong>(<a data-start=\"1121\" data-end=\"1192\" rel=\"noopener\" target=\"_new\" href=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\">https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml</a>)&nbsp;</p>', 'ESTAGIO', '2025-09-02', '2025-10-07', '', 1, '', NULL),
+(10, 'Teatro em Cena: Expressão, Cultura e Cidadania', '<p data-start=\"175\" data-end=\"512\" id=\"isPasted\"><strong data-start=\"175\" data-end=\"189\">Descri&ccedil;&atilde;o:</strong><br data-start=\"189\" data-end=\"192\">O projeto de extens&atilde;o <em data-start=\"214\" data-end=\"230\">Teatro em Cena</em> tem como objetivo promover a arte teatral como ferramenta de transforma&ccedil;&atilde;o social, cultural e educacional. A iniciativa busca oferecer oficinas de interpreta&ccedil;&atilde;o, express&atilde;o corporal, improvisa&ccedil;&atilde;o e montagem de pe&ccedil;as teatrais, abertas &agrave; comunidade acad&ecirc;mica e &agrave; popula&ccedil;&atilde;o em geral.</p><p data-start=\"880\" data-end=\"1072\">O projeto tamb&eacute;m prev&ecirc; apresenta&ccedil;&otilde;es p&uacute;blicas dos trabalhos desenvolvidos, democratizando o acesso ao teatro e incentivando a participa&ccedil;&atilde;o ativa da sociedade na valoriza&ccedil;&atilde;o da cultura local.</p>', 'PROJETOEXTENSAO', '2025-09-01', '2025-09-30', '', 12, '', NULL),
+(11, 'Tecnologias Digitais na Educação: Impactos e Possibilidades', '<p data-start=\"191\" data-end=\"451\" id=\"isPasted\">Este projeto de pesquisa tem como objetivo analisar os impactos do uso de tecnologias digitais no processo de ensino e aprendizagem, identificando desafios e oportunidades que surgem com a integra&ccedil;&atilde;o de recursos tecnol&oacute;gicos em sala de aula.</p><p data-start=\"943\" data-end=\"1172\">Espera-se que os resultados possam oferecer subs&iacute;dios para a ado&ccedil;&atilde;o mais consciente e eficaz das tecnologias digitais na educa&ccedil;&atilde;o, contribuindo para pol&iacute;ticas p&uacute;blicas, forma&ccedil;&atilde;o de professores e pr&aacute;ticas pedag&oacute;gicas inovadoras.</p>', 'PROJETOPESQUISA', '2025-09-01', '2025-10-11', '', 14, 'Jefferson Chaves', NULL),
+(20, 'Vaga no Clube da Musica', '<p><em>Nova oportunidade do clube da musica&nbsp;</em></p>', 'PROJETOEXTENSAO', '2025-10-31', '2025-11-08', '', 12, 'Jef', NULL),
+(21, 'Uma oportnidade Unica!', '<p>nova oportunidade</p>', 'PROJETOEXTENSAO', '2025-10-30', '2025-10-30', '', 12, 'Jef', NULL),
+(22, 'Nova oportunidade de estagio', '<p>Estagio no pti&nbsp;</p>', 'ESTAGIO', '2025-11-08', '2025-11-15', '', 12, 'Jef', NULL),
+(23, 'Musica', '<p>musica clube</p>', 'PROJETOEXTENSAO', '2025-10-25', '2025-11-08', '', 12, 'Jef', NULL);
 
 -- --------------------------------------------------------
 
@@ -138,9 +158,9 @@ INSERT INTO `oportunidades` (`idOportunidades`, `titulo`, `descricao`, `tipoOpor
 --
 
 CREATE TABLE `oportunidade_curso` (
-  `id` int NOT NULL,
-  `idOportunidade` int NOT NULL,
-  `idCurso` int NOT NULL
+  `id` int(11) NOT NULL,
+  `idOportunidade` int(11) NOT NULL,
+  `idCurso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -152,7 +172,14 @@ INSERT INTO `oportunidade_curso` (`id`, `idOportunidade`, `idCurso`) VALUES
 (20, 9, 3),
 (21, 10, 1),
 (22, 10, 3),
-(38, 11, 1);
+(38, 11, 1),
+(39, 20, 1),
+(40, 21, 4),
+(41, 21, 1),
+(42, 22, 1),
+(43, 22, 3),
+(44, 23, 1),
+(45, 23, 3);
 
 -- --------------------------------------------------------
 
@@ -161,15 +188,15 @@ INSERT INTO `oportunidade_curso` (`id`, `idOportunidade`, `idCurso`) VALUES
 --
 
 CREATE TABLE `usuarios` (
-  `idUsuarios` int NOT NULL,
-  `nomeCompleto` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  `cpf` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `senha` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `tipoUsuario` enum('ALUNO','PROFESSOR','ADMIN') COLLATE utf8mb4_general_ci NOT NULL,
-  `matricula` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idCursos` int DEFAULT NULL,
-  `fotoPerfil` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `idUsuarios` int(11) NOT NULL,
+  `nomeCompleto` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `cpf` varchar(20) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `tipoUsuario` enum('ALUNO','PROFESSOR','ADMIN') NOT NULL,
+  `matricula` varchar(45) DEFAULT NULL,
+  `idCursos` int(11) DEFAULT NULL,
+  `fotoPerfil` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -178,8 +205,9 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`idUsuarios`, `nomeCompleto`, `email`, `cpf`, `senha`, `tipoUsuario`, `matricula`, `idCursos`, `fotoPerfil`) VALUES
 (1, 'Roberta Silva', 'robertasilva@gmail.com', '123.456.789-00', '$2a$12$1BDqobBHZGsw4dmj7lXgluXvyz.dnUFljz.1yc9BH8Va0xGVeyP9G', 'ADMIN', '', NULL, 'arquivo_68af3b57e44c4.jpeg'),
-(17, 'lucas', 'lucas@gmail.com', '740.528.379-91', '$2y$10$9h1vD.2LZvKJAzyVGAOlWubIBVO9jJFJT2fTyLtA9piY/XdvSzmiS', 'PROFESSOR', '20223024000', NULL, NULL),
-(33, 'julie', 'julie@gmail.com', '105.296.209-28', '$2y$10$YtvDo2uGT6oXxaC920KPoubmO67SFXPgaiGg0y6.Qb09AmJSx7/fi', 'ALUNO', '20223024000', 1, NULL);
+(17, 'lucas', 'lucas@gmail.com', '740.528.379-91', '$2y$10$WFpHHr9QzHI.6sUg5XMIke6aJdmcvqs/3cbxOkF5GHWzsCicy9RIO', 'PROFESSOR', '20223024000', NULL, NULL),
+(33, 'julie', 'julie@gmail.com', '105.296.209-28', '$2y$10$YtvDo2uGT6oXxaC920KPoubmO67SFXPgaiGg0y6.Qb09AmJSx7/fi', 'ALUNO', '20223024000', 1, NULL),
+(34, 'Jefersson', 'Jefersson@gmail.com', '552.405.190-30', '$2y$10$Fi/lrhi.E0wS7eOqAc7uTutcKEStkLkGp8XIAwXA1x3oHMggS9VMK', 'ALUNO', '1334432341234', 3, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -203,8 +231,7 @@ ALTER TABLE `inscricoes`
 -- Índices de tabela `notificacoes`
 --
 ALTER TABLE `notificacoes`
-  ADD PRIMARY KEY (`idNotificacoes`),
-  ADD KEY `fk_notificacoes_usuarios1` (`idUsuarios`);
+  ADD PRIMARY KEY (`idNotificacoes`);
 
 --
 -- Índices de tabela `oportunidades`
@@ -237,37 +264,37 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `idCursos` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idCursos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `inscricoes`
 --
 ALTER TABLE `inscricoes`
-  MODIFY `idInscricoes` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idInscricoes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de tabela `notificacoes`
 --
 ALTER TABLE `notificacoes`
-  MODIFY `idNotificacoes` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idNotificacoes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `oportunidades`
 --
 ALTER TABLE `oportunidades`
-  MODIFY `idOportunidades` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idOportunidades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de tabela `oportunidade_curso`
 --
 ALTER TABLE `oportunidade_curso`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuarios` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `idUsuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Restrições para tabelas despejadas
@@ -280,12 +307,6 @@ ALTER TABLE `inscricoes`
   ADD CONSTRAINT `fk_inscricoes_oportunidades1_cascade` FOREIGN KEY (`idOportunidades`) REFERENCES `oportunidades` (`idOportunidades`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_inscricoes_usuarios1` FOREIGN KEY (`idUsuarios`) REFERENCES `usuarios` (`idUsuarios`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_inscricoes_usuarios_cascade` FOREIGN KEY (`idUsuarios`) REFERENCES `usuarios` (`idUsuarios`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Restrições para tabelas `notificacoes`
---
-ALTER TABLE `notificacoes`
-  ADD CONSTRAINT `fk_notificacoes_usuarios1` FOREIGN KEY (`idUsuarios`) REFERENCES `usuarios` (`idUsuarios`);
 
 --
 -- Restrições para tabelas `oportunidade_curso`
