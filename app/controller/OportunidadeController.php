@@ -232,20 +232,22 @@ class OportunidadeController extends Controller
     }
 
     public function alterarStatus()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $idInscricao = (int) $_POST['idInscricao'];
-            $novoStatus = $_POST['novoStatus'];
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $idInscricao = (int) $_POST['idInscricao'];
+        $novoStatus = $_POST['novoStatus'];
+        $feedbackProfessor = isset($_POST['feedbackProfessor']) ? trim($_POST['feedbackProfessor']) : null;
 
-            require_once(__DIR__ . "/../dao/InscricaoDAO.php");
-            $dao = new InscricaoDAO();
-            $dao->updateStatus($idInscricao, $novoStatus);
+        require_once(__DIR__ . "/../dao/InscricaoDAO.php");
+        $dao = new InscricaoDAO();
+        $dao->updateStatus($idInscricao, $novoStatus, $feedbackProfessor);
 
-            // Redireciona de volta para a lista de inscritos
-            header("Location: " . BASEURL . "/controller/OportunidadeController.php?action=visualizarInscritos&idOport=" . (int)$_POST['idOport']);
-            exit;
-        }
+        // Redireciona de volta para a lista de inscritos
+        header("Location: " . BASEURL . "/controller/OportunidadeController.php?action=visualizarInscritos&idOport=" . (int)$_POST['idOport']);
+        exit;
     }
+}
+
 }
 
 

@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os status
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritos.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritoss.css">
 
 <h3 class="text-center">Inscritos na Oportunidade: <?= htmlspecialchars($dados['oportunidade']->getTitulo()); ?></h3>
 
@@ -48,18 +48,25 @@ require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os s
                 </td>
 
                 <td>
-                    <form action="<?= BASEURL ?>/controller/OportunidadeController.php?action=alterarStatus" method="post">
-                        <input type="hidden" name="idInscricao" value="<?= $inscrito->idInscricoes ?>">
-                        <input type="hidden" name="idOport" value="<?= $dados['oportunidade']->getId() ?>">
+                 <form action="<?= BASEURL ?>/controller/OportunidadeController.php?action=alterarStatus" method="post">
+    <input type="hidden" name="idInscricao" value="<?= $inscrito->idInscricoes ?>">
+    <input type="hidden" name="idOport" value="<?= $dados['oportunidade']->getId() ?>">
 
-                        <select name="novoStatus" class="form-select form-select-sm" onchange="this.form.submit()">
-                            <?php foreach (StatusTipo::getAll() as $status): ?>
-                                <option value="<?= $status ?>" <?= $inscrito->status === $status ? 'selected' : '' ?>>
-                                    <?= StatusTipo::getLabel($status) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </form>
+    <select name="novoStatus" class="form-select form-select-sm mb-2">
+        <?php foreach (StatusTipo::getAll() as $status): ?>
+            <option value="<?= $status ?>" <?= $inscrito->status === $status ? 'selected' : '' ?>>
+                <?= StatusTipo::getLabel($status) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
+    <textarea name="feedbackProfessor" class="form-control form-control-sm mb-2"
+        placeholder="Escreva um feedback (opcional)"><?= htmlspecialchars($inscrito->feedbackProfessor ?? '') ?></textarea>
+
+    <button type="submit" class="btn-salvar">Salvar</button>
+
+</form>
+
                 </td>
             </tr>
         <?php endforeach; ?>

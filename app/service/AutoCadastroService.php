@@ -66,7 +66,7 @@ class AutoCadastroService
 
         // Validar senha obrigatória
         if (!$senha) {
-            $erros['senha'] = "O campo Senha é obrigatório! Assim, devendo conter no mínimo 8 cacacteres, pelo menos uma letra minúscula,
+            $erros['senha'] = "O campo Senha é obrigatório! Devendo conter no mínimo 8 cacacteres, uma letra minúscula,
              uma letra maiúscula, um número e um caracter especial!";
         }
 

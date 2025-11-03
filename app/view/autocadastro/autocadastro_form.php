@@ -110,7 +110,7 @@ require_once(__DIR__ . "/../include/header.php");
             <div class="mb-3 position-relative">
                 <label class="form-label" for="txtSenha">Crie uma senha:</label>
                 <input class="form-control" type="password" id="txtSenha" name="senha"
-                    maxlength="90" placeholder="Informe a senha"
+                    maxlength="90" placeholder="A senha deve ser forte"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
                 <span class="toggle-password" data-target="txtSenha" style="position:absolute; right:2px; top:23px; cursor:pointer;font-size: 20px;">👁️</span>
 
