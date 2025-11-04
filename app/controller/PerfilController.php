@@ -114,7 +114,52 @@ class PerfilController extends Controller
             "tipoUsuario" => $tiposUsuario,
         ];
 
+    // Validação e atualização da senha
+    $senhaNova = $_POST['Senha'] ?? null; 
+
+    if (!empty($senhaNova)) {
+        $errosSenha = $this->validarSenha($senhaNova);
+
+        if (!empty($errosSenha)) {
+            $cursoDao = new CursoDAO();
+            $cursos = $cursoDao->list();
+
+            $dados = [
+                "usuario" => $usuario,
+                "cursos" => $cursos,
+                "erros" => $errosSenha,
+            ];
+
+            $this->loadView("perfil/perfilEdit.php", $dados);
+            return;
+        }
+
+        // Se passou na validação, criptografa e define a nova senha
+        $usuario->setSenha(password_hash($senhaNova, PASSWORD_DEFAULT));
+    }
         $this->loadView("perfil/perfilEdit.php", $dados);
+    }
+
+        private function validarSenha($senha): array{
+        $erros = [];
+
+        if (strlen($senha) < 8) {
+            $erros[] = "A senha deve ter no mínimo 8 caracteres.";
+        }
+        if (!preg_match('/[A-Z]/', $senha)) {
+            $erros[] = "A senha deve conter pelo menos uma letra maiúscula.";
+        }
+        if (!preg_match('/[a-z]/', $senha)) {
+            $erros[] = "A senha deve conter pelo menos uma letra minúscula.";
+        }
+        if (!preg_match('/[0-9]/', $senha)) {
+            $erros[] = "A senha deve conter pelo menos um número.";
+        }
+        if (!preg_match('/[\W]/', $senha)) {
+            $erros[] = "A senha deve conter pelo menos um caracter especial.";
+        }
+
+        return $erros;
     }
 
     // Salva todas as alterações do perfil

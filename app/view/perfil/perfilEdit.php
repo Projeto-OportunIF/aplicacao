@@ -42,7 +42,7 @@ $cursos = $cursoDAO->list();
 
         <!-- Formulário envia para salvarEdicaoPerfil -->
         <form action="<?php echo BASEURL . '/controller/PerfilController.php?action=save'; ?>"
-            method="POST" enctype="multipart/form-data" class="edit-form">
+            method="POST" enctype="multipart/form-data" class="edit-form mt-4">
 
             <!-- Campo oculto com ID -->
             <input type="hidden" name="id" value="<?php echo $usuario->getId(); ?>">
@@ -75,7 +75,7 @@ $cursos = $cursoDAO->list();
                 <input type="text" class="form-control" id="matricula" name="matricula"
                     value="<?php echo htmlspecialchars($usuario->getMatricula() ?? ''); ?>" required>
             </div>
-        <?php } ?>
+            <?php } ?>
 
             <!-- Tipo de usuário (somente leitura) -->
             <div class="mb-3">
@@ -94,13 +94,24 @@ $cursos = $cursoDAO->list();
                 <input type="hidden" name="curso_id"
                     value="<?php echo htmlspecialchars($usuario->getCurso() ? $usuario->getCurso()->getId() : ''); ?>">
             </div>
-        <?php } ?>
+            <?php } ?>
 
             <!-- Senha do perfil -->
             <div class="mb-3">
-                <label for="Senha" class="form-label">Nova senha</label>
-                <input type="password" class="form-control" id="Senha" name="Senha"
-                    placeholder="Senha atual" autocomplete="new-password">
+                <label for="senhaNova" class="form-label">Nova senha</label>
+                <input type="password" class="form-control" id="senhaNova" name="senhaNova"
+                    placeholder="Digite uma nova senha" autocomplete="new-password">
+
+                    <!-- Exibe mensagens de erro da validação -->
+                <?php if (isset($erros) && !empty($erros)): ?>
+                    <div class="alert alert-danger mt-3" role="alert">
+                        <ul class="mb-0">
+                            <?php foreach ($erros as $erro): ?>
+                                <li><?= htmlspecialchars($erro) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
             </div>
 
 
@@ -110,9 +121,8 @@ $cursos = $cursoDAO->list();
                 <input type="file" class="form-control" id="foto" name="foto">
                 <?php if (!empty($usuario->getFotoPerfil())): ?>
                     <p class="mt-2">Foto atual:</p>
-
-                    <img class="foto-perfil" src="<?= BASEURL_ARQUIVOS . "/" . $usuario->getFotoPerfil(); ?>" alt="Foto de perfil" alt="Foto de perfil" width="120" class="rounded">
-
+                    <img class="foto-perfil" src="<?= BASEURL_ARQUIVOS . "/" . $usuario->getFotoPerfil(); ?>"
+                        alt="Foto de perfil" width="120" class="rounded">
                 <?php endif; ?>
             </div>
 
@@ -157,7 +167,12 @@ $cursos = $cursoDAO->list();
     }
 
     .btn-pink:hover {
-        background-color: #d9426b;
+        background-color: #c9385f;
+    }
+
+    .alert ul {
+        margin: 0;
+        padding-left: 20px;
     }
 </style>
 
