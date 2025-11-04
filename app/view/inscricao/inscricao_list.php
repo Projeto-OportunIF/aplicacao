@@ -34,20 +34,28 @@ require_once(__DIR__ . "/../include/menu.php");
                             <?php if ($inscricao->documentosAnexo): ?>
                                 <?php foreach (explode(',', $inscricao->documentosAnexo) as $doc): ?>
                                     <a href="<?= BASEURL ?>/../uploads/<?= trim($doc) ?>" target="_blank" class="link-doc">
+
                                         <i class="bi bi-file-earmark-text"></i> <?= htmlspecialchars(trim($doc)) ?>
-                                    </a><br>
+                                    </a>
+                                
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <span class="sem-doc"><i class="bi bi-x-circle"></i> Nenhum</span>
                             <?php endif; ?>
                         </p>
 
-                       <?php if (!empty(trim($inscricao->feedbackProfessor))): ?>
-    <div class="feedback-label">Feedback do Professor:</div>
-    <div class="feedback-box">
-        <span class="feedback-text"><?= nl2br(htmlspecialchars($inscricao->feedbackProfessor)) ?></span>
-    </div>
-<?php endif; ?>
+                        <?php $feedback = trim($inscricao->feedbackProfessor ?? ''); ?>
+
+                        <?php if (!empty($feedback)): ?>
+                            <!-- Mostra na box quando existe feedback -->
+                            <div class="feedback-label">Feedback do Professor:</div>
+                            <div class="feedback-box">
+                                <span class="feedback-text"><?= nl2br(htmlspecialchars($feedback)) ?></span>
+                            </div>
+                        <?php else: ?>
+                            <!-- Mostra como campo normal quando ainda não existe feedback -->
+                            <p><strong>Feedback do Professor:</strong> O feedback é opcional por parte do professor.</p>
+                        <?php endif; ?>
 
                     </div>
 
