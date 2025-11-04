@@ -14,30 +14,30 @@ class UsuarioService
 
     public function validarDados(Usuario $usuario, ?string $confSenha)
     {
-        $erros = array();
+        $erros = [];
 
         if (!$usuario->getNomeCompleto())
-            $erros[] = "O campo [Nome Completo] é obrigatório.";
+            $erros['nome'] = "O campo Nome Completo é obrigatório.";
 
         if (!$usuario->getCpf()) {
-            $erros[] = "O campo [CPF] é obrigatório.";
+            $erros['cpf'] = "O campo CPF é obrigatório.";
         } elseif (!$this->validarCPF($usuario->getCpf())) {
-            $erros[] = "CPF inválido.";
+            $erros['cpf'] = "CPF inválido.";
         } else {
             // Verifica se já existe outro usuário com este CPF
             $existente = $this->usuarioDao->findByCpf($usuario->getCpf());
             if ($existente && $existente->getId() != $usuario->getId()) {
-                $erros[] = "Já existe um usuário cadastrado com este CPF.";
+                $erros['cpf'] = "Já existe um usuário cadastrado com este CPF.";
             }
         }
 
-         // Matrícula / SIAPE
+        // Matrícula / SIAPE
         if (!$usuario->getMatricula()) {
-            $erros[] = "O campo [Matrícula ou SIAPE] é obrigatório.";
+            $erros['matricula'] = "O campo Matrícula ou SIAPE é obrigatório.";
         } else {
             $existenteMatricula = $this->usuarioDao->findByMatricula($usuario->getMatricula());
             if ($existenteMatricula && $existenteMatricula->getId() != $usuario->getId()) {
-                $erros[] = "Já existe um usuário cadastrado com esta matrícula.";
+                $erros['matricula'] = "Já existe um usuário cadastrado com esta matrícula.";
             }
         }
 
@@ -47,7 +47,7 @@ class UsuarioService
             array_push($erros, "Já existe um usuário cadastrado com este e-mail.");
         }
         if (!$usuario->getEmail())
-            $erros[] = "O campo [E-mail] é obrigatório.";
+            $erros['email'] = "O campo E-mail é obrigatório.";
 
 
 
@@ -55,17 +55,17 @@ class UsuarioService
         if ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
             $curso = $usuario->getCurso();
             if (!$curso || !$curso->getId()) {
-                $erros[] = "O campo [Curso] é obrigatório para alunos.";
+                $erros['curso'] = "O campo Curso é obrigatório para alunos.";
             }
         }
 
 
 
         if (!$usuario->getTipoUsuario())
-            $erros[] = "O campo [Tipo de usuário] é obrigatório.";
+            $erros['tipousu'] = "O campo Tipo de usuário é obrigatório.";
 
         if ($usuario->getSenha() && $confSenha && $usuario->getSenha() != $confSenha)
-            $erros[] = "O campo [Senha] deve ser igual ao [Confirmação da senha].";
+            $erros['tipousu'] = "O campo Senha deve ser igual ao [Confirmação da senha].";
 
         return $erros;
     }

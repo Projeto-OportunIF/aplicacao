@@ -9,17 +9,17 @@ class LoginService
 
     public function validarCampos(?string $email, ?string $senha)
     {
-        $arrayMsg = array();
+        $erros = [];
 
         //Valida o campo nome
         if (! $email)
-            array_push($arrayMsg, "O campo [Email] é obrigatório.");
+            $erros['email'] = "O campo Email é obrigatório.";
 
         //Valida o campo login
         if (! $senha)
-            array_push($arrayMsg, "O campo [Senha] é obrigatório.");
+            $erros['senha'] = "O campo Senha é obrigatório.";
 
-        return $arrayMsg;
+        return $erros;
     }
 
     public function salvarUsuarioSessao(Usuario $usuario)

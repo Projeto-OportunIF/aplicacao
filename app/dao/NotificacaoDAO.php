@@ -47,19 +47,22 @@ class NotificacaoDAO
     // Enviar nova notificação
     public function notificarUsuariosByCurso(string $mensagem, array $cursos)
     {
-        $sql = "INSERT INTO notificacoes (mensagem) VALUES (:mensagem)";
+
+        $idCursos = implode(',', array_fill(0, count($cursos), '?'));
+
+        $sql = "INSERT INTO notificacoes (mensagem, dataEnvio) VALUES (:mensagem, :dataEnvio)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":mensagem", $mensagem);
+        $stmt->bindValue(":dataEnvio", date('Y-m-d'));
+
         $stmt->execute();
 
         $idNotificacao = $this->conn->lastInsertId();
 
-        $sql = "SELECT idUsuarios FROM usuarios WHERE idCursos = 1";
+        $sql = "SELECT idUsuarios FROM usuarios WHERE idCursos IN ($idCursos)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
+        $stmt->execute($cursos);
         $idUsuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
 
         foreach ($idUsuarios as $id) {
 
@@ -70,6 +73,52 @@ class NotificacaoDAO
             $stmt->bindValue(":idUsuario", $id["idUsuarios"]);
             $stmt->execute();
         }
+    }
+
+    public function notificarUsuarioById(string $mensagem,  int $id)
+    {
+        $sql = "INSERT INTO notificacoes (mensagem, dataEnvio) VALUES (:mensagem, :dataEnvio)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":mensagem", $mensagem);
+        $stmt->bindValue(":dataEnvio", date('Y-m-d'));
+
+        $stmt->execute();
+
+        $idNotificacao = $this->conn->lastInsertId();
+
+        $sql = "INSERT INTO notificacoes_usuarios (idNotificacao, idUsuario) VALUES (:idNotificacao, :idUsuario)";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":idNotificacao", $idNotificacao);
+        $stmt->bindValue(":idUsuario", $id);
+        $stmt->execute();
+    }
+
+    // Listar notificações por usuário
+    public function listByUsuario(int $idUsuario)
+    {
+        $sql = "SELECT n.* FROM notificacoes AS n
+                INNER JOIN notificacoes_usuarios AS nu
+                ON n.idNotificacoes = nu.idNotificacao
+                WHERE nu.idUsuario = :idUsuario AND nu.status != 'LIDO'";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":idUsuario", $idUsuario, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function atualizarStatusPorUsuario($idUsuario, $idNotificacao)
+    {
+        $sql = "UPDATE notificacoes_usuarios
+                SET status = 'LIDO'
+                WHERE idUsuario = :idUsuario AND idNotificacao = :idNotificacao";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':idUsuario', $idUsuario);
+        $stmt->bindValue(':idNotificacao', $idNotificacao);
+
+        return $stmt->execute();
     }
 
     /*
@@ -95,15 +144,7 @@ class NotificacaoDAO
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    // Listar notificações por usuário
-    public function listByUsuario(int $idUsuarios)
-    {
-        $sql = "SELECT * FROM notificacoes WHERE idUsuarios = :idUsuarios ORDER BY id DESC";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(":idUsuarios", $idUsuarios, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
+
 
     // Atualizar dados da notificação
     public function update(int $id, string $mensagem, string $dataEnvio, string $status, int $idUsuarios)

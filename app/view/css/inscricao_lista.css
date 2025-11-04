@@ -142,3 +142,26 @@
 }
 
  
+.feedback-label {
+    font-weight: bold;
+    margin-bottom: 4px;  
+    color: #fff;          
+}
+
+.feedback-box {
+    background-color: #909c7a;
+    border-left: 4px solid #667054;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    max-height: 88px;    /* altura máxima visível */
+    overflow-y: auto;     /* barra de rolagem vertical */
+    white-space: pre-wrap; 
+    text-align: left;     
+    line-height: 1.4;     /* espaçamento confortável */
+}
+
+.feedback-text {
+    color: #fff;
+    word-break: break-word; /* quebras de palavras longas */
+}

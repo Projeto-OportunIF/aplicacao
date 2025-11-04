@@ -22,12 +22,27 @@ require_once(__DIR__ . "/../include/header.php");
                     maxlength="45" placeholder="Informe o email"
                     value="<?php echo isset($dados['email']) ? $dados['email'] : '' ?>" />
 
+                <?php if (isset($dados['erros']['email'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['email'] ?></span>
+                <?php endif; ?>
+
 
 
                 <label for="txtSenha">SENHA</label><br>
-                <input type="password" name="senha" id="txtSenha"
-                    maxlength="15" placeholder="Informe a senha"
-                    value="<?php echo isset($dados['senha']) ? $dados['senha'] : '' ?>" />
+                <div style="position: relative;">
+                    <input class="form-control" type="password" id="txtSenha" name="senha"
+                        maxlength="90" placeholder="Informe a senha"
+                        autocomplete="new-password"
+                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
+                    <?php if (isset($dados['erros']['senha'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['senha'] ?></span>
+                    <?php endif; ?>
+
+                    <!-- Olho customizado -->
+                    <span class="toggle-password" data-target="txtSenha"
+                        style="position:absolute; right: 5px; top:18px; transform: translateY(-50%);
+                 cursor:pointer; font-size:20px;">👁️</span>
+                </div>
                 <!-- Mensagem de Caps Lock -->
                 <div id="capsLockMsg" style="color: #d6425c; font-family: Arial, sans-serif; font-weight: bold; display:
                      none; margin-top: 5px; font-size: 14px;">
@@ -59,6 +74,18 @@ require_once(__DIR__ . "/../include/header.php");
                     });
                     senhaInput.addEventListener('blur', function() {
                         capsMsg.style.display = 'none';
+                    });
+                    // Toggle olho da senha customizado
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const togglePassword = document.querySelectorAll(".toggle-password");
+                        togglePassword.forEach(function(eye) {
+                            const targetId = eye.getAttribute("data-target");
+                            const input = document.getElementById(targetId);
+
+                            eye.addEventListener("click", function() {
+                                input.type = (input.type === "password") ? "text" : "password";
+                            });
+                        });
                     });
                 </script>
 

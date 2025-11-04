@@ -54,6 +54,7 @@ class CursoController extends Controller
         $msgErro = implode("<br>", $erros);
         $dados['id'] = $id;
         $dados['curso'] = $curso;
+        $dados['erros'] = $erros;
 
         $this->loadView("curso/cadastro_curso_form.php", $dados, $msgErro);
     }

@@ -101,12 +101,21 @@ class InscricaoDAO
 
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-    public function updateStatus(int $idInscricao, string $novoStatus)
-    {
-        $sql = "UPDATE inscricoes SET status = :status WHERE idInscricoes = :idInscricao";
+   public function updateStatus($idInscricao, $novoStatus, $feedbackProfessor = null)
+{
+    try {
+        $sql = "UPDATE inscricoes 
+                SET status = :status, feedbackProfessor = :feedback 
+                WHERE idInscricoes = :id";
+
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(':status', $novoStatus);
-        $stmt->bindValue(':idInscricao', $idInscricao, PDO::PARAM_INT);
+        $stmt->bindValue(":status", $novoStatus);
+        $stmt->bindValue(":feedback", $feedbackProfessor);
+        $stmt->bindValue(":id", $idInscricao);
         $stmt->execute();
+    } catch (PDOException $e) {
+        throw new Exception("Erro ao atualizar status: " . $e->getMessage());
     }
+}
+
 }

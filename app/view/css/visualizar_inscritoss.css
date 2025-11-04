@@ -72,3 +72,23 @@ table td {
     background-color: #6b1c2f;
     transform: translateY(-2px);
 }
+
+.btn-salvar {
+    background: linear-gradient(135deg, #c23956, #a52c45); /* mesmo gradiente do cabeçalho da tabela */
+    color: #fff;
+    border-radius: 25px;
+    padding: 5px 25px;
+    font-weight: 600;
+    border: 2px solid #8f203c; /* borda em tom mais escuro do gradiente */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-salvar:hover {
+    background: linear-gradient(135deg, #a52c45, #c23956); /* gradiente invertido */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}

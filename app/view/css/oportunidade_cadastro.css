@@ -180,3 +180,8 @@ input:checked+.slider:before {
 .btn-voltar:hover {
     background-color: #6b1c2f;
 }
+
+.form_error_message {
+    color: #cf3b4aff;
+    font-style: italic;
+}

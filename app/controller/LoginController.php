@@ -71,15 +71,15 @@ class LoginController extends Controller
 
 
         //Se há erros, volta para o formulário           
-        $msg = implode("<br>", $erros);
+
         $dados["email"] = $email;
         $dados["senha"] = $senha;
-
+        $dados['erros'] = $erros;
 
         //$this->notificacaoController->countNotificacoesByUsuario();
 
 
-        $this->loadView("login/login.php", $dados, $msg);
+        $this->loadView("login/login.php", $dados);
     }
 
 

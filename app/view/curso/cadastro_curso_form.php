@@ -24,6 +24,10 @@ require_once(__DIR__ . "/../include/menu.php");
                     <input class="form-control" type="text" id="txtNome" name="nome"
                         maxlength="70" placeholder="Informe o nome do curso"
                         value="<?php echo isset($dados['curso']) ? htmlspecialchars($dados['curso']->getNome()) : ''; ?>" />
+
+                    <?php if (isset($dados['erros']['nome'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['nome'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
@@ -37,9 +41,7 @@ require_once(__DIR__ . "/../include/menu.php");
             </form>
         </div>
 
-        <div class="col-md-6">
-            <?php require_once(__DIR__ . "/../include/msg.php"); ?>
-        </div>
+
 
     </div>
 

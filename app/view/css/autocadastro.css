@@ -22,11 +22,14 @@ body {
     width: 70%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+   justify-content: center; /* opcional, centraliza também verticalmente */
+    text-align: center; /* garante alinhamento do texto */
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     height: 107vh;
     box-sizing: border-box;
+
+    
 }
 
 /* Estilo de textos e logo dentro do painel esquerdo */
@@ -50,7 +53,7 @@ body {
 /* Formulário principal */
 .form-wrapper {
     width: 900px;
-    height: 680px;
+    /* min-height: 680px; */
     background-color: #ecf7dc;
     padding: 40px;
     display: flex;
@@ -58,8 +61,8 @@ body {
     justify-content: center;
     border-radius: 20px;
     margin-left: 200px;
-    margin-top: 30px;
-    margin-bottom: 70px;
+    margin-top: 63px;
+    margin-bottom: 123px;
 }
 
 /* Título do formulário */
@@ -68,7 +71,7 @@ body {
     font-weight: bold;
     font-size: 35px;
     margin-bottom: 3px;
-    margin-top: 80px;
+    /* margin-top: 80px; */
     text-align: center;
 }
 
@@ -88,7 +91,9 @@ body {
     padding: 2px;
     width: 100%;
     font-size: 16px;
-    margin-bottom: 15px;
+   margin-top: 1px;
+    margin-bottom: 1px;
+    
 }
 
 /* Select com estilo customizado */
@@ -108,13 +113,13 @@ body {
     font-weight: bold;
     border-radius: 20px;
     transition: 0.3s;
-    margin-top: 40px;
+    /* margin-top: 40px; */
 }
 
 
 /* Botão secundário */
 .btn-secondary {
-    margin-top: 50px;
+    /* margin-top: 50px; */
     background-color: #c74460;
     border: none;
     color: white;
@@ -135,4 +140,9 @@ body {
 /* Centraliza conteúdo */
 .text-center {
     text-align: center;
+}
+
+.form_error_message {
+    color: #cf3b4aff;
+    font-style: italic;
 }

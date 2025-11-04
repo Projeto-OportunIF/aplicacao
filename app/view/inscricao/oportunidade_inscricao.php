@@ -22,17 +22,26 @@ require_once(__DIR__ . "/../include/menu.php");
             <p><strong>Data de Início:</strong> <?= date('d/m/Y', strtotime($dados['oportunidade']->getDataInicio())) ?></p>
             <p><strong>Data de Fim:</strong> <?= date('d/m/Y', strtotime($dados['oportunidade']->getDataFim())) ?></p>
             <p><strong>Vagas:</strong> <?= htmlspecialchars($dados['oportunidade']->getVaga()) ?></p>
-            <p><strong>Documento Anexo:</strong> <?= htmlspecialchars($dados['oportunidade']->getDocumentoAnexo() ?? "Não há documento") ?></p>
+
+            <!-- Documento Anexo: só aparece se houver -->
+            <?php if (!empty($dados['oportunidade']->getDocumentoAnexo())): ?>
+                <p><strong>Documento Anexo:</strong> <?= htmlspecialchars($dados['oportunidade']->getDocumentoAnexo()) ?></p>
+            <?php endif; ?>
 
             <!-- Formulário / Mensagem -->
             <?php if ($dados['oportunidade']->getTipoOportunidade() !== 'ESTAGIO'): ?>
                 <form action="<?= BASEURL ?>/controller/InscricaoController.php?action=inscrever&idOport=<?= $dados['oportunidade']->getId() ?>" method="post" enctype="multipart/form-data">
 
-                    <!-- Campo de Documento -->
-                    <?php if (!empty($dados['oportunidade']->getDocumentoAnexo())): ?>
-                        <label for="documentoAluno">Enviar Documento (obrigatório):</label>
-                        <input type="file" name="documentoAluno" id="documentoAluno" class="form-control mb-3" required>
-                    <?php endif; ?>
+                    <!-- Campo de Documento: só aparece se houver -->
+                    <div id="uploadContainer" class="mb-3">
+                        <label>Enviar Documentos (obrigatórios):</label>
+                        <div id="inputsArquivos">
+                            <input type="file" name="documentoAluno[]" class="form-control mb-2" required>
+                        </div>
+                        <button type="button" id="adicionarArquivo" class="btn btn-secondary btn-sm">Adicionar mais arquivo</button>
+
+                    </div>
+
 
                     <button type="submit" class="btn-inscrever">Inscrever-me</button>
                 </form>
@@ -53,6 +62,21 @@ require_once(__DIR__ . "/../include/menu.php");
 
     </div>
 </div>
+
+<script>
+    const btnAdicionar = document.getElementById("adicionarArquivo");
+    const containerInputs = document.getElementById("inputsArquivos");
+
+    btnAdicionar.addEventListener("click", () => {
+        const novoInput = document.createElement("input");
+        novoInput.type = "file";
+        novoInput.name = "documentoAluno[]";
+        novoInput.className = "form-control mb-2";
+        novoInput.required = true;
+        containerInputs.appendChild(novoInput);
+    });
+</script>
+
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");
