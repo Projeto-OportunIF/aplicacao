@@ -12,18 +12,27 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     $homePage = HOME_PAGE_PROFESSOR;
 ?>
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/perfil_usuario.css">
-<!-- CONTEÚDO DO PERFIL DO USUÁRIO -->
-<div class="perfil-container">
-    <h3 class="text-center">Perfil</h3>
 
-    <div class="perfil-info">
-        <div><span class="info-label">NOME:</span> <?= $dados['usuario']->getNomeCompleto() ?></div>
-        <div><span class="info-label">EMAIL:</span> <?= $dados['usuario']->getEmail() ?></div>
-        <div><span class="info-label">TIPO DE USUÁRIO:</span> <?= $dados['usuario']->getTipoUsuario() ?></div>
-        <div><span class="info-label">NÚMERO MATRÍCULA:</span> <?= $dados['usuario']->getMatricula() ?></div>
-        <div><span class="info-label">CURSO:</span> <?php echo ($dados['usuario']->getCurso() && $dados['usuario']->getCurso()->getNome() ?
-                                                        $dados['usuario']->getCurso()->getNome() : "Curso não informado") ?></div>
-        <div><span class="info-label">CPF:</span> <?= $dados['usuario']->getCpf() ?></div>
+        <div class="perfil-container">
+            <h3 class="text-center">Perfil</h3>
+
+            <div class="perfil-info">
+            <div><span class="info-label">NOME:</span> <?= $dados['usuario']->getNomeCompleto() ?></div>
+            <div><span class="info-label">EMAIL:</span> <?= $dados['usuario']->getEmail() ?></div>
+            <div><span class="info-label">TIPO DE USUÁRIO:</span> <?= $dados['usuario']->getTipoUsuario() ?></div>
+            <?php if ($dados['usuario']->getTipoUsuario() === 'ALUNO') { ?>
+                <div><span class="info-label">NÚMERO MATRÍCULA:</span> <?= $dados['usuario']->getMatricula() ?></div>
+                <div><span class="info-label">CURSO:</span> 
+                    <?php 
+                    echo ($dados['usuario']->getCurso() && $dados['usuario']->getCurso()->getNome()
+                        ? $dados['usuario']->getCurso()->getNome()
+                        : "Curso não informado");
+                    ?>
+                </div>
+            <?php } ?>
+            <div><span class="info-label">CPF:</span> <?= $dados['usuario']->getCpf() ?></div>
+
+        </div>
 
         <div class="botao-editar-container">
             <a href="<?php echo BASEURL . '/view/perfil/perfilEdit.php'; ?>">
