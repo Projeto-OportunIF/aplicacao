@@ -35,7 +35,7 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
         </div>
 
         <div class="botao-editar-container">
-            <a href="<?php echo BASEURL . '/view/perfil/perfilEdit.php'; ?>">
+            <a href="<?php echo BASEURL . '/controller/PerfilController.php?action=editarPerfil'; ?>">
                 Editar dados pessoais
             </a>
         </div>

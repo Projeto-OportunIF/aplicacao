@@ -21,15 +21,11 @@ if (isset($_SESSION[SESSAO_USUARIO_FOTO_PERFIL])) {
 }
 
 // Caminho real do arquivo de upload
-// Caminho real do arquivo de upload
-$caminhoLocalUpload = __DIR__ . "/../../../uploads/$fotoPerfil";
-$caminhoFotoGenerica = BASEURL . "/view/img/foto_generica_perfil.png";
-
+$caminhoFoto  = BASEURL . "/view/img/foto_generica_perfil.png";
 // Se a foto do usuário existir na pasta uploads, usa ela; caso contrário, usa a genérica
-if (file_exists($caminhoLocalUpload)) {
-} else {
-    $caminhoFoto = $caminhoFotoGenerica;
-}
+if($fotoPerfil && file_exists(PATH_ARQUIVOS . "/" . $fotoPerfil)) {
+    $caminhoFoto = BASEURL_ARQUIVOS . "/" . $fotoPerfil;
+} 
 
 
 if (isset($_SESSION[SESSAO_USUARIO_NOME])) {

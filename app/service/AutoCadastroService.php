@@ -44,6 +44,8 @@ class AutoCadastroService
                 $erros['matricula'] = "Já existe um usuário cadastrado com esta matrícula.";
             }
         }
+
+        
         // Validar email
         $email = $usuario->getEmail();
         if (!$email) {

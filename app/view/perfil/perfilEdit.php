@@ -2,38 +2,12 @@
 # Arquivo: perfilEdit.php
 # Objetivo: Formulário de edição de perfil do usuário logado
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 # Carrega cabeçalho e menu
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 
-# DAOs necessários
-require_once(__DIR__ . "/../../dao/UsuarioDAO.php");
-require_once(__DIR__ . "/../../dao/CursoDAO.php");
-
-# Inicia a sessão
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-# Pega o ID do usuário logado
-$idUsuario = $_SESSION['usuarioLogadoId'] ?? null;
-if (!$idUsuario) {
-    header("Location: " . BASEURL . "/controller/LoginController.php?action=login");
-    exit;
-}
-
-# Instancia os DAOs
-$usuarioDAO = new UsuarioDAO();
-$cursoDAO = new CursoDAO();
-
 # Busca informações do usuário
-$usuario = $usuarioDAO->findById($idUsuario);
-
-# Lista todos os cursos
-$cursos = $cursoDAO->list();
+$usuario = $dados["usuario"];
 ?>
 
 <div class="page-container">
@@ -41,7 +15,7 @@ $cursos = $cursoDAO->list();
         <h2 class="form-title text-center">Editar Perfil</h2> <!-- Centraliza o título -->
 
         <!-- Formulário envia para salvarEdicaoPerfil -->
-        <form action="<?php echo BASEURL . '/controller/PerfilController.php?action=save'; ?>"
+        <form action="<?php echo BASEURL . '/controller/PerfilController.php?action=save&edicaoPerfil=1'; ?>"
             method="POST" enctype="multipart/form-data" class="edit-form mt-4">
 
             <!-- Campo oculto com ID -->
@@ -51,21 +25,29 @@ $cursos = $cursoDAO->list();
             <div class="mb-3">
                 <label for="nomeCompleto" class="form-label">Nome completo</label>
                 <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto"
-                    value="<?php echo htmlspecialchars($usuario->getNomeCompleto() ?? ''); ?>" required>
+                    value="<?php echo htmlspecialchars($usuario->getNomeCompleto() ?? ''); ?>" >
+
+                <?php if (isset($dados['erros']['nome'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['nome'] ?></span>
+                <?php endif; ?>    
             </div>
 
             <!-- Email -->
             <div class="mb-3">
                 <label for="email" class="form-label">E-mail</label>
                 <input type="email" class="form-control" id="email" name="email"
-                    value="<?php echo htmlspecialchars($usuario->getEmail() ?? ''); ?>" required>
+                    value="<?php echo htmlspecialchars($usuario->getEmail() ?? ''); ?>" >
+
+                <?php if (isset($dados['erros']['email'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['email'] ?></span>
+                <?php endif; ?>
             </div>
 
             <!-- CPF -->
             <div class="mb-3">
                 <label for="cpf" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf"
-                    value="<?php echo htmlspecialchars($usuario->getCpf() ?? ''); ?>" required>
+                <input type="text" class="form-control" id="cpf" name="cpf" disabled="true"
+                    value="<?php echo htmlspecialchars($usuario->getCpf() ?? ''); ?>">
             </div>
 
             <!-- Matrícula -->
@@ -73,7 +55,7 @@ $cursos = $cursoDAO->list();
             <div class="mb-3">
                 <label for="matricula" class="form-label">Matrícula</label>
                 <input type="text" class="form-control" id="matricula" name="matricula"
-                    value="<?php echo htmlspecialchars($usuario->getMatricula() ?? ''); ?>" required>
+                    value="<?php echo htmlspecialchars($usuario->getMatricula() ?? ''); ?>" disabled="true">
             </div>
             <?php } ?>
 
@@ -81,19 +63,17 @@ $cursos = $cursoDAO->list();
             <div class="mb-3">
                 <label for="tipoUsuario" class="form-label">Tipo de Usuário</label>
                 <input type="text" class="form-control" id="tipoUsuario"
-                    value="<?php echo htmlspecialchars($usuario->getTipoUsuario()); ?>" readonly>
-                <input type="hidden" name="tipoUsuario" value="<?php echo htmlspecialchars($usuario->getTipoUsuario()); ?>">
+                    value="<?php echo htmlspecialchars($usuario->getTipoUsuario()); ?>" disabled="true">
             </div>
 
             <!-- Curso (somente leitura) -->
             <?php if (strtolower($usuario->getTipoUsuario()) === 'aluno') { ?>
-            <div class="mb-3">
-                <label for="curso" class="form-label">Curso</label>
-                <input type="text" class="form-control" id="curso"
-                    value="<?php echo htmlspecialchars($usuario->getCurso() ? $usuario->getCurso()->getNome() : ''); ?>" readonly>
-                <input type="hidden" name="curso_id"
-                    value="<?php echo htmlspecialchars($usuario->getCurso() ? $usuario->getCurso()->getId() : ''); ?>">
-            </div>
+                <div class="mb-3">
+                    <label for="curso" class="form-label">Curso</label>
+                    <input type="text" class="form-control" id="curso"
+                        value="<?php echo htmlspecialchars($usuario->getCurso() ? $usuario->getCurso()->getNome() : ''); ?>" 
+                        disabled="true">
+                </div>
             <?php } ?>
 
             <!-- Senha do perfil -->
@@ -102,23 +82,24 @@ $cursos = $cursoDAO->list();
                 <input type="password" class="form-control" id="senhaNova" name="senhaNova"
                     placeholder="Digite uma nova senha" autocomplete="new-password">
 
-                    <!-- Exibe mensagens de erro da validação -->
-                <?php if (isset($erros) && !empty($erros)): ?>
-                    <div class="alert alert-danger mt-3" role="alert">
-                        <ul class="mb-0">
-                            <?php foreach ($erros as $erro): ?>
-                                <li><?= htmlspecialchars($erro) ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+                <?php if (isset($dados['erros']['senha'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['senha'] ?></span>
+                <?php endif; ?>
+            </div>
+
+            <div class="mb-3">
+                <label for="confSenhaNova" class="form-label">Confirmação nova senha</label>
+                <input type="password" class="form-control" id="confSenhaNova" name="confSenhaNova"
+                    placeholder="Digite uma nova senha" autocomplete="new-password">
+
+                <?php if (isset($dados['erros']['confsenha'])): ?>
+                    <span class="form_error_message"><?= $dados['erros']['confsenha'] ?></span>
                 <?php endif; ?>
             </div>
 
 
             <!-- Foto de Perfil -->
             <div class="mb-3">
-                <label for="foto" class="form-label">Foto de Perfil</label>
-                <input type="file" class="form-control" id="foto" name="foto">
                 <?php if (!empty($usuario->getFotoPerfil())): ?>
                     <p class="mt-2">Foto atual:</p>
                     <img class="foto-perfil" src="<?= BASEURL_ARQUIVOS . "/" . $usuario->getFotoPerfil(); ?>"
@@ -173,6 +154,11 @@ $cursos = $cursoDAO->list();
     .alert ul {
         margin: 0;
         padding-left: 20px;
+    }
+
+    .form_error_message {
+        color: #cf3b4aff;
+        font-style: italic;
     }
 </style>
 

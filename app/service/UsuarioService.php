@@ -16,8 +16,10 @@ class UsuarioService
     {
         $erros = [];
 
-        if (!$usuario->getNomeCompleto())
+        // Validar nome
+        if (!$usuario->getNomeCompleto()) {
             $erros['nome'] = "O campo Nome Completo é obrigatório.";
+        }
 
         if (!$usuario->getCpf()) {
             $erros['cpf'] = "O campo CPF é obrigatório.";
@@ -41,31 +43,63 @@ class UsuarioService
             }
         }
 
-
-        $usuarioExistente = $this->usuarioDao->findByEmail($usuario->getEmail());
-        if ($usuarioExistente && $usuarioExistente->getId() != $usuario->getId()) {
-            array_push($erros, "Já existe um usuário cadastrado com este e-mail.");
-        }
-        if (!$usuario->getEmail())
+        // Validar email
+        $email = $usuario->getEmail();
+        if (!$email) {
             $erros['email'] = "O campo E-mail é obrigatório.";
-
-
-
-
-        if ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
-            $curso = $usuario->getCurso();
-            if (!$curso || !$curso->getId()) {
-                $erros['curso'] = "O campo Curso é obrigatório para alunos.";
+        } else {
+            $usuarioExistente = $this->usuarioDao->findByEmail($usuario->getEmail());
+            if ($usuarioExistente && $usuarioExistente->getId() != $usuario->getId()) {
+                $erros['email'] = "Já existe um usuário cadastrado com este e-mail.";
             }
         }
 
+        // Validar curso para alunos
+        $curso = $usuario->getCurso();
+        if (!$curso || !$curso->getId()) {
+            $erros['curso'] = "O campo Curso é obrigatório.";
+        }
+
+        $senha = $usuario->getSenha();
+
+        // Validar senha obrigatória
+        if (!$senha) {
+            $erros['senha'] = "O campo Senha é obrigatório! Devendo conter no mínimo 8 cacacteres, uma letra minúscula,
+             uma letra maiúscula, um número e um caracter especial!";
+        }
+
+        // Validar confirmação de senha
+        if (!$confSenha) {
+            $erros['confsenha'] = "O campo Confirmação da senha é obrigatório.";
+        }
+
+        // Verificar se senha e confirmação batem
+        if ($senha && $confSenha && $senha !== $confSenha) {
+            $erros['confsenha'] = "O campo Senha deve ser igual ao [Confirmação da senha].";
+        }
+
+        // Validar força da senha
+        if ($senha) {
 
 
-        if (!$usuario->getTipoUsuario())
-            $erros['tipousu'] = "O campo Tipo de usuário é obrigatório.";
+            if (!preg_match('/[\W]/', $senha)) {
+                $erros['senha'] = "A senha deve conter pelo menos um caracter especial.";
+            }
+            if (!preg_match('/[0-9]/', $senha)) {
+                $erros['senha'] = "A senha deve conter pelo menos um número.";
+            }
 
-        if ($usuario->getSenha() && $confSenha && $usuario->getSenha() != $confSenha)
-            $erros['tipousu'] = "O campo Senha deve ser igual ao [Confirmação da senha].";
+            if (!preg_match('/[A-Z]/', $senha)) {
+                $erros['senha'] = "A senha deve conter pelo menos uma letra maiúscula.";
+            }
+            if (!preg_match('/[a-z]/', $senha)) {
+                $erros['senha'] = "A senha deve conter pelo menos uma letra minúscula.";
+            }
+
+            if (strlen($senha) < 8) {
+                $erros['senha'] = "A senha deve ter no mínimo 8 caracteres.";
+            }
+        }
 
         return $erros;
     }
