@@ -2,7 +2,7 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/inscricao_lista.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/inscricao_lists.css">
 
 <div class="container mt-5 mb-5">
     <h2 class="text-center titulo-pagina mb-4">Minhas Inscrições</h2>
