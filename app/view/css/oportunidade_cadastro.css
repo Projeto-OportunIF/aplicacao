@@ -62,7 +62,7 @@ select:focus {
 
 
 /* ====== BOTÃO SALVAR ====== */
-button,
+#frmOportunidade .btn-salvar button,
 input[type="submit"] {
   background-color: #d6425c;
   color: #fff;
