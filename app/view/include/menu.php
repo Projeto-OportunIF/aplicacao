@@ -13,7 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $nome = "(Sessão expirada)";
-$fotoPerfil = "avatar.png";
+$fotoPerfil = "foto_generica_perfil.png";
 $notificacoes = 0;
 
 if (isset($_SESSION[SESSAO_USUARIO_FOTO_PERFIL])) {
