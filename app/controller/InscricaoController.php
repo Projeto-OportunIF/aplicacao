@@ -136,8 +136,8 @@ class InscricaoController extends Controller
         $inscricaoDao->deleteById($idInscricao);
 
         $_SESSION['msgSucesso'] = "Inscrição cancelada com sucesso!";
-        header("Location: " . BASEURL . "/controller/InscricaoController.php?action=listarInscricoes");
-        exit;
+    header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
+    exit;
     }
 }
 

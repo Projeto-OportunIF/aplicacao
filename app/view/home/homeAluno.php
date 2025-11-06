@@ -7,21 +7,30 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 <?php if (!empty($_SESSION['msgSucesso'])): ?>
-  <div class="alert alert-success" style="margin: 15px 0; border-radius: 8px;">
-    <?= $_SESSION['msgSucesso'] ?>
+  <div class="msg-sucesso">
+    ✅ <?= $_SESSION['msgSucesso'] ?>
   </div>
   <?php unset($_SESSION['msgSucesso']); ?>
 <?php endif; ?>
 
 <?php if (!empty($_SESSION['msgErro'])): ?>
-  <div class="alert alert-danger" style="margin: 15px 0; border-radius: 8px;">
-    <?= $_SESSION['msgErro'] ?>
+  <div class="msg-erro">
+    🚫 <?= $_SESSION['msgErro'] ?>
   </div>
   <?php unset($_SESSION['msgErro']); ?>
 <?php endif; ?>
 
+
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeAluno.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeAlunos.css">
 
 <h2>Escolha a modalidade que deseja visualizar</h2>
 
