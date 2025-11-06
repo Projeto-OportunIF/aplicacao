@@ -33,7 +33,7 @@ require_once(__DIR__ . "/../include/header.php");
                     <input class="form-control" type="password" id="txtSenha" name="senha"
                         maxlength="90" placeholder="Informe a senha"
                         autocomplete="new-password"
-                        value="<?php echo isset($dados['senha']) ? htmlspecialchars($dados['senha']) : ''; ?>"
+                        value="<?php echo isset($dados['senha']) ? htmlspecialchars($dados['senha']) : ''; ?>"/>
 
 
 

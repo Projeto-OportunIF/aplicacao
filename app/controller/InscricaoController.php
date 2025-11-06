@@ -50,7 +50,7 @@ class InscricaoController extends Controller
 
         // Evita duplicidade
         if ($inscricaoDao->findByAlunoEOportunidade($idAluno, $idOport)) {
-            $_SESSION['msgErro'] = "Você não pode se inscrever nesta oportunidade pois já está inscrito na mesma!";
+            $_SESSION[''] = "Você não pode se inscrever nesta oportunidade pois já está inscrito na mesma!";
             header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
             exit;
         }
