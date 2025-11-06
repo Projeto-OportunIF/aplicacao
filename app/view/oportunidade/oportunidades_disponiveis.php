@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disponiveis.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disponiveiss.css">
 
 <h2 class="titulo-pagina">Oportunidades Disponíveis</h2>
 
@@ -41,8 +41,15 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
             </div>
         <?php endforeach; ?>
     <?php else: ?>
-        <p>Não há oportunidades no momento.</p>
-    <?php endif; ?>
+    <div class="sem-oportunidades-container">
+        <div class="sem-oportunidades">
+            <i class="bi bi-exclamation-circle"></i>
+            <p>Não há oportunidades no momento.</p>
+        </div>
+    </div>
+<?php endif; ?>
+
+
 </div>
 
 <?php require_once(__DIR__ . "/../include/footer.php"); ?>

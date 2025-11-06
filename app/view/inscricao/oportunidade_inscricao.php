@@ -8,7 +8,7 @@ require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_inscricao.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_inscricaoo.css">
 
 
 <div class="container my-4">
@@ -65,9 +65,11 @@ require_once(__DIR__ . "/../include/menu.php");
                     <button type="submit" class="btn-inscrever">Inscrever-me</button>
                 </form>
             <?php else: ?>
-                <p class="alert alert-info">
-                    A inscrição desta oportunidade é externa. Leia a descrição com atenção para mais informações.
-                </p>
+                <div class="aviso-externo">
+                    <i class="bi bi-info-circle-fill"></i>
+                    <span>A inscrição desta oportunidade é externa.<br>Leia a descrição com atenção para mais informações.</span>
+                </div>
+
             <?php endif; ?>
         </div>
 

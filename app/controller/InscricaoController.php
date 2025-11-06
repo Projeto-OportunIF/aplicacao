@@ -3,6 +3,7 @@ require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/OportunidadeDAO.php");
 
 
+
 class InscricaoController extends Controller
 {
     private OportunidadeDAO $oportunidadeDao;

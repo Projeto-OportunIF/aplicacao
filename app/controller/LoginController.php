@@ -37,49 +37,49 @@ class LoginController extends Controller
 
 
     /* Método para logar um usuário a partir dos dados informados no formulário */
-   protected function logon()
-{
-    $email = isset($_POST['email']) ? trim($_POST['email']) : null;
-    $senha = isset($_POST['senha']) ? trim($_POST['senha']) : null;
+    protected function logon()
+    {
+        $email = isset($_POST['email']) ? trim($_POST['email']) : null;
+        $senha = isset($_POST['senha']) ? trim($_POST['senha']) : null;
 
-    // Validar os campos obrigatórios
-    $erros = $this->loginService->validarCampos($email, $senha);
-    $msgErro = ""; // Variável para mensagem de erro geral
+        // Validar os campos obrigatórios
+        $erros = $this->loginService->validarCampos($email, $senha);
+        $msgErro = ""; // Variável para mensagem de erro geral
 
-    if (empty($erros)) {
-        // Tenta buscar o usuário no banco
-        $usuario = $this->usuarioDao->findByEmailSenha($email, $senha);
+        if (empty($erros)) {
+            // Tenta buscar o usuário no banco
+            $usuario = $this->usuarioDao->findByEmailSenha($email, $senha);
 
-        if ($usuario) {
-            // Salva sessão
-            $this->loginService->salvarUsuarioSessao($usuario);
+            if ($usuario) {
+                // Salva sessão
+                $this->loginService->salvarUsuarioSessao($usuario);
 
-            // Redireciona conforme tipo de usuário
-            if ($usuario->getTipoUsuario() === UsuarioTipo::ADMINISTRADOR) {
-                header("location: " . BASEURL . "/controller/HomeController.php?action=home");
-            } elseif ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
-                header("location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
-            } elseif ($usuario->getTipoUsuario() === UsuarioTipo::PROFESSOR) {
-                header("location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
+                // Redireciona conforme tipo de usuário
+                if ($usuario->getTipoUsuario() === UsuarioTipo::ADMINISTRADOR) {
+                    header("location: " . BASEURL . "/controller/HomeController.php?action=home");
+                } elseif ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
+                    header("location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
+                } elseif ($usuario->getTipoUsuario() === UsuarioTipo::PROFESSOR) {
+                    header("location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
+                } else {
+                    echo "Tipo de usuário inválido!";
+                }
+
+                exit;
             } else {
-                echo "Tipo de usuário inválido!";
+                // Mostra mensagem de erro estilizada pelo msg.php
+                $msgErro = "Login ou senha informados são inválidos!";
             }
-
-            exit;
-        } else {
-            // Mostra mensagem de erro estilizada pelo msg.php
-            $msgErro = "Login ou senha informados são inválidos!";
         }
+
+        // Retorna os dados para o formulário
+        $dados["email"] = $email;
+        $dados["senha"] = $senha;
+        $dados['erros'] = $erros;
+
+        // Passa a mensagem para a view
+        $this->loadView("login/login.php", $dados, $msgErro);
     }
-
-    // Retorna os dados para o formulário
-    $dados["email"] = $email;
-    $dados["senha"] = $senha;
-    $dados['erros'] = $erros;
-
-    // Passa a mensagem para a view
-    $this->loadView("login/login.php", $dados, $msgErro);
-}
 
 
 

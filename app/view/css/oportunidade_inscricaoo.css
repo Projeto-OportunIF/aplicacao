@@ -87,3 +87,28 @@ body {
 .btn-voltar:hover {
     background: #faf1f1;
 }
+
+.aviso-externo {
+    background-color: #e7f3ff;
+    border: 1px solid #b3d7ff;
+    color: #004085;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.aviso-externo i {
+    font-size: 22px;
+    color: #007bff;
+    flex-shrink: 0;
+}
+
+.aviso-externo span {
+    line-height: 1.4;
+}
