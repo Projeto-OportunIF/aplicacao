@@ -33,14 +33,20 @@ require_once(__DIR__ . "/../include/header.php");
                     <input class="form-control" type="password" id="txtSenha" name="senha"
                         maxlength="90" placeholder="Informe a senha"
                         autocomplete="new-password"
-                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
-                    <?php if (isset($dados['erros']['senha'])): ?>
-                        <span class="form_error_message"><?= $dados['erros']['senha'] ?></span>
-                    <?php endif; ?>
+                        value="<?php echo isset($dados['senha']) ? htmlspecialchars($dados['senha']) : ''; ?>"
 
-                    <!-- Olho customizado -->
-                    <span class="toggle-password" data-target="txtSenha"
-                        style="position:absolute; right: 5px; top:18px; transform: translateY(-50%);
+
+
+                        <?php if (isset($dados['erros']['senha'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['senha'] ?></span>
+                <?php endif; ?>
+
+
+
+
+                <!-- Olho customizado -->
+                <span class="toggle-password" data-target="txtSenha"
+                    style="position:absolute; right: 5px; top:18px; transform: translateY(-50%);
                  cursor:pointer; font-size:20px;">👁️</span>
                 </div>
                 <!-- Mensagem de Caps Lock -->
@@ -100,6 +106,12 @@ require_once(__DIR__ . "/../include/header.php");
             Não tem cadastro? <br>
             <a href="./AutoCadastroController.php?action=cadastrar">Clique aqui para criar uma conta.</a>
         </div>
+
+
+        <?php if (isset($dados['erros']['login'])): ?>
+            <span class="form_error_message"><?= $dados['erros']['login'] ?></span>
+        <?php endif; ?>
+
 
         <div class="col-6">
             <?php include_once(__DIR__ . "/../include/msg.php") ?>
