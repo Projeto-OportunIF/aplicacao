@@ -6,9 +6,11 @@ require_once(__DIR__ . "/../include/menu.php");
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastro.css">
 <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 
+
 <h3 class="text-center">
     <?= $dados['id'] == 0 ? "Inserir" : "Alterar" ?> Oportunidade
 </h3>
+
 
 <div class="container">
     <div class="row" style="margin-top: 30px;">
@@ -19,10 +21,12 @@ require_once(__DIR__ . "/../include/menu.php");
         </div>
     </div>
 
+
     <div class="row" style="margin-top: 10px;">
         <div class="col-6">
-            <form id="frmOportunidade" method="POST" action="<?= BASEURL ?>/controller/OportunidadeController.php?action=save">
+            <form id="frmOportunidade" method="POST" enctype="multipart/form-data" action="<?= BASEURL ?>/controller/OportunidadeController.php?action=save">
                 <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
+
 
                 <!-- Campos básicos -->
                 <div class="mb-3">
@@ -30,22 +34,48 @@ require_once(__DIR__ . "/../include/menu.php");
                     <input class="form-control" type="text" id="txtTitulo" name="titulo" placeholder="Informe o título"
                         value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getTitulo() : ''; ?>" />
 
+
                     <?php if (isset($dados['erros']['titulo'])): ?>
                         <span class="form_error_message"><?= $dados['erros']['titulo'] ?></span>
                     <?php endif; ?>
 
+
                 </div>
+
 
                 <div class="mb-3">
                     <label class="form-label" for="txtDescricao">Descrição:</label>
                     <textarea class="form-control" id="txtDescricao" name="descricao"
                         placeholder="Informe a descrição"><?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getDescricao() : ''; ?></textarea>
 
+
                     <?php if (isset($dados['erros']['descricao'])): ?>
                         <span class="form_error_message"><?= $dados['erros']['descricao'] ?></span>
                     <?php endif; ?>
 
+
                 </div>
+
+
+              <div class="mb-3">
+    <label class="form-label" for="documentoEdital">Documento do Edital:</label>
+    <input class="form-control" type="file" id="documentoEdital" name="documentoEdital" accept=".pdf,.doc,.docx" />
+
+
+    <?php if (isset($dados["oportunidade"]) && $dados["oportunidade"]->getDocumentoEdital()): ?>
+        <p>Arquivo atual:
+            <a href="<?= BASEURL ?>/../uploads/<?= trim($dados["oportunidade"]->getDocumentoEdital()) ?>" target="_blank">
+                <?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>
+            </a>
+        </p>
+        <input type="hidden" name="documentoEditalExistente" value="<?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>">
+    <?php endif; ?>
+</div>
+
+
+
+
+
 
                 <div class="mb-3">
                     <label class="form-label" for="professor_responsavel">Professor Responsável:</label>
@@ -53,11 +83,14 @@ require_once(__DIR__ . "/../include/menu.php");
                         placeholder="Informe o professor responsável"
                         value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getProfessorResponsavel() : ''; ?>" />
 
+
                     <?php if (isset($dados['erros']['profresponsavel'])): ?>
                         <span class="form_error_message"><?= $dados['erros']['profresponsavel'] ?></span>
                     <?php endif; ?>
 
+
                 </div>
+
 
                 <div class="mb-3">
                     <label class="form-label" for="selTipo">Tipo de Oportunidade:</label>
@@ -70,42 +103,52 @@ require_once(__DIR__ . "/../include/menu.php");
                         <?php endforeach; ?>
                     </select>
 
+
                     <?php if (isset($dados['erros']['tipooport'])): ?>
                         <span class="form_error_message"><?= $dados['erros']['tipooport'] ?></span>
                     <?php endif; ?>
 
+
                 </div>
+
 
                 <div class="mb-3">
                     <label class="form-label" for="vaga">Quantidade de Vagas:</label>
                     <input type="number" class="form-control" name="vaga" id="vaga"
                         value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getVaga() : '' ?>">
 
+
                     <?php if (isset($dados['erros']['vaga'])): ?>
                         <span class="form_error_message"><?= $dados['erros']['vaga'] ?></span>
                     <?php endif; ?>
 
+
                 </div>
+
 
                 <div class="mb-3">
                     <label class="form-label" for="dataInicio">Data de Início:</label>
                     <input type="date" name="dataInicio" id="dataInicio" class="form-control"
                         value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDataInicio() : '' ?>">
 
+
                     <?php if (isset($dados['erros']['datainicio'])): ?>
                         <span class="form_error_message"><?= $dados['erros']['datainicio'] ?></span>
                     <?php endif; ?>
                 </div>
+
 
                 <div class="mb-3">
                     <label class="form-label" for="dataFim">Data de Fim:</label>
                     <input type="date" name="dataFim" id="dataFim" class="form-control"
                         value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDataFim() : '' ?>">
 
+
                     <?php if (isset($dados['erros']['datafim'])): ?>
                         <span class="form_error_message"><?= $dados['erros']['datafim'] ?></span>
                     <?php endif; ?>
                 </div>
+
 
                 <!-- Checkbox Documento Anexo -->
                 <div class="mb-3 documento-seletor">
@@ -117,7 +160,10 @@ require_once(__DIR__ . "/../include/menu.php");
                     </label>
 
 
+
+
                 </div>
+
 
                 <!-- Campo descrição do documento -->
                 <div class="mb-3 documento-anexo">
@@ -125,11 +171,14 @@ require_once(__DIR__ . "/../include/menu.php");
                     <input type="text" name="documento" id="documento" class="form-control"
                         value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDocumentoAnexo() : '' ?>">
 
+
                     <?php if (isset($dados['erros']['documento'])): ?>
                         <span class="form_error_message"><?= $dados['erros']['documento'] ?></span>
                     <?php endif; ?>
 
+
                 </div>
+
 
                 <!-- Cursos -->
                 <div class="mb-3">
@@ -144,10 +193,12 @@ require_once(__DIR__ . "/../include/menu.php");
                         <?php endforeach; ?>
                     </div>
 
+
                     <?php if (isset($dados['erros']['curso'])): ?>
                         <span class="form_error_message"><?= $dados['erros']['curso'] ?></span>
                     <?php endif; ?>
                 </div>
+
 
                 <div class="mt-3">
                     <button type="submit" class="btn btn-success">Salvar</button>
@@ -155,11 +206,13 @@ require_once(__DIR__ . "/../include/menu.php");
             </form>
         </div>
 
+
         <div class="col-6">
             <?php require_once(__DIR__ . "/../include/msg.php"); ?>
         </div>
     </div>
 </div>
+
 
 <script>
     // Checkbox e campo de documento
@@ -167,8 +220,10 @@ require_once(__DIR__ . "/../include/menu.php");
     const anexosDiv = document.querySelector(".documento-anexo");
     const inputDocumento = document.getElementById("documento");
 
+
     // Mostrar/esconder campo ao carregar
     anexosDiv.style.display = seletorCheckbox.checked ? "block" : "none";
+
 
     // Atualiza ao clicar no checkbox
     seletorCheckbox.addEventListener("click", () => {
@@ -180,9 +235,11 @@ require_once(__DIR__ . "/../include/menu.php");
         }
     });
 
+
     // Tipo de oportunidade: esconde seletor se for ESTÁGIO
     const tipoSelect = document.getElementById("selTipo");
     const seletorDiv = document.querySelector(".documento-seletor");
+
 
     function atualizarCampoDocumento() {
         if (tipoSelect.value === "ESTAGIO") {
@@ -196,14 +253,17 @@ require_once(__DIR__ . "/../include/menu.php");
         }
     }
 
+
     tipoSelect.addEventListener("change", atualizarCampoDocumento);
     atualizarCampoDocumento();
 </script>
+
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
 <script>
     new FroalaEditor("#txtDescricao");
 </script>
+
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");
