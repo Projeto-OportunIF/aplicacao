@@ -98,114 +98,116 @@ class OportunidadeController extends Controller
     }
 
 
-   protected function save()
-{
-    $id = $_POST["id"];
-    $titulo = trim($_POST["titulo"]);
-    $descricao = trim($_POST["descricao"]);
-    $tipo = trim($_POST["tipo"]);
-    $dataInicio = $_POST["dataInicio"];
-    $dataFim = $_POST["dataFim"];
-    $documento = trim($_POST["documento"]); // documentoAnexo (NÃO MEXER)
-    $idCursos = $_POST['cursos'] ?? [];
-    $vaga = isset($_POST["vaga"]) && $_POST["vaga"] !== "" ? (int)$_POST["vaga"] : null;
+    protected function save()
+    {
+        $id = $_POST["id"];
+        $titulo = trim($_POST["titulo"]);
+        $descricao = trim($_POST["descricao"]);
+        $tipo = trim($_POST["tipo"]);
+        $dataInicio = $_POST["dataInicio"];
+        $dataFim = $_POST["dataFim"];
+        $documento = isset($_POST["documento"]) ? trim($_POST["documento"]) : '';
+
+        $idCursos = $_POST['cursos'] ?? [];
+        $vaga = isset($_POST["vaga"]) && $_POST["vaga"] !== "" ? (int)$_POST["vaga"] : null;
 
 
-    $oportunidade = new Oportunidade();
-    $oportunidade->setId($id);
-    $oportunidade->setTitulo($titulo);
-    $oportunidade->setDescricao($descricao);
-    $oportunidade->setTipoOportunidade($tipo);
-    $oportunidade->setDataInicio($dataInicio);
-    $oportunidade->setDataFim($dataFim);
-    $oportunidade->setDocumentoAnexo($documento); // mantém o documento já existente
-    $oportunidade->setVaga($vaga);
+        $oportunidade = new Oportunidade();
+        $oportunidade->setId($id);
+        $oportunidade->setTitulo($titulo);
+        $oportunidade->setDescricao($descricao);
+        $oportunidade->setTipoOportunidade($tipo);
+        $oportunidade->setDataInicio($dataInicio);
+        $oportunidade->setDataFim($dataFim);
+        $oportunidade->setDocumentoAnexo(isset($_POST['documentoAnexo']) ? trim($_POST['documentoAnexo']) : '');
+
+        $oportunidade->setVaga($vaga);
 
 
-    // =======================
-    // PROCESSAR DOCUMENTO EDITAL (UPLOAD)
-    // =======================
-    if (isset($_FILES['documentoEdital']) && $_FILES['documentoEdital']['error'] == UPLOAD_ERR_OK) {
-        // gera nome único
-        $nomeArquivoEdital = uniqid('edital_') . '_' . basename($_FILES['documentoEdital']['name']);
-        $caminhoDestino = __DIR__ . "/../../uploads/" . $nomeArquivoEdital;
+        // =======================
+        // PROCESSAR DOCUMENTO EDITAL (UPLOAD)
+        // =======================
+        if (isset($_FILES['documentoEdital']) && $_FILES['documentoEdital']['error'] == UPLOAD_ERR_OK) {
+            // gera nome único
+            $nomeArquivoEdital = uniqid('edital_') . '_' . basename($_FILES['documentoEdital']['name']);
+            $caminhoDestino = __DIR__ . "/../../uploads/" . $nomeArquivoEdital;
 
 
-        if (move_uploaded_file($_FILES['documentoEdital']['tmp_name'], $caminhoDestino)) {
-            $oportunidade->setDocumentoEdital($nomeArquivoEdital);
+            if (move_uploaded_file($_FILES['documentoEdital']['tmp_name'], $caminhoDestino)) {
+                $oportunidade->setDocumentoEdital($nomeArquivoEdital);
+            } else {
+                $oportunidade->setDocumentoEdital(null);
+            }
+        } elseif (!empty($_POST['documentoEditalExistente'])) {
+            // mantém o arquivo antigo se não houver novo upload
+            $oportunidade->setDocumentoEdital($_POST['documentoEditalExistente']);
         } else {
             $oportunidade->setDocumentoEdital(null);
         }
-    } elseif (!empty($_POST['documentoEditalExistente'])) {
-        // mantém o arquivo antigo se não houver novo upload
-        $oportunidade->setDocumentoEdital($_POST['documentoEditalExistente']);
-    } else {
-        $oportunidade->setDocumentoEdital(null);
-    }
-    // =======================
+        // =======================
 
 
-    // CURSOS
-    if (empty($idCursos)) {
-        $erros[] = "Selecione pelo menos um curso.";
-    } else {
-        $cursos = [];
-        foreach ($idCursos as $idCurso) {
-            $curso = new Curso();
-            $curso->setId($idCurso);
-            $cursos[] = $curso;
-        }
-        $oportunidade->setCursos($cursos);
-    }
-
-
-    // PROFESSOR RESPONSÁVEL (usuário logado)
-    $professorResponsavel = trim($_POST["professor_responsavel"]);
-    $oportunidade->setProfessorResponsavel($professorResponsavel);
-
-
-    // VALIDAR DADOS
-    $erros = $this->service->validarDados($oportunidade);
-
-
-    if (count($erros) > 0) {
-        $dados['oportunidade'] = $oportunidade;
-        $dados['cursos'] = $this->cursoDao->list();
-        $dados['oportunidadeCursos'] = $oportunidade->getCursos();
-        $dados['id'] = $oportunidade->getId();
-        $dados['erros'] = $erros;
-
-
-        $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados);
-        return;
-    }
-
-
-    // =======================
-    // SALVAR NO BANCO
-    // =======================
-    try {
-        if ($oportunidade->getId() == 0) {
-            $this->oportunidadeDao->insert($oportunidade);
-            $this->notificacaoService->notificarUsuariosByCurso(
-                "Uma nova oportunidade foi criada: $titulo",
-                $idCursos
-            );
+        // CURSOS
+        if (empty($idCursos)) {
+            $erros[] = "Selecione pelo menos um curso.";
         } else {
-            $this->oportunidadeDao->update($oportunidade);
+            $cursos = [];
+            foreach ($idCursos as $idCurso) {
+                $curso = new Curso();
+                $curso->setId($idCurso);
+                $cursos[] = $curso;
+            }
+            $oportunidade->setCursos($cursos);
         }
 
 
-        header("Location: " . BASEURL . "/controller/OportunidadeController.php?action=list");
-        exit;
-    } catch (PDOException $e) {
-        $msgErro = "Erro ao gravar: " . $e->getMessage();
-        $dados['id'] = 0;
-        $dados['oportunidade'] = $oportunidade;
-        $dados['cursos'] = $this->cursoDao->list();
-        $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados, $msgErro);
+        // PROFESSOR RESPONSÁVEL (usuário logado)
+        $professorResponsavel = trim($_POST["professor_responsavel"]);
+        $oportunidade->setProfessorResponsavel($professorResponsavel);
+
+
+        // VALIDAR DADOS
+        $erros = $this->service->validarDados($oportunidade);
+
+
+        if (count($erros) > 0) {
+            $dados['oportunidade'] = $oportunidade;
+            $dados['cursos'] = $this->cursoDao->list();
+            $dados['oportunidadeCursos'] = $oportunidade->getCursos();
+            $dados['id'] = $oportunidade->getId();
+            $dados['erros'] = $erros;
+
+
+            $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados);
+            return;
+        }
+
+
+        // =======================
+        // SALVAR NO BANCO
+        // =======================
+        try {
+            if ($oportunidade->getId() == 0) {
+                $this->oportunidadeDao->insert($oportunidade);
+                $this->notificacaoService->notificarUsuariosByCurso(
+                    "Uma nova oportunidade foi criada: $titulo",
+                    $idCursos
+                );
+            } else {
+                $this->oportunidadeDao->update($oportunidade);
+            }
+
+
+            header("Location: " . BASEURL . "/controller/OportunidadeController.php?action=list");
+            exit;
+        } catch (PDOException $e) {
+            $msgErro = "Erro ao gravar: " . $e->getMessage();
+            $dados['id'] = 0;
+            $dados['oportunidade'] = $oportunidade;
+            $dados['cursos'] = $this->cursoDao->list();
+            $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados, $msgErro);
+        }
     }
-}
 
 
     protected function delete()
@@ -296,25 +298,23 @@ class OportunidadeController extends Controller
 
 
     public function alterarStatus()
-{
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $idInscricao = (int) $_POST['idInscricao'];
-        $novoStatus = $_POST['novoStatus'];
-        $feedbackProfessor = isset($_POST['feedbackProfessor']) ? trim($_POST['feedbackProfessor']) : null;
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idInscricao = (int) $_POST['idInscricao'];
+            $novoStatus = $_POST['novoStatus'];
+            $feedbackProfessor = isset($_POST['feedbackProfessor']) ? trim($_POST['feedbackProfessor']) : null;
 
 
-        require_once(__DIR__ . "/../dao/InscricaoDAO.php");
-        $dao = new InscricaoDAO();
-        $dao->updateStatus($idInscricao, $novoStatus, $feedbackProfessor);
+            require_once(__DIR__ . "/../dao/InscricaoDAO.php");
+            $dao = new InscricaoDAO();
+            $dao->updateStatus($idInscricao, $novoStatus, $feedbackProfessor);
 
 
-        // Redireciona de volta para a lista de inscritos
-        header("Location: " . BASEURL . "/controller/OportunidadeController.php?action=visualizarInscritos&idOport=" . (int)$_POST['idOport']);
-        exit;
+            // Redireciona de volta para a lista de inscritos
+            header("Location: " . BASEURL . "/controller/OportunidadeController.php?action=visualizarInscritos&idOport=" . (int)$_POST['idOport']);
+            exit;
+        }
     }
-}
-
-
 }
 
 

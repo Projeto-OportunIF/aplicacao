@@ -51,17 +51,15 @@ require_once(__DIR__ . "/../include/menu.php");
 
 
                     <!-- Campo de Documento: só aparece se houver -->
-                    <div id="uploadContainer" class="mb-3">
-                        <label>Enviar Documentos (obrigatórios):</label>
-                        <div id="inputsArquivos">
-                            <input type="file" name="documentoAluno[]" class="form-control mb-2" required>
+                    <?php if (!empty($dados['oportunidade']->getDocumentoAnexo())): ?>
+                        <div id="uploadContainer" class="mb-3">
+                            <label>Enviar Documentos (obrigatórios):</label>
+                            <div id="inputsArquivos">
+                                <input type="file" name="documentoAluno[]" class="form-control mb-2" required>
+                            </div>
+                            <button type="button" id="adicionarArquivo" class="btn btn-secondary btn-sm">Adicionar mais arquivo</button>
                         </div>
-                        <button type="button" id="adicionarArquivo" class="btn btn-secondary btn-sm">Adicionar mais arquivo</button>
-
-
-                    </div>
-
-
+                    <?php endif; ?>
 
 
                     <button type="submit" class="btn-inscrever">Inscrever-me</button>

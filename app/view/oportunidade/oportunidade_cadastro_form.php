@@ -57,24 +57,20 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
 
 
-              <div class="mb-3">
-    <label class="form-label" for="documentoEdital">Documento do Edital:</label>
-    <input class="form-control" type="file" id="documentoEdital" name="documentoEdital" accept=".pdf,.doc,.docx" />
+                <div class="mb-3">
+                    <label class="form-label" for="documentoEdital">Documento do Edital:</label>
+                    <input class="form-control" type="file" id="documentoEdital" name="documentoEdital" accept=".pdf,.doc,.docx" />
 
 
-    <?php if (isset($dados["oportunidade"]) && $dados["oportunidade"]->getDocumentoEdital()): ?>
-        <p>Arquivo atual:
-            <a href="<?= BASEURL ?>/../uploads/<?= trim($dados["oportunidade"]->getDocumentoEdital()) ?>" target="_blank">
-                <?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>
-            </a>
-        </p>
-        <input type="hidden" name="documentoEditalExistente" value="<?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>">
-    <?php endif; ?>
-</div>
-
-
-
-
+                    <?php if (isset($dados["oportunidade"]) && $dados["oportunidade"]->getDocumentoEdital()): ?>
+                        <p>Arquivo atual:
+                            <a href="<?= BASEURL ?>/../uploads/<?= trim($dados["oportunidade"]->getDocumentoEdital()) ?>" target="_blank">
+                                <?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>
+                            </a>
+                        </p>
+                        <input type="hidden" name="documentoEditalExistente" value="<?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>">
+                    <?php endif; ?>
+                </div>
 
 
                 <div class="mb-3">
@@ -155,28 +151,22 @@ require_once(__DIR__ . "/../include/menu.php");
                     <label class="form-label" for="documento">Possui Documento em Anexo?</label>
                     <label class="switch">
                         <input class="checkbox" type="checkbox" name="temDocumento" value="1"
-                            <?= isset($dados['oportunidade']) && $dados['oportunidade']->getDocumentoAnexo() != "" ? 'checked' : '' ?>>
+                            <?= (isset($_POST['temDocumento']) && $_POST['temDocumento'] == "1") ||
+                                (isset($dados['oportunidade']) && $dados['oportunidade']->getDocumentoAnexo() != "") ? 'checked' : '' ?>>
                         <span class="slider round"></span>
                     </label>
-
-
-
-
                 </div>
 
 
                 <!-- Campo descrição do documento -->
                 <div class="mb-3 documento-anexo">
-                    <label class="form-label" for="documento">(Descreva o documento que deve ser anexado):</label>
-                    <input type="text" name="documento" id="documento" class="form-control"
+                    <label class="form-label" for="documentoAnexo">(Descreva os requisitos ou documento que deve ser anexado):</label>
+                    <input type="text" name="documentoAnexo" id="documento" class="form-control"
                         value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDocumentoAnexo() : '' ?>">
 
-
-                    <?php if (isset($dados['erros']['documento'])): ?>
-                        <span class="form_error_message"><?= $dados['erros']['documento'] ?></span>
+                    <?php if (isset($dados['erros']['documentoAnexo'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['documentoAnexo'] ?></span>
                     <?php endif; ?>
-
-
                 </div>
 
 
@@ -220,10 +210,8 @@ require_once(__DIR__ . "/../include/menu.php");
     const anexosDiv = document.querySelector(".documento-anexo");
     const inputDocumento = document.getElementById("documento");
 
-
     // Mostrar/esconder campo ao carregar
     anexosDiv.style.display = seletorCheckbox.checked ? "block" : "none";
-
 
     // Atualiza ao clicar no checkbox
     seletorCheckbox.addEventListener("click", () => {
@@ -235,11 +223,9 @@ require_once(__DIR__ . "/../include/menu.php");
         }
     });
 
-
     // Tipo de oportunidade: esconde seletor se for ESTÁGIO
     const tipoSelect = document.getElementById("selTipo");
     const seletorDiv = document.querySelector(".documento-seletor");
-
 
     function atualizarCampoDocumento() {
         if (tipoSelect.value === "ESTAGIO") {
@@ -252,7 +238,6 @@ require_once(__DIR__ . "/../include/menu.php");
             anexosDiv.style.display = seletorCheckbox.checked ? "block" : "none";
         }
     }
-
 
     tipoSelect.addEventListener("change", atualizarCampoDocumento);
     atualizarCampoDocumento();
