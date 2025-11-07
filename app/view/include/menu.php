@@ -46,7 +46,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::ALUNO)
 elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     $homePage = HOME_PAGE_PROFESSOR;
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/menu.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/menus.css">
 <nav class="navbar navbar-expand-md px-3 mb-3" style="background-color: #c23956">
 
 
