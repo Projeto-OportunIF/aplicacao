@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidades_disponiveis.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/notificacoes.css">
 
 <h2 class="titulo-pagina">TELA DE NOTIFICACOES</h2>
 
@@ -26,8 +26,14 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
             </div>
         <?php endforeach; ?>
     <?php else: ?>
-        <p>Não há notificações no momento.</p>
+        
+
     <?php endif; ?>
+</div>
+
+<div class="sem-notificacoes">
+    <i class="bi bi-bell-slash"></i>
+    <p>Não há notificações no momento.</p>
 </div>
 
 <?php require_once(__DIR__ . "/../include/footer.php"); ?>

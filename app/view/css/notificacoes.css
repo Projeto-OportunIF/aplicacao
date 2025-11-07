@@ -1,0 +1,186 @@
+body {
+    background-color: #fff4f6;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.titulo-pagina {
+    text-align: center;
+    font-size: 2rem;
+    color: #cf4763;
+    margin-bottom: 30px;
+
+}
+
+/* Container que organiza os cards */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* sempre 3 colunas */
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 colunas */
+    }
+}
+
+@media (max-width: 600px) {
+    .cards-container {
+        grid-template-columns: 1fr;
+        /* 1 coluna */
+    }
+}
+
+/* Cada card individual */
+.card-oportunidade {
+    background-color: #cf4763;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 250px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Parágrafos dentro do card */
+.card-oportunidade p {
+    margin: 2px 0;
+    line-height: 1.4;
+}
+
+.btn-inscrever {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #afc38b;
+    /* verde do protótipo */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    align-self: flex-start;
+    transition: background-color 0.2s ease;
+}
+
+/* Botão desabilitado quando o prazo acabou */
+    .btn-disabled {
+        display: inline-block;
+        padding: 10px 10px;
+        background-color: #f8d7da; 
+        color: #721c24; 
+        border-radius: 5px;
+        text-align: center;
+        cursor: not-allowed;
+        font-weight: bold;
+    }
+
+.btn-disabled:hover {
+    background-color: #f5c6cb; 
+
+}
+.btn-voltar {
+    background-color: #c23956;
+    color: #fff;
+    border-radius: 25px;
+    padding: 10px 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #6b1c2f;
+    
+}
+
+
+.sem-oportunidades {
+    background-color: #e9f7ef; /* verde clarinho */
+    color: #2e7d32; /* verde escuro */
+    border: 1px solid #c8e6c9;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 40px auto;
+    max-width: 600px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+}
+
+.sem-oportunidades i {
+    font-size: 24px;
+    color: #388e3c; /* verde mais intenso */
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.sem-oportunidades p {
+    display: inline;
+    margin: 0;
+    vertical-align: middle;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.sem-notificacoes {
+    background-color: #e9f7ef; /* verde clarinho */
+    color: #2e7d32; /* verde escuro */
+    border: 1px solid #c8e6c9;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 40px auto;
+    max-width: 600px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+}
+
+.sem-notificacoes i {
+    font-size: 24px;
+    color: #388e3c; /* verde mais intenso */
+}
+
+.sem-notificacoes p {
+    display: inline;
+    margin: 0;
+    vertical-align: middle;
+}
+
+/* animação de entrada suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
