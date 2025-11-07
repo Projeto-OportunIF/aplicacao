@@ -21,7 +21,8 @@ require_once(__DIR__ . "/../include/menu.php");
         <?php foreach ($dados['lista'] as $op): ?>
             <div class="card-oportunidade">
                 <h3><?= htmlspecialchars($op->getTitulo()); ?></h3>
-                <p><strong>Descrição:</strong> <?= htmlspecialchars($op->getDescricao()); ?></p>
+               <p><strong>Descrição:</strong> <?= html_entity_decode($op->getDescricao()); ?></p>
+
                 <p><strong>Professor Responsável:</strong> <?= htmlspecialchars($op->getProfessorResponsavel()); ?></p>
                 <p><strong>Tipo:</strong> <?= htmlspecialchars($op->getTipoOportunidade()); ?></p>
                 <p><strong>Vagas:</strong> <?= htmlspecialchars($op->getVaga()); ?></p>
