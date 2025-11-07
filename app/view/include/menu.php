@@ -62,11 +62,17 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     <div class="collapse navbar-collapse" id="navSite">
 
 
-        <ul class="navbar-nav ms-auto mr-3">
+       <ul class="navbar-nav ms-auto mr-3">
 
-            <li class="nav-item d-flex justify-content-center align-itens-center">
-                <i class="bi bi-envelope"></i> <span>( <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=listar' ?>"><?= $notificacoes ?> </a>)</span>
-            </li>
+<li class="nav-item notificacao-item">
+    <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=listar' ?>" class="notificacao-link">
+        <i class="bi bi-bell-fill"></i>
+        <?php if ($notificacoes > 0): ?>
+            <span class="notificacao-badge"><?= $notificacoes ?></span>
+        <?php endif; ?>
+    </a>
+</li>
+
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle usuario-topo" href="#" id="navbarUsuario"

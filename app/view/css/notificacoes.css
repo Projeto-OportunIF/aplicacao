@@ -184,3 +184,40 @@ body {
         transform: translateY(0);
     }
 }
+.notificacao-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notificacao-link {
+    position: relative;
+    color: #f8c10f;
+    font-size: 1.6rem;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.notificacao-link:hover {
+    color: #ffd966;
+    transform: scale(1.1);
+}
+
+.notificacao-link i {
+    vertical-align: middle;
+}
+
+/* Bolinha vermelha (badge) */
+.notificacao-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background-color: #ff0019;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
