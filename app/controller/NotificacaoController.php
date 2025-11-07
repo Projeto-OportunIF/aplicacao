@@ -46,14 +46,20 @@ class NotificacaoController extends Controller
     }
 
     public function atualizarStatusPorUsuario()
-    {
+{
+    $idNotificacao = $_GET['id_notificacao'];
 
-        $idNotificacao = $_GET['id_notificacao'];
+    // Atualiza o status da notificação para 'LIDO'
+    $this->dao->atualizarStatusPorUsuario($this->getIdUsuarioLogado(), $idNotificacao);
 
-        $this->dao->atualizarStatusPorUsuario($this->getIdUsuarioLogado(), $idNotificacao);
+    // Atualiza a contagem de notificações na sessão
+    require_once(__DIR__ . "/../service/NotificacaoService.php");
+    NotificacaoService::countNotificacoesByUsuario();
 
-        $this->listar();
-    }
+    // Recarrega a lista de notificações
+    $this->listar();
+}
+
 
     // private function visualizar()
     // {
