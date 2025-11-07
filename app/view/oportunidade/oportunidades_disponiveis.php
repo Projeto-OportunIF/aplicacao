@@ -40,9 +40,14 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>
+
+        
     <?php else: ?>
   
-        
+        <div class="sem-oportunidades">
+             <i class="bi bi-info-circle"></i>
+            <p>Não há oportunidades no momento.</p>
+        </div>
     
 <?php endif; ?>
 
@@ -51,10 +56,7 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 
 </div>
 
-<div class="sem-oportunidades">
-             <i class="bi bi-info-circle"></i>
-            <p>Não há oportunidades no momento.</p>
-        </div>
+
    
 
 <?php require_once(__DIR__ . "/../include/footer.php"); ?>
