@@ -68,9 +68,11 @@ require_once(__DIR__ . "/../include/menu.php");
             <?php endforeach; ?>
         </div>
     <?php else: ?>
-        <div class="alert alert-info text-center mt-4">
-            Você ainda não se inscreveu em nenhuma oportunidade.
-        </div>
+        <div class="sem-inscricoes">
+    <i class="bi bi-info-circle"></i>
+    Você ainda não se inscreveu em nenhuma oportunidade.
+</div>
+
     <?php endif; ?>
 </div>
 

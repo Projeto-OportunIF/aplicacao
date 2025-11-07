@@ -172,3 +172,37 @@
     display: block;
     color: #fff;
 }
+.sem-inscricoes {
+    background-color: #e9f7ef;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 40px auto;
+    max-width: 600px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+}
+
+.sem-inscricoes i {
+    font-size: 22px;
+    margin-right: 8px;
+    color: #388e3c;
+    vertical-align: middle;
+}
+
+/* Animação suave de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
