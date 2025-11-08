@@ -32,23 +32,39 @@ if (isset($_SESSION["usuario_tipo"])) {
 
 <div class="cards-container">
     <?php if (count($dados["notificacoes"]) > 0): ?>
-        <?php foreach ($dados["notificacoes"] as $notificacoes): ?>
+        <?php foreach ($dados["notificacoes"] as $notificacao): ?>
+            <?php
+            $idNot = $notificacao['idNotificacoes'] ?? null;
+            $idOport = $notificacao['idOportunidade'] ?? null;
+            $mensagem = $notificacao['mensagem'] ?? '';
+            $dataEnvio = $notificacao['dataEnvio'] ?? '';
+            ?>
             <div class="card-oportunidade">
-                <h3><?= htmlspecialchars($notificacoes['mensagem']) ?></h3>
-                <p><?= $notificacoes['dataEnvio'] ?></p>
+                <h3><?= htmlspecialchars($mensagem) ?></h3>
+                <p><strong>Data:</strong> <?= htmlspecialchars($dataEnvio) ?></p>
 
-                <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=atualizarStatusPorUsuario&id_notificacao=' . $notificacoes['idNotificacoes'] ?>">ler notificacao</a>
+                <div class="acoes-notificacao">
+                    <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=atualizarStatusPorUsuario&id_notificacao=' . $idNot ?>"
+                        class="btn btn-secondary">
+                        <i class="bi bi-check-circle"></i> Marcar como lido
+                    </a>
 
+                    <?php if (!empty($idOport)): ?>
+                        <a href="<?= BASEURL . '/controller/InscricaoController.php?action=listarInscritos&idOport=' . $idOport ?>"
+                            class="btn btn-primary">
+                            <i class="bi bi-people"></i> Visualizar Inscritos
+                        </a>
+                    <?php endif; ?>
+                </div>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
-        
         <div class="sem-notificacoes">
-    <i class="bi bi-bell-slash"></i>
-    <p>Não há notificações no momento.</p>
-</div>
-
+            <i class="bi bi-bell-slash"></i>
+            <p>Não há notificações no momento.</p>
+        </div>
     <?php endif; ?>
+
 
 </div>
 

@@ -13,7 +13,7 @@ class Oportunidade
     private ?int $id;
     private ?string $titulo;
     private ?string $descricao;
-private ?string $documentoEdital = null;
+    private ?string $documentoEdital = null;
     private ?string $tipoOportunidade;
     private ?string $dataInicio;
     private ?string $dataFim;
@@ -65,16 +65,16 @@ private ?string $documentoEdital = null;
         $this->descricao = $descricao;
         return $this;
     }
-   public function getDocumentoEdital(): ?string
-{
-    return $this->documentoEdital;
-}
+    public function getDocumentoEdital(): ?string
+    {
+        return $this->documentoEdital;
+    }
 
 
-public function setDocumentoEdital(?string $documentoEdital): void
-{
-    $this->documentoEdital = $documentoEdital;
-}
+    public function setDocumentoEdital(?string $documentoEdital): void
+    {
+        $this->documentoEdital = $documentoEdital;
+    }
     public function getTipoOportunidade(): ?string
     {
         return $this->tipoOportunidade;

@@ -93,6 +93,13 @@ class InscricaoController extends Controller
 
         $inscricaoDao->insert($idAluno, $idOport, $documentosString);
 
+
+        // Notifica o professor responsável
+
+        require_once(__DIR__ . "/../dao/NotificacaoDAO.php");
+        $notificacaoDao = new NotificacaoDAO();
+        $notificacaoDao->notificarProfessorPorNovaInscricao($idOport);
+
         $_SESSION['msgSucesso'] = "Inscrição realizada com sucesso! Vá em \"Minhas Inscrições\" para visualizar.";
         header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
         exit;
@@ -136,10 +143,31 @@ class InscricaoController extends Controller
         $inscricaoDao->deleteById($idInscricao);
 
         $_SESSION['msgSucesso'] = "Inscrição cancelada com sucesso!";
-    header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
-    exit;
+        header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
+        exit;
+    }
+
+    public function listarInscritos()
+    {
+        if (!isset($_GET['idOport'])) {
+            $_SESSION['msgErro'] = "Oportunidade não encontrada!";
+            header("Location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
+            exit;
+        }
+
+        $idOport = intval($_GET['idOport']);
+        require_once(__DIR__ . "/../dao/InscricaoDAO.php");
+
+        $inscricaoDao = new InscricaoDAO();
+        $inscritos = $inscricaoDao->listarInscritosPorOportunidade($idOport);
+
+        $dados["inscritos"] = $inscritos;
+        $dados["idOport"] = $idOport;
+
+        $this->loadView("inscricao/inscritos_list.php", $dados);
     }
 }
+
 
 
 new InscricaoController();

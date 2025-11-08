@@ -18,19 +18,19 @@ class NotificacaoDAO
 
 
     public function countNotificacoesByUsuario(int $idUsuario)
-{
-    $sql = "SELECT COUNT(*) AS total_notificacoes
+    {
+        $sql = "SELECT COUNT(*) AS total_notificacoes
             FROM notificacoes_usuarios
             WHERE idUsuario = :id AND status != 'LIDO'";
-   
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindValue(":id", $idUsuario);
-    $stmt->execute();
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id", $idUsuario);
+        $stmt->execute();
 
 
-    $count = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $count;
-}
+        $count = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $count;
+    }
 
 
 
@@ -122,21 +122,79 @@ class NotificacaoDAO
         $stmt->execute();
     }
 
+    public function notificarProfessorPorNovaInscricao($idOportunidade)
+    {
+        // Passo 1: Busca os dados da oportunidade
+        $sql = "SELECT o.titulo, o.tipoOportunidade, o.professor_responsavel
+            FROM oportunidades o
+            WHERE o.idOportunidades = :idOportunidade";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":idOportunidade", $idOportunidade, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$dados) return;
+
+        $titulo = $dados["titulo"];
+        $nomeProfessor = $dados["professor_responsavel"];
+
+        // Passo 2: Busca o ID do professor
+        $sqlProf = "SELECT idUsuarios FROM usuarios WHERE nomeCompleto = :nomeProfessor LIMIT 1";
+        $stmtProf = $this->conn->prepare($sqlProf);
+        $stmtProf->bindValue(":nomeProfessor", $nomeProfessor);
+        $stmtProf->execute();
+
+        $professor = $stmtProf->fetch(PDO::FETCH_ASSOC);
+        if (!$professor) return;
+
+        $idProfessor = $professor["idUsuarios"];
+
+        // Passo 3: Cria mensagem e link
+        $mensagem = "Um novo aluno se inscreveu na sua oportunidade \"$titulo\".";
+        $link = BASEURL . "/controller/InscricaoController.php?action=listarInscritos&idOport=" . $idOportunidade;
+
+        // Passo 4: Insere notificação na tabela notificacoes
+        $sqlInsertNotificacao = "INSERT INTO notificacoes (mensagem, link, idOportunidade, dataEnvio)
+                             VALUES (:mensagem, :link, :idOportunidade, NOW())";
+        $stmtInsertNotificacao = $this->conn->prepare($sqlInsertNotificacao);
+        $stmtInsertNotificacao->bindValue(":mensagem", $mensagem);
+        $stmtInsertNotificacao->bindValue(":link", $link);
+        $stmtInsertNotificacao->bindValue(":idOportunidade", $idOportunidade, PDO::PARAM_INT);
+        $stmtInsertNotificacao->execute();
+
+        $idNotificacao = $this->conn->lastInsertId();
+
+        // Passo 5: Relaciona com o professor
+        $sqlInsertRelacao = "INSERT INTO notificacoes_usuarios (idNotificacao, idUsuario, status)
+                         VALUES (:idNotificacao, :idUsuario, 'ENVIADO')";
+        $stmtInsertRelacao = $this->conn->prepare($sqlInsertRelacao);
+        $stmtInsertRelacao->bindValue(":idNotificacao", $idNotificacao, PDO::PARAM_INT);
+        $stmtInsertRelacao->bindValue(":idUsuario", $idProfessor, PDO::PARAM_INT);
+        $stmtInsertRelacao->execute();
+    }
+
+
+
 
     // Listar notificações por usuário
     public function listByUsuario(int $idUsuario)
     {
-        $sql = "SELECT n.* FROM notificacoes AS n
-                INNER JOIN notificacoes_usuarios AS nu
+        $sql = "SELECT n.idNotificacoes, n.mensagem, n.dataEnvio, n.link, n.idOportunidade
+            FROM notificacoes AS n
+            INNER JOIN notificacoes_usuarios AS nu
                 ON n.idNotificacoes = nu.idNotificacao
-                WHERE nu.idUsuario = :idUsuario AND nu.status != 'LIDO'";
-
+            WHERE nu.idUsuario = :idUsuario
+              AND nu.status != 'LIDO'
+            ORDER BY n.dataEnvio DESC";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":idUsuario", $idUsuario, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
 
 
     public function atualizarStatusPorUsuario($idUsuario, $idNotificacao)
