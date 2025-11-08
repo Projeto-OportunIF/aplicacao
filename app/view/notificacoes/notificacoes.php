@@ -49,12 +49,24 @@ if (isset($_SESSION["usuario_tipo"])) {
                         <i class="bi bi-check-circle"></i> Marcar como lido
                     </a>
 
-                    <?php if (!empty($idOport)): ?>
-                        <a href="<?= BASEURL . '/controller/InscricaoController.php?action=listarInscritos&idOport=' . $idOport ?>"
-                            class="btn btn-primary">
-                            <i class="bi bi-people"></i> Visualizar Inscritos
-                        </a>
-                    <?php endif; ?>
+                    <?php
+                    // Exibe o botão apenas se houver uma oportunidade associada
+                    if (!empty($idOport)) {
+                        // Busca o tipo da oportunidade
+                        $oportunidadeDAO = new OportunidadeDAO();
+                        $oportunidade = $oportunidadeDAO->findById($idOport);
+
+                        // Exibe o botão apenas se não for estágio
+                        if ($oportunidade && $oportunidade->getTipoOportunidade() !== 'ESTAGIO'): ?>
+                            <a class="btn btn-info"
+                                href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $idOport ?>">
+                                <i class="bi bi-people"></i> Visualizar Inscritos
+                            </a>
+                    <?php endif;
+                    }
+                    ?>
+
+
                 </div>
             </div>
         <?php endforeach; ?>
