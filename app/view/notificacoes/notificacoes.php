@@ -2,16 +2,17 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
+require_once(__DIR__ . "/../../model/enum/OportunidadeTipo.php"); // 🔹 importa o enum
 
-if (isset($_SESSION["usuario_tipo"])) {
-    switch ($_SESSION["usuario_tipo"]) {
-        case "professor":
+if (isset($_SESSION["usuarioLogadoTipo"])) {
+    switch ($_SESSION["usuarioLogadoTipo"]) {
+        case "PROFESSOR":
             $homePage = BASEURL . "/controller/HomeController.php?action=homeProfessor";
             break;
-        case "admin":
+        case "ADMIN":
             $homePage = BASEURL . "/controller/HomeController.php?action=homeAdmin";
             break;
-        case "aluno":
+        case "ALUNO":
         default:
             $homePage = BASEURL . "/controller/HomeController.php?action=homeAluno";
             break;
@@ -37,35 +38,38 @@ if (isset($_SESSION["usuario_tipo"])) {
             $mensagem = $notificacao['mensagem'] ?? '';
             $dataEnvio = $notificacao['dataEnvio'] ?? '';
 
-            // Formatar a data no formato brasileiro
+            // Formatar data
             if (!empty($dataEnvio)) {
                 $dataEnvio = date("d/m/Y", strtotime($dataEnvio));
             }
 
-            // Busca o tipo da oportunidade se existir
+            // Buscar tipo de oportunidade
             $tipoOportunidade = "";
             if (!empty($idOport)) {
                 $oportunidadeDAO = new OportunidadeDAO();
                 $oportunidade = $oportunidadeDAO->findById($idOport);
                 if ($oportunidade) {
-                    $tipoOportunidade = ucfirst(strtolower($oportunidade->getTipoOportunidade()));
+                    $tipoOportunidade = OportunidadeTipo::getLabel($oportunidade->getTipoOportunidade());
                 }
             }
             ?>
             <div class="card-oportunidade">
+                <h3><?= htmlspecialchars($mensagem) ?></h3>
+
                 <?php if (!empty($tipoOportunidade)): ?>
-                    <p><strong>Tipo da Oportunidade:</strong> <?= htmlspecialchars($tipoOportunidade) ?></p>
+                    <p class="tipo-oportunidade">
+                        <strong>Tipo da Oportunidade:</strong> <?= htmlspecialchars($tipoOportunidade) ?>
+                    </p>
                 <?php endif; ?>
 
-                <h3><?= htmlspecialchars($mensagem) ?></h3>
                 <p><strong>Data:</strong> <?= htmlspecialchars($dataEnvio) ?></p>
-                <?php if (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'professor'): ?>
+
+                <?php if (isset($_SESSION['usuarioLogadoTipo']) && $_SESSION['usuarioLogadoTipo'] === 'PROFESSOR'): ?>
                     <p class="descricao-fixa">
                         Você tem uma nova inscrição nessa oportunidade. Clique em
                         <strong>"Visualizar Inscritos"</strong> para visualizá-los.
                     </p>
                 <?php endif; ?>
-
 
                 <div class="acoes-notificacao">
                     <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=atualizarStatusPorUsuario&id_notificacao=' . $idNot ?>"

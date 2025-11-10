@@ -210,3 +210,11 @@ body {
     color: #41181e;
 }
 
+.tipo-oportunidade {
+    color: #fcfcfc;
+    font-size: 15px;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
