@@ -1,5 +1,5 @@
 body {
-    background-color: #fff4f6;
+    background-color: #c2eeba;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -84,11 +84,11 @@ body {
     }
 
 .btn-disabled:hover {
-    background-color: #f5c6cb; 
+    background-color: #dbf5c6; 
 
 }
 .btn-voltar {
-    background-color: #cf4a67;
+    background-color: #74c96c;
     color: #fff;
     border-radius: 25px;
     padding: 10px 25px;
