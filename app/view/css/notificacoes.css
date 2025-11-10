@@ -39,7 +39,7 @@ body {
 
 /* Cada card individual */
 .card-oportunidade {
-    background-color: #cf4763;
+    background-color: #cf4d67;
     color: white;
     padding: 20px;
     border-radius: 15px;
@@ -88,7 +88,7 @@ body {
 
 }
 .btn-voltar {
-    background-color: #c23956;
+    background-color: #cf4a67;
     color: #fff;
     border-radius: 25px;
     padding: 10px 25px;
@@ -133,5 +133,46 @@ body {
     display: inline;
     margin: 0;
     vertical-align: middle;
+}
+
+.mensagem-fixa {
+    font-size: 0.95rem;
+    color: #fff;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+/* 🔘 Botão "Marcar como lido" - Rosa claro */
+.btn-marcar-lido {
+    background-color: #961938 !important;
+    color: #fff !important;
+    border: none !important;
+    transition: 0.3s;
+}
+
+.btn-marcar-lido:hover {
+    background-color: #eec2cb !important;
+    transform: scale(1.05);
+}
+
+/* Botão "Visualizar Inscritos" - Verde claro */
+.btn-visualizar-inscritos {
+    background-color: #a5da82 !important;
+    color: #000 !important;
+    border: none !important;
+    transition: 0.3s;
+}
+
+.btn-visualizar-inscritos:hover {
+    background-color: #9ad637 !important;
+    transform: scale(1.05);
+}
+
+/*  Ajuste geral dos botões dentro das notificações */
+.card-oportunidade .acoes-notificacao {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: flex-start;
 }
 

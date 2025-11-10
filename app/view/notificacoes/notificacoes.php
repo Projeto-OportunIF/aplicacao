@@ -3,8 +3,6 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
 
-
-
 if (isset($_SESSION["usuario_tipo"])) {
     switch ($_SESSION["usuario_tipo"]) {
         case "professor":
@@ -38,35 +36,47 @@ if (isset($_SESSION["usuario_tipo"])) {
             $idOport = $notificacao['idOportunidade'] ?? null;
             $mensagem = $notificacao['mensagem'] ?? '';
             $dataEnvio = $notificacao['dataEnvio'] ?? '';
+
+            // dia/mês/ano
+            $dataFormatada = '';
+            if (!empty($dataEnvio)) {
+                $dataFormatada = date('d/m/Y', strtotime($dataEnvio));
+            }
             ?>
             <div class="card-oportunidade">
                 <h3><?= htmlspecialchars($mensagem) ?></h3>
-                <p><strong>Data:</strong> <?= htmlspecialchars($dataEnvio) ?></p>
+
+                <!-- Mensagem fixa -->
+                <p class="mensagem-fixa">
+                    Você tem uma nova inscrição nessa oportunidade.
+                    Clique em <strong>"Visualizar Inscritos"</strong> para visualizá-los.
+                </p>
+
+                <p><strong>Data:</strong> <?= htmlspecialchars($dataFormatada) ?></p>
 
                 <div class="acoes-notificacao">
                     <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=atualizarStatusPorUsuario&id_notificacao=' . $idNot ?>"
-                        class="btn btn-secondary">
+                        class="btn btn-marcar-lido">
                         <i class="bi bi-check-circle"></i> Marcar como lido
                     </a>
+
 
                     <?php
                     // Exibe o botão apenas se houver uma oportunidade associada
                     if (!empty($idOport)) {
-                        // Busca o tipo da oportunidade
                         $oportunidadeDAO = new OportunidadeDAO();
                         $oportunidade = $oportunidadeDAO->findById($idOport);
 
                         // Exibe o botão apenas se não for estágio
                         if ($oportunidade && $oportunidade->getTipoOportunidade() !== 'ESTAGIO'): ?>
-                            <a class="btn btn-info"
+                            <a class="btn btn-visualizar-inscritos"
                                 href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $idOport ?>">
-                                <i class="bi bi-people"></i> Visualizar Inscritos
+                                <i class=""></i> Visualizar Inscritos
                             </a>
+
                     <?php endif;
                     }
                     ?>
-
-
                 </div>
             </div>
         <?php endforeach; ?>
@@ -76,10 +86,6 @@ if (isset($_SESSION["usuario_tipo"])) {
             <p>Não há notificações no momento.</p>
         </div>
     <?php endif; ?>
-
-
 </div>
-
-
 
 <?php require_once(__DIR__ . "/../include/footer.php"); ?>
