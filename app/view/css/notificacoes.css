@@ -176,3 +176,37 @@ body {
     justify-content: flex-start;
 }
 
+.btn-marcar-lido {
+    background-color: #f08497;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 8px 14px;
+    transition: 0.3s;
+}
+
+.btn-marcar-lido:hover {
+    background-color: #e67288;
+}
+
+.btn-visualizar {
+    background-color: #aee441;
+    border: none;
+    color: #fcf9f9;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 8px 14px;
+    transition: 0.3s;
+}
+
+.btn-visualizar:hover {
+    background-color: #9cd73a;
+}
+
+.descricao-fixa {
+    margin-top: 10px;
+    font-style: italic;
+    color: #41181e;
+}
+

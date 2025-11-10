@@ -37,22 +37,35 @@ if (isset($_SESSION["usuario_tipo"])) {
             $mensagem = $notificacao['mensagem'] ?? '';
             $dataEnvio = $notificacao['dataEnvio'] ?? '';
 
-            // dia/mês/ano
-            $dataFormatada = '';
+            // Formatar a data no formato brasileiro
             if (!empty($dataEnvio)) {
-                $dataFormatada = date('d/m/Y', strtotime($dataEnvio));
+                $dataEnvio = date("d/m/Y", strtotime($dataEnvio));
+            }
+
+            // Busca o tipo da oportunidade se existir
+            $tipoOportunidade = "";
+            if (!empty($idOport)) {
+                $oportunidadeDAO = new OportunidadeDAO();
+                $oportunidade = $oportunidadeDAO->findById($idOport);
+                if ($oportunidade) {
+                    $tipoOportunidade = ucfirst(strtolower($oportunidade->getTipoOportunidade()));
+                }
             }
             ?>
             <div class="card-oportunidade">
+                <?php if (!empty($tipoOportunidade)): ?>
+                    <p><strong>Tipo da Oportunidade:</strong> <?= htmlspecialchars($tipoOportunidade) ?></p>
+                <?php endif; ?>
+
                 <h3><?= htmlspecialchars($mensagem) ?></h3>
+                <p><strong>Data:</strong> <?= htmlspecialchars($dataEnvio) ?></p>
+                <?php if (isset($_SESSION['usuario_tipo']) && $_SESSION['usuario_tipo'] === 'professor'): ?>
+                    <p class="descricao-fixa">
+                        Você tem uma nova inscrição nessa oportunidade. Clique em
+                        <strong>"Visualizar Inscritos"</strong> para visualizá-los.
+                    </p>
+                <?php endif; ?>
 
-                <!-- Mensagem fixa -->
-                <p class="mensagem-fixa">
-                    Você tem uma nova inscrição nessa oportunidade.
-                    Clique em <strong>"Visualizar Inscritos"</strong> para visualizá-los.
-                </p>
-
-                <p><strong>Data:</strong> <?= htmlspecialchars($dataFormatada) ?></p>
 
                 <div class="acoes-notificacao">
                     <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=atualizarStatusPorUsuario&id_notificacao=' . $idNot ?>"
@@ -60,26 +73,16 @@ if (isset($_SESSION["usuario_tipo"])) {
                         <i class="bi bi-check-circle"></i> Marcar como lido
                     </a>
 
-
-                    <?php
-                    // Exibe o botão apenas se houver uma oportunidade associada
-                    if (!empty($idOport)) {
-                        $oportunidadeDAO = new OportunidadeDAO();
-                        $oportunidade = $oportunidadeDAO->findById($idOport);
-
-                        // Exibe o botão apenas se não for estágio
-                        if ($oportunidade && $oportunidade->getTipoOportunidade() !== 'ESTAGIO'): ?>
-                            <a class="btn btn-visualizar-inscritos"
-                                href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $idOport ?>">
-                                <i class=""></i> Visualizar Inscritos
-                            </a>
-
-                    <?php endif;
-                    }
-                    ?>
+                    <?php if (!empty($idOport) && $oportunidade && $oportunidade->getTipoOportunidade() !== 'ESTAGIO'): ?>
+                        <a class="btn btn-visualizar"
+                            href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $idOport ?>">
+                            <i class="bi bi-people"></i> Visualizar Inscritos
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>
+
     <?php else: ?>
         <div class="sem-notificacoes">
             <i class="bi bi-bell-slash"></i>
