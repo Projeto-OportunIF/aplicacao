@@ -69,6 +69,25 @@ class PerfilController extends Controller
         }
         */
 
+
+  // --- Upload da foto de perfil ---
+if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] == UPLOAD_ERR_OK) {
+    $nomeArquivo = $this->arquivoService->salvarArquivo($_FILES['fotoPerfil']);
+
+    if ($nomeArquivo) {
+        // Remove a foto antiga, se existir
+        if ($usuario->getFotoPerfil()) {
+            $this->arquivoService->removerArquivo($usuario->getFotoPerfil());
+        }
+
+        // Atualiza o banco e a sessão
+        $usuario->setFotoPerfil($nomeArquivo);
+        $this->usuarioDao->updateFotoPerfil($usuario);
+        $_SESSION[SESSAO_USUARIO_FOTO_PERFIL] = $nomeArquivo;
+    }
+}
+
+
         $erros = $this->usuarioService->validarDados($usuario, $confNovaSenha);
 
         if (!$erros) {

@@ -52,7 +52,7 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
                     <img src="https://img.icons8.com/ios-glyphs/30/ffffff/plus.png" />
                     <div>escolher foto de perfil.</div>
                 </label>
-                <input type="file" id="txtFoto" name="foto" onchange="document.getElementById('frmUsuario').submit();">
+                <input type="file" id="txtFoto" name="fotoPerfil" onchange="document.getElementById('frmUsuario').submit();">
             </div>
 
             <!-- Botão Voltar -->
