@@ -2,16 +2,13 @@
 # Nome do arquivo: OportunidadeTipo.php
 # Objetivo: classe Enum para os tipos de oportunidade
 
-
 class OportunidadeTipo
 {
     public static string $SEPARADOR = "|";
 
-
     const ESTAGIO = "ESTAGIO";
     const PROJETOEXTENSAO = "PROJETOEXTENSAO";
     const PROJETOPESQUISA = "PROJETOPESQUISA";
-
 
     public static function getAllAsArray()
     {
@@ -22,8 +19,7 @@ class OportunidadeTipo
         ];
     }
 
-
-    // (opcional) Se quiser exibir os nomes "bonitos" no <option>
+    // Retorna um nome mais "bonito" para o tipo
     public static function getLabel($tipo)
     {
         switch ($tipo) {
@@ -37,4 +33,6 @@ class OportunidadeTipo
                 return $tipo;
         }
     }
+
+    
 }
