@@ -19,7 +19,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
     }
 }
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/notificacoes.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/notificacoess.css">
 
 <h2 class="titulo-pagina">TELA DE NOTIFICAÇÕES</h2>
 
