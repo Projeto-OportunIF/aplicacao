@@ -34,11 +34,12 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
 
         </div>
 
-        <div class="botao-editar-container">
-            <a href="<?php echo BASEURL . '/controller/PerfilController.php?action=editarPerfil'; ?>">
-                Editar dados pessoais
-            </a>
-        </div>
+            <div class="botao-editar-container" style="text-align: left; margin-top: 11px; margin-left: 3px;">
+                    <a href="<?php echo BASEURL . '/controller/PerfilController.php?action=editarPerfil'; ?>" 
+                    style="background-color: #d9426b; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                        Editar dados pessoais
+                    </a>
+                </div>
 
         <form id="frmUsuario" method="POST"
             action="<?= BASEURL ?>/controller/PerfilController.php?action=save"
@@ -57,7 +58,7 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
 
             <!-- Botão Voltar -->
             <div class="botao-voltar-container">
-                <a href="<?= $homePage ?>" class="botao-voltar">← Voltar</a>
+                <a href="<?= $homePage ?>" class="botao-voltar">Voltar</a>
             </div>
 
         </form>
