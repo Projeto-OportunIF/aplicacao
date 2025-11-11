@@ -97,7 +97,6 @@ $usuario = $dados["usuario"];
                 <?php endif; ?>
             </div>
 
-
             <!-- Foto de Perfil -->
             <div class="mb-3">
                 <?php if (!empty($usuario->getFotoPerfil())): ?>
@@ -107,10 +106,15 @@ $usuario = $dados["usuario"];
                 <?php endif; ?>
             </div>
 
-            <!-- Botão Salvar -->
-            <div class="text-center">
+            <!-- Botões -->
+            <div class="text-center d-flex justify-content-center gap-3">
+                <!-- Botão Voltar -->
+                <a href="<?php echo BASEURL . '/controller/PerfilController.php?action=view'; ?>" class="btn btn-secondary">Voltar</a>
+                
+                <!-- Botão Salvar -->
                 <button type="submit" class="btn btn-pink">Salvar Alterações</button>
             </div>
+
         </form>
     </div>
 </div>
@@ -151,6 +155,22 @@ $usuario = $dados["usuario"];
         background-color: #c9385f;
     }
 
+    .btn-secondary {
+        background-color: #7b8d5b;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        transition: background 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-secondary:hover {
+        background-color: #7b8d5b;
+        color: #fff;
+    }
+
     .alert ul {
         margin: 0;
         padding-left: 20px;
@@ -159,6 +179,14 @@ $usuario = $dados["usuario"];
     .form_error_message {
         color: #cf3b4aff;
         font-style: italic;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .gap-3 {
+        gap: 15px;
     }
 </style>
 

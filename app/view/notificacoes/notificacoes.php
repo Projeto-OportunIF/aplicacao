@@ -19,7 +19,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
     }
 }
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/notificacoes.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/notificacoess.css">
 
 <h2 class="titulo-pagina">TELA DE NOTIFICAÇÕES</h2>
 
@@ -66,7 +66,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
 
                 <?php if (isset($_SESSION['usuarioLogadoTipo']) && $_SESSION['usuarioLogadoTipo'] === 'PROFESSOR'): ?>
                     <p class="descricao-fixa">
-                        Você tem uma nova inscrição nessa oportunidade. Clique em
+                        Você tem um novo inscrito nessa oportunidade. Clique em
                         <strong>"Visualizar Inscritos"</strong> para visualizá-los.
                     </p>
                 <?php endif; ?>

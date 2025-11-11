@@ -47,7 +47,7 @@ footer {
 
 .botao-voltar {
     display: inline-block;
-    background-color: #b7cd8c;
+    background-color: #7b8d5b;
     color: white;
     padding: 10px 25px;
     text-decoration: none;
@@ -59,6 +59,7 @@ footer {
 .botao-voltar:hover {
     background-color: #b73658;
 }
+
 
 .perfil-container {
     background-color: #e6f1d7;
