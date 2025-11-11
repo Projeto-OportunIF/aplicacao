@@ -11,7 +11,7 @@ require_once(__DIR__ . "/../include/menu.php");
 <h3 class="text-center">Oportunidades Inseridas</h3>
 
 <div class="container text-center" style="margin-top: 30px;">
-    <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=list" class="btn-voltar">
+    <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeProfessor" class="btn-voltar">
         <i class="bi bi-arrow-left-circle"></i> Voltar
     </a>
 </div>

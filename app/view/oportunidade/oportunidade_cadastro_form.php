@@ -58,7 +58,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
 
                 <div class="mb-3">
-                    <label class="form-label" for="documentoEdital">Documento do Edital:</label>
+                    <label class="form-label" for="documentoEdital">Documento de Edital da Oportunidade:</label>
                     <input class="form-control" type="file" id="documentoEdital" name="documentoEdital" accept=".pdf,.doc,.docx" />
 
 
@@ -148,7 +148,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
                 <!-- Checkbox Documento Anexo -->
                 <div class="mb-3 documento-seletor">
-                    <label class="form-label" for="documento">Possui Documento em Anexo?</label>
+                    <label class="form-label" for="documento">O aluno deve possuir algum requisito para participar da oportunidade?</label>
                     <label class="switch">
                         <input class="checkbox" type="checkbox" name="temDocumento" value="1"
                             <?= (isset($_POST['temDocumento']) && $_POST['temDocumento'] == "1") ||
