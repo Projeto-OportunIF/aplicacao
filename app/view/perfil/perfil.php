@@ -17,7 +17,7 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
             <h3 class="text-center">Perfil</h3>
 
             <div class="perfil-info">
-            <div><span class="info-label">NOME:</span> <?= $dados['usuario']->getNomeCompleto() ?></div>
+            <div><span class="info-label">NOME COMPLETO:</span> <?= $dados['usuario']->getNomeCompleto() ?></div>
             <div><span class="info-label">EMAIL:</span> <?= $dados['usuario']->getEmail() ?></div>
             <div><span class="info-label">TIPO DE USUÁRIO:</span> <?= $dados['usuario']->getTipoUsuario() ?></div>
             <?php if ($dados['usuario']->getTipoUsuario() === 'ALUNO') { ?>

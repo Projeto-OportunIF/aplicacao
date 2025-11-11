@@ -85,4 +85,36 @@ class Controller
 
         return false;
     }
+
+    protected function verificarPermissao(array $tiposPermitidos)
+{
+    if (session_status() != PHP_SESSION_ACTIVE)
+        session_start();
+
+    if (!isset($_SESSION[SESSAO_USUARIO_TIPO])) {
+        $_SESSION['msgErro'] = "Você precisa estar logado para acessar esta página.";
+        header("Location: " . LOGIN_PAGE);
+        exit;
+    }
+
+    $tipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO];
+
+    if (!in_array($tipoUsuario, $tiposPermitidos)) {
+        $_SESSION['msgErro'] = "🚫 Você não tem permissão para acessar esta área.";
+
+        switch ($tipoUsuario) {
+            case UsuarioTipo::ADMINISTRADOR:
+                header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAdministrador");
+                break;
+            case UsuarioTipo::PROFESSOR:
+                header("Location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
+                break;
+            case UsuarioTipo::ALUNO:
+                header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
+                break;
+        }
+        exit;
+    }
+}
+
 }

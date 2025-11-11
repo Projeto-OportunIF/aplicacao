@@ -24,9 +24,9 @@ require_once(__DIR__ . "/../include/header.php");
 
         <form id="frmUsuario" method="POST" action="<?= BASEURL ?>/controller/AutoCadastroController.php?action=save">
             <div class="mb-3">
-                <label class="form-label" for="txtNomeCompleto">Nome:</label>
+                <label class="form-label" for="txtNomeCompleto">Nome Completo:</label>
                 <input class="form-control" type="text" id="txtNomeCompleto" name="nomeCompleto"
-                    maxlength="70" placeholder="Informe o nome"
+                    maxlength="70" placeholder="Informe o nome completo"
                     value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNomeCompleto() : ''); ?>" />
 
                 <?php if (isset($dados['erros']['nome'])): ?>
