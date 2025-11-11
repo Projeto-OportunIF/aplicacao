@@ -19,7 +19,7 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
         <?php foreach ($dados["oportunidades"] as $op): ?>
             <div class="card-oportunidade">
                 <h3><?= htmlspecialchars($op->getTitulo()) ?></h3>
-                <p><?= nl2br($op->getDescricao()) ?></p>
+              
 
                 <p><strong>Professor Responsável:</strong> <?= htmlspecialchars($op->getProfessorResponsavel() ?? "Não definido") ?></p>
                 <p>

@@ -2,6 +2,13 @@
 #Nome do arquivo: oportunidade_inscricao.php
 #Objetivo: interface para inscrição em oportunidade
 
+$voltarUrl = $_SERVER['HTTP_REFERER'] ?? (BASEURL . "/controller/HomeController.php?action=homeAluno");
+
+// Pequena proteção para evitar loops (caso o referer seja a própria página)
+if (strpos($voltarUrl, 'inscricao') !== false) {
+    $voltarUrl = BASEURL . "/controller/HomeController.php?action=homeAluno";
+}
+
 
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
@@ -76,7 +83,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
         <!-- Coluna direita rosa -->
         <div class="col-md-5 inscricao-figura">
-            <a href="<?= BASEURL ?>/controller/HomeController.php?action=homeAluno" class="btn-voltar">
+           <a href="<?= htmlspecialchars($voltarUrl) ?>" class="btn-voltar">
                 <i class="bi bi-arrow-left-circle"></i> Voltar
             </a>
             <img src="<?= BASEURL ?>/view/img/inscricao.png" alt="Figura inscrição">

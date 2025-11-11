@@ -17,7 +17,7 @@ require_once(__DIR__ . "/../include/menu.php");
     </a>
 
     <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=list" class="botao-opcao">
-        <div class="texto-botao">VIZUALIZAR</div>
+        <div class="texto-botao">VISUALIZAR</div>
         <div class="botao-quadrado">
             <img src="<?= BASEURL ?>/view/img/visualizar_oportunidade.png" alt="Visualizar">
         </div>
