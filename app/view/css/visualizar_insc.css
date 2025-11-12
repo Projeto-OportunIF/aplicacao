@@ -1,0 +1,174 @@
+/* ======= ESTILO GERAL ======= */
+body {
+    background-color: #eafdc5; /* fundo bem claro puxando pro verde */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ======= TÍTULO ======= */
+h3 {
+    font-weight: 700;
+    color: #c23956;
+    margin: 30px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    border-bottom: 3px solid #79a050;
+    display: inline-block;
+    padding-bottom: 5px;
+    font-size: 1.6rem;
+}
+
+/* ======= CONTAINER DE TABELA ======= */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto; /* ativa rolagem horizontal se necessário */
+    -webkit-overflow-scrolling: touch;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    margin: 20px auto;
+    border: 2px solid #c1dba5;
+    padding: 10px;
+}
+
+/* ======= CABEÇALHO DA TABELA ======= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* evita quebra em colunas muito pequenas */
+}
+
+table th {
+    background: linear-gradient(135deg, #c23956, #a52c45);
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 12px;
+    color: #fff;
+    border: none;
+}
+
+/* ======= CORPO DA TABELA ======= */
+table td {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+    padding: 12px;
+    background-color: #e3f8b8 !important; /* força a cor */
+    word-break: break-word; /* quebra textos longos */
+}
+
+/* Linhas alternadas */
+table tr:nth-child(even) td {
+    background-color: #f7ffde !important;
+}
+
+/* ======= SELECT STATUS ======= */
+.form-select-sm {
+    border-radius: 12px;
+    border: 2px solid #c23956;
+    padding: 5px 10px;
+    transition: 0.3s;
+    width: 100%;
+    max-width: 180px;
+}
+
+/* ======= BOTÕES ======= */
+.btn-voltar {
+    background-color: #c23956;
+    color: #fff;
+    border-radius: 25px;
+    padding: 10px 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+    margin: 10px 0 10px 10px; 
+    white-space: nowrap;
+}
+
+.btn-voltar:hover {
+    background-color: #6b1c2f;
+    transform: translateY(-2px);
+}
+
+.btn-salvar {
+    background: linear-gradient(135deg, #c23956, #a52c45);
+    color: #fff;
+    border-radius: 25px;
+    padding: 5px 25px;
+    font-weight: 600;
+    border: 2px solid #8f203c;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    white-space: nowrap;
+}
+
+.btn-salvar:hover {
+    background: linear-gradient(135deg, #a52c45, #c23956);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* ======= RESPONSIVIDADE ======= */
+
+/* Telas médias (tablets) */
+@media (max-width: 992px) {
+    h3 {
+        font-size: 1.4rem;
+    }
+
+    table {
+        min-width: 100%; /* ajusta para o container */
+    }
+
+    .form-select-sm {
+        max-width: 100%;
+    }
+}
+
+/* Telas pequenas (celulares) */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        margin: 20px 0;
+    }
+
+    .btn-voltar, .btn-salvar {
+        width: 100%;
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    table {
+        font-size: 13px;
+        min-width: 500px;
+    }
+
+    .table-responsive {
+        padding: 5px;
+        box-shadow: none;
+        border: 1px solid #c1dba5;
+    }
+}
+
+/* Telas muito pequenas */
+@media (max-width: 480px) {
+    table {
+        font-size: 12px;
+        min-width: 400px;
+    }
+
+    table td, table th {
+        padding: 8px;
+    }
+}

@@ -1,0 +1,126 @@
+body {
+  background-color: #eafdc5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== TÍTULO ===== */
+.titulo {
+  text-align: center;
+  color: #d6425c;
+  font-size: 2.2rem; /* relativo ao tamanho da tela */
+  font-weight: bold;
+  margin-top: 30px;
+  padding: 0 10px;
+  word-wrap: break-word;
+}
+
+/* ===== CONTAINER DOS BOTÕES ===== */
+.container-botoes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* quebra linha se faltar espaço */
+  gap: 40px;
+  margin: 80px 20px;
+}
+
+/* ===== BOTÃO ===== */
+.botao-opcao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #d6425c;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ===== QUADRADO ===== */
+.botao-quadrado {
+  width: 180px;
+  height: 180px;
+  background-color: #d6425c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  transition: transform 0.2s ease;
+}
+
+.botao-quadrado:hover {
+  transform: scale(1.05);
+}
+
+.botao-quadrado img {
+  width: 120px;
+  height: auto;
+  max-height: 100px;
+}
+
+/* ===== TEXTO ABAIXO DO BOTÃO ===== */
+.texto-botao {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+/* ===== MENSAGEM DE ERRO ===== */
+.msg-erro {
+  padding: 12px 15px;
+  margin: 20px auto;
+  border-radius: 8px;
+  max-width: 90%;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+}
+
+/* ===== ANIMAÇÃO ===== */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+  .titulo {
+    font-size: 1.8rem;
+  }
+
+  .botao-quadrado {
+    width: 150px;
+    height: 150px;
+  }
+
+  .botao-quadrado img {
+    width: 90px;
+  }
+
+  .texto-botao {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-botoes {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-top: 50px;
+  }
+
+  .botao-quadrado {
+    width: 130px;
+    height: 130px;
+  }
+
+  .titulo {
+    font-size: 1.6rem;
+  }
+}

@@ -3,7 +3,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f4ffe0;
+    background-color: #eafdc5;
     ;
     color: #b03653;
 }
@@ -42,7 +42,7 @@ body {
 
 /* Cada card individual */
 .card-oportunidade {
-    background-color: #aecc77;
+    background-color: #a1bd70;
     /* verde suave do Oportunif */
     color: white;
     border-radius: 15px;

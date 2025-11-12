@@ -35,7 +35,7 @@ class OportunidadeService
         }
 
         if (!$oportunidade->getVaga()) {
-            $erros['vaga'] = "O campo Vaga é obrigatório.";
+            $erros['vaga'] = "O campo Quantidade de Vagas é obrigatório.";
         }
 
         if (!$oportunidade->getCurso()) {
