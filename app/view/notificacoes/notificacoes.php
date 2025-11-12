@@ -10,7 +10,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
             $homePage = BASEURL . "/controller/HomeController.php?action=homeProfessor";
             break;
         case "ADMIN":
-            $homePage = BASEURL . "/controller/HomeController.php?action=homeAdmin";
+            $homePage = BASEURL . "/controller/HomeController.php?action=homeAdministrador";
             break;
         case "ALUNO":
         default:
@@ -88,6 +88,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
         <?php endforeach; ?>
 
     <?php else: ?>
+              </div>
         <div class="sem-notificacoes">
             <i class="bi bi-bell-slash"></i>
             <p>Não há notificações no momento.</p>

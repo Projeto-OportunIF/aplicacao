@@ -44,7 +44,8 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
         
     <?php else: ?>
   
-        <div class="sem-oportunidades">
+      </div>
+     <div class="sem-oportunidades">
              <i class="bi bi-info-circle"></i>
             <p>Não há oportunidades no momento.</p>
         </div>
