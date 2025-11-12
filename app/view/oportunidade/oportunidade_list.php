@@ -6,7 +6,7 @@ require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_listasa.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_listagens.css">
 
 <h3 class="text-center">Oportunidades Inseridas</h3>
 
