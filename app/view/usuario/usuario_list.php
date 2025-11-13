@@ -5,7 +5,7 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/usuario_list.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/usuario_listaa.css">
 
 <h3>Usuários no Sistema</h3>
 

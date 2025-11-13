@@ -1,12 +1,14 @@
 /* Estilo geral do body */
 body {
-    background-color: #d4f4c1;
+    background-color: #eafdc5;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 /* Títulos */
 h3 {
-  text-align: center;
+    text-align: center;
     color: #d6425c;
     font-size: 38px;
     font-weight: bold;
@@ -44,6 +46,8 @@ h3 {
 .container.table-container {
     max-width: 1200px;
     margin: auto;
+    padding: 20px;
+    
 }
 
 /* Layout dos cards */
@@ -52,6 +56,7 @@ h3 {
     flex-wrap: wrap;
     gap: 60px;
     justify-content: center;
+    padding-bottom: 80px;
 }
 
 /* Estilo dos cards de usuário */
@@ -65,6 +70,7 @@ h3 {
     display: flex;           
     flex-direction: column;  
     justify-content: space-between; 
+    text-align: left;
 }
 
 /* Texto dentro do card */
@@ -83,6 +89,7 @@ h3 {
     transition: background-color 0.3s ease;
     align-self: flex-start;   
 }
+
 .user-card .btn-primary {
     background-color: #227bc5; 
     color: white;
@@ -99,4 +106,81 @@ h3 {
 
 .user-card .btn-danger:hover {
     background-color: #bd2130;
+}
+
+/* ============================= */
+/*         RESPONSIVIDADE        */
+/* ============================= */
+
+/* Tablets (até 992px) */
+@media (max-width: 992px) {
+    h3 {
+        font-size: 32px;
+    }
+
+    .user-cards {
+        gap: 40px;
+         padding-bottom: 60px
+    }
+
+    .user-card {
+        width: 300px;
+        padding: 18px 25px;
+    }
+}
+
+/* Celulares médios (até 768px) */
+@media (max-width: 768px) {
+    h3 {
+        font-size: 28px;
+    }
+
+    .user-cards {
+        gap: 25px;
+         padding-bottom: 60px
+    }
+
+    .user-card {
+        width: 85%;
+        padding: 18px;
+    }
+
+    .user-card p {
+        font-size: 0.95em;
+    }
+
+    .btn-success, .btn-secondary {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
+
+/* Celulares pequenos (até 480px) */
+@media (max-width: 480px) {
+    h3 {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+
+    .user-card {
+        width: 78%;
+        padding: 15px;
+    }
+
+    .user-card p {
+        font-size: 0.9em;
+    }
+
+    .user-card .btn {
+        font-size: 0.85em;
+        padding: 6px 12px;
+        margin-top: 8px;
+    }
+
+    .user-cards {
+        flex-direction: column;
+        align-items: center;
+         padding-bottom: 60px
+    }
 }
