@@ -1,0 +1,168 @@
+/* ===== ESTILO GERAL ===== */
+body {
+    background-color: #eafdc5;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== TÍTULOS ===== */
+h3 {
+    text-align: center;
+    color: #c72a47;
+    font-size: 38px;
+    font-weight: bold;
+    margin: 30px 10px 20px;
+}
+
+/* ===== BOTÕES PRINCIPAIS ===== */
+.btn-success, .btn-secondary {
+    border-radius: 12px;
+    padding: 7px 17px;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+.btn-success {
+    background-color: #c63f57;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #8a2336;
+}
+
+.btn-secondary {
+    background-color: #c63f57;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #8a2336;
+}
+
+/* ===== CONTAINER DOS CARDS ===== */
+.container.table-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* ===== LAYOUT DOS CARDS ===== */
+.user-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    justify-content: center;
+    padding-bottom: 80px; /* Evita que o último card grude no footer */
+}
+
+/* ===== CARD DE USUÁRIO ===== */
+.user-card {
+    background-color: #b2d46e;
+    color: white;
+    border-radius: 25px;
+    padding: 20px 30px;
+    width: 310px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* ===== TEXTO DENTRO DO CARD ===== */
+.user-card p {
+    margin: 5px 0;
+    font-weight: bold;
+    color: #333;
+}
+
+/* ===== BOTÕES DO CARD ===== */
+.user-card .btn {
+    border-radius: 10px;
+    padding: 6px 12px;
+    margin-right: 15px;
+    font-size: 0.9em;
+    border: none;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+}
+
+.user-card .btn-primary {
+    background-color: #227bc5; 
+    color: white;
+}
+
+.user-card .btn-primary:hover {
+    background-color: #0c4f86;
+}
+
+.user-card .btn-danger {
+    background-color: #e42525; 
+    color: white;
+}
+
+.user-card .btn-danger:hover {
+    background-color: #bd2130;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+/* Telas médias (tablets) */
+@media (max-width: 992px) {
+    h3 {
+        font-size: 32px;
+    }
+
+    .user-cards {
+        gap: 40px;
+        padding-bottom: 100px;
+    }
+
+    .user-card {
+        width: 280px;
+        padding: 18px 25px;
+    }
+}
+
+/* Telas pequenas (celulares) */
+@media (max-width: 600px) {
+    h3 {
+        font-size: 26px;
+        margin-top: 20px;
+    }
+
+    .container.table-container {
+        padding: 10px;
+    }
+
+    .user-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding-bottom: 60px; /* Espaço extra antes do footer */
+    }
+
+    .user-card {
+        width: 78%;
+        max-width: 360px;
+        padding: 18px;
+    }
+
+    .user-card p {
+        font-size: 15px;
+    }
+
+    .btn-success, .btn-secondary {
+        font-size: 14px;
+        padding: 6px 14px;
+    }
+}
