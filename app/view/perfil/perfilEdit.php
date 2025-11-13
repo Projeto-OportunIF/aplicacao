@@ -106,6 +106,7 @@ $usuario = $dados["usuario"];
                 <?php endif; ?>
             </div>
 
+
             <!-- Botões -->
             <div class="text-center d-flex justify-content-center gap-3">
                 <!-- Botão Voltar -->
@@ -114,6 +115,8 @@ $usuario = $dados["usuario"];
                 <!-- Botão Salvar -->
                 <button type="submit" class="btn btn-pink">Salvar Alterações</button>
             </div>
+
+            
 
         </form>
     </div>
@@ -165,6 +168,7 @@ $usuario = $dados["usuario"];
         text-decoration: none;
         display: inline-block;
     }
+
 
     .btn-secondary:hover {
         background-color: #7b8d5b;
