@@ -1,9 +1,9 @@
-*{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
+/* ======= RESET GERAL ======= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 /* ======= NAVBAR ======= */
 .navbar {
@@ -11,53 +11,54 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1rem;
+    padding: 0 1.2rem;
    
 }
 
-
 /* ======= LOGO ======= */
 .navbar-brand img {
-    max-height: 40px;
-    /* reduzido para caber bem em telas pequenas */
+    max-height: 38px;
     width: auto;
     height: auto;
     object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
-
-
-/* ======= FOTO DO USUÁRIO ======= */
-.navbar-nav .foto-perfil {
-    max-width: 100%;
+.navbar-brand img:hover {
+    transform: scale(1.05);
 }
-
 
 /* ======= ÁREA DO USUÁRIO (SINO + FOTO + NOME) ======= */
 .usuario-area {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     position: relative;
 }
 
-
+/* Foto e nome */
 .usuario-topo {
     display: flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
+.usuario-topo:hover {
+    opacity: 0.9;
+}
 
+/* Foto de perfil */
 .foto-perfil-wrapper {
     width: 44px;
     height: 44px;
     border-radius: 50%;
     overflow: hidden;
+    
+ 
+    flex-shrink: 0;
 }
-
-
-
 
 .foto-perfil-wrapper img {
     width: 100%;
@@ -65,19 +66,7 @@
     object-fit: cover;
 }
 
-
-    /* animação de entrada suave */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-5px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-/* ÍCONE DE NOTIFICAÇÃO */
+/* ======= ÍCONE DE NOTIFICAÇÃO ======= */
 .notificacao-link {
     position: relative;
     color: #f8c10f;
@@ -88,12 +77,10 @@
     align-items: center;
 }
 
-
 .notificacao-link:hover {
     color: #ffd966;
     transform: scale(1.1);
 }
-
 
 /* Badge vermelha */
 .notificacao-badge {
@@ -109,46 +96,137 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 }
 
+/* Centraliza o dropdown abaixo da área do usuário */
+.dropdown-menu {
+    left: 2% !important;        /* centraliza horizontalmente */
+    transform: translateX(-50%) !important;
+    right: auto !important;
+    top: 100% !important;        /* garante que fique abaixo */
+    margin-top: 8px;
+    background-color: #fff3f3;
+    border: 1px solid #f1a5a5;
+    border-radius: 12px;
+    padding: 10px 0;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    min-width: 190px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+    z-index: 1050;
+}
 
-/* Responsividade */
+/* Nome do usuário */
+.dropdown-menu span {
+    display: block;
+    font-weight: 600;
+    color: #b03653;
+    font-family: 'Poppins', sans-serif;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1a5a5;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+/* Links */
+.dropdown-menu .dropdown-item {
+    color: #b03653;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 8px 15px;
+    transition: 0.3s;
+    display: block;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f9c9c9;
+    color: #8d2b40;
+}
+
+/* Botão Sair */
+.dropdown-menu .dropdown-item.sair {
+    border-top: 1px solid #f1a5a5;
+    color: #a93232;
+    font-weight: 500;
+}
+
+/* ======= ANIMAÇÃO ======= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ======= RESPONSIVIDADE ======= */
+
+/* Tablets */
+@media (max-width: 992px) {
+    .usuario-area {
+        gap: 10px;
+    }
+
+    .foto-perfil-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+
+    .notificacao-link {
+        font-size: 1.4rem;
+    }
+}
+
+/* Celulares */
 @media (max-width: 768px) {
+    .navbar {
+        padding: 0.6rem 1rem;
+    }
+
     .usuario-area {
         gap: 8px;
     }
 
-
     .foto-perfil-wrapper {
-        width: 38px;
-        height: 38px;
+        width: 36px;
+        height: 36px;
     }
-
 
     .notificacao-link {
         font-size: 1.3rem;
     }
+
+    .dropdown-menu {
+        min-width: 160px;
+        font-size: 13px;
+    }
 }
 
-
+/* Celulares pequenos */
 @media (max-width: 480px) {
     .usuario-area {
         gap: 6px;
     }
 
-
     .foto-perfil-wrapper {
-        width: 34px;
-        height: 34px;
+        width: 36px;
+        height: 36px;
     }
-
 
     .notificacao-link {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
-
 
     .notificacao-badge {
         font-size: 0.7rem;
         top: -5px;
         right: -5px;
+    }
+
+    .dropdown-menu span {
+        font-size: 14px;
+        padding: 8px 0;
     }
 }

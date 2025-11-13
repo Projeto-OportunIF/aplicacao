@@ -12,7 +12,7 @@ require_once(__DIR__ . "/../include/menu.php");
 <?php endif; ?>
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeAdmins.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeAdminis.css">
 
 <h2 class="titulo">Adicionar ao Sistema</h2>
 

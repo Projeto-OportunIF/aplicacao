@@ -57,7 +57,7 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     
 
 
-      <ul class="navbar-nav ms-auto align-items-center">
+    
 
 
     <li class="nav-item usuario-area">
@@ -73,16 +73,19 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
             <div class="foto-perfil-wrapper">
                 <img class="foto-perfil" src="<?= $caminhoFoto ?>" alt="Foto de perfil">
             </div>
-            <span><?= $nome ?></span>
+           
         </a>
 
 
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="<?= BASEURL . '/controller/PerfilController.php?action=view' ?>">Perfil</a>
-            <a class="dropdown-item" href="<?= LOGOUT_PAGE ?>">Sair</a>
-        </div>
+       <div class="dropdown-menu">
+
+        <span><?= $nome ?></span>
+    <a class="dropdown-item" href="<?= BASEURL . '/controller/PerfilController.php?action=view' ?>"> Perfil</a>
+    <a class="dropdown-item sair" href="<?= LOGOUT_PAGE ?>"> Sair</a>
+  </div>
+  
     </li>
 
 
-</ul>
+
 </nav>
