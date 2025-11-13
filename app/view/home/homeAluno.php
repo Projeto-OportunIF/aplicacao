@@ -30,7 +30,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeAlunos.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeAlunoo.css">
 
 <h2>Escolha a modalidade que deseja visualizar</h2>
 
