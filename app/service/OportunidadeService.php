@@ -52,6 +52,13 @@ class OportunidadeService
             }
         }
 
+        if ($oportunidade->getDocumentoEdital() === null) {
+            // Nenhum arquivo enviado e nenhum documento existente
+            $erros['documentoEdital'] = "O campo Documento Edital é obrigatório.";
+        }
+
+        /*
+
         // =======================
         // Tratamento do documento edital (upload)
         // =======================
@@ -70,7 +77,7 @@ class OportunidadeService
             // Nenhum arquivo enviado e nenhum documento existente
             $erros['documentoEdital'] = "O campo Documento Edital é obrigatório.";
         }
-
+   */
         // =======================
         // Validação do Documento Anexo
         // =======================
@@ -78,6 +85,8 @@ class OportunidadeService
         if ($temDocumento && trim($oportunidade->getDocumentoAnexo()) === "") {
             $erros['documentoAnexo'] = "Você marcou que existe documento anexo, mas não informou a descrição do documento.";
         }
+
+     
 
         return $erros;
     }

@@ -32,11 +32,18 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
 <div class="cards-container">
     <?php if (count($dados["notificacoes"]) > 0): ?>
         <?php foreach ($dados["notificacoes"] as $notificacao): ?>
+
+            <?php 
+
+            //print_r($notificacao);
+            //die;
+            ?>
+
             <?php
-            $idNot = $notificacao['idNotificacoes'] ?? null;
-            $idOport = $notificacao['idOportunidade'] ?? null;
-            $mensagem = $notificacao['mensagem'] ?? '';
-            $dataEnvio = $notificacao['dataEnvio'] ?? '';
+            $idNot = $notificacao->getId() ?? null;
+            //$idOport = $notificacao['idOportunidade'] ?? null;
+            $mensagem = $notificacao->getMensagem() ?? '';
+            $dataEnvio = $notificacao->getDataEnvio() ?? '';
 
             // Formatar data
             if (!empty($dataEnvio)) {

@@ -1,13 +1,13 @@
 <?php
 class Notificacao
 {
-    private $id;
+    private int $id;
+    private int $idUsuarios;
     private $mensagem;
     private $dataEnvio;
     private $status;
-    private $idUsuarios;
 
-    public function getId()
+    public function getId():int 
     {
         return $this->id;
     }
@@ -22,6 +22,10 @@ class Notificacao
     }
     public function setMensagem($mensagem)
     {
+        if (strlen($mensagem) == 0) {
+            throw new Exception("A mensagem não pode ser vazia");
+        }
+
         $this->mensagem = $mensagem;
     }
 
