@@ -1,0 +1,154 @@
+*{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+/* ======= NAVBAR ======= */
+.navbar {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+   
+}
+
+
+/* ======= LOGO ======= */
+.navbar-brand img {
+    max-height: 40px;
+    /* reduzido para caber bem em telas pequenas */
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+
+
+/* ======= FOTO DO USUÁRIO ======= */
+.navbar-nav .foto-perfil {
+    max-width: 100%;
+}
+
+
+/* ======= ÁREA DO USUÁRIO (SINO + FOTO + NOME) ======= */
+.usuario-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+
+.usuario-topo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.foto-perfil-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+
+
+.foto-perfil-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+    /* animação de entrada suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ÍCONE DE NOTIFICAÇÃO */
+.notificacao-link {
+    position: relative;
+    color: #f8c10f;
+    font-size: 1.6rem;
+    text-decoration: none;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+
+.notificacao-link:hover {
+    color: #ffd966;
+    transform: scale(1.1);
+}
+
+
+/* Badge vermelha */
+.notificacao-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background-color: #ff0019;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .usuario-area {
+        gap: 8px;
+    }
+
+
+    .foto-perfil-wrapper {
+        width: 38px;
+        height: 38px;
+    }
+
+
+    .notificacao-link {
+        font-size: 1.3rem;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .usuario-area {
+        gap: 6px;
+    }
+
+
+    .foto-perfil-wrapper {
+        width: 34px;
+        height: 34px;
+    }
+
+
+    .notificacao-link {
+        font-size: 1.2rem;
+    }
+
+
+    .notificacao-badge {
+        font-size: 0.7rem;
+        top: -5px;
+        right: -5px;
+    }
+}

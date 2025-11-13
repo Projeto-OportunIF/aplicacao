@@ -46,7 +46,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::ALUNO)
 elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     $homePage = HOME_PAGE_PROFESSOR;
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/menus.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/menuuu.css">
 <nav class="navbar navbar-expand-md px-3 mb-3" style="background-color: #c23956">
 
 
@@ -54,46 +54,35 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
         <img src="<?= BASEURL ?>/view/img/logo.png">
     </a>
 
-    <button class="navbar-toggler" type="button"
-        data-bs-toggle="collapse" data-bs-target="#navSite">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navSite">
+    
 
 
-       <ul class="navbar-nav ms-auto mr-3">
-
-<li class="nav-item notificacao-item">
-    <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=listar' ?>" class="notificacao-link">
-        <i class="bi bi-bell-fill"></i>
-        <?php if ($notificacoes > 0): ?>
-            <span class="notificacao-badge"><?= $notificacoes ?></span>
-        <?php endif; ?>
-    </a>
-</li>
+      <ul class="navbar-nav ms-auto align-items-center">
 
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle usuario-topo" href="#" id="navbarUsuario"
-                    data-bs-toggle="dropdown">
-
-                    <div class="foto-perfil-wrapper">
-                        <img class="foto-perfil" src="<?= $caminhoFoto ?>" alt="Foto de perfil">
-
-                    </div>
-
-                    <span><?= $nome ?></span>
-                </a>
+    <li class="nav-item usuario-area">
+        <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=listar' ?>" class="notificacao-link">
+            <i class="bi bi-bell-fill"></i>
+            <?php if ($notificacoes > 0): ?>
+                <span class="notificacao-badge"><?= $notificacoes ?></span>
+            <?php endif; ?>
+        </a>
 
 
-                <div class="dropdown-menu">
-                    <a class="dropdown-item"
-                        href="<?= BASEURL . '/controller/PerfilController.php?action=view' ?>">Perfil</a>
-                    <a class="dropdown-item" href="<?= LOGOUT_PAGE ?>">Sair</a>
-                </div>
+        <a class="nav-link dropdown-toggle usuario-topo" href="#" id="navbarUsuario" data-bs-toggle="dropdown">
+            <div class="foto-perfil-wrapper">
+                <img class="foto-perfil" src="<?= $caminhoFoto ?>" alt="Foto de perfil">
+            </div>
+            <span><?= $nome ?></span>
+        </a>
 
-            </li>
-        </ul>
-    </div>
+
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="<?= BASEURL . '/controller/PerfilController.php?action=view' ?>">Perfil</a>
+            <a class="dropdown-item" href="<?= LOGOUT_PAGE ?>">Sair</a>
+        </div>
+    </li>
+
+
+</ul>
 </nav>
