@@ -61,8 +61,16 @@ require_once(__DIR__ . "/../include/menu.php");
                     <label class="form-label" for="documentoEdital">Documento de Edital da Oportunidade:</label>
                     <input class="form-control" type="file" id="documentoEdital" name="documentoEdital" accept=".pdf,.doc,.docx" />
 
+                    
+
+                    <?php if (isset($dados['erros']['documentoEdital'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['documentoEdital'] ?></span>
+                    <?php endif; ?>
+
 
                     <?php if (isset($dados["oportunidade"]) && $dados["oportunidade"]->getDocumentoEdital()): ?>
+
+                        
                         <p>Arquivo atual:
                             <a href="<?= BASEURL ?>/../uploads/<?= trim($dados["oportunidade"]->getDocumentoEdital()) ?>" target="_blank">
                                 <?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>
@@ -70,6 +78,7 @@ require_once(__DIR__ . "/../include/menu.php");
                         </p>
                         <input type="hidden" name="documentoEditalExistente" value="<?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>">
                     <?php endif; ?>
+
                 </div>
 
 

@@ -66,7 +66,6 @@ class OportunidadeController extends Controller
     {
         //TODO: VERIFICAR
         $dados['id'] = 0;
-        $dados['nome'] = "Jefferson";
         $dados['cursos'] = $this->cursoDao->list();
         $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados);
     }
@@ -120,7 +119,6 @@ class OportunidadeController extends Controller
         $oportunidade->setDataInicio($dataInicio);
         $oportunidade->setDataFim($dataFim);
         $oportunidade->setDocumentoAnexo(isset($_POST['documentoAnexo']) ? trim($_POST['documentoAnexo']) : '');
-
         $oportunidade->setVaga($vaga);
 
 
@@ -128,16 +126,21 @@ class OportunidadeController extends Controller
         // PROCESSAR DOCUMENTO EDITAL (UPLOAD)
         // =======================
         if (isset($_FILES['documentoEdital']) && $_FILES['documentoEdital']['error'] == UPLOAD_ERR_OK) {
+
+            //TODO: Verificar o limite de tamanho do arquivo...
+            
             // gera nome único
             $nomeArquivoEdital = uniqid('edital_') . '_' . basename($_FILES['documentoEdital']['name']);
             $caminhoDestino = __DIR__ . "/../../uploads/" . $nomeArquivoEdital;
 
+             
 
             if (move_uploaded_file($_FILES['documentoEdital']['tmp_name'], $caminhoDestino)) {
                 $oportunidade->setDocumentoEdital($nomeArquivoEdital);
             } else {
                 $oportunidade->setDocumentoEdital(null);
             }
+
         } elseif (!empty($_POST['documentoEditalExistente'])) {
             // mantém o arquivo antigo se não houver novo upload
             $oportunidade->setDocumentoEdital($_POST['documentoEditalExistente']);

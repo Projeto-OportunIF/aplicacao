@@ -4,6 +4,8 @@
 
 
 require_once(__DIR__ . "/../connection/Connection.php");
+require_once(__DIR__ . "/../model/Notificacao.php");
+
 
 
 class NotificacaoDAO
@@ -43,14 +45,9 @@ class NotificacaoDAO
         $stmt->bindValue(":mensagem", $mensagem);
         $stmt->execute();
 
-
         $idNotificacao = $this->conn->lastInsertId();
 
-
-
-
         $sql = "INSERT INTO notificacoes_usuarios (idNotificacao, idUsuario) VALUES (:idNotificacao, :idUsuario)";
-
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":idNotificacao", $idNotificacao);
@@ -62,22 +59,16 @@ class NotificacaoDAO
     // Enviar nova notificação
     public function notificarUsuariosByCurso(string $mensagem, array $cursos)
     {
-
-
         $idCursos = implode(',', array_fill(0, count($cursos), '?'));
-
 
         $sql = "INSERT INTO notificacoes (mensagem, dataEnvio) VALUES (:mensagem, :dataEnvio)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":mensagem", $mensagem);
         $stmt->bindValue(":dataEnvio", date('Y-m-d'));
 
-
         $stmt->execute();
 
-
         $idNotificacao = $this->conn->lastInsertId();
-
 
         $sql = "SELECT idUsuarios FROM usuarios WHERE idCursos IN ($idCursos)";
         $stmt = $this->conn->prepare($sql);
@@ -106,15 +97,11 @@ class NotificacaoDAO
         $stmt->bindValue(":mensagem", $mensagem);
         $stmt->bindValue(":dataEnvio", date('Y-m-d'));
 
-
         $stmt->execute();
-
 
         $idNotificacao = $this->conn->lastInsertId();
 
-
         $sql = "INSERT INTO notificacoes_usuarios (idNotificacao, idUsuario) VALUES (:idNotificacao, :idUsuario)";
-
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":idNotificacao", $idNotificacao);
@@ -191,11 +178,11 @@ class NotificacaoDAO
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":idUsuario", $idUsuario, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $notificacoes =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $this->mapNotificacoes($notificacoes);
+
     }
-
-
-
 
     public function atualizarStatusPorUsuario($idUsuario, $idNotificacao)
     {
@@ -210,6 +197,34 @@ class NotificacaoDAO
 
 
         return $stmt->execute();
+
+    }
+
+    
+
+    public function mapNotificacoes($notificacoes):array{
+
+        $listaNotificacoes = [];
+
+
+        foreach ($notificacoes as $notificacao ) {
+
+            $notificacaoObj = new Notificacao();
+
+            $notificacaoObj->setId($notificacao['idNotificacoes']);
+            $notificacaoObj->setMensagem($notificacao['mensagem']);
+            
+          $notificacaoObj->setDataEnvio($notificacao['dataEnvio']);
+
+
+           
+
+            $listaNotificacoes[] = $notificacaoObj;
+
+        }
+
+        return $listaNotificacoes;
+
     }
 
 
