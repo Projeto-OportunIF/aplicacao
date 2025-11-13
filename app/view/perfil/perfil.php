@@ -53,7 +53,18 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
                     <img src="https://img.icons8.com/ios-glyphs/30/ffffff/plus.png" />
                     <div>escolher foto de perfil.</div>
                 </label>
-                <input type="file" id="txtFoto" name="fotoPerfil" onchange="document.getElementById('frmUsuario').submit();">
+
+                <input type="file" id="txtFoto" name="fotoPerfil" 
+                    accept=".png, .jpg, .jpeg" 
+                    onchange="document.getElementById('frmUsuario').submit();">
+
+                <?php if (!empty($_SESSION['erro_foto'])): ?>
+                    <div class="erro-validacao">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <p><?= htmlspecialchars($_SESSION['erro_foto'], ENT_QUOTES, 'UTF-8'); ?></p>
+                    </div>
+                    <?php unset($_SESSION['erro_foto']); ?>
+                <?php endif; ?>
             </div>
 
             <!-- Botão Voltar -->
