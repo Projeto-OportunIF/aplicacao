@@ -66,6 +66,25 @@ body {
   font-size: 1rem;
 }
 
+/* DOCUMENTO EDITAL BÁSICO */
+.link-doc {
+    color: #eeffce; /* cor que você pediu */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link-doc i {
+    margin-right: 5px;
+    font-size: 1.1rem;
+}
+
+.link-doc:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+
+
 /* ====== BOTÃO DENTRO DO CARD ====== */
 .btn-inscrever {
   margin-top: 15px;

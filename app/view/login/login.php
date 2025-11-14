@@ -6,7 +6,7 @@ require_once(__DIR__ . "/../include/header.php");
 ?>
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/logins.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/loginn.css">
 
 <div class="container-login">
     <div>

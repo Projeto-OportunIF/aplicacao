@@ -15,7 +15,7 @@ require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_inscricao.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_inscricaoS.css">
 
 
 <div class="container my-4">
@@ -29,14 +29,23 @@ require_once(__DIR__ . "/../include/menu.php");
 
             <p><strong>Nome:</strong> <?= htmlspecialchars($dados['oportunidade']->getTitulo()) ?></p>
             <p><strong>Descrição:</strong> <?= nl2br(strip_tags($dados['oportunidade']->getDescricao())) ?></p>
-            <?php if (!empty($dados['oportunidade']->getDocumentoEdital())): ?>
-                <p><strong>Documento Edital:</strong>
-                    <a href="<?= BASEURL ?>/../uploads/<?= htmlspecialchars(basename($dados['oportunidade']->getDocumentoEdital())) ?>"
-                        target="_blank">
-                        Visualizar Edital da Oportunidade
-                    </a>
-                </p>
-            <?php endif; ?>
+           <?php if (!empty($dados['oportunidade']->getDocumentoEdital())): ?>
+    <?php $doc = basename($dados['oportunidade']->getDocumentoEdital()); ?>
+
+   
+
+    <p>
+        <strong>Documento Edital:</strong><br>
+
+        <a href="<?= BASEURL ?>/../uploads/<?= htmlspecialchars($doc) ?>" 
+           target="_blank" 
+           class="link-doc">
+            <i class="bi bi-file-earmark-text"></i>
+            <?= htmlspecialchars(trim($doc)) ?>
+        </a>
+    </p>
+<?php endif; ?>
+
 
 
             <p><strong>Professor Responsável:</strong> <?= htmlspecialchars($dados['oportunidade']->getProfessorResponsavel()) ?></p>

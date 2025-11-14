@@ -75,7 +75,13 @@ body {
 
 .form_error_message {
     color: #cf3b4aff;
-    font-style: italic;
+font-family: 'Playfair Display', serif;
+
+
+
+
+
+   
 }
 
 /* ===================== RESPONSIVIDADE ===================== */
