@@ -12,6 +12,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #c1dba5;
+    width: 100%;
 }
 
 /* Painel esquerdo com informações e logo */
@@ -22,14 +23,12 @@ body {
     width: 70%;
     display: flex;
     flex-direction: column;
-   justify-content: center; /* opcional, centraliza também verticalmente */
-    text-align: center; /* garante alinhamento do texto */
+    justify-content: center;
+    text-align: center;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     height: 107vh;
     box-sizing: border-box;
-
-    
 }
 
 /* Estilo de textos e logo dentro do painel esquerdo */
@@ -50,10 +49,10 @@ body {
     line-height: 1.5;
 }
 
-/* Formulário principal */
+/* Formulário */
 .form-wrapper {
     width: 900px;
-    /* min-height: 680px; */
+    max-width: 95%;      /* 🔥 impede de ultrapassar a tela */
     background-color: #ecf7dc;
     padding: 40px;
     display: flex;
@@ -63,6 +62,7 @@ body {
     margin-left: 200px;
     margin-top: 63px;
     margin-bottom: 123px;
+    box-sizing: border-box;   /* 🔥 mantém tudo dentro do card */
 }
 
 /* Título do formulário */
@@ -71,7 +71,6 @@ body {
     font-weight: bold;
     font-size: 35px;
     margin-bottom: 3px;
-    /* margin-top: 80px; */
     text-align: center;
 }
 
@@ -91,9 +90,8 @@ body {
     padding: 2px;
     width: 100%;
     font-size: 16px;
-   margin-top: 1px;
+    margin-top: 1px;
     margin-bottom: 1px;
-    
 }
 
 /* Select com estilo customizado */
@@ -113,13 +111,10 @@ body {
     font-weight: bold;
     border-radius: 20px;
     transition: 0.3s;
-    /* margin-top: 40px; */
 }
-
 
 /* Botão secundário */
 .btn-secondary {
-    /* margin-top: 50px; */
     background-color: #c74460;
     border: none;
     color: white;
@@ -127,15 +122,13 @@ body {
     font-weight: bold;
     border-radius: 20px;
     transition: 0.3s;
-    cursor: pointer; 
+    cursor: pointer;
 }
-
 
 .btn-secondary:hover {
-    background-color: #a32e47; 
-    transform: scale(1.05);   
+    background-color: #a32e47;
+    transform: scale(1.05);
 }
-
 
 /* Centraliza conteúdo */
 .text-center {
@@ -145,4 +138,104 @@ body {
 .form_error_message {
     color: #cf3b4aff;
     font-style: italic;
+}
+
+/* ============================= */
+/*        ⚠ CORREÇÃO FINAL       */
+/*  PAINEL ROSA ENCOSTANDO NAS  */
+/*         MARGENS MOBILE        */
+/* ============================= */
+/* Notebooks médios */
+@media (max-width: 1200px) {
+
+    .form-wrapper {
+        width: 750px;      /* menor para caber melhor */
+        max-width: 90%;
+        margin-left: 50px;
+    }
+
+    .left-panel .logo img {
+        width: 300px;
+    }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .left-panel {
+        width: 100%;
+        height: auto;
+        border-radius: 0;
+        padding: 40px 20px;
+    }
+
+    .form-wrapper {
+        width: 600px;
+        max-width: 92%;
+        margin: 40px auto;
+        padding: 35px;
+    }
+}
+
+/* Celulares */
+@media (max-width: 768px) {
+
+    .left-panel .logo img {
+        width: 230px;
+    }
+
+    .left-panel span,
+    .left-panel p {
+        font-size: 16px;
+    }
+
+    .form-wrapper {
+        width: 100%;
+        max-width: 93%;
+        padding: 25px;
+        margin: 20px auto;
+    }
+
+    .form-wrapper h3 {
+        font-size: 28px;
+    }
+
+    .btn-success,
+    .btn-secondary {
+        width: 100%;
+        padding: 12px 0;
+        margin-top: 15px;
+    }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+
+    .left-panel {
+        padding: 25px 15px;
+    }
+
+    .left-panel .logo img {
+        width: 180px;
+    }
+
+    .form-wrapper {
+        width: 100%;
+        max-width: 96%;
+        padding: 20px;
+    }
+
+    .form-wrapper h3 {
+        font-size: 24px;
+    }
+
+    .form-control,
+    .form-select {
+        font-size: 14px;
+    }
 }

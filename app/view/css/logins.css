@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #afc38b;
+}
+
+.container-login {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 90vh;
+    padding: 20px;
+}
+
+.welcome {
+    font-size: 5em;
+    color: #c63d5d;
+    font-weight: bold;
+    text-align: center;
+}
+
+.form-box {
+    background-color: #e8f0d9;
+    padding: 30px;
+    border-radius: 12px;
+    width: 300px;
+
+    /* impede centralização dos inputs */
+    text-align: left;
+}
+
+.form-box label {
+    font-weight: bold;
+}
+
+.form-box input {
+    width: 100%;
+    margin-bottom: 15px;
+    border: none;
+    border-bottom: 1px solid #999;
+    background: transparent;
+    padding: 5px;
+}
+
+.login-btn {
+    background-color: #c63d5d;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background-color: #a7324a;
+}
+
+.cadastro {
+    margin-top: 20px;
+    color: #c63d5d;
+    text-align: center;
+}
+
+.cadastro a {
+    color: #c63d5d;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.illustration {
+    max-width: 600px;
+    width: 100%;
+}
+
+.form_error_message {
+    color: #cf3b4aff;
+    font-style: italic;
+}
+
+/* ===================== RESPONSIVIDADE ===================== */
+
+@media (max-width: 992px) {
+    .container-login {
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .welcome {
+        font-size: 4em;
+    }
+
+    .illustration {
+        max-width: 450px;
+    }
+}
+
+/* Celulares grandes */
+@media (max-width: 768px) {
+
+    .container-login {
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+        gap: 30px;
+    }
+
+    /* Centraliza tudo EXCETO email/senha */
+    .welcome {
+        font-size: 3.2em;
+        text-align: center;
+    }
+
+    .illustration {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+
+    .form-box {
+        width: 85%;
+        max-width: 350px;
+
+        /* impede inputs centralizados no mobile */
+        margin: 0 auto;
+        text-align: left;
+    }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+    .welcome {
+        font-size: 2.5em;
+    }
+
+    .form-box {
+        width: 90%;
+        padding: 25px;
+        text-align: left;
+    }
+
+    .illustration {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+}
