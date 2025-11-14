@@ -15,7 +15,7 @@ require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_inscricaoo.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_inscricao.css">
 
 
 <div class="container my-4">
@@ -48,7 +48,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
             <!-- Documento Anexo: só aparece se houver -->
             <?php if (!empty($dados['oportunidade']->getDocumentoAnexo())): ?>
-                <p><strong>Documento Anexo:</strong> <?= htmlspecialchars($dados['oportunidade']->getDocumentoAnexo()) ?></p>
+                <p><strong>Requisitos para participar da oportunidade:</strong> <?= htmlspecialchars($dados['oportunidade']->getDocumentoAnexo()) ?></p>
             <?php endif; ?>
 
 
@@ -60,7 +60,7 @@ require_once(__DIR__ . "/../include/menu.php");
                     <!-- Campo de Documento: só aparece se houver -->
                     <?php if (!empty($dados['oportunidade']->getDocumentoAnexo())): ?>
                         <div id="uploadContainer" class="mb-3">
-                            <label>Enviar Documentos (obrigatórios):</label>
+                            <label>Enviar comprovante dos requisitos (obrigatórios):</label>
                             <div id="inputsArquivos">
                                 <input type="file" name="documentoAluno[]" class="form-control mb-2" required>
                             </div>

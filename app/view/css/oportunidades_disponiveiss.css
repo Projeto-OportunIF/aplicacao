@@ -1,43 +1,44 @@
 body {
-    background-color: #fff4f6;
+    background-color: #eafdc5;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
+/* Título */
 .titulo-pagina {
     text-align: center;
     font-size: 2rem;
     color: #cf4763;
-    margin-bottom: 30px;
-
+    margin: 30px 10px;
 }
 
-/* Container que organiza os cards */
+/* Container dos cards */
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* sempre 3 colunas */
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas no desktop */
     gap: 20px;
     padding: 20px;
+    box-sizing: border-box;
 }
 
-/* Responsividade */
+/* 2 colunas para tablets */
 @media (max-width: 992px) {
     .cards-container {
         grid-template-columns: repeat(2, 1fr);
-        /* 2 colunas */
+        padding: 20px 15px;
     }
 }
 
+/* 1 coluna para celulares */
 @media (max-width: 600px) {
     .cards-container {
         grid-template-columns: 1fr;
-        /* 1 coluna */
+        padding: 15px 10px;
     }
 }
 
-/* Cada card individual */
+/* Card individual */
 .card-oportunidade {
     background-color: #cf4763;
     color: white;
@@ -49,19 +50,19 @@ body {
     justify-content: space-between;
     min-height: 250px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
 }
 
-/* Parágrafos dentro do card */
 .card-oportunidade p {
     margin: 2px 0;
     line-height: 1.4;
 }
 
+/* Botão ativo */
 .btn-inscrever {
     margin-top: 15px;
     padding: 10px 20px;
     background-color: #afc38b;
-    /* verde do protótipo */
     color: white;
     border: none;
     border-radius: 10px;
@@ -71,22 +72,23 @@ body {
     transition: background-color 0.2s ease;
 }
 
-/* Botão desabilitado quando o prazo acabou */
-    .btn-disabled {
-        display: inline-block;
-        padding: 10px 10px;
-        background-color: #f8d7da; 
-        color: #721c24; 
-        border-radius: 5px;
-        text-align: center;
-        cursor: not-allowed;
-        font-weight: bold;
-    }
+/* Botão desabilitado */
+.btn-disabled {
+    display: inline-block;
+    padding: 10px 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 5px;
+    text-align: center;
+    cursor: not-allowed;
+    font-weight: bold;
+}
 
 .btn-disabled:hover {
-    background-color: #f5c6cb; 
-
+    background-color: #f5c6cb;
 }
+
+/* Botão voltar */
 .btn-voltar {
     background-color: #c23956;
     color: #fff;
@@ -95,17 +97,17 @@ body {
     text-decoration: none;
     font-weight: 600;
     transition: background-color 0.3s ease;
+    display: inline-block;
 }
 
 .btn-voltar:hover {
     background-color: #6b1c2f;
-    
 }
 
-
+/* Card de sem oportunidades */
 .sem-oportunidades {
-    background-color: #e9f7ef; /* verde clarinho */
-    color: #2e7d32; /* verde escuro */
+    background-color: #e9f7ef;
+    color: #2e7d32;
     border: 1px solid #c8e6c9;
     padding: 20px;
     border-radius: 10px;
@@ -121,7 +123,7 @@ body {
 
 .sem-oportunidades i {
     font-size: 24px;
-    color: #388e3c; /* verde mais intenso */
+    color: #388e3c;
     margin-right: 8px;
     vertical-align: middle;
 }
@@ -132,6 +134,7 @@ body {
     vertical-align: middle;
 }
 
+/* Animação */
 @keyframes fadeIn {
     from {
         opacity: 0;
