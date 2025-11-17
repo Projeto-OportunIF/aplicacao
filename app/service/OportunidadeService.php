@@ -57,27 +57,8 @@ class OportunidadeService
             $erros['documentoEdital'] = "O campo Documento Edital é obrigatório.";
         }
 
-        /*
+      
 
-        // =======================
-        // Tratamento do documento edital (upload)
-        // =======================
-        if (isset($_FILES['documentoEdital']) && $_FILES['documentoEdital']['error'] == UPLOAD_ERR_OK) {
-            $arquivoTmpEdital = $_FILES['documentoEdital']['tmp_name'];
-            $nomeArquivoEdital = "edital_" . uniqid() . "_" . basename($_FILES['documentoEdital']['name']);
-            $caminhoDestinoEdital = __DIR__ . "/../../uploads/" . $nomeArquivoEdital;
-
-            if (!move_uploaded_file($arquivoTmpEdital, $caminhoDestinoEdital)) {
-                $erros['documentoEdital'] = "Erro ao salvar o documento de edital.";
-            } else {
-                // Salva o nome do arquivo no objeto
-                $oportunidade->setDocumentoEdital($nomeArquivoEdital);
-            }
-        } elseif ($oportunidade->getDocumentoEdital() === null) {
-            // Nenhum arquivo enviado e nenhum documento existente
-            $erros['documentoEdital'] = "O campo Documento Edital é obrigatório.";
-        }
-   */
         // =======================
         // Validação do Documento Anexo
         // =======================

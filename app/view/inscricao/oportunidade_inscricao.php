@@ -15,7 +15,7 @@ require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_inscricaoS.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_inscricao.css">
 
 
 <div class="container my-4">

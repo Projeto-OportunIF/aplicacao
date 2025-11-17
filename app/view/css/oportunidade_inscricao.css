@@ -115,6 +115,25 @@ body {
     line-height: 1.4;
 }
 
+
+/* DOCUMENTOS */
+.link-doc {
+    color: #7b9e3a;
+    text-decoration: none;
+    font-weight: 500;
+    
+}
+
+.link-doc i {
+    margin-right: 1px;
+}
+
+.link-doc:hover {
+    color: #73ac0a;
+    text-decoration: underline;
+}
+
+
 /* ============================= */
 /* RESPONSIVIDADE PARA CELULARES */
 /* ============================= */

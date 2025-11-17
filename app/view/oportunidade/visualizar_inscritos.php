@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os status
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscr.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritoss.css">
 
 <h3 class="text-center">Inscritos na Oportunidade: <?= htmlspecialchars($dados['oportunidade']->getTitulo()); ?></h3>
 
@@ -15,6 +15,15 @@ require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os s
         </a>
     </div>
 </div>
+
+<?php if (empty($dados['inscritos'])): ?>
+
+     <div class="sem-oportunidades-professor">
+            <i class="bi bi-info-circle"></i>
+        <p>Você ainda não tem nenhum inscrito no momento.</p>
+    </div>
+
+<?php else: ?>
 
 <table class="table table-striped table-bordered mt-4">
     <thead>
@@ -27,6 +36,7 @@ require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os s
             <th>Status</th>
         </tr>
     </thead>
+
     <tbody>
         <?php foreach ($dados['inscritos'] as $inscrito): ?>
             <tr>
@@ -63,16 +73,16 @@ require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os s
                         <textarea name="feedbackProfessor" class="form-control form-control-sm mb-2"
                             placeholder="Escreva um feedback (opcional)"><?= htmlspecialchars($inscrito->feedbackProfessor ?? '') ?></textarea>
 
-
                         <button type="submit" class="btn-salvar">Salvar</button>
 
                     </form>
-
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<?php endif; ?>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");
