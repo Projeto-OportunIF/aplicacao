@@ -1,4 +1,3 @@
-/* Estilo geral do body */
 body {
     background-color: #eafdc5;
     font-family: Arial, sans-serif;
@@ -6,7 +5,6 @@ body {
     padding: 0;
 }
 
-/* Títulos */
 h3 {
     text-align: center;
     color: #d6425c;
@@ -15,7 +13,6 @@ h3 {
     margin-top: 30px;
 }
 
-/* Botões da página principal */
 .btn-success, .btn-secondary {
     border-radius: 12px;
     padding: 7px 17px;
@@ -42,7 +39,6 @@ h3 {
     background-color: #8f9e38;
 }
 
-/* Container dos cards */
 .container.table-container {
     max-width: 1200px;
     margin: auto;
@@ -50,7 +46,6 @@ h3 {
     
 }
 
-/* Layout dos cards */
 .user-cards {
     display: flex;
     flex-wrap: wrap;
@@ -59,7 +54,6 @@ h3 {
     padding-bottom: 80px;
 }
 
-/* Estilo dos cards de usuário */
 .user-card {
     background-color: #c63f57;
     color: white;
@@ -73,13 +67,11 @@ h3 {
     text-align: left;
 }
 
-/* Texto dentro do card */
 .user-card p {
     margin: 5px 0;
     font-weight: bold;
 }
 
-/* Botões dentro do card */
 .user-card .btn {
     border-radius: 10px;
     padding: 5px 10px;
@@ -108,11 +100,31 @@ h3 {
     background-color: #bd2130;
 }
 
-/* ============================= */
-/*         RESPONSIVIDADE        */
-/* ============================= */
+.sem-usuario {
+    background-color: #e9f7ef;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 40px auto;
+    max-width: 600px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+}
 
-/* Tablets (até 992px) */
+.sem-usuario i {
+    font-size: 22px;
+    margin-right: 8px;
+    color: #388e3c;
+    vertical-align: middle;
+}
+
+/*         RESPONSIVIDADE        */
+
 @media (max-width: 992px) {
     h3 {
         font-size: 32px;
@@ -129,7 +141,6 @@ h3 {
     }
 }
 
-/* Celulares médios (até 768px) */
 @media (max-width: 768px) {
     h3 {
         font-size: 28px;
@@ -156,7 +167,6 @@ h3 {
     }
 }
 
-/* Celulares pequenos (até 480px) */
 @media (max-width: 480px) {
     h3 {
         font-size: 24px;

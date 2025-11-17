@@ -24,8 +24,6 @@ body {
     padding: 30px;
     border-radius: 12px;
     width: 300px;
-
-    /* impede centralização dos inputs */
     text-align: left;
 }
 
@@ -74,15 +72,11 @@ body {
 }
 
 .form_error_message {
-    color: #cf3b4aff;
-font-family: 'Playfair Display', serif;
-
-
-
-
-
-   
+  color: #cf3b4aff;
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
 }
+
 
 /* ===================== RESPONSIVIDADE ===================== */
 
@@ -101,7 +95,6 @@ font-family: 'Playfair Display', serif;
     }
 }
 
-/* Celulares grandes */
 @media (max-width: 768px) {
 
     .container-login {
@@ -111,7 +104,6 @@ font-family: 'Playfair Display', serif;
         gap: 30px;
     }
 
-    /* Centraliza tudo EXCETO email/senha */
     .welcome {
         font-size: 3.2em;
         text-align: center;
@@ -125,14 +117,10 @@ font-family: 'Playfair Display', serif;
     .form-box {
         width: 85%;
         max-width: 350px;
-
-        /* impede inputs centralizados no mobile */
         margin: 0 auto;
         text-align: left;
     }
 }
-
-/* Celulares pequenos */
 @media (max-width: 480px) {
     .welcome {
         font-size: 2.5em;

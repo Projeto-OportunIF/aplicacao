@@ -6,7 +6,7 @@ require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_listagensss.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_list.css">
 
 <h3 class="text-center">Oportunidades Inseridas</h3>
 
@@ -21,7 +21,7 @@ require_once(__DIR__ . "/../include/menu.php");
         <?php foreach ($dados['lista'] as $op): ?>
             <div class="card-oportunidade">
                 <h3><?= htmlspecialchars($op->getTitulo()); ?></h3>
-           
+
                 <p><strong>Professor Responsável:</strong> <?= htmlspecialchars($op->getProfessorResponsavel()); ?></p>
                 <p><strong>Tipo:</strong> <?= htmlspecialchars($op->getTipoOportunidade()); ?></p>
                 <p><strong>Vagas:</strong> <?= htmlspecialchars($op->getVaga()); ?></p>
@@ -32,22 +32,19 @@ require_once(__DIR__ . "/../include/menu.php");
                     ?>
                 </p>
 
+                <?php if (!empty($op->getDocumentoEdital())): ?>
+                    <?php $doc = basename($op->getDocumentoEdital()); ?>
 
-
-                
-         <?php if (!empty($op->getDocumentoEdital())): ?>
-    <?php $doc = basename($op->getDocumentoEdital()); ?>
-
-    <p>
-        <strong>Documento Edital:</strong><br>
-        <a href="<?= BASEURL ?>/../uploads/<?= htmlspecialchars($doc) ?>"
-           target="_blank"
-           class="link-doc">
-            <i class="bi bi-file-earmark-text"></i>
-            <?= htmlspecialchars(trim($doc)) ?>
-        </a>
-    </p>
-<?php endif; ?>
+                    <p>
+                        <strong>Documento Edital:</strong><br>
+                        <a href="<?= BASEURL ?>/../uploads/<?= htmlspecialchars($doc) ?>"
+                            target="_blank"
+                            class="link-doc">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <?= htmlspecialchars(trim($doc)) ?>
+                        </a>
+                    </p>
+                <?php endif; ?>
 
                 <div class="acoes">
                     <a class="btn btn-primary"

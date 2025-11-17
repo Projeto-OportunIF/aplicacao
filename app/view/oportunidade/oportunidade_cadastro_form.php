@@ -3,14 +3,13 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastro_formm.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastro_form.css">
 <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 
 
 <h3 class="text-center">
     <?= $dados['id'] == 0 ? "Inserir" : "Alterar" ?> Oportunidade
 </h3>
-
 
 <div class="container">
     <div class="row" style="margin-top: 10px; display: flex; justify-content: center;">
@@ -20,12 +19,10 @@ require_once(__DIR__ . "/../include/menu.php");
             </a>
         </div>
 
-
         <div class="row" style="margin-top: 10px; display: flex; justify-content: center;">
             <div class="col-12 col-md-8 col-lg-6">
                 <form id="frmOportunidade" method="POST" enctype="multipart/form-data" action="<?= BASEURL ?>/controller/OportunidadeController.php?action=save">
                     <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
-
 
                     <div class="mb-3">
                         <label class="form-label" for="txtTitulo">
@@ -40,18 +37,14 @@ require_once(__DIR__ . "/../include/menu.php");
                         <?php endif; ?>
                     </div>
 
-
-
                     <div class="mb-3">
                         <label class="form-label" for="txtDescricao">Descrição:</label>
                         <textarea class="form-control" id="txtDescricao" name="descricao"
                             placeholder="Informe a descrição"><?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getDescricao() : ''; ?></textarea>
 
-
                         <?php if (isset($dados['erros']['descricao'])): ?>
                             <span class="form_error_message"><?= $dados['erros']['descricao'] ?></span>
                         <?php endif; ?>
-
 
                     </div>
 
@@ -60,16 +53,11 @@ require_once(__DIR__ . "/../include/menu.php");
                         <label class="form-label" for="documentoEdital">Documento de Edital da Oportunidade:</label>
                         <input class="form-control" type="file" id="documentoEdital" name="documentoEdital" accept=".pdf,.doc,.docx" />
 
-
-
                         <?php if (isset($dados['erros']['documentoEdital'])): ?>
                             <span class="form_error_message"><?= $dados['erros']['documentoEdital'] ?></span>
                         <?php endif; ?>
 
-
                         <?php if (isset($dados["oportunidade"]) && $dados["oportunidade"]->getDocumentoEdital()): ?>
-
-
                             <p>Arquivo atual:
                                 <a href="<?= BASEURL ?>/../uploads/<?= trim($dados["oportunidade"]->getDocumentoEdital()) ?>" target="_blank">
                                     <?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>
@@ -80,21 +68,17 @@ require_once(__DIR__ . "/../include/menu.php");
 
                     </div>
 
-
                     <div class="mb-3">
                         <label class="form-label" for="professor_responsavel">Professor Responsável:</label>
                         <input class="form-control" type="text" id="professor_responsavel" name="professor_responsavel"
                             placeholder="Informe o professor responsável"
                             value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getProfessorResponsavel() : ''; ?>" />
 
-
                         <?php if (isset($dados['erros']['profresponsavel'])): ?>
                             <span class="form_error_message"><?= $dados['erros']['profresponsavel'] ?></span>
                         <?php endif; ?>
 
-
                     </div>
-
 
                     <div class="mb-3">
                         <label class="form-label" for="selTipo">Tipo de Oportunidade:</label>
@@ -107,52 +91,42 @@ require_once(__DIR__ . "/../include/menu.php");
                             <?php endforeach; ?>
                         </select>
 
-
                         <?php if (isset($dados['erros']['tipooport'])): ?>
                             <span class="form_error_message"><?= $dados['erros']['tipooport'] ?></span>
                         <?php endif; ?>
 
-
                     </div>
-
 
                     <div class="mb-3">
                         <label class="form-label" for="vaga">Quantidade de Vagas:</label>
                         <input type="number" class="form-control" name="vaga" id="vaga"
                             value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getVaga() : '' ?>">
 
-
                         <?php if (isset($dados['erros']['vaga'])): ?>
                             <span class="form_error_message"><?= $dados['erros']['vaga'] ?></span>
                         <?php endif; ?>
 
-
                     </div>
-
 
                     <div class="mb-3">
                         <label class="form-label" for="dataInicio">Data de Início:</label>
                         <input type="date" name="dataInicio" id="dataInicio" class="form-control"
                             value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDataInicio() : '' ?>">
 
-
                         <?php if (isset($dados['erros']['datainicio'])): ?>
                             <span class="form_error_message"><?= $dados['erros']['datainicio'] ?></span>
                         <?php endif; ?>
                     </div>
-
 
                     <div class="mb-3">
                         <label class="form-label" for="dataFim">Data de Fim:</label>
                         <input type="date" name="dataFim" id="dataFim" class="form-control"
                             value="<?= isset($dados['oportunidade']) ? $dados['oportunidade']->getDataFim() : '' ?>">
 
-
                         <?php if (isset($dados['erros']['datafim'])): ?>
                             <span class="form_error_message"><?= $dados['erros']['datafim'] ?></span>
                         <?php endif; ?>
                     </div>
-
 
                     <!-- Checkbox Documento Anexo -->
                     <div class="mb-3 documento-seletor">
@@ -165,7 +139,6 @@ require_once(__DIR__ . "/../include/menu.php");
                         </label>
                     </div>
 
-
                     <!-- Campo descrição do documento -->
                     <div class="mb-3 documento-anexo">
                         <label class="form-label" for="documentoAnexo">(Descreva os requisitos ou documento que deve ser anexado):</label>
@@ -176,8 +149,6 @@ require_once(__DIR__ . "/../include/menu.php");
                             <span class="form_error_message"><?= $dados['erros']['documentoAnexo'] ?></span>
                         <?php endif; ?>
                     </div>
-
-
                     <!-- Cursos -->
                     <div class="mb-3">
                         <label class="form-label">Cursos:</label>
@@ -190,13 +161,10 @@ require_once(__DIR__ . "/../include/menu.php");
                                 </div>
                             <?php endforeach; ?>
                         </div>
-
-
                         <?php if (isset($dados['erros']['curso'])): ?>
                             <span class="form_error_message"><?= $dados['erros']['curso'] ?></span>
                         <?php endif; ?>
                     </div>
-
 
                     <div class="mt-3 btn-salvar">
                         <button type="submit" class="btn btn-success">Salvar</button>
@@ -210,9 +178,6 @@ require_once(__DIR__ . "/../include/menu.php");
 <div class="col-6">
     <?php require_once(__DIR__ . "/../include/msg.php"); ?>
 </div>
-
-
-
 
 <script>
     // Checkbox e campo de documento
@@ -248,10 +213,8 @@ require_once(__DIR__ . "/../include/menu.php");
             anexosDiv.style.display = seletorCheckbox.checked ? "block" : "none";
         }
     }
-
     tipoSelect.addEventListener("change", atualizarCampoDocumento);
     atualizarCampoDocumento();
-
 
     const inputTitulo = document.getElementById("txtTitulo");
     const contador = document.getElementById("contTitulo");
@@ -266,7 +229,6 @@ require_once(__DIR__ . "/../include/menu.php");
 <script>
     new FroalaEditor("#txtDescricao");
 </script>
-
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

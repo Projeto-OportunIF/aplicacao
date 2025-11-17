@@ -2,28 +2,22 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro_usuario_formul.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro_usuario_form.css">
 
 <div class="container">
     <!-- Coluna esquerda com imagem -->
     <div class="banner">
         <img src="<?= BASEURL ?>/view/img/cadastro_usuario.png" alt="Cadastro de usuários">
     </div>
-
-    <!-- Coluna direita com o formulário -->
     <div class="formulario">
-        <!-- Título dentro do formulário -->
         <h3 class="titulo-form">
             <?php if ($dados['id'] == 0) echo "Inserir";
             else echo "Alterar"; ?> Usuário
         </h3>
 
         <div class="row" style="margin-top: 10px;">
-
-
             <div class="col-12">
                 <a class="btn-voltar" href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
-
             </div>
         </div>
 

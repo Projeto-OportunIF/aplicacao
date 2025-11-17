@@ -2,7 +2,7 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro_curso_fo.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro_curso_form.css">
 <h3 class="text-center">
     <?php if ($dados['id'] == 0) echo "Inserir";
     else echo "Alterar"; ?>
@@ -37,14 +37,9 @@ require_once(__DIR__ . "/../include/menu.php");
                     <button type="submit" class="btn btn-success">Gravar</button>
 
                 </div>
-
             </form>
         </div>
-
-
-
     </div>
-
 </div>
 
 <?php

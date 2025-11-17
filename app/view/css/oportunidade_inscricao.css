@@ -3,8 +3,6 @@ body {
     background-color: #eafdc5;
     font-family: Arial, sans-serif;
 }
-
-/* CONTAINER GERAL */
 .inscricao-container {
     border-radius: 15px;
     overflow: hidden;
@@ -14,8 +12,6 @@ body {
     width: 80%;
     margin: 20px auto;
 }
-
-/* Coluna esquerda (verde) */
 .inscricao-info {
     background: #d5ecab;
     padding: 45px;
@@ -37,7 +33,6 @@ body {
     color: #333;
 }
 
-/* Botão inscrever */
 .btn-inscrever {
     display: block;
     margin: 20px auto 0;
@@ -55,7 +50,6 @@ body {
     background: #a52d42;
 }
 
-/* Coluna direita (rosa) */
 .inscricao-figura {
     background: #fbdede;
     position: relative;
@@ -70,7 +64,6 @@ body {
     max-width: 70%;
 }
 
-/* Botão voltar */
 .btn-voltar {
     position: absolute;
     top: 20px;
@@ -89,7 +82,6 @@ body {
     background: #faf1f1;
 }
 
-/* Aviso externo */
 .aviso-externo {
     background-color: #e7f3ff;
     border: 1px solid #b3d7ff;
@@ -133,11 +125,6 @@ body {
     text-decoration: underline;
 }
 
-
-/* ============================= */
-/* RESPONSIVIDADE PARA CELULARES */
-/* ============================= */
-
 @media (max-width: 850px) {
 
     .inscricao-container {
@@ -158,19 +145,16 @@ body {
         max-width: 90%;
     }
 
-    /* BOTÃO VOLTAR — agora menor e centralizado */
     .btn-voltar {
         position: static;
         margin: 10px auto 20px;
         display: block;
-        width: 160px;         /* tamanho fixo */
-        text-align: center;   /* texto centralizado */
+        width: 160px;         
+        text-align: center;   
         padding: 8px 20px;
     }
-
-    /* BOTÃO INSCREVER — menos esticado */
     .btn-inscrever {
-        width: 60%;      /* não ocupa tela inteira */
+        width: 60%;      
         max-width: 250px;
         padding: 12px;
         margin-top: 25px;

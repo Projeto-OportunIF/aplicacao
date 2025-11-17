@@ -22,15 +22,21 @@ require_once(__DIR__ . "/../include/menu.php");
 
 
 <style>
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 </style>
 
-
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeAlunoo.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/homeAluno.css">
 
 <h2>Escolha a modalidade que deseja visualizar</h2>
 
@@ -56,11 +62,8 @@ require_once(__DIR__ . "/../include/menu.php");
     <p>Estágio é uma vivência prática que complementa a formação do estudante, aproximando-o do mercado de trabalho.</p>
     <img src="<?= BASEURL ?>/view/img/estagio.png" alt="Estágio" class="icon">
     <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=estagios" class="btn-visualizar">Visualizar</a>
-
   </div>
 
-
-  <!-- Botão para visualizar inscrições -->
   <div class="card">
     <h3>Minhas Inscrições</h3>
     <p>Visualize todas as oportunidades em que você se inscreveu e gerencie suas inscrições.</p>

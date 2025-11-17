@@ -5,27 +5,24 @@ body {
   padding: 0;
 }
 
-/* ===== TÍTULO ===== */
 .titulo {
   text-align: center;
   color: #d6425c;
-  font-size: 2.2rem; /* relativo ao tamanho da tela */
+  font-size: 2.2rem; 
   font-weight: bold;
   margin-top: 30px;
   padding: 0 10px;
   word-wrap: break-word;
 }
 
-/* ===== CONTAINER DOS BOTÕES ===== */
 .container-botoes {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* quebra linha se faltar espaço */
+  flex-wrap: wrap; 
   gap: 40px;
   margin: 80px 20px;
 }
 
-/* ===== BOTÃO ===== */
 .botao-opcao {
   display: flex;
   flex-direction: column;
@@ -36,7 +33,6 @@ body {
   text-align: center;
 }
 
-/* ===== QUADRADO ===== */
 .botao-quadrado {
   width: 180px;
   height: 180px;
@@ -58,13 +54,11 @@ body {
   max-height: 100px;
 }
 
-/* ===== TEXTO ABAIXO DO BOTÃO ===== */
 .texto-botao {
   margin-top: 10px;
   font-size: 1.1rem;
 }
 
-/* ===== MENSAGEM DE ERRO ===== */
 .msg-erro {
   padding: 12px 15px;
   margin: 20px auto;
@@ -80,14 +74,12 @@ body {
   animation: fadeIn 0.8s forwards;
 }
 
-/* ===== ANIMAÇÃO ===== */
 @keyframes fadeIn {
   to {
     opacity: 1;
   }
 }
 
-/* ===== RESPONSIVIDADE ===== */
 @media (max-width: 768px) {
   .titulo {
     font-size: 1.8rem;

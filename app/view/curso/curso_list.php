@@ -3,10 +3,9 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/curso_listaa.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/curso_list.css">
 
 <h3>Cursos</h3>
-
 <div class="container table-container">
     <div class="row mb-3 align-items-center justify-content-center">
         <div class="col-auto">
@@ -43,7 +42,10 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p class="text-center mt-4" style="color:#c63f57; font-weight:bold;">Nenhum curso cadastrado.</p>
+            <div class="sem-curso">
+                <i class="bi bi-info-circle"></i>
+                Você ainda não cadastrou nenhum curso.
+            </div>
         <?php endif; ?>
     </div>
 </div>

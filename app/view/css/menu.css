@@ -1,21 +1,16 @@
-/* ======= RESET GERAL ======= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ======= NAVBAR ======= */
 .navbar {
     height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 1.2rem;
-   
 }
-
-/* ======= LOGO ======= */
 .navbar-brand img {
     max-height: 38px;
     width: auto;
@@ -36,7 +31,6 @@
     position: relative;
 }
 
-/* Foto e nome */
 .usuario-topo {
     display: flex;
     align-items: center;
@@ -49,7 +43,6 @@
     opacity: 0.9;
 }
 
-/* Foto de perfil */
 .foto-perfil-wrapper {
     width: 44px;
     height: 44px;
@@ -66,7 +59,6 @@
     object-fit: cover;
 }
 
-/* ======= ÍCONE DE NOTIFICAÇÃO ======= */
 .notificacao-link {
     position: relative;
     color: #f8c10f;
@@ -82,7 +74,6 @@
     transform: scale(1.1);
 }
 
-/* Badge vermelha */
 .notificacao-badge {
     position: absolute;
     top: -6px;
@@ -98,10 +89,10 @@
 
 /* Centraliza o dropdown abaixo da área do usuário */
 .dropdown-menu {
-    left: 2% !important;        /* centraliza horizontalmente */
+    left: 2% !important;        
     transform: translateX(-50%) !important;
     right: auto !important;
-    top: 100% !important;        /* garante que fique abaixo */
+    top: 100% !important; 
     margin-top: 8px;
     background-color: #fff3f3;
     border: 1px solid #f1a5a5;
@@ -114,7 +105,6 @@
     z-index: 1050;
 }
 
-/* Nome do usuário */
 .dropdown-menu span {
     display: block;
     font-weight: 600;
@@ -126,7 +116,6 @@
     font-size: 15px;
 }
 
-/* Links */
 .dropdown-menu .dropdown-item {
     color: #b03653;
     font-family: 'Poppins', sans-serif;
@@ -142,7 +131,6 @@
     color: #8d2b40;
 }
 
-/* Botão Sair */
 .dropdown-menu .dropdown-item.sair {
     border-top: 1px solid #f1a5a5;
     color: #a93232;
@@ -163,7 +151,6 @@
 
 /* ======= RESPONSIVIDADE ======= */
 
-/* Tablets */
 @media (max-width: 992px) {
     .usuario-area {
         gap: 10px;
@@ -179,7 +166,6 @@
     }
 }
 
-/* Celulares */
 @media (max-width: 768px) {
     .navbar {
         padding: 0.6rem 1rem;
@@ -204,7 +190,6 @@
     }
 }
 
-/* Celulares pequenos */
 @media (max-width: 480px) {
     .usuario-area {
         gap: 6px;

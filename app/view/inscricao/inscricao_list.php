@@ -2,7 +2,7 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/inscricao.listagem.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/inscricao.list.css">
 
 <div class="container mt-5 mb-5">
     <h2 class="text-center titulo-pagina mb-4">Minhas Inscrições</h2>
@@ -29,7 +29,6 @@ require_once(__DIR__ . "/../include/menu.php");
                                 <?= htmlspecialchars($inscricao->status) ?>
                             </span>
                         </p>
-
                         <p><strong>Documentos:</strong>
                             <?php if ($inscricao->documentosAnexo): ?>
                                 <?php foreach (explode(',', $inscricao->documentosAnexo) as $doc): ?>
@@ -37,7 +36,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
                                         <i class="bi bi-file-earmark-text"></i> <?= htmlspecialchars(trim($doc)) ?>
                                     </a>
-                                
+
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <span class="sem-doc"><i class="bi bi-x-circle"></i> Nenhum</span>
@@ -53,10 +52,8 @@ require_once(__DIR__ . "/../include/menu.php");
                                 <span class="feedback-text"><?= nl2br(htmlspecialchars($feedback)) ?></span>
                             </div>
                         <?php else: ?>
-                            <!-- Mostra como campo normal quando ainda não existe feedback -->
                             <p><strong>Feedback do Professor:</strong> O feedback é opcional por parte do professor.</p>
                         <?php endif; ?>
-
                     </div>
 
                     <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=cancelar&idInscricao=<?= $inscricao->idInscricoes ?>"
@@ -69,9 +66,9 @@ require_once(__DIR__ . "/../include/menu.php");
         </div>
     <?php else: ?>
         <div class="sem-inscricoes">
-    <i class="bi bi-info-circle"></i>
-    Você ainda não se inscreveu em nenhuma oportunidade.
-</div>
+            <i class="bi bi-info-circle"></i>
+            Você ainda não se inscreveu em nenhuma oportunidade.
+        </div>
 
     <?php endif; ?>
 </div>

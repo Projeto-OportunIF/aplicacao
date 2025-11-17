@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../include/header.php");
 ?>
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/autocadastroo.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/autocadastro_form.css">
 
 <div class="container">
     <div class="left-panel">
@@ -32,7 +32,6 @@ require_once(__DIR__ . "/../include/header.php");
                 <?php if (isset($dados['erros']['nome'])): ?>
                     <span class="form_error_message"><?= $dados['erros']['nome'] ?></span>
                 <?php endif; ?>
-
 
             </div>
 
@@ -84,7 +83,6 @@ require_once(__DIR__ . "/../include/header.php");
                         if (isset($_POST['curso']) && $_POST['curso'] == $curso->getId()) {
                             $cursoSelecionado = 'selected';
                         }
-
                         // Se veio do banco (por exemplo, ao editar oportunidade)
                         elseif (isset($dados['oportunidadeCursos'])) {
                             foreach ($dados['oportunidadeCursos'] as $oc) {
@@ -141,13 +139,6 @@ require_once(__DIR__ . "/../include/header.php");
                 <button type="submit" class="btn btn-success">Criar</button>
             </div>
         </form>
-
-        <!--
-        <div class="text-center">
-            <a class="btn btn-secondary" href="<?= BASEURL ?>/controller/LoginController.php?action=login">Voltar</a>
-        </div>
-        -->
-
     </div>
 </div>
 

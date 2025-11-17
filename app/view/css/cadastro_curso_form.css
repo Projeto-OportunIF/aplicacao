@@ -1,23 +1,19 @@
-/* Fundo geral */
 body {
     background-color: #eafdc5;
     font-family: Arial, sans-serif;
 }
 
-/* Título */
 h3.text-center {
     color: #a63a53;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-/* Container do formulário */
 .container {
     margin-left: 800px;
     margin-top: 150px;
 }
 
-/* Centralizar o card dentro do container */
 #frmCurso {
     background-color: #e8f0db;
     padding: 30px;
@@ -27,7 +23,6 @@ h3.text-center {
     min-width: 300px;
 }
 
-/* Label */
 #frmCurso label {
     display: block;
     margin-bottom: 5px;
@@ -49,7 +44,6 @@ h3.text-center {
     text-align: center;
 }
 
-/* Botão Voltar */
 #frmCurso a.btn-secondary {
     background-color: #92aa71;
     border: none;
@@ -62,7 +56,6 @@ h3.text-center {
     transition: 0.3s;
 }
 
-/* Botão Enviar */
 #frmCurso button[type="submit"] {
     background-color: #a63a53;
     border: none;
@@ -75,14 +68,12 @@ h3.text-center {
     transition: 0.3s;
 }
 
-/* Container da imagem */
 .illustration-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Imagem fixa na lateral esquerda */
 .illustration {
     position: fixed;
     left: 250px;
@@ -91,15 +82,14 @@ h3.text-center {
     object-fit: cover;
 }
 
-/* Mensagem de erro */
 .form_error_message {
-    color: #cf3b4aff;
-    font-style: italic;
+  color: #cf3b4aff;
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
 }
 
 /* ============ RESPONSIVIDADE ============ */
 
-/* Telas até 1200px (notebooks e tablets grandes) */
 @media (max-width: 1200px) {
     .container {
         margin-left: 600px;
@@ -113,7 +103,6 @@ h3.text-center {
     }
 }
 
-/* Telas até 992px (tablets) */
 @media (max-width: 992px) {
     .container {
         margin-left: auto;
@@ -130,7 +119,6 @@ h3.text-center {
     }
 }
 
-/* Telas até 600px (celulares) */
 @media (max-width: 600px) {
   
 
@@ -166,7 +154,6 @@ h3.text-center {
         margin: 10px 0 0 0;
     }
 
-      /* 🔹 Mantém os botões lado a lado */
     #frmCurso button[type="submit"],
     #frmCurso a.btn-secondary {
         display: inline-block;

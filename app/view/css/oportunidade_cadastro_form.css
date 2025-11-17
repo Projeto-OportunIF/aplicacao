@@ -2,24 +2,18 @@ body {
   margin: 0;
   font-family: 'Arial', sans-serif;
   background-color: #eafdc5;
-
-
-  /* Centraliza horizontalmente o formulário */
-  display: center;
-  justify-content: center;
 }
 
-
+/* ====== CONTAINER ====== */
 form {
   max-width: 1000px;
   width: 100%;
-  margin: 40px auto; /* dá espaço em cima e centraliza */
+  margin: 20px auto;
   background: #d3eba7;
   padding: 25px 35px;
   border-radius: 12px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
-
 
 /* ====== TÍTULO PRINCIPAL ====== */
 h2,
@@ -31,7 +25,6 @@ h4 {
   font-weight: 600;
 }
 
-
 /* ====== LABELS ====== */
 label {
   font-weight: 600;
@@ -39,7 +32,6 @@ label {
   margin-top: 15px;
   display: block;
 }
-
 
 /* ====== CAMPOS DE TEXTO ====== */
 input[type="text"],
@@ -56,7 +48,6 @@ textarea {
   transition: border-color 0.3s ease;
 }
 
-
 input:focus,
 textarea:focus,
 select:focus {
@@ -64,32 +55,29 @@ select:focus {
   outline: none;
 }
 
-
 /* ====== BOTÃO SALVAR ====== */
 #frmOportunidade .btn-salvar button,
 input[type="submit"] {
   background-color: #d6425c;
   color: #fff;
   border: none;
- font-weight: 600;
-  margin-top: 20px;
   border-radius: 25px;
   padding: 10px 25px;
+  margin-top: 20px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.3s ease;
-  width: 170px;
+  width: 160px;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-
 button:hover,
 input[type="submit"]:hover {
   background-color: #a32e45;
 }
-
 
 /* ====== SWITCH PERSONALIZADO ====== */
 .documento-seletor {
@@ -98,7 +86,6 @@ input[type="submit"]:hover {
   gap: 10px;
 }
 
-
 .switch {
   position: relative;
   display: inline-block;
@@ -106,13 +93,11 @@ input[type="submit"]:hover {
   height: 28px;
 }
 
-
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-
 
 .slider {
   position: absolute;
@@ -124,40 +109,6 @@ input[type="submit"]:hover {
   background-color: #cccccc;
   transition: .4s;
 }
-/* ====== GRID DO CONTAINER ====== */
-.container {
- 
-  padding: 10px 20px;
-}
-
-
-/* Define linhas flexíveis */
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; /* espaço entre colunas */
-  margin-top: 20px;
-}
-
-
-/* Cada coluna ocupa metade da linha em telas grandes */
-.col-6 {
-  flex: 1 1 calc(50% - 20px);
-}
-
-
-/* ====== RESPONSIVIDADE DO GRID ====== */
-@media (max-width: 768px) {
-  .col-6 {
-    flex: 1 1 100%; /* ocupa 100% da largura */
-  }
-
-
-  .row {
-    gap: 10px;
-  }
-}
-
 
 .slider:before {
   position: absolute;
@@ -170,31 +121,25 @@ input[type="submit"]:hover {
   transition: .4s;
 }
 
-
 input:checked+.slider {
   background-color: #d6425c;
 }
-
 
 input:focus+.slider {
   box-shadow: 0 0 1px #d6425c;
 }
 
-
 input:checked+.slider:before {
   transform: translateX(26px);
 }
-
 
 .slider.round {
   border-radius: 28px;
 }
 
-
 .slider.round:before {
   border-radius: 50%;
 }
-
 
 /* ====== DOCUMENTO ANEXO ====== */
 .documento-anexo {
@@ -203,7 +148,6 @@ input:checked+.slider:before {
   transition: all 0.5s ease-in-out;
   vertical-align: middle;
 }
-
 
 .btn-voltar {
   background-color: #c23956;
@@ -215,17 +159,15 @@ input:checked+.slider:before {
   transition: background-color 0.3s ease;
 }
 
-
 .btn-voltar:hover {
   background-color: #6b1c2f;
 }
 
-
 .form_error_message {
   color: #cf3b4aff;
   font-style: italic;
+  font-family: 'Playfair Display', serif;
 }
-
 
 /* ====== RESPONSIVIDADE ====== */
 @media (max-width: 992px) {
@@ -233,13 +175,11 @@ input:checked+.slider:before {
     padding: 20px 25px;
   }
 
-
   h2,
   h3,
   h4 {
     font-size: 1.6rem;
   }
-
 
   #frmOportunidade .btn-salvar button,
   input[type="submit"] {
@@ -248,12 +188,10 @@ input:checked+.slider:before {
   }
 }
 
-
 @media (max-width: 768px) {
   form {
     padding: 20px;
   }
-
 
   h2,
   h3,
@@ -261,18 +199,15 @@ input:checked+.slider:before {
     font-size: 1.4rem;
   }
 
-
   .switch {
     width: 50px;
     height: 25px;
   }
 
-
   .slider:before {
     height: 22px;
     width: 22px;
   }
-
 
   .documento-seletor {
     flex-direction: column;
@@ -280,20 +215,17 @@ input:checked+.slider:before {
   }
 }
 
-
 @media (max-width: 480px) {
   form {
     padding: 15px;
     border-radius: 10px;
   }
 
-
   h2,
   h3,
   h4 {
     font-size: 1.2rem;
   }
-
 
   input[type="text"],
   input[type="number"],
@@ -303,17 +235,14 @@ input:checked+.slider:before {
     font-size: 0.9rem;
   }
 
-
   #frmOportunidade .btn-salvar button,
   input[type="submit"] {
     width: 100%;
     font-size: 1rem;
   }
 
-
   .btn-voltar {
     width: 100%;
     text-align: center;
   }
 }
- 

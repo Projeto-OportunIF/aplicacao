@@ -69,13 +69,10 @@ h2 {
     transition: background-color 0.3s ease;
     text-decoration: none;
     text-align: center;
-
-
 }
 
 .btn-visualizar:hover {
     background-color: #e4d6d7;
-
 }
 
 @keyframes fadeIn {
@@ -97,14 +94,12 @@ h2 {
   animation: fadeIn 0.8s forwards;
 }
 
-/* Sucesso */
 .msg-sucesso {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
 }
 
-/* Erro */
 .msg-erro {
   background-color: #f8d7da;
   color: #721c24;
@@ -112,8 +107,6 @@ h2 {
 }
 
 /* ======== RESPONSIVIDADE ======== */
-
-/* Tablets médios */
 @media (max-width: 992px) {
     h2 {
         font-size: 34px;
@@ -135,7 +128,6 @@ h2 {
     }
 }
 
-/* Tablets pequenos e celulares grandes */
 @media (max-width: 768px) {
     h2 {
         font-size: 30px;
@@ -164,7 +156,6 @@ h2 {
     }
 }
 
-/* Celulares pequenos */
 @media (max-width: 480px) {
     h2 {
         font-size: 26px;

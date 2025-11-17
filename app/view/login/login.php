@@ -6,7 +6,7 @@ require_once(__DIR__ . "/../include/header.php");
 ?>
 
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/loginn.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/login.css">
 
 <div class="container-login">
     <div>
@@ -26,27 +26,19 @@ require_once(__DIR__ . "/../include/header.php");
                     <span class="form_error_message"><?= $dados['erros']['email'] ?></span>
                 <?php endif; ?>
 
-
-
                 <label for="txtSenha">SENHA</label><br>
                 <div style="position: relative;">
                     <input class="form-control" type="password" id="txtSenha" name="senha"
                         maxlength="90" placeholder="Informe a senha"
                         autocomplete="new-password"
-                        value="<?php echo isset($dados['senha']) ? htmlspecialchars($dados['senha']) : ''; ?>"/>
+                        value="<?php echo isset($dados['senha']) ? htmlspecialchars($dados['senha']) : ''; ?>" />
 
-
-
-                        <?php if (isset($dados['erros']['senha'])): ?>
+                    <?php if (isset($dados['erros']['senha'])): ?>
                         <span class="form_error_message"><?= $dados['erros']['senha'] ?></span>
-                <?php endif; ?>
+                    <?php endif; ?>
 
-
-
-
-                <!-- Olho customizado -->
-                <span class="toggle-password" data-target="txtSenha"
-                    style="position:absolute; right: 5px; top:18px; transform: translateY(-50%);
+                    <span class="toggle-password" data-target="txtSenha"
+                        style="position:absolute; right: 5px; top:18px; transform: translateY(-50%);
                  cursor:pointer; font-size:20px;">👁️</span>
                 </div>
                 <!-- Mensagem de Caps Lock -->
@@ -54,7 +46,6 @@ require_once(__DIR__ . "/../include/header.php");
                      none; margin-top: 5px; font-size: 14px;">
                     Atenção: Caps Lock está ativado!
                 </div>
-
 
                 <script>
                     const senhaInput = document.getElementById('txtSenha');
@@ -65,11 +56,9 @@ require_once(__DIR__ . "/../include/header.php");
                         const isCaps = event.getModifierState && event.getModifierState('CapsLock');
                         capsMsg.style.display = isCaps ? 'block' : 'none';
                     }
-
                     // Detecta quando o usuário digita
                     senhaInput.addEventListener('keydown', verificarCaps);
                     senhaInput.addEventListener('keyup', verificarCaps);
-
                     // Detecta quando o usuário foca no campo (para casos em que Caps Lock já estava ativo)
                     senhaInput.addEventListener('focus', function() {
                         // Simula um evento para disparar a verificação
@@ -95,9 +84,6 @@ require_once(__DIR__ . "/../include/header.php");
                     });
                 </script>
 
-
-
-
                 <button type="submit" class="login-btn">login</button>
             </form>
         </div>
@@ -107,20 +93,15 @@ require_once(__DIR__ . "/../include/header.php");
             <a href="./AutoCadastroController.php?action=cadastrar">Clique aqui para criar uma conta.</a>
         </div>
 
-
         <?php if (isset($dados['erros']['login'])): ?>
             <span class="form_error_message"><?= $dados['erros']['login'] ?></span>
         <?php endif; ?>
-
 
         <div class="col-6">
             <?php include_once(__DIR__ . "/../include/msg.php") ?>
         </div>
     </div>
 </div>
-
-
-
 <?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>

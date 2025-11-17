@@ -4,7 +4,6 @@ body {
     background-color: #fdf6f8;
 }
 
-/* Container principal */
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -14,7 +13,6 @@ body {
     overflow: hidden;
 }
 
-/* Banner lateral */
 .banner {
     flex: 1;
     min-width: 40%;
@@ -32,7 +30,6 @@ body {
     object-fit: cover;
 }
 
-/* Área do formulário */
 .formulario {
     flex: 1;
     background: #fad7d7;
@@ -42,7 +39,6 @@ body {
     border-bottom-right-radius: 12px;
 }
 
-/* Título */
 .titulo-form {
     font-family: 'Poppins', sans-serif;
     font-size: 26px;
@@ -51,7 +47,6 @@ body {
     margin-bottom: 25px;
 }
 
-/* Botão voltar */
 .btn-voltar {
     position: absolute;
     top: 20px;
@@ -70,7 +65,6 @@ body {
     background: #a74e4e;
 }
 
-/* Campos e labels */
 .formulario .form-control,
 .formulario .form-select {
     border: 1px solid #fa9595;
@@ -89,7 +83,6 @@ body {
     color: #444;
 }
 
-/* Botão salvar */
 .btn-success {
     position: absolute;
     bottom: 10px;
@@ -108,11 +101,12 @@ body {
     background: #7b8d5b;
 }
 
-/* Mensagem de erro */
 .form_error_message {
-    color: #cf3b4a;
-    font-style: italic;
+  color: #cf3b4aff;
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
 }
+
 
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 768px) {

@@ -8,7 +8,6 @@ body {
     font-weight: 700;
 }
 
-/* GRID RESPONSIVO */
 .cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -18,7 +17,6 @@ body {
     box-sizing: border-box;
 }
 
-/* CARD */
 .card-inscricao {
     background-color: #798660;
     color: #fff;
@@ -45,7 +43,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* STATUS */
 .status-badge {
     padding: 3px 9px;
     border-radius: 20px;
@@ -95,7 +92,6 @@ body {
     margin-right: 5px;
 }
 
-/* BOTÃO CANCELAR */
 .btn-cancelar {
     background-color: #fff;
     color: #c23956;
@@ -115,7 +111,6 @@ body {
     color: #fff;
 }
 
-/* BOTÃO VOLTAR */
 .btn-voltar {
     background-color: #c23956;
     color: #fff;
@@ -130,7 +125,6 @@ body {
     background-color: #6b1c2f;
 }
 
-/* FEEDBACK */
 .feedback-label {
     font-weight: bold;
     margin-bottom: 6px;
@@ -153,13 +147,11 @@ body {
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
 }
 
-/* TEXTO FEEDBACK */
 .feedback-text {
     display: block;
     color: #fff;
 }
 
-/* SEM INSCRIÇÕES */
 .sem-inscricoes {
     background-color: #e9f7ef;
     color: #2e7d32;
@@ -183,7 +175,6 @@ body {
     vertical-align: middle;
 }
 
-/* CELULARES */
 @media (max-width: 576px) {
     .cards-container {
         grid-template-columns: 1fr;
@@ -200,7 +191,6 @@ body {
     }
 }
 
-/* ANIMAÇÃO */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }
