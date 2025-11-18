@@ -6,11 +6,15 @@ class Notificacao
     private $mensagem;
     private $dataEnvio;
     private $status;
+    private $idOportunidade;
+    private $link;
 
-    public function getId():int 
+
+    public function getId(): int
     {
         return $this->id;
     }
+
     public function setId($id)
     {
         $this->id = $id;
@@ -20,6 +24,7 @@ class Notificacao
     {
         return $this->mensagem;
     }
+
     public function setMensagem($mensagem)
     {
         if (strlen($mensagem) == 0) {
@@ -33,6 +38,7 @@ class Notificacao
     {
         return $this->dataEnvio;
     }
+
     public function setDataEnvio($dataEnvio)
     {
         $this->dataEnvio = $dataEnvio;
@@ -42,6 +48,7 @@ class Notificacao
     {
         return $this->status;
     }
+
     public function setStatus($status)
     {
         $this->status = $status;
@@ -51,9 +58,28 @@ class Notificacao
     {
         return $this->idUsuarios;
     }
+
     public function setIdUsuarios($idUsuarios)
     {
         $this->idUsuarios = $idUsuarios;
+    }
+
+    public function getIdOportunidade()
+    {
+        return $this->idOportunidade;
+    }
+    public function setIdOportunidade($idOportunidade)
+    {
+        $this->idOportunidade = $idOportunidade;
+    }
+
+    public function getLink()
+    {
+        return $this->link;
+    }
+    public function setLink($link)
+    {
+        $this->link = $link;
     }
 
     public function __toString()

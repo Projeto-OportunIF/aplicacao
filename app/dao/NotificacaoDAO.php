@@ -181,7 +181,6 @@ class NotificacaoDAO
         $notificacoes =  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $this->mapNotificacoes($notificacoes);
-
     }
 
     public function atualizarStatusPorUsuario($idUsuario, $idNotificacao)
@@ -197,35 +196,46 @@ class NotificacaoDAO
 
 
         return $stmt->execute();
-
     }
 
-    
 
-    public function mapNotificacoes($notificacoes):array{
 
+    public function mapNotificacoes($notificacoes): array
+    {
         $listaNotificacoes = [];
 
-
-        foreach ($notificacoes as $notificacao ) {
+        foreach ($notificacoes as $notificacao) {
 
             $notificacaoObj = new Notificacao();
 
+            // Campos principais
             $notificacaoObj->setId($notificacao['idNotificacoes']);
             $notificacaoObj->setMensagem($notificacao['mensagem']);
-            
-          $notificacaoObj->setDataEnvio($notificacao['dataEnvio']);
+            $notificacaoObj->setDataEnvio($notificacao['dataEnvio']);
+            $notificacaoObj->setIdOportunidade($notificacao['idOportunidade']);
+            $notificacaoObj->setLink($notificacao['link']);
 
 
-           
+
+            if (isset($notificacao['idOportunidade'])) {
+                $notificacaoObj->setIdOportunidade($notificacao['idOportunidade']);
+            }
+
+
+            if (isset($notificacao['link'])) {
+                $notificacaoObj->setLink($notificacao['link']);
+            }
 
             $listaNotificacoes[] = $notificacaoObj;
-
         }
 
         return $listaNotificacoes;
-
     }
+
+
+
+
+
 
 
     /*

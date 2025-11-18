@@ -2,7 +2,7 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
-require_once(__DIR__ . "/../../model/enum/OportunidadeTipo.php"); // 🔹 importa o enum
+require_once(__DIR__ . "/../../model/enum/OportunidadeTipo.php"); 
 
 if (isset($_SESSION["usuarioLogadoTipo"])) {
     switch ($_SESSION["usuarioLogadoTipo"]) {
@@ -41,7 +41,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
 
             <?php
             $idNot = $notificacao->getId() ?? null;
-            //$idOport = $notificacao['idOportunidade'] ?? null;
+            $idOport = $notificacao->getIdOportunidade() ?? null;
             $mensagem = $notificacao->getMensagem() ?? '';
             $dataEnvio = $notificacao->getDataEnvio() ?? '';
 
