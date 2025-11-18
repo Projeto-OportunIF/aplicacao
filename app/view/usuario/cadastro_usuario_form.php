@@ -2,7 +2,7 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro_usuario_form.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro_usuario_formm.css">
 
 <div class="container">
     <!-- Coluna esquerda com imagem -->

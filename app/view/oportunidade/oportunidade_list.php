@@ -41,10 +41,11 @@ require_once(__DIR__ . "/../include/menu.php");
                             target="_blank"
                             class="link-doc">
                             <i class="bi bi-file-earmark-text"></i>
-                            <?= htmlspecialchars(trim($doc)) ?>
+                            Edital da sua oportunidade
                         </a>
                     </p>
                 <?php endif; ?>
+
 
                 <div class="acoes">
                     <a class="btn btn-primary"

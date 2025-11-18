@@ -29,9 +29,10 @@ require_once(__DIR__ . "/../include/menu.php");
                         target="_blank"
                         class="link-doc">
                         <i class="bi bi-file-earmark-text"></i>
-                        <?= htmlspecialchars(trim($doc)) ?>
+                        Documento do Edital da oportunidade
                     </a>
                 </p>
+
             <?php endif; ?>
             <p><strong>Professor Responsável:</strong> <?= htmlspecialchars($dados['oportunidade']->getProfessorResponsavel()) ?></p>
             <p><strong>Modalidade:</strong> <?= htmlspecialchars($dados['oportunidade']->getTipoOportunidade()) ?></p>

@@ -33,15 +33,14 @@ require_once(__DIR__ . "/../include/menu.php");
                             <?php if ($inscricao->documentosAnexo): ?>
                                 <?php foreach (explode(',', $inscricao->documentosAnexo) as $doc): ?>
                                     <a href="<?= BASEURL ?>/../uploads/<?= trim($doc) ?>" target="_blank" class="link-doc">
-
-                                        <i class="bi bi-file-earmark-text"></i> <?= htmlspecialchars(trim($doc)) ?>
+                                        <i class="bi bi-file-earmark-text"></i> Seu Documento Anexado
                                     </a>
-
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <span class="sem-doc"><i class="bi bi-x-circle"></i> Nenhum</span>
                             <?php endif; ?>
                         </p>
+
 
                         <?php $feedback = trim($inscricao->feedbackProfessor ?? ''); ?>
 

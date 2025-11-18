@@ -4,7 +4,7 @@ require_once(__DIR__ . "/../include/menu.php");
 require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os status
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritos.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritoss.css">
 
 <h3 class="text-center">Inscritos na Oportunidade: <?= htmlspecialchars($dados['oportunidade']->getTitulo()); ?></h3>
 
@@ -44,12 +44,11 @@ require_once(__DIR__ . "/../../model/enum/StatusTipo.php"); // para acessar os s
                     <td><?= htmlspecialchars($inscrito->matriculaAluno) ?></td>
                     <td><?= htmlspecialchars($inscrito->emailAluno) ?></td>
                     <td><?= htmlspecialchars($inscrito->cursoAluno) ?></td>
-
                     <td>
                         <?php if ($inscrito->documentosAnexo): ?>
                             <?php foreach (explode(',', $inscrito->documentosAnexo) as $doc): ?>
                                 <a href="<?= BASEURL ?>/../uploads/<?= trim($doc) ?>" target="_blank" class="link-doc">
-                                    <i class="bi bi-file-earmark-text"></i> <?= htmlspecialchars(trim($doc)) ?>
+                                    <i class="bi bi-file-earmark-text"></i> Documento Anexado pelo aluno
                                 </a><br>
                             <?php endforeach; ?>
                         <?php else: ?>
