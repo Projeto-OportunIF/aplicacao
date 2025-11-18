@@ -1,5 +1,5 @@
 body {
-    background-color: #b7cd8c;
+    background-color: #eafdc5;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -10,13 +10,13 @@ footer {
 }
 
 .top-bar {
-    background-color: #d9426b;
+    background-color: #d6425c;
     color: white;
     display: flex;
     padding: 10px 25px;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 20px solid #b7cd8c;
+    border-bottom: 20px solid #d3eba7;
     height: 80px;
 }
 
@@ -32,7 +32,7 @@ footer {
 }
 
 .menu-icon {
-    background-color: #b7cd8c;
+    background-color: #d3eba7;
     border-radius: 60%;
     padding: 10px;
     display: flex;
@@ -47,21 +47,21 @@ footer {
 
 .botao-voltar {
     display: inline-block;
-    background-color: #7b8d5b;
+    background-color: #d6425c;
     color: white;
     padding: 10px 25px;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 20px; /* mais arredondado */
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
 .botao-voltar:hover {
-    background-color: #b73658;
+    background-color: #d6425c;
 }
 
 .perfil-container {
-    background-color: #e6f1d7;
+    background-color: #d3eba7;
     width: 60%;
     margin: 40px auto;
     padding: 30px;
@@ -87,7 +87,7 @@ h3.text-center {
 }
 
 .foto-upload-container {
-    background-color: #d9426b;
+    background-color: #d6425c;
     color: white;
     border-radius: 20px;
     padding: 30px;
@@ -134,7 +134,7 @@ h3.text-center {
 
 .sidebar a:hover {
     background-color: #b7cd8c;
-    color: #d9426b;
+    color: #d6425c;
 }
 
 .closebtn {

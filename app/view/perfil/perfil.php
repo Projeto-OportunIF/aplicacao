@@ -11,7 +11,7 @@ if ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::ALUNO)
 elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
     $homePage = HOME_PAGE_PROFESSOR;
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/perfil_usuario.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/usuario_perfil.css">
 
         <div class="perfil-container">
             <h3 class="text-center">Perfil</h3>
@@ -34,9 +34,9 @@ elseif ($_SESSION[SESSAO_USUARIO_TIPO] == UsuarioTipo::PROFESSOR)
 
         </div>
 
-            <div class="botao-editar-container" style="text-align: left; margin-top: 11px; margin-left: 3px;">
+            <div class="botao-editar-container" style="text-align: left; margin-top: 5px; margin-left: 2px;">
                     <a href="<?php echo BASEURL . '/controller/PerfilController.php?action=editarPerfil'; ?>" 
-                    style="background-color: #d9426b; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                    style="background-color: #d6425c; color: white; padding: 8px 16px; border-radius: 11px; text-decoration: none; font-weight: bold;">
                         Editar dados pessoais
                     </a>
                 </div>
