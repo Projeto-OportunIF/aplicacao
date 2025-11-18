@@ -1,11 +1,21 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
+
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/curso_list.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/curso_lists.css">
 
 <h3>Cursos</h3>
+
+<?php if (!empty($_SESSION['msgErro'])): ?>
+    <div class="msg-erro">
+        🚫 <?= $_SESSION['msgErro'] ?>
+    </div>
+    <?php unset($_SESSION['msgErro']); ?>
+<?php endif; ?>
+
+
 <div class="container table-container">
     <div class="row mb-3 align-items-center justify-content-center">
         <div class="col-auto">

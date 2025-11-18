@@ -33,6 +33,8 @@ class UsuarioService
             }
         }
 
+        
+
         // Matrícula / SIAPE
         if (!$usuario->getMatricula()) {
             $erros['matricula'] = "O campo Matrícula ou SIAPE é obrigatório.";
@@ -54,11 +56,18 @@ class UsuarioService
             }
         }
 
+           if (!$usuario->getTipoUsuario())
+                       $erros['tipousu'] = "O campo Tipo de usuário é obrigatório.";
+
         // Validar curso para alunos
-        $curso = $usuario->getCurso();
-        if (!$curso || !$curso->getId()) {
-            $erros['curso'] = "O campo Curso é obrigatório.";
+        if ($usuario->getTipoUsuario() === UsuarioTipo::ALUNO) {
+            $curso = $usuario->getCurso();
+            if (!$curso || !$curso->getId()) {
+                 $erros['curso'] = "O campo Curso é obrigatório para alunos.";
+            }
         }
+
+
 
         $senha = $usuario->getSenha();
 
@@ -67,6 +76,9 @@ class UsuarioService
             $erros['senha'] = "O campo Senha é obrigatório! Devendo conter no mínimo 8 cacacteres, uma letra minúscula,
              uma letra maiúscula, um número e um caracter especial!";
         }
+
+
+
 
         // Validar confirmação de senha
         if (!$confSenha) {

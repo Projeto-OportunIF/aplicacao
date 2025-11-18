@@ -82,12 +82,27 @@ class CursoController extends Controller
     }
 
     protected function delete()
-    {
-        $id = $_GET['id'] ?? 0;
+{
+    session_start(); // se ainda não existe
+
+    $id = $_GET['id'] ?? 0;
+
+    try {
         $this->cursoDAO->deleteById($id);
+
+        $_SESSION['msgSucesso'] = "Curso excluído com sucesso!";
+        header("Location: " . BASEURL . "/controller/CursoController.php?action=list");
+        exit;
+
+    } catch (Exception $e) {
+
+        $_SESSION['msgErro'] = $e->getMessage();
         header("Location: " . BASEURL . "/controller/CursoController.php?action=list");
         exit;
     }
+}
+
+
 }
 
 new CursoController();

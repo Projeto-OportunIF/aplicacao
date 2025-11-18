@@ -71,6 +71,27 @@ require_once(__DIR__ . "/../include/menu.php");
 
                 </div>
 
+                 <div class="mb-3">
+                    <label class="form-label" for="seltipoUsuario">Tipo de usuário:</label>
+                    <select class="form-select" name="tipoUsuario" id="seltipoUsuario">
+                        <option value="">Selecione o usuario</option>
+                        <?php foreach ($dados["tipoUsuario"] as $tipoUsuario): ?>
+                            <option value="<?= $tipoUsuario ?>"
+                                <?php
+                                if (isset($dados["usuario"]) && $dados["usuario"]->getTipoUsuario() == $tipoUsuario)
+                                    echo "selected";
+                                ?>>
+                                <?= $tipoUsuario ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <?php if (isset($dados['erros']['tipousu'])): ?>
+                        <span class="form_error_message"><?= $dados['erros']['tipousu'] ?></span>
+                    <?php endif; ?>
+
+                </div>
+
                 <div class="mb-3">
                     <label class="form-label" for="selCurso">Curso (somente para alunos):</label>
                     <select class="form-select" name="curso" id="selCurso">
@@ -115,26 +136,7 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
 
 
-                <div class="mb-3">
-                    <label class="form-label" for="seltipoUsuario">Tipo de usuário:</label>
-                    <select class="form-select" name="tipoUsuario" id="seltipoUsuario">
-                        <option value="">Selecione o usuario</option>
-                        <?php foreach ($dados["tipoUsuario"] as $tipoUsuario): ?>
-                            <option value="<?= $tipoUsuario ?>"
-                                <?php
-                                if (isset($dados["usuario"]) && $dados["usuario"]->getTipoUsuario() == $tipoUsuario)
-                                    echo "selected";
-                                ?>>
-                                <?= $tipoUsuario ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-
-                    <?php if (isset($dados['erros']['tipousu'])): ?>
-                        <span class="form_error_message"><?= $dados['erros']['tipousu'] ?></span>
-                    <?php endif; ?>
-
-                </div>
+               
 
                 <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
 
@@ -174,6 +176,8 @@ require_once(__DIR__ . "/../include/menu.php");
         cpfInput.dispatchEvent(new Event('input'));
     });
 </script>
+
+
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");
