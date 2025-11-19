@@ -19,7 +19,7 @@ class Oportunidade
     private ?string $dataFim;
     private ?string $documentoAnexo;
     private array $cursos = []; // Agora é um array de cursos
-    private $professorResponsavel;
+    private ?Usuario $professor;
     private ?int $vaga;
 
 
@@ -158,17 +158,26 @@ class Oportunidade
         $this->vaga = $vaga;
     }
 
-
-    public function setProfessorResponsavel(string $nome)
+     /**
+     * Get the value of professor
+     */
+    public function getProfessor(): ?Usuario
     {
-        $this->professorResponsavel = $nome;
+        return $this->professor;
+    }
+
+    /**
+     * Set the value of professor
+     */
+    public function setProfessor(?Usuario $professor): self
+    {
+        $this->professor = $professor;
+
+        return $this;
     }
 
 
-    public function getProfessorResponsavel(): string
-    {
-        return $this->professorResponsavel;
-    }
+   
     // ----------------------
     // NOVOS MÉTODOS PARA CURSOS
     // ----------------------
@@ -204,4 +213,6 @@ class Oportunidade
         }
         return $this;
     }
+
+   
 }

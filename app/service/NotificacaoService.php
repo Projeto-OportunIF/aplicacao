@@ -34,12 +34,12 @@ class NotificacaoService
 
 
 
-    public function  notificarUsuariosByCurso($mensagem, array $cursos)
+    public function  notificarUsuariosByCurso($mensagem, array $cursos,  $idOportunidade=null)
     {
         //validar se os cursos existem
 
 
-        $this->dao->notificarUsuariosByCurso($mensagem, $cursos);
+        $this->dao->notificarUsuariosByCurso($mensagem, $cursos,  $idOportunidade);
     }
 
 

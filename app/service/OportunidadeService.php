@@ -18,7 +18,7 @@ class OportunidadeService
             $erros['descricao'] = "O campo Descrição é obrigatório.";
         }
 
-        if (!$oportunidade->getProfessorResponsavel()) {
+        if (!$oportunidade->getProfessor()) {
             $erros['profresponsavel'] = "O campo Professor Responsável é obrigatório.";
         }
 

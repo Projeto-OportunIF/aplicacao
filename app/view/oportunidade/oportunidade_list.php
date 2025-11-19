@@ -22,7 +22,7 @@ require_once(__DIR__ . "/../include/menu.php");
             <div class="card-oportunidade">
                 <h3><?= htmlspecialchars($op->getTitulo()); ?></h3>
 
-                <p><strong>Professor Responsável:</strong> <?= htmlspecialchars($op->getProfessorResponsavel()); ?></p>
+                <p><strong>Professor Responsável:</strong> <?= htmlspecialchars($op->getProfessor()->getNomeCompleto()); ?></p>
                 <p><strong>Tipo:</strong> <?= htmlspecialchars($op->getTipoOportunidade()); ?></p>
                 <p><strong>Vagas:</strong> <?= htmlspecialchars($op->getVaga()); ?></p>
                 <p><strong>Cursos:</strong>

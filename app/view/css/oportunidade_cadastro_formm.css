@@ -55,6 +55,28 @@ select:focus {
   outline: none;
 }
 
+/* DOCUMENTO EDITAL BÁSICO */
+
+.titulo-doc {
+    color: #c23956; /* cor do texto Documento Edital */
+    font-weight: 700;
+}
+.link-doc {
+    color: #6b961d; /* cor que você pediu */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link-doc i {
+    margin-right: 1px;
+    font-size: 1.1rem;
+}
+
+.link-doc:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
 /* ====== BOTÃO SALVAR ====== */
 #frmOportunidade .btn-salvar button,
 input[type="submit"] {

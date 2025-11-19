@@ -4,6 +4,7 @@
 
 include_once(__DIR__ . "/../connection/Connection.php");
 include_once(__DIR__ . "/../model/Usuario.php");
+include_once(__DIR__ . "/../model/enum/UsuarioTipo.php");
 include_once(__DIR__ . "/../model/Curso.php");
 
 class UsuarioDAO
@@ -16,6 +17,21 @@ class UsuarioDAO
             LEFT JOIN cursos c ON c.idCursos = u.idCursos
             ORDER BY u.nomeCompleto";
         $stm = $conn->prepare($sql);
+        $stm->execute();
+        $result = $stm->fetchAll();
+        return $this->mapUsuarios($result);
+    }
+
+    public function listProfessores()
+    {
+        $conn = Connection::getConn();
+        $sql = "SELECT u.*, c.nome AS nomeCursos
+            FROM usuarios u
+            LEFT JOIN cursos c ON c.idCursos = u.idCursos
+            WHERE u.tipoUsuario = :tipo
+            ORDER BY u.nomeCompleto";
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("tipo", UsuarioTipo::PROFESSOR);
         $stm->execute();
         $result = $stm->fetchAll();
         return $this->mapUsuarios($result);

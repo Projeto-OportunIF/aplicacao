@@ -57,14 +57,15 @@ class NotificacaoDAO
 
 
     // Enviar nova notificação
-    public function notificarUsuariosByCurso(string $mensagem, array $cursos)
+    public function notificarUsuariosByCurso(string $mensagem, array $cursos, int  $idOportunidade)
     {
         $idCursos = implode(',', array_fill(0, count($cursos), '?'));
 
-        $sql = "INSERT INTO notificacoes (mensagem, dataEnvio) VALUES (:mensagem, :dataEnvio)";
+        $sql = "INSERT INTO notificacoes (mensagem, dataEnvio, idOportunidade) VALUES (:mensagem, :dataEnvio, :idOportunidade)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":mensagem", $mensagem);
         $stmt->bindValue(":dataEnvio", date('Y-m-d'));
+        $stmt->bindValue(":idOportunidade", $idOportunidade);
 
         $stmt->execute();
 

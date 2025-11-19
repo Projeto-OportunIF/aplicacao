@@ -22,12 +22,29 @@ class OportunidadeDAO
 
 
 
-        $sql = "SELECT * FROM oportunidades o ORDER BY o.titulo";
+        $sql = "SELECT o.*, u.nomeCompleto, u.tipoUsuario FROM oportunidades o 
+                JOIN usuarios u ON (u.idUsuarios = o.idProfessor)
+                ORDER BY o.titulo";
         $stm = $conn->prepare($sql);
         $stm->execute();
         $result = $stm->fetchAll();
 
 
+        return $this->mapOportunidades($result);
+    }
+
+    public function listByProfessor($idProfessor)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "SELECT o.*, u.nomeCompleto, u.tipoUsuario FROM oportunidades o 
+                JOIN usuarios u ON (u.idUsuarios = o.idProfessor)
+                WHERE o.idProfessor = :idProfessor
+                ORDER BY o.titulo";
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("idProfessor", $idProfessor);
+        $stm->execute();
+        $result = $stm->fetchAll();
 
 
         return $this->mapOportunidades($result);
@@ -42,7 +59,8 @@ class OportunidadeDAO
         $conn = Connection::getConn();
 
 
-        $sql = "SELECT * FROM oportunidades o
+        $sql = "SELECT o.*, u.nomeCompleto, u.tipoUsuario FROM oportunidades o 
+                JOIN usuarios u ON (u.idUsuarios = o.idProfessor)
             WHERE o.tipoOportunidade = :tipo
             ORDER BY o.titulo";
         $stm = $conn->prepare($sql);
@@ -61,7 +79,8 @@ class OportunidadeDAO
         $conn = Connection::getConn();
 
 
-        $sql = "SELECT o.* FROM oportunidades o
+        $sql = "SELECT o.*, u.nomeCompleto, u.tipoUsuario FROM oportunidades o 
+                JOIN usuarios u ON (u.idUsuarios = o.idProfessor)
             INNER JOIN oportunidade_curso oc ON o.idOportunidades = oc.idOportunidade
             WHERE o.tipoOportunidade = :tipo
               AND oc.idCurso = :idCurso
@@ -91,7 +110,9 @@ class OportunidadeDAO
 
 
 
-        $sql = "SELECT * FROM oportunidades o WHERE o.idOportunidades = ?";
+        $sql = "SELECT o.*, u.nomeCompleto, u.tipoUsuario FROM oportunidades o 
+                JOIN usuarios u ON (u.idUsuarios = o.idProfessor)
+                WHERE o.idOportunidades = ?";
         $stm = $conn->prepare($sql);
         $stm->execute([$id]);
         $result = $stm->fetchAll();
@@ -124,36 +145,40 @@ class OportunidadeDAO
         $conn = Connection::getConn();
 
 
-     $sql = "INSERT INTO oportunidades
-        (titulo, descricao, tipoOportunidade, dataInicio, dataFim, documentoEdital, documentoAnexo, professor_responsavel, vaga)
-        VALUES
-        (:titulo, :descricao, :tipoOportunidade, :dataInicio, :dataFim, :documentoEdital, :documentoAnexo, :professor_responsavel, :vaga)";
+        $sql = "INSERT INTO oportunidades
+            (titulo, descricao, tipoOportunidade, dataInicio, dataFim, documentoEdital, documentoAnexo, professor, vaga)
+            VALUES
+            (:titulo, :descricao, :tipoOportunidade, :dataInicio, :dataFim, :documentoEdital, :documentoAnexo, :professor, :vaga)";
 
 
-    $stm = $conn->prepare($sql);
-    $stm->bindValue(":titulo", $oportunidade->getTitulo());
-    $stm->bindValue(":descricao", $oportunidade->getDescricao());
-    $stm->bindValue(":tipoOportunidade", $oportunidade->getTipoOportunidade());
-    $stm->bindValue(":dataInicio", $oportunidade->getDataInicio());
-    $stm->bindValue(":dataFim", $oportunidade->getDataFim());
-    $stm->bindValue(":documentoEdital", $oportunidade->getDocumentoEdital());
-    $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
-    $stm->bindValue(":professor_responsavel", $oportunidade->getProfessorResponsavel());
-    $stm->bindValue(":vaga", $oportunidade->getVaga());
-    $stm->execute();
+        $stm = $conn->prepare($sql);
+        $stm->bindValue(":titulo", $oportunidade->getTitulo());
+        $stm->bindValue(":descricao", $oportunidade->getDescricao());
+        $stm->bindValue(":tipoOportunidade", $oportunidade->getTipoOportunidade());
+        $stm->bindValue(":dataInicio", $oportunidade->getDataInicio());
+        $stm->bindValue(":dataFim", $oportunidade->getDataFim());
+        $stm->bindValue(":documentoEdital", $oportunidade->getDocumentoEdital());
+        $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
+        $stm->bindValue(":professor", $oportunidade->getProfessor());
+        $stm->bindValue(":vaga", $oportunidade->getVaga());
+        $stm->execute();
 
 
-    $idOportunidade = $conn->lastInsertId();
+        $idOportunidade = $conn->lastInsertId();
 
 
-    // Inserir cursos relacionados
-    foreach ($oportunidade->getCursos() as $curso) {
-        $sqlCurso = "INSERT INTO oportunidade_curso (idOportunidade, idCurso) VALUES (:idOportunidade, :idCurso)";
-        $stmCurso = $conn->prepare($sqlCurso);
-        $stmCurso->bindValue(":idOportunidade", $idOportunidade);
-        $stmCurso->bindValue(":idCurso", $curso->getId());
-        $stmCurso->execute();
+        // Inserir cursos relacionados
+        foreach ($oportunidade->getCursos() as $curso) {
+            $sqlCurso = "INSERT INTO oportunidade_curso (idOportunidade, idCurso) VALUES (:idOportunidade, :idCurso)";
+            $stmCurso = $conn->prepare($sqlCurso);
+            $stmCurso->bindValue(":idOportunidade", $idOportunidade);
+            $stmCurso->bindValue(":idCurso", $curso->getId());
+            $stmCurso->execute();
         }
+
+        return $idOportunidade;
+
+
     }
 
 
@@ -175,7 +200,7 @@ class OportunidadeDAO
     documentoEdital = :documentoEdital,
     documentoAnexo = :documentoAnexo,
     vaga = :vaga,
-    professor_responsavel = :professor_responsavel
+    professor = :professor
 WHERE idOportunidades = :id";
 
 
@@ -190,7 +215,7 @@ WHERE idOportunidades = :id";
     $stm->bindValue(":documentoEdital", $oportunidade->getDocumentoEdital());
     $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
     $stm->bindValue(":vaga", $oportunidade->getVaga());
-    $stm->bindValue(":professor_responsavel", $oportunidade->getProfessorResponsavel());
+    $stm->bindValue(":professor", $oportunidade->getProfessor());
     $stm->bindValue(":id", $oportunidade->getId());
     $stm->execute();
 
@@ -253,11 +278,11 @@ WHERE idOportunidades = :id";
 
 
             // Professor
-            $oportunidade->setProfessorResponsavel($reg['professor_responsavel']);
-
-
-
-
+            $professor = new Usuario();
+            $professor->setId($reg['idProfessor']);
+            $professor->setNomeCompleto($reg['nomeCompleto']);
+            $professor->setTipoUsuario($reg['tipoUsuario']);
+            $oportunidade->setProfessor($professor);
 
 
             // Cursos: agora você deve buscar na tabela oportunidade_curso

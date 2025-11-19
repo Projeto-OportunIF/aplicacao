@@ -128,8 +128,8 @@ require_once(__DIR__ . "/../include/menu.php");
                         <?php else: ?>
                             <!-- Cadastro de novo usuário -->
                             <label class="form-label">Senha</label>
-                            <input class="form-control" type="text" value="<?= $dados['senhaPadrao'] ?? 'IFPR@SENHA123' ?>" readonly>
-                            <input type="hidden" name="senha" value="<?= $dados['senhaPadrao'] ?? 'IFPR@SENHA123' ?>">
+                            <input class="form-control" type="text" value="<?= $dados['senhaPadrao'] ?? 'IFPR@Senha123' ?>" readonly>
+                            <input type="hidden" name="senha" value="<?= $dados['senhaPadrao'] ?? 'IFPR@Senha123' ?>">
 
                         <?php endif; ?>
                     <?php endif; ?>

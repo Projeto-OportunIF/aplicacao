@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastro_form.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastro_formm.css">
 <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 
 
@@ -58,21 +58,33 @@ require_once(__DIR__ . "/../include/menu.php");
                         <?php endif; ?>
 
                         <?php if (isset($dados["oportunidade"]) && $dados["oportunidade"]->getDocumentoEdital()): ?>
-                            <p>Arquivo atual:
-                                <a href="<?= BASEURL ?>/../uploads/<?= trim($dados["oportunidade"]->getDocumentoEdital()) ?>" target="_blank">
-                                    <?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>
+                            <p>
+                                <strong class="titulo-doc">Documento Edital Atual:</strong>
+                                <a href="<?= BASEURL ?>/../uploads/<?= trim($dados["oportunidade"]->getDocumentoEdital()) ?>"
+                                    target="_blank"
+                                    class="link-doc ms-2">
+                                    <i class="bi bi-file-earmark-text"></i>
+                                    Edital da sua oportunidade
                                 </a>
                             </p>
-                            <input type="hidden" name="documentoEditalExistente" value="<?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>">
+
+
+                            <input type="hidden"
+                                name="documentoEditalExistente"
+                                value="<?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>">
                         <?php endif; ?>
+
 
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="professor_responsavel">Professor Responsável:</label>
-                        <input class="form-control" type="text" id="professor_responsavel" name="professor_responsavel"
+                        <label class="form-label" for="professor">Professor Responsável:</label>
+                        <input class="form-control" type="text" id="professor" name="professor"
                             placeholder="Informe o professor responsável"
-                            value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getProfessorResponsavel() : ''; ?>" />
+                            value="<?= isset($dados["oportunidade"]) ? $dados["oportunidade"]->getProfessor() : ''; ?>" />
+
+
+                            
 
                         <?php if (isset($dados['erros']['profresponsavel'])): ?>
                             <span class="form_error_message"><?= $dados['erros']['profresponsavel'] ?></span>

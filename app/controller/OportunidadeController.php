@@ -55,7 +55,8 @@ class OportunidadeController extends Controller
 
     protected function list(string $msgErro = "", string $msgSucesso = "")
     {
-        $dados["lista"] = $this->oportunidadeDao->list();
+        $idUsuarioLogado = $this->getIdUsuarioLogado();
+        $dados["lista"] = $this->oportunidadeDao->listByProfessor($idUsuarioLogado);
         $this->loadView("oportunidade/oportunidade_list.php", $dados, $msgErro, $msgSucesso);
     }
 
@@ -165,8 +166,8 @@ class OportunidadeController extends Controller
 
 
         // PROFESSOR RESPONSÁVEL (usuário logado)
-        $professorResponsavel = trim($_POST["professor_responsavel"]);
-        $oportunidade->setProfessorResponsavel($professorResponsavel);
+        //$professorResponsavel = trim($_POST["professor_responsavel"]);
+       // $oportunidade->setProfessorResponsavel($professorResponsavel);
 
 
         // VALIDAR DADOS
@@ -191,10 +192,10 @@ class OportunidadeController extends Controller
         // =======================
         try {
             if ($oportunidade->getId() == 0) {
-                $this->oportunidadeDao->insert($oportunidade);
+                $idOportunidade = $this->oportunidadeDao->insert($oportunidade);
                 $this->notificacaoService->notificarUsuariosByCurso(
                     "Uma nova oportunidade foi criada: $titulo",
-                    $idCursos
+                    $idCursos,  $idOportunidade
                 );
             } else {
                 $this->oportunidadeDao->update($oportunidade);

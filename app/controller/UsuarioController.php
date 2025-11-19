@@ -46,7 +46,7 @@ class UsuarioController extends Controller
         $dados['id'] = 0;
         $dados['tipoUsuario'] = UsuarioTipo::getAllAsArray();
         $dados['cursos'] = $this->cursoDAO->list();
-        $dados['senhaPadrao'] = 'IFPR@SENHA123';
+        $dados['senhaPadrao'] = 'IFPR@Senha123';
 
 
         $this->loadView("usuario/cadastro_usuario_form.php", $dados);
@@ -135,11 +135,16 @@ class UsuarioController extends Controller
             } else {
 
                 $usuario->setSenha($senhaPost);
+                $confSenha = $senhaPost;
+
+
                 // confSenha vem do form
             }
         }
         // Validação via service
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);
+
+        
 
         if (!$erros) {
             try {

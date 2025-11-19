@@ -86,11 +86,13 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                                 <i class="bi bi-check-circle"></i> Marcar como lido
                             </a>
 
-                            <?php if (!empty($idOport) && $oportunidade && $oportunidade->getTipoOportunidade() !== 'ESTAGIO'): ?>
-                                <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $idOport ?>"
-                                    class="btn btn-visualizar flex-fill">
-                                    <i class="bi bi-people"></i> Visualizar Inscritos
-                                </a>
+                            <?php if (isset($_SESSION['usuarioLogadoTipo']) && $_SESSION['usuarioLogadoTipo'] === 'PROFESSOR'): ?>
+                                <?php if (!empty($idOport) && $oportunidade && $oportunidade->getTipoOportunidade() !== 'ESTAGIO'): ?>
+                                    <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $idOport ?>"
+                                        class="btn btn-visualizar flex-fill">
+                                        <i class="bi bi-people"></i> Visualizar Inscritos
+                                    </a>
+                                <?php endif; ?>
                             <?php endif; ?>
 
                         </div>
