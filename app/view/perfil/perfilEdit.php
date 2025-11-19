@@ -7,7 +7,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
 $usuario = $dados["usuario"];
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/usuario_perfil_edit.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/perfilEdits.css">
 
 <div class="page-container">
     <div class="form-card">
@@ -97,7 +97,7 @@ $usuario = $dados["usuario"];
             </div>
 
             <!-- Botões -->
-            <div class="text-center d-flex justify-content-center gap-3">
+            <div class="text-center d-flex  gap-3">
                 <a href="<?php echo BASEURL . '/controller/PerfilController.php?action=view'; ?>" class="btn btn-voltar">Voltar</a>
                 <button type="submit" class="btn btn-pink btn-salvar">Salvar Alterações</button>
             </div>
