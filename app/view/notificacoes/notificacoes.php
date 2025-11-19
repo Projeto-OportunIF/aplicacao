@@ -19,7 +19,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
     }
 }
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/notificacoess.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/notificacoes.css">
 
 <div class="container mt-4">
 
@@ -31,7 +31,8 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
         </a>
     </div>
 
-    <div class="row justify-content-center">
+   <div class="row-notificacoes">
+
 
         <?php if (count($dados["notificacoes"]) > 0): ?>
             <?php foreach ($dados["notificacoes"] as $notificacao): ?>

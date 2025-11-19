@@ -1,0 +1,139 @@
+
+body {
+    background-color: #eafdc5;
+}
+
+.titulo-pagina {
+    color: #c23956;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 1px;
+}
+
+
+.btn-voltar {
+    background-color: #c23956;
+    color: #fff !important;
+    padding: 10px 25px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #6b1c2f;
+    transform: translateY(-2px);
+}
+/* GRID PARA OS CARDS */
+.row-notificacoes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card-oportunidade {
+    background-color: #c23956;
+    border-radius: 15px;
+    color: white;
+    padding: 20px;
+    transition: transform 0.2s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+.card-oportunidade:hover {
+    transform: translateY(-4px);
+}
+
+.card-oportunidade h3 {
+    color:  white;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Para textos internos */
+.tipo-oportunidade {
+    color: #6b1c2f;
+    font-weight: 600;
+}
+
+/* Botões dentro do card */
+.btn-marcar-lido,
+.btn-visualizar {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    transition: 0.3s ease;
+    color: #fff !important;
+   
+}
+
+.btn-marcar-lido {
+    background-color: #afc38b;
+    
+}
+
+.btn-marcar-lido:hover {
+    background-color: #91a56b;
+}
+
+.btn-visualizar {
+    background-color: #ce6279;
+}
+
+.btn-visualizar:hover {
+    background-color: #6b1c2f;
+}
+
+
+
+/* ============================= */
+/*  RESPONSIVIDADE */
+/* ============================= */
+
+/* Telas médias (tablets grandes) → 3 cards por linha */
+@media (max-width: 1200px) {
+    .row-notificacoes {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Tablets → 2 cards por linha */
+@media (max-width: 900px) {
+    .row-notificacoes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+     .btn-marcar-lido,
+    .btn-visualizar {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Celulares → 1 card por linha */
+@media (max-width: 600px) {
+    .row-notificacoes {
+        grid-template-columns: 1fr;
+        
+    }
+     .btn-marcar-lido,
+    .btn-visualizar {
+        padding: 5px 8px;
+        font-size: 0.85rem;
+        border-radius: 8px;
+    }
+
+    .btn-voltar {
+        width: 80%;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
