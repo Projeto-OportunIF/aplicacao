@@ -28,7 +28,7 @@ body {
 /* GRID PARA OS CARDS */
 .row-notificacoes {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
 }
 
@@ -56,7 +56,7 @@ body {
 
 /* Para textos internos */
 .tipo-oportunidade {
-    color: #6b1c2f;
+    color: #fcb3c5;
     font-weight: 600;
 }
 
@@ -92,6 +92,37 @@ body {
     background-color: #6b1c2f;
 }
 
+
+/* ====== MENSAGEM QUANDO NÃO HÁ OPORTUNIDADES ====== */
+.sem-notificacoes{
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 100px auto;
+  max-width: 600px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+   grid-column: 2 / 5; /* ocupa a coluna 3 */
+}
+
+.sem-notificacoes i {
+  font-size: 24px;
+  color: #66bb6a;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.sem-notificacoes p {
+  display: inline;
+  margin: 0;
+  vertical-align: middle;
+}
 
 
 /* ============================= */

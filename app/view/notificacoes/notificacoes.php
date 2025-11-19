@@ -58,7 +58,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                 }
                 ?>
 
-                <div class="col-12 col-md-10 col-lg-8 mb-4">
+                <div class="col-12 col-md-10 col-lg-14 mb-4">
                     <div class="card-oportunidade shadow-sm p-3">
 
                         <h3 class="mb-3"><?= htmlspecialchars($mensagem) ?></h3>
@@ -102,7 +102,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
 
         <?php else: ?>
 
-            <div class="sem-notificacoes">
+            <div class="sem-notificacoes ">
                 <i class="bi bi-bell-slash"></i>
                 <p>Não há notificações no momento.</p>
             </div>
