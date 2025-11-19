@@ -63,17 +63,19 @@ body {
 /* Botões dentro do card */
 .btn-marcar-lido,
 .btn-visualizar {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;              /* espaço entre ícone e texto */
     width: 100%;
-    margin-top: 10px;
-    padding: 8px 12px;
+    padding: 10px 12px;
     border-radius: 10px;
     font-weight: 600;
     text-align: center;
-    transition: 0.3s ease;
     color: #fff !important;
-   
+    white-space: nowrap;   /* NÃO deixa o texto quebrar linha */
 }
+
 
 .btn-marcar-lido {
     background-color: #afc38b;

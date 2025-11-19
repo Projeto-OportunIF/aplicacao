@@ -14,7 +14,7 @@ error_reporting(E_ALL);
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'oportunif');
 define('DB_USER', 'root');
-define('DB_PASSWORD', 'bancodedados');
+define('DB_PASSWORD', '');
 
 
 //Caminho para adionar imagens, scripts e chamar páginas no sistema

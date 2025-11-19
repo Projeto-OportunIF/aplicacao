@@ -58,7 +58,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                 }
                 ?>
 
-                <div class="col-12 col-md-10 col-lg-14 mb-4">
+                <div class="col-12 col-md-14 col-lg-14 mb-4">
                     <div class="card-oportunidade shadow-sm p-3">
 
                         <h3 class="mb-3"><?= htmlspecialchars($mensagem) ?></h3>
@@ -82,7 +82,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                         <div class="d-flex flex-column flex-sm-row gap-2 mt-3">
 
                             <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=atualizarStatusPorUsuario&id_notificacao=' . $idNot ?>"
-                                class="btn btn-marcar-lido flex-fill">
+                                class="btn btn-marcar-lido  flex-fill">
                                 <i class="bi bi-check-circle"></i> Marcar como lido
                             </a>
 
