@@ -195,21 +195,31 @@ class UsuarioController extends Controller
         $dados['erros'] = $erros;
         $this->loadView("usuario/cadastro_usuario_form.php", $dados);
     }
-    protected function delete()
-    {
-        //Busca o usuário na base pelo ID    
-        $usuario = $this->findUsuarioById();
 
-        if ($usuario) {
-            //Excluir
-            $this->usuarioDao->deleteById($usuario->getId());
 
-            header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
-            exit;
-        } else {
-            $this->list("Usuário não encontrado!");
-        }
+  protected function delete()
+{
+    session_start(); // se ainda não existe
+
+    $id = $_GET['id'] ?? 0;
+
+    try {
+        $this->usuarioDao->deleteById($id);
+
+        $_SESSION['msgSucesso'] = "Usuário excluído com sucesso!";
+        header("Location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+        exit;
+
+    } catch (Exception $e) {
+
+        $_SESSION['msgErro'] = $e->getMessage();
+        header("Location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+        exit;
     }
+}
+
+
+
     protected function listJson()
     {
         //Retornar uma lista de usuários em forma JSON

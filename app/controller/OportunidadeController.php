@@ -68,6 +68,7 @@ class OportunidadeController extends Controller
         //TODO: VERIFICAR
         $dados['id'] = 0;
         $dados['cursos'] = $this->cursoDao->list();
+         $dados['professores'] = $this->usuarioDao->listProfessores();
         $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados);
     }
 
@@ -84,10 +85,11 @@ class OportunidadeController extends Controller
             $dados["id"] = $oportunidade->getId();
             $dados["oportunidade"] = $oportunidade;
             $dados["cursos"] = $this->cursoDao->list();
+              $dados['professores'] = $this->usuarioDao->listProfessores();
 
 
             // Buscar cursos associados à oportunidade
-            // Esse método precisa existir no OportunidadeDAO
+            // Espse método precisa existir no OportunidadeDAO
             $dados["oportunidadeCursos"] = $this->oportunidadeDao->getCursosByOportunidade($id);
 
 
@@ -99,119 +101,115 @@ class OportunidadeController extends Controller
 
 
     protected function save()
-    {
-        $id = $_POST["id"];
-        $titulo = trim($_POST["titulo"]);
-        $descricao = trim($_POST["descricao"]);
-        $tipo = trim($_POST["tipo"]);
-        $dataInicio = $_POST["dataInicio"];
-        $dataFim = $_POST["dataFim"];
-        $documento = isset($_POST["documento"]) ? trim($_POST["documento"]) : '';
+{
+    $id = $_POST["id"] ?? 0;
+    $titulo = trim($_POST["titulo"]);
+    $descricao = trim($_POST["descricao"]);
+    $tipo = trim($_POST["tipo"]);
+    $dataInicio = $_POST["dataInicio"] ?? null;
+    $dataFim = $_POST["dataFim"] ?? null;
+    $idProfessor = $_POST["idProfessor"] ?? null;
+    $idCursos = $_POST['cursos'] ?? [];
+    $vaga = isset($_POST["vaga"]) && $_POST["vaga"] !== "" ? (int)$_POST["vaga"] : null;
 
-        $idCursos = $_POST['cursos'] ?? [];
-        $vaga = isset($_POST["vaga"]) && $_POST["vaga"] !== "" ? (int)$_POST["vaga"] : null;
+    $oportunidade = new Oportunidade();
+    $oportunidade->setId($id);
+    $oportunidade->setTitulo($titulo);
+    $oportunidade->setDescricao($descricao);
+    $oportunidade->setTipoOportunidade($tipo);
+    $oportunidade->setDataInicio($dataInicio);
+    $oportunidade->setDataFim($dataFim);
+    $oportunidade->setVaga($vaga);
+    $oportunidade->setDocumentoAnexo(isset($_POST['documentoAnexo']) ? trim($_POST['documentoAnexo']) : '');
 
-
-        $oportunidade = new Oportunidade();
-        $oportunidade->setId($id);
-        $oportunidade->setTitulo($titulo);
-        $oportunidade->setDescricao($descricao);
-        $oportunidade->setTipoOportunidade($tipo);
-        $oportunidade->setDataInicio($dataInicio);
-        $oportunidade->setDataFim($dataFim);
-        $oportunidade->setDocumentoAnexo(isset($_POST['documentoAnexo']) ? trim($_POST['documentoAnexo']) : '');
-        $oportunidade->setVaga($vaga);
-
-
-        // =======================
-        // PROCESSAR DOCUMENTO EDITAL (UPLOAD)
-        // =======================
-        if (isset($_FILES['documentoEdital']) && $_FILES['documentoEdital']['error'] == UPLOAD_ERR_OK) {
-
-            //TODO: Verificar o limite de tamanho do arquivo...
-            
-            // gera nome único
-            $nomeArquivoEdital = uniqid('edital_') . '_' . basename($_FILES['documentoEdital']['name']);
-            $caminhoDestino = __DIR__ . "/../../uploads/" . $nomeArquivoEdital;
-
-             
-
-            if (move_uploaded_file($_FILES['documentoEdital']['tmp_name'], $caminhoDestino)) {
-                $oportunidade->setDocumentoEdital($nomeArquivoEdital);
-            } else {
-                $oportunidade->setDocumentoEdital(null);
-            }
-
-        } elseif (!empty($_POST['documentoEditalExistente'])) {
-            // mantém o arquivo antigo se não houver novo upload
-            $oportunidade->setDocumentoEdital($_POST['documentoEditalExistente']);
+    // =======================
+    // PROCESSAR DOCUMENTO EDITAL (UPLOAD)
+    // =======================
+    if (isset($_FILES['documentoEdital']) && $_FILES['documentoEdital']['error'] == UPLOAD_ERR_OK) {
+        $nomeArquivoEdital = uniqid('edital_') . '_' . basename($_FILES['documentoEdital']['name']);
+        $caminhoDestino = __DIR__ . "/../../uploads/" . $nomeArquivoEdital;
+        if (move_uploaded_file($_FILES['documentoEdital']['tmp_name'], $caminhoDestino)) {
+            $oportunidade->setDocumentoEdital($nomeArquivoEdital);
         } else {
             $oportunidade->setDocumentoEdital(null);
         }
-        // =======================
-
-
-        // CURSOS
-        if (empty($idCursos)) {
-            $erros[] = "Selecione pelo menos um curso.";
-        } else {
-            $cursos = [];
-            foreach ($idCursos as $idCurso) {
-                $curso = new Curso();
-                $curso->setId($idCurso);
-                $cursos[] = $curso;
-            }
-            $oportunidade->setCursos($cursos);
-        }
-
-
-        // PROFESSOR RESPONSÁVEL (usuário logado)
-        //$professorResponsavel = trim($_POST["professor_responsavel"]);
-       // $oportunidade->setProfessorResponsavel($professorResponsavel);
-
-
-        // VALIDAR DADOS
-        $erros = $this->service->validarDados($oportunidade);
-
-
-        if (count($erros) > 0) {
-            $dados['oportunidade'] = $oportunidade;
-            $dados['cursos'] = $this->cursoDao->list();
-            $dados['oportunidadeCursos'] = $oportunidade->getCursos();
-            $dados['id'] = $oportunidade->getId();
-            $dados['erros'] = $erros;
-
-
-            $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados);
-            return;
-        }
-
-
-        // =======================
-        // SALVAR NO BANCO
-        // =======================
-        try {
-            if ($oportunidade->getId() == 0) {
-                $idOportunidade = $this->oportunidadeDao->insert($oportunidade);
-                $this->notificacaoService->notificarUsuariosByCurso(
-                    "Uma nova oportunidade foi criada: $titulo",
-                    $idCursos,  $idOportunidade
-                );
-            } else {
-                $this->oportunidadeDao->update($oportunidade);
-            }
-
-
-            header("Location: " . BASEURL . "/controller/OportunidadeController.php?action=list");
-            exit;
-        } catch (PDOException $e) {
-            $msgErro = "Erro ao gravar: " . $e->getMessage();
-            $dados['id'] = 0;
-            $dados['oportunidade'] = $oportunidade;
-            $dados['cursos'] = $this->cursoDao->list();
-            $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados, $msgErro);
-        }
+    } elseif (!empty($_POST['documentoEditalExistente'])) {
+        $oportunidade->setDocumentoEdital($_POST['documentoEditalExistente']);
+    } else {
+        $oportunidade->setDocumentoEdital(null);
     }
+
+    // =======================
+    // CURSOS
+    // =======================
+    $erros = [];
+    if (empty($idCursos)) {
+        $erros[] = "Selecione pelo menos um curso.";
+    } else {
+        $cursos = [];
+        foreach ($idCursos as $idCurso) {
+            $curso = new Curso();
+            $curso->setId($idCurso);
+            $cursos[] = $curso;
+        }
+        $oportunidade->setCursos($cursos);
+    }
+
+    // =======================
+    // PROFESSOR RESPONSÁVEL
+    // =======================
+    if ($idProfessor) {
+        $professor = new Usuario();
+        $professor->setId($idProfessor);
+        $oportunidade->setProfessor($professor);
+    } else {
+        $erros[] = "Selecione um professor responsável.";
+    }
+
+    // =======================
+    // VALIDAR DADOS
+    // =======================
+    $erros = array_merge($erros, $this->service->validarDados($oportunidade));
+
+    if (count($erros) > 0) {
+        $dados['oportunidade'] = $oportunidade;
+        $dados['cursos'] = $this->cursoDao->list();
+        $dados['oportunidadeCursos'] = $oportunidade->getCursos();
+        $dados['professores'] = $this->usuarioDao->listProfessores();
+        $dados['id'] = $oportunidade->getId();
+        $dados['erros'] = $erros;
+
+        $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados);
+        return;
+    }
+
+    // =======================
+    // SALVAR NO BANCO
+    // =======================
+    try {
+        if ($oportunidade->getId() == 0) {
+            $idOportunidade = $this->oportunidadeDao->insert($oportunidade);
+            $this->notificacaoService->notificarUsuariosByCurso(
+                "Uma nova oportunidade foi criada: $titulo",
+                $idCursos,  
+                $idOportunidade
+            );
+        } else {
+            $this->oportunidadeDao->update($oportunidade);
+        }
+
+        header("Location: " . BASEURL . "/controller/OportunidadeController.php?action=list");
+        exit;
+    } catch (PDOException $e) {
+        $msgErro = "Erro ao gravar: " . $e->getMessage();
+        $dados['id'] = $oportunidade->getId();
+        $dados['oportunidade'] = $oportunidade;
+        $dados['cursos'] = $this->cursoDao->list();
+        $dados['professores'] = $this->usuarioDao->listProfessores();
+        $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados, $msgErro);
+    }
+}
+
 
 
     protected function delete()

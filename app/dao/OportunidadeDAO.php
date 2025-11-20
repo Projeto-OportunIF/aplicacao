@@ -140,73 +140,69 @@ class OportunidadeDAO
 
 
     // Inserir nova oportunidade
-    public function insert(Oportunidade $oportunidade)
-    {
-        $conn = Connection::getConn();
+public function insert(Oportunidade $oportunidade)
+{
+    $conn = Connection::getConn();
 
+    $sql = "INSERT INTO oportunidades
+        (titulo, descricao, tipoOportunidade, dataInicio, dataFim, documentoEdital, documentoAnexo, idProfessor, vaga)
+        VALUES
+        (:titulo, :descricao, :tipoOportunidade, :dataInicio, :dataFim, :documentoEdital, :documentoAnexo, :idProfessor, :vaga)";
 
-        $sql = "INSERT INTO oportunidades
-            (titulo, descricao, tipoOportunidade, dataInicio, dataFim, documentoEdital, documentoAnexo, professor, vaga)
-            VALUES
-            (:titulo, :descricao, :tipoOportunidade, :dataInicio, :dataFim, :documentoEdital, :documentoAnexo, :professor, :vaga)";
+    $stm = $conn->prepare($sql);
 
+    $stm->bindValue(":titulo", $oportunidade->getTitulo());
+    $stm->bindValue(":descricao", $oportunidade->getDescricao());
+    $stm->bindValue(":tipoOportunidade", $oportunidade->getTipoOportunidade());
+    $stm->bindValue(":dataInicio", $oportunidade->getDataInicio());
+    $stm->bindValue(":dataFim", $oportunidade->getDataFim());
+    $stm->bindValue(":documentoEdital", $oportunidade->getDocumentoEdital());
+    $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
 
-        $stm = $conn->prepare($sql);
-        $stm->bindValue(":titulo", $oportunidade->getTitulo());
-        $stm->bindValue(":descricao", $oportunidade->getDescricao());
-        $stm->bindValue(":tipoOportunidade", $oportunidade->getTipoOportunidade());
-        $stm->bindValue(":dataInicio", $oportunidade->getDataInicio());
-        $stm->bindValue(":dataFim", $oportunidade->getDataFim());
-        $stm->bindValue(":documentoEdital", $oportunidade->getDocumentoEdital());
-        $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
-        $stm->bindValue(":professor", $oportunidade->getProfessor());
-        $stm->bindValue(":vaga", $oportunidade->getVaga());
-        $stm->execute();
+    // professor -----> agora correto
+    $prof = $oportunidade->getProfessor();
+    $stm->bindValue(":idProfessor", $prof ? $prof->getId() : null, PDO::PARAM_INT);
 
+    $stm->bindValue(":vaga", $oportunidade->getVaga(), PDO::PARAM_INT);
 
-        $idOportunidade = $conn->lastInsertId();
+    $stm->execute();
 
+    $idOportunidade = $conn->lastInsertId();
 
-        // Inserir cursos relacionados
-        foreach ($oportunidade->getCursos() as $curso) {
-            $sqlCurso = "INSERT INTO oportunidade_curso (idOportunidade, idCurso) VALUES (:idOportunidade, :idCurso)";
-            $stmCurso = $conn->prepare($sqlCurso);
-            $stmCurso->bindValue(":idOportunidade", $idOportunidade);
-            $stmCurso->bindValue(":idCurso", $curso->getId());
-            $stmCurso->execute();
-        }
-
-        return $idOportunidade;
-
-
+    // salvar cursos
+    foreach ($oportunidade->getCursos() as $curso) {
+        $sqlCurso = "INSERT INTO oportunidade_curso (idOportunidade, idCurso)
+                     VALUES (:idOportunidade, :idCurso)";
+        $stmCurso = $conn->prepare($sqlCurso);
+        $stmCurso->bindValue(":idOportunidade", $idOportunidade);
+        $stmCurso->bindValue(":idCurso", $curso->getId());
+        $stmCurso->execute();
     }
 
+    return $idOportunidade;
+}
 
 
 
     // Atualizar oportunidade
-    public function update(Oportunidade $oportunidade)
-    {
-        $conn = Connection::getConn();
+   public function update(Oportunidade $oportunidade)
+{
+    $conn = Connection::getConn();
 
-
-        //  Atualizar dados da oportunidade (sem idCursos)
-     $sql = "UPDATE oportunidades SET
-    titulo = :titulo,
-    descricao = :descricao,
-    tipoOportunidade = :tipoOportunidade,
-    dataInicio = :dataInicio,
-    dataFim = :dataFim,
-    documentoEdital = :documentoEdital,
-    documentoAnexo = :documentoAnexo,
-    vaga = :vaga,
-    professor = :professor
-WHERE idOportunidades = :id";
-
-
-
+    $sql = "UPDATE oportunidades SET
+        titulo = :titulo,
+        descricao = :descricao,
+        tipoOportunidade = :tipoOportunidade,
+        dataInicio = :dataInicio,
+        dataFim = :dataFim,
+        documentoEdital = :documentoEdital,
+        documentoAnexo = :documentoAnexo,
+        vaga = :vaga,
+        idProfessor = :idProfessor
+    WHERE idOportunidades = :id";
 
     $stm = $conn->prepare($sql);
+
     $stm->bindValue(":titulo", $oportunidade->getTitulo());
     $stm->bindValue(":descricao", $oportunidade->getDescricao());
     $stm->bindValue(":tipoOportunidade", $oportunidade->getTipoOportunidade());
@@ -215,29 +211,29 @@ WHERE idOportunidades = :id";
     $stm->bindValue(":documentoEdital", $oportunidade->getDocumentoEdital());
     $stm->bindValue(":documentoAnexo", $oportunidade->getDocumentoAnexo());
     $stm->bindValue(":vaga", $oportunidade->getVaga());
-    $stm->bindValue(":professor", $oportunidade->getProfessor());
+
+    $prof = $oportunidade->getProfessor();
+    $stm->bindValue(":idProfessor", $prof ? $prof->getId() : null, PDO::PARAM_INT);
+
     $stm->bindValue(":id", $oportunidade->getId());
+
     $stm->execute();
 
-
-    // Atualizar cursos relacionados
+    // atualizar cursos
     $sqlDelete = "DELETE FROM oportunidade_curso WHERE idOportunidade = :idOportunidade";
     $stmDelete = $conn->prepare($sqlDelete);
     $stmDelete->bindValue(":idOportunidade", $oportunidade->getId());
     $stmDelete->execute();
 
-
     foreach ($oportunidade->getCursos() as $curso) {
-        $sqlInsert = "INSERT INTO oportunidade_curso (idOportunidade, idCurso) VALUES (:idOportunidade, :idCurso)";
+        $sqlInsert = "INSERT INTO oportunidade_curso (idOportunidade, idCurso)
+                      VALUES (:idOportunidade, :idCurso)";
         $stmInsert = $conn->prepare($sqlInsert);
         $stmInsert->bindValue(":idOportunidade", $oportunidade->getId());
         $stmInsert->bindValue(":idCurso", $curso->getId());
         $stmInsert->execute();
-        }
     }
-
-
-
+}
 
     // Excluir oportunidade
     public function deleteById(int $id)

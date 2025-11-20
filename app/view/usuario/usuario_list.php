@@ -5,9 +5,30 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/usuario_list.css">
+
+
+
+<?php if (!empty($_SESSION['msgSucesso'])): ?>
+  <div class="msg-sucesso">
+    ✅ <?= $_SESSION['msgSucesso'] ?>
+  </div>
+  <?php unset($_SESSION['msgSucesso']); ?>
+<?php endif; ?>
+
+<?php if (!empty($_SESSION['msgErro'])): ?>
+  <div class="msg-erro">
+    🚫 <?= $_SESSION['msgErro'] ?>
+  </div>
+  <?php unset($_SESSION['msgErro']); ?>
+<?php endif; ?>
+
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/usuario_lists.css">
+
+
 
 <h3>Usuários no Sistema</h3>
+
+
 
 <div class="row mb-3 align-items-center justify-content-center">
     <div class="col-auto">
@@ -23,6 +44,8 @@ require_once(__DIR__ . "/../include/menu.php");
         </a>
     </div>
 </div>
+
+
 <div class="user-cards">
 
     <?php if (!empty($dados['lista'])): ?>

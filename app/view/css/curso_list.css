@@ -7,10 +7,10 @@ body {
 
 h3 {
     text-align: center;
-    color: #d6425c;
+    color: #c72a47;
     font-size: 38px;
     font-weight: bold;
-    margin-top: 30px;
+    margin: 30px 10px 20px;
 }
 
 .btn-success, .btn-secondary {
@@ -19,31 +19,31 @@ h3 {
     font-weight: bold;
     border: none;
     transition: background-color 0.3s ease;
+    font-size: 16px;
 }
 
 .btn-success {
-    background-color: #a4c466;
+    background-color: #c63f57;
     color: white;
 }
 
 .btn-success:hover {
-    background-color: #8f9e38;
+    background-color: #8a2336;
 }
 
 .btn-secondary {
-    background-color: #a4c466;
+    background-color: #c63f57;
     color: white;
 }
 
 .btn-secondary:hover {
-    background-color: #8f9e38;
+    background-color: #8a2336;
 }
 
 .container.table-container {
     max-width: 1200px;
     margin: auto;
     padding: 20px;
-    
 }
 
 .user-cards {
@@ -51,35 +51,41 @@ h3 {
     flex-wrap: wrap;
     gap: 60px;
     justify-content: center;
-    padding-bottom: 80px;
+    padding-bottom: 80px; 
 }
 
 .user-card {
-    background-color: #c63f57;
+    background-color: #b2d46e;
     color: white;
     border-radius: 25px;
     padding: 20px 30px;
-    width: 350px;
+    width: 310px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    display: flex;           
-    flex-direction: column;  
-    justify-content: space-between; 
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
 
 .user-card p {
     margin: 5px 0;
     font-weight: bold;
+    color: #333;
 }
 
 .user-card .btn {
     border-radius: 10px;
-    padding: 5px 10px;
+    padding: 6px 12px;
     margin-right: 15px;
     font-size: 0.9em;
     border: none;
     transition: background-color 0.3s ease;
-    align-self: flex-start;   
+    align-self: flex-start;
 }
 
 .user-card .btn-primary {
@@ -100,7 +106,8 @@ h3 {
     background-color: #bd2130;
 }
 
-.sem-usuario {
+
+.sem-curso {
     background-color: #e9f7ef;
     color: #2e7d32;
     border: 1px solid #c8e6c9;
@@ -116,14 +123,39 @@ h3 {
     animation: fadeIn 0.8s forwards;
 }
 
-.sem-usuario i {
+.sem-curso i {
     font-size: 22px;
     margin-right: 8px;
     color: #388e3c;
     vertical-align: middle;
 }
 
-/*         RESPONSIVIDADE        */
+.msg-sucesso,
+.msg-erro {
+  padding: 12px 15px;
+  margin: 20px auto;
+  border-radius: 8px;
+  max-width: 700px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+}
+
+.msg-sucesso {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.msg-erro {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* ===== RESPONSIVIDADE ===== */
 
 @media (max-width: 992px) {
     h3 {
@@ -132,65 +164,44 @@ h3 {
 
     .user-cards {
         gap: 40px;
-         padding-bottom: 60px
+        padding-bottom: 100px;
     }
 
     .user-card {
-        width: 300px;
+        width: 280px;
         padding: 18px 25px;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     h3 {
-        font-size: 28px;
-    }
-
-    .user-cards {
-        gap: 25px;
-         padding-bottom: 60px
-    }
-
-    .user-card {
-        width: 85%;
-        padding: 18px;
-    }
-
-    .user-card p {
-        font-size: 0.95em;
-    }
-
-    .btn-success, .btn-secondary {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    h3 {
-        font-size: 24px;
+        font-size: 26px;
         margin-top: 20px;
     }
 
-    .user-card {
-        width: 78%;
-        padding: 15px;
-    }
-
-    .user-card p {
-        font-size: 0.9em;
-    }
-
-    .user-card .btn {
-        font-size: 0.85em;
-        padding: 6px 12px;
-        margin-top: 8px;
+    .container.table-container {
+        padding: 10px;
     }
 
     .user-cards {
         flex-direction: column;
         align-items: center;
-         padding-bottom: 60px
+        gap: 25px;
+        padding-bottom: 60px; 
+    }
+
+    .user-card {
+        width: 78%;
+        max-width: 360px;
+        padding: 18px;
+    }
+
+    .user-card p {
+        font-size: 15px;
+    }
+
+    .btn-success, .btn-secondary {
+        font-size: 14px;
+        padding: 6px 14px;
     }
 }

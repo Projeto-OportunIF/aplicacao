@@ -21,7 +21,12 @@ require_once(__DIR__ . "/../include/menu.php");
                         <h4 class="titulo-inscricao"><?= htmlspecialchars($inscricao->titulo) ?></h4>
 
                         <p><strong>Tipo:</strong> <?= htmlspecialchars($inscricao->tipoOportunidade) ?></p>
-                        <p><strong>Professor:</strong> <?= htmlspecialchars($inscricao->professor_responsavel ?? "Não definido") ?></p>
+
+            <p><strong>Professor:</strong> <?= htmlspecialchars($inscricao->nomeProfessor ?? "Não definido") ?></p>
+
+
+
+
                         <p><strong>Início:</strong> <?= date('d/m/Y', strtotime($inscricao->dataInicio)) ?></p>
                         <p><strong>Fim:</strong> <?= date('d/m/Y', strtotime($inscricao->dataFim)) ?></p>
                         <p><strong>Status:</strong>

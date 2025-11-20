@@ -19,7 +19,8 @@ class Oportunidade
     private ?string $dataFim;
     private ?string $documentoAnexo;
     private array $cursos = []; // Agora é um array de cursos
-    private ?Usuario $professor;
+    private ?Usuario $professor = null;
+
     private ?int $vaga;
 
 

@@ -53,27 +53,30 @@ class InscricaoDAO
     }
 
     // Listar inscrições de um aluno
-    public function listByAluno(int $idAluno)
-    {
-        $sql = "SELECT i.*, 
-                       o.titulo, 
-                       o.descricao, 
-                       o.tipoOportunidade, 
-                       o.dataInicio, 
-                       o.dataFim,
-                       o.vaga,
-                       o.documentoAnexo,
-                       o.professor_responsavel
-                FROM inscricoes i
-                INNER JOIN oportunidades o ON i.idOportunidades = o.idOportunidades
-                WHERE i.idUsuarios = :idAluno
-                ORDER BY i.idInscricoes DESC";
+public function listByAluno(int $idAluno)
+{
+    $sql = "SELECT i.*, 
+                   o.titulo, 
+                   o.descricao, 
+                   o.tipoOportunidade, 
+                   o.dataInicio, 
+                   o.dataFim,
+                   o.vaga,
+                   o.documentoAnexo,
+                   o.idProfessor,
+                   p.nomeCompleto AS nomeProfessor
+            FROM inscricoes i
+            INNER JOIN oportunidades o ON i.idOportunidades = o.idOportunidades
+            LEFT JOIN usuarios p ON o.idProfessor = p.idUsuarios
+            WHERE i.idUsuarios = :idAluno
+            ORDER BY i.idInscricoes DESC";
 
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(":idAluno", $idAluno, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":idAluno", $idAluno, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
 
     // Deletar inscrição
     public function deleteById(int $idInscricao)
@@ -84,26 +87,30 @@ class InscricaoDAO
         $stmt->execute();
     }
 
-    // Listar inscrições de uma oportunidade com detalhes do aluno
-    public function listByOportunidadeDetalhado(int $idOportunidade)
-    {
-        $sql = "SELECT i.*, 
-                       u.nomeCompleto AS nomeAluno, 
-                       u.email AS emailAluno, 
-                       u.matricula AS matriculaAluno,
-                       c.nome AS cursoAluno
-                FROM inscricoes i
-                INNER JOIN usuarios u ON i.idUsuarios = u.idUsuarios
-                INNER JOIN cursos c ON u.idCursos = c.idCursos
-                WHERE i.idOportunidades = :idOportunidade
-                ORDER BY i.idInscricoes DESC";
+   public function listByOportunidadeDetalhado(int $idOportunidade)
+{
+    $sql = "SELECT i.*, 
+                   u.nomeCompleto AS nomeAluno, 
+                   u.email AS emailAluno, 
+                   u.matricula AS matriculaAluno,
+                   c.nome AS cursoAluno,
+                   p.nomeCompleto AS nomeProfessor
+            FROM inscricoes i
+            INNER JOIN usuarios u ON i.idUsuarios = u.idUsuarios
+            INNER JOIN cursos c ON u.idCursos = c.idCursos
+            INNER JOIN oportunidades o ON i.idOportunidades = o.idOportunidades
+            LEFT JOIN usuarios p ON o.idProfessor = p.idUsuarios
+            WHERE i.idOportunidades = :idOportunidade
+            ORDER BY i.idInscricoes DESC";
 
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(":idOportunidade", $idOportunidade, PDO::PARAM_INT);
-        $stmt->execute();
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindValue(":idOportunidade", $idOportunidade, PDO::PARAM_INT);
+    $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
+
 
     // Atualizar status e feedback
     public function updateStatus($idInscricao, $novoStatus, $feedbackProfessor = null)

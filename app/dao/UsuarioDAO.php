@@ -188,30 +188,21 @@ class UsuarioDAO
     $conn = Connection::getConn();
 
     try {
-        $conn->beginTransaction();
+        $sql = "DELETE FROM usuarios WHERE idUsuarios = ?";
+        $stm = $conn->prepare($sql);
+        $stm->execute([$id]);
 
-        $sql1 = "DELETE FROM inscricoes WHERE idUsuarios = :id";
-        $stm1 = $conn->prepare($sql1);
-        $stm1->bindValue(":id", $id);
-        $stm1->execute();
-
-        // REMOVER essa parte, pois a tabela 'oportunidades' não tem 'idUsuarios'
-        // $sql2 = "DELETE FROM oportunidades WHERE idUsuarios = :id";
-        // $stm2 = $conn->prepare($sql2);
-        // $stm2->bindValue(":id", $id);
-        // $stm2->execute();
-
-        $sql3 = "DELETE FROM usuarios WHERE idUsuarios = :id";
-        $stm3 = $conn->prepare($sql3);
-        $stm3->bindValue(":id", $id);
-        $stm3->execute();
-
-        $conn->commit();
     } catch (PDOException $e) {
-        $conn->rollBack();
+        // Código 23000 = violação de foreign key
+        if ($e->getCode() == "23000") {
+            throw new Exception("Você não pode excluir este usuário pois ele está vinculado a uma oportunidade.");
+        }
+
+        // Qualquer outro erro repassa a exceção
         throw $e;
     }
 }
+
 
 
     public function updateFotoPerfil(Usuario $usuario)

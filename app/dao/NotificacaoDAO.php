@@ -113,7 +113,7 @@ class NotificacaoDAO
     public function notificarProfessorPorNovaInscricao($idOportunidade)
     {
         // Passo 1: Busca os dados da oportunidade
-        $sql = "SELECT o.titulo, o.tipoOportunidade, o.professor_responsavel
+        $sql = "SELECT o.titulo, o.tipoOportunidade, o.idProfessor
             FROM oportunidades o
             WHERE o.idOportunidades = :idOportunidade";
 
@@ -125,7 +125,7 @@ class NotificacaoDAO
         if (!$dados) return;
 
         $titulo = $dados["titulo"];
-        $nomeProfessor = $dados["professor_responsavel"];
+        $nomeProfessor = $dados["professor"];
 
         // Passo 2: Busca o ID do professor
         $sqlProf = "SELECT idUsuarios FROM usuarios WHERE nomeCompleto = :nomeProfessor LIMIT 1";
