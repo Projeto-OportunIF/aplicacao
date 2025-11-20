@@ -23,10 +23,6 @@ require_once(__DIR__ . "/../include/menu.php");
 <h3>Cursos</h3>
 
 
-
-
-
-
 <div class="container table-container">
     <div class="row mb-3 align-items-center justify-content-center">
         <div class="col-auto">
