@@ -125,9 +125,10 @@ class NotificacaoDAO
         if (!$dados) return;
 
         $titulo = $dados["titulo"];
-        $nomeProfessor = $dados["professor"];
+        $idProfessor = $dados["idProfessor"];
 
         // Passo 2: Busca o ID do professor
+        /*
         $sqlProf = "SELECT idUsuarios FROM usuarios WHERE nomeCompleto = :nomeProfessor LIMIT 1";
         $stmtProf = $this->conn->prepare($sqlProf);
         $stmtProf->bindValue(":nomeProfessor", $nomeProfessor);
@@ -137,6 +138,7 @@ class NotificacaoDAO
         if (!$professor) return;
 
         $idProfessor = $professor["idUsuarios"];
+        */
 
         // Passo 3: Cria mensagem e link
         $mensagem = "Um novo aluno se inscreveu na sua oportunidade \"$titulo\".";

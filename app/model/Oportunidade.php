@@ -24,6 +24,18 @@ class Oportunidade
     private ?int $vaga;
 
 
+    public function __construct()
+    {
+        $this->id = 0;
+        $this->titulo = "";
+        $this->descricao = "";
+        $this->tipoOportunidade = "";
+        $this->dataInicio = "";
+        $this->dataFim = "";
+        $this->documentoAnexo = "";
+        $this->vaga = null;
+    }
+
     // ----------------------
     // GETTERS E SETTERS
     // ----------------------

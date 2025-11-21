@@ -68,7 +68,13 @@ class OportunidadeController extends Controller
         //TODO: VERIFICAR
         $dados['id'] = 0;
         $dados['cursos'] = $this->cursoDao->list();
-         $dados['professores'] = $this->usuarioDao->listProfessores();
+        $dados['professores'] = $this->usuarioDao->listProfessores();
+
+        $oportunidade = new Oportunidade();
+        $oportunidade->setProfessor(new Usuario());
+        $oportunidade->getProfessor()->setId($this->getIdUsuarioLogado()); 
+        $dados["oportunidade"] = $oportunidade;
+
         $this->loadView("oportunidade/oportunidade_cadastro_form.php", $dados);
     }
 
@@ -85,7 +91,7 @@ class OportunidadeController extends Controller
             $dados["id"] = $oportunidade->getId();
             $dados["oportunidade"] = $oportunidade;
             $dados["cursos"] = $this->cursoDao->list();
-              $dados['professores'] = $this->usuarioDao->listProfessores();
+            $dados['professores'] = $this->usuarioDao->listProfessores();
 
 
             // Buscar cursos associados à oportunidade
