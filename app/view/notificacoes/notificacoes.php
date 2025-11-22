@@ -31,7 +31,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
         </a>
     </div>
 
-   <div class="row-notificacoes">
+    <div class="row-notificacoes">
 
 
         <?php if (count($dados["notificacoes"]) > 0): ?>
@@ -82,7 +82,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                         <div class="d-flex flex-column flex-sm-row gap-2 mt-3">
 
                             <a href="<?= BASEURL . '/controller/NotificacaoController.php?action=atualizarStatusPorUsuario&id_notificacao=' . $idNot ?>"
-                                class="btn btn-marcar-lido  flex-fill">
+                                class="btn btn-marcar-lido flex-fill">
                                 <i class="bi bi-check-circle"></i> Marcar como lido
                             </a>
 
@@ -95,7 +95,17 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                                 <?php endif; ?>
                             <?php endif; ?>
 
+                            <?php if (isset($_SESSION['usuarioLogadoTipo']) && $_SESSION['usuarioLogadoTipo'] === 'ALUNO'): ?>
+                                <?php if (!empty($idOport)): ?>
+                                    <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=view&idOport=<?= $idOport ?>"
+                                        class="btn btn-visualizar flex-fill">
+                                        <i class="bi bi-search"></i> Visualizar Oportunidade
+                                    </a>
+                                <?php endif; ?>
+                            <?php endif; ?>
+
                         </div>
+
 
                     </div>
                 </div>
