@@ -89,13 +89,7 @@ class CadastroController extends Controller
         $dados['cursos'] = $this->cursoDAO->list();
         $dados['confSenha'] = $confSenha;
         $dados['usuario'] = $usuario;
-
         $dados['erros'] = $erros;
-
-        //print_r($erros);
-        //die;
-
-        //$msgErro = implode("<br>", $erros);
 
         $this->loadView("autocadastro/autocadastro_form.php", $dados);
     }

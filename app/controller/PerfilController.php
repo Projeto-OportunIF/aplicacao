@@ -51,50 +51,34 @@ class PerfilController extends Controller
         if ($usuario) {
             $usuario->setNomeCompleto($_POST['nomeCompleto'] ?? $usuario->getNomeCompleto());
             $usuario->setEmail($_POST['email'] ?? $usuario->getEmail());
-            //$usuario->setCpf($_POST['cpf'] ?? $usuario->getCpf());
-            //$usuario->setMatricula($_POST['matricula'] ?? $usuario->getMatricula());
-            //$usuario->setTipoUsuario($_POST['tipoUsuario'] ?? $usuario->getTipoUsuario());
             $usuario->setSenha($_POST['senhaNova'] ?? $usuario->getSenha());
         }
         $confNovaSenha = $_POST['confSenhaNova'] ?? $usuario->getSenha();
 
+        // --- Upload da foto de perfil ---
+        if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] == UPLOAD_ERR_OK) {
+            $tipoArquivo = mime_content_type($_FILES['fotoPerfil']['tmp_name']);
 
-        /*
-        if (!empty($_POST['curso_id'])) {
-            $cursoDao = new CursoDAO();
-            $curso = $cursoDao->findById($_POST['curso_id']);
-            if ($curso) {
-                $usuario->setCurso($curso);
+            // Aceita apenas PNG e JPEG
+            if ($tipoArquivo === 'image/png' || $tipoArquivo === 'image/jpeg') {
+                $nomeArquivo = $this->arquivoService->salvarArquivo($_FILES['fotoPerfil']);
+
+                if ($nomeArquivo) {
+                    // Remove a foto antiga, se existir
+                    if ($usuario->getFotoPerfil()) {
+                        $this->arquivoService->removerArquivo($usuario->getFotoPerfil());
+                    }
+
+                    // Atualiza o banco e a sessão
+                    $usuario->setFotoPerfil($nomeArquivo);
+                    $this->usuarioDao->updateFotoPerfil($usuario);
+                    $_SESSION[SESSAO_USUARIO_FOTO_PERFIL] = $nomeArquivo;
+                }
+            } else {
+                // Caso o tipo não seja permitido
+                $_SESSION['erro_foto'] = "Apenas arquivos PNG e JPEG são permitidos.";
             }
         }
-        */
-
-
-  // --- Upload da foto de perfil ---
-if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] == UPLOAD_ERR_OK) {
-    $tipoArquivo = mime_content_type($_FILES['fotoPerfil']['tmp_name']);
-
-    // Aceita apenas PNG e JPEG
-    if ($tipoArquivo === 'image/png' || $tipoArquivo === 'image/jpeg') {
-        $nomeArquivo = $this->arquivoService->salvarArquivo($_FILES['fotoPerfil']);
-
-        if ($nomeArquivo) {
-            // Remove a foto antiga, se existir
-            if ($usuario->getFotoPerfil()) {
-                $this->arquivoService->removerArquivo($usuario->getFotoPerfil());
-            }
-
-            // Atualiza o banco e a sessão
-            $usuario->setFotoPerfil($nomeArquivo);
-            $this->usuarioDao->updateFotoPerfil($usuario);
-            $_SESSION[SESSAO_USUARIO_FOTO_PERFIL] = $nomeArquivo;
-        }
-    } else {
-        // Caso o tipo não seja permitido
-        $_SESSION['erro_foto'] = "Apenas arquivos PNG e JPEG são permitidos.";
-    }
-}
-
 
         $erros = $this->usuarioService->validarDados($usuario, $confNovaSenha);
 
@@ -111,8 +95,8 @@ if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] == UPLOAD_ERR
         }
 
         $dados['usuario'] = $usuario;
-        
-        if(isset($_GET['edicaoPerfil'])) {
+
+        if (isset($_GET['edicaoPerfil'])) {
             $dados['erros'] = $erros;
             $this->loadView("perfil/perfilEdit.php", $dados);
         } else {
@@ -130,7 +114,6 @@ if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] == UPLOAD_ERR
         $dados["usuario"] = $usuario;
         $this->loadView("perfil/perfilEdit.php", $dados);
     }
-
 }
 
 new PerfilController();

@@ -18,7 +18,7 @@ class OportunidadeService
             $erros['descricao'] = "O campo Descrição é obrigatório.";
         }
 
-     if (!$oportunidade->getProfessor()) {
+        if (!$oportunidade->getProfessor()) {
             $erros['professor'] = "O campo Professor Responsavél é obrigatório.";
         }
 
@@ -57,17 +57,11 @@ class OportunidadeService
             $erros['documentoEdital'] = "O campo Documento Edital é obrigatório.";
         }
 
-      
-
-        // =======================
         // Validação do Documento Anexo
-        // =======================
         $temDocumento = isset($_POST['temDocumento']) && $_POST['temDocumento'] == "1";
         if ($temDocumento && trim($oportunidade->getDocumentoAnexo()) === "") {
             $erros['documentoAnexo'] = "Você marcou que existe documento anexo, mas não informou a descrição do documento.";
         }
-
-     
 
         return $erros;
     }

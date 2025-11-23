@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastro_forms.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastro_form.css">
 <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 
 
@@ -48,7 +48,6 @@ require_once(__DIR__ . "/../include/menu.php");
 
                     </div>
 
-
                     <div class="mb-3">
                         <label class="form-label" for="documentoEdital">Documento de Edital da Oportunidade:</label>
                         <input class="form-control" type="file" id="documentoEdital" name="documentoEdital" accept=".pdf,.doc,.docx" />
@@ -68,7 +67,6 @@ require_once(__DIR__ . "/../include/menu.php");
                                 </a>
                             </p>
 
-
                             <input type="hidden"
                                 name="documentoEditalExistente"
                                 value="<?= htmlspecialchars($dados["oportunidade"]->getDocumentoEdital()) ?>">
@@ -83,7 +81,7 @@ require_once(__DIR__ . "/../include/menu.php");
                             </i>
                         </label>
 
-                        <select name="idProfessor" id="selProfessor" class="form-select" >
+                        <select name="idProfessor" id="selProfessor" class="form-select">
                             <option value="">Selecione um professor</option>
                             <?php if (!empty($dados['professores']) && is_array($dados['professores'])): ?>
                                 <?php foreach ($dados['professores'] as $prof):
@@ -103,11 +101,11 @@ require_once(__DIR__ . "/../include/menu.php");
                             <?php endif; ?>
                         </select>
 
-                       <?php if (isset($dados['erros']['professor'])): ?>
+                        <?php if (isset($dados['erros']['professor'])): ?>
                             <span class="form_error_message"><?= $dados['erros']['professor'] ?></span>
                         <?php endif; ?>
 
-       </div>
+                    </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="selTipo">Tipo de Oportunidade:</label>

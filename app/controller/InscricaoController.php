@@ -19,7 +19,6 @@ class InscricaoController extends Controller
         $this->handleAction();
     }
 
-
     public function view(string $msgErro = "", string $msgSucesso = "")
     {
         $oportunidade = $this->findOportunidadeById();
@@ -27,7 +26,6 @@ class InscricaoController extends Controller
         $dados["oportunidade"] = $oportunidade;
         $this->loadView("inscricao/oportunidade_inscricao.php", $dados, $msgErro, $msgSucesso);
     }
-
 
     private function findOportunidadeById()
     {
@@ -93,9 +91,7 @@ class InscricaoController extends Controller
 
         $inscricaoDao->insert($idAluno, $idOport, $documentosString);
 
-
         // Notifica o professor responsável
-
         require_once(__DIR__ . "/../dao/NotificacaoDAO.php");
         $notificacaoDao = new NotificacaoDAO();
         $notificacaoDao->notificarProfessorPorNovaInscricao($idOport);
@@ -167,7 +163,5 @@ class InscricaoController extends Controller
         $this->loadView("inscricao/inscritos_list.php", $dados);
     }
 }
-
-
 
 new InscricaoController();

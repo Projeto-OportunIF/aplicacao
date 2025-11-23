@@ -1,6 +1,6 @@
 <?php
 if (isset($msgErro) && trim($msgErro) != "") {
-	echo ("
+    echo ("
 	<div style='
 		background-color: #f8d7da;
 		color: #721c24;
@@ -32,4 +32,3 @@ if (isset($msgSucesso) && trim($msgSucesso) != "") {
         $msgSucesso
     </div>");
 }
-?>

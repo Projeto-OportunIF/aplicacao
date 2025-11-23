@@ -1,8 +1,8 @@
-/* Fundo geral */
 body {
     background-color: #eafdc5;
     font-family: Arial, sans-serif;
 }
+
 .inscricao-container {
     border-radius: 15px;
     overflow: hidden;
@@ -12,6 +12,7 @@ body {
     width: 80%;
     margin: 20px auto;
 }
+
 .inscricao-info {
     background: #d5ecab;
     padding: 45px;
@@ -107,13 +108,11 @@ body {
     line-height: 1.4;
 }
 
-
-/* DOCUMENTOS */
 .link-doc {
     color: #7b9e3a;
     text-decoration: none;
     font-weight: 500;
-    
+
 }
 
 .link-doc i {
@@ -149,12 +148,13 @@ body {
         position: static;
         margin: 10px auto 20px;
         display: block;
-        width: 160px;         
-        text-align: center;   
+        width: 160px;
+        text-align: center;
         padding: 8px 20px;
     }
+
     .btn-inscrever {
-        width: 60%;      
+        width: 60%;
         max-width: 250px;
         padding: 12px;
         margin-top: 25px;

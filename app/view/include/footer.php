@@ -1,8 +1,6 @@
-<!-- Adicione isso no <head> ou no seu arquivo CSS -->
 <style>
     body {
         min-height: 100vh;
-        /* ocupa altura total da tela */
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -10,12 +8,10 @@
 
     main {
         flex: 1;
-        /* empurra o footer para baixo */
     }
 
     footer {
         margin-top: auto;
-        /* garante que o footer fique colado no fim */
     }
 </style>
 
@@ -24,7 +20,6 @@
         <!-- Conteúdo da página -->
     </main>
 
-    <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted">
         <div class="text-center p-4">
             © 2025 Copyright:

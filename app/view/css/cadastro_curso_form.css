@@ -83,9 +83,9 @@ h3.text-center {
 }
 
 .form_error_message {
-  color: #cf3b4aff;
-  font-style: italic;
-  font-family: 'Playfair Display', serif;
+    color: #cf3b4aff;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
 }
 
 /* ============ RESPONSIVIDADE ============ */
@@ -120,7 +120,7 @@ h3.text-center {
 }
 
 @media (max-width: 600px) {
-  
+
 
     h3.text-center {
         font-size: 26px;

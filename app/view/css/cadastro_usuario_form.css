@@ -102,9 +102,9 @@ body {
 }
 
 .form_error_message {
-  color: #cf3b4aff;
-  font-style: italic;
-  font-family: 'Playfair Display', serif;
+    color: #cf3b4aff;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
 }
 
 .info-icon {
@@ -188,7 +188,8 @@ body {
         height: 150px;
     }
 
-    .btn-voltar, .btn-success {
+    .btn-voltar,
+    .btn-success {
         font-size: 13px;
         padding: 8px 12px;
     }

@@ -1,3 +1,4 @@
+@ -1,113 +0,0 @@
 <?php
 # Arquivo: perfilEdit.php
 # Objetivo: Formulário de edição de perfil do usuário logado
@@ -7,7 +8,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
 $usuario = $dados["usuario"];
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/perfilEdits.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/perfilEdit.css">
 
 <div class="page-container">
     <div class="form-card">
@@ -45,11 +46,11 @@ $usuario = $dados["usuario"];
             </div>
 
             <?php if (strtolower($usuario->getTipoUsuario()) === 'aluno') { ?>
-            <div class="mb-3">
-                <label for="matricula" class="form-label">Matrícula</label>
-                <input type="text" class="form-control" id="matricula" disabled="true"
-                    value="<?php echo htmlspecialchars($usuario->getMatricula() ?? ''); ?>">
-            </div>
+                <div class="mb-3">
+                    <label for="matricula" class="form-label">Matrícula</label>
+                    <input type="text" class="form-control" id="matricula" disabled="true"
+                        value="<?php echo htmlspecialchars($usuario->getMatricula() ?? ''); ?>">
+                </div>
             <?php } ?>
 
             <div class="mb-3">
@@ -90,7 +91,7 @@ $usuario = $dados["usuario"];
             <div class="mb-3">
                 <?php if (!empty($usuario->getFotoPerfil())): ?>
                     <p class="mt-2">Foto atual:</p>
-                    <img 
+                    <img
                         src="<?= BASEURL_ARQUIVOS . "/" . $usuario->getFotoPerfil(); ?>"
                         alt="Foto de perfil" class="foto-redonda">
                 <?php endif; ?>
@@ -105,7 +106,6 @@ $usuario = $dados["usuario"];
         </form>
     </div>
 </div>
-
 
 
 <?php

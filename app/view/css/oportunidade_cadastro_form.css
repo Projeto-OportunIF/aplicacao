@@ -4,7 +4,6 @@ body {
   background-color: #eafdc5;
 }
 
-/* ====== CONTAINER ====== */
 form {
   max-width: 1000px;
   width: 100%;
@@ -15,7 +14,6 @@ form {
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* ====== TÍTULO PRINCIPAL ====== */
 h2,
 h3,
 h4 {
@@ -25,7 +23,6 @@ h4 {
   font-weight: 600;
 }
 
-/* ====== LABELS ====== */
 label {
   font-weight: 600;
   color: #d6425c;
@@ -33,7 +30,6 @@ label {
   display: block;
 }
 
-/* ====== CAMPOS DE TEXTO ====== */
 input[type="text"],
 input[type="number"],
 input[type="date"],
@@ -55,29 +51,27 @@ select:focus {
   outline: none;
 }
 
-/* DOCUMENTO EDITAL BÁSICO */
-
 .titulo-doc {
-    color: #c23956; /* cor do texto Documento Edital */
-    font-weight: 700;
+  color: #c23956;
+  font-weight: 700;
 }
+
 .link-doc {
-    color: #6b961d; /* cor que você pediu */
-    text-decoration: none;
-    font-weight: 500;
+  color: #6b961d;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 .link-doc i {
-    margin-right: 1px;
-    font-size: 1.1rem;
+  margin-right: 1px;
+  font-size: 1.1rem;
 }
 
 .link-doc:hover {
-    text-decoration: underline;
-    opacity: 0.8;
+  text-decoration: underline;
+  opacity: 0.8;
 }
 
-/* ====== BOTÃO SALVAR ====== */
 #frmOportunidade .btn-salvar button,
 input[type="submit"] {
   background-color: #d6425c;
@@ -101,7 +95,6 @@ input[type="submit"]:hover {
   background-color: #a32e45;
 }
 
-/* ====== SWITCH PERSONALIZADO ====== */
 .documento-seletor {
   display: flex;
   align-items: center;
@@ -163,7 +156,6 @@ input:checked+.slider:before {
   border-radius: 50%;
 }
 
-/* ====== DOCUMENTO ANEXO ====== */
 .documento-anexo {
   display: inline-block;
   margin-left: 15px;
@@ -192,58 +184,41 @@ input:checked+.slider:before {
 }
 
 .info-icon {
-    font-size: 17px;
-    margin-left: 6px;
-    color: #cf3b4aff; /* Verde OportunIF */
-    cursor: pointer;
-    position: relative;
+  font-size: 17px;
+  margin-left: 6px;
+  color: #cf3b4aff;
+  cursor: pointer;
+  position: relative;
 }
 
-/* Tooltip esticada e elegante */
 .info-icon:hover::after {
-    content: attr(data-info);
-    position: absolute;
-
-    /* posição */
-    left: 26px;
-    top: -4px;
-
-    /* estilo visual */
-    background: #ffffff;
-    color: #333;
-    padding: 14px 18px;
-    font-size: 14px;
-    border-radius: 10px;
-
-    /* AQUI: deixei bem esticada */
-    width: 350px;            /* largura fixa maior */
-    max-width: none;         /* remover limite */
-    white-space: normal;
-    line-height: 1.4;
-
-    /* sombra elegante */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.20);
-
-    /* borda com a cor do oportunif */
-    border: 2px solid #cf3b4aff;
-
-    z-index: 999;
-
-    /* aparece imediatamente */
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0s ease;
+  content: attr(data-info);
+  position: absolute;
+  left: 26px;
+  top: -4px;
+  background: #ffffff;
+  color: #333;
+  padding: 14px 18px;
+  font-size: 14px;
+  border-radius: 10px;
+  width: 350px;
+  max-width: none;
+  white-space: normal;
+  line-height: 1.4;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.20);
+  border: 2px solid #cf3b4aff;
+  z-index: 999;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0s ease;
 }
 
-/* estado inicial (escondida) */
 .info-icon::after {
-    opacity: 0;
-    transform: translateY(-5px);
-    pointer-events: none;
+  opacity: 0;
+  transform: translateY(-5px);
+  pointer-events: none;
 }
 
-
-/* ====== RESPONSIVIDADE ====== */
 @media (max-width: 992px) {
   form {
     padding: 20px 25px;

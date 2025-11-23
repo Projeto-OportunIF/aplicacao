@@ -17,7 +17,6 @@ class StatusTipo
             self::REPROVADO
         ];
     }
-
     // Retorna um label amigável para cada status (opcional)
     public static function getLabel(string $status): string
     {

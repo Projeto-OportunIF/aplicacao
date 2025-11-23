@@ -22,9 +22,6 @@ class HomeController extends Controller
         $this->handleAction();
     }
 
-    // ========================
-    // MÉTODO PRINCIPAL DE HOME
-    // ========================
     protected function home()
     {
         switch ($this->usuarioLogado->getTipoUsuario()) {
@@ -42,12 +39,10 @@ class HomeController extends Controller
         }
     }
 
-    // ========================
     // HOMES INDIVIDUAIS
-    // ========================
     protected function homeAdministrador()
     {
-        // ✅ Verifica se o tipo é ADMIN
+        //Verifica se o tipo é ADMIN
         if ($this->usuarioLogado->getTipoUsuario() !== UsuarioTipo::ADMINISTRADOR) {
             $this->redirecionarParaHomeCorreta("Você não tem permissão para acessar a área do administrador.");
             return;
@@ -62,7 +57,7 @@ class HomeController extends Controller
 
     protected function homeAluno()
     {
-        // ✅ Verifica se o tipo é ALUNO
+        //Verifica se o tipo é ALUNO
         if ($this->usuarioLogado->getTipoUsuario() !== UsuarioTipo::ALUNO) {
             $this->redirecionarParaHomeCorreta("Você não tem permissão para acessar a área do aluno.");
             return;
@@ -76,7 +71,7 @@ class HomeController extends Controller
 
     protected function homeProfessor()
     {
-        // ✅ Verifica se o tipo é PROFESSOR
+        // Verifica se o tipo é PROFESSOR
         if ($this->usuarioLogado->getTipoUsuario() !== UsuarioTipo::PROFESSOR) {
             $this->redirecionarParaHomeCorreta("Você não tem permissão para acessar a área do professor.");
             return;
@@ -88,27 +83,24 @@ class HomeController extends Controller
         $this->loadView("home/homeProfessor.php", $dados);
     }
 
-    // ========================
     // REDIRECIONAMENTO SEGURO
-    // ========================
-   private function redirecionarParaHomeCorreta(string $mensagem)
-{
-    $_SESSION['msgErro'] = $mensagem;
+    private function redirecionarParaHomeCorreta(string $mensagem)
+    {
+        $_SESSION['msgErro'] = $mensagem;
 
-    switch ($this->usuarioLogado->getTipoUsuario()) {
-        case UsuarioTipo::ADMINISTRADOR:
-            header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAdministrador");
-            break;
-        case UsuarioTipo::ALUNO:
-            header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
-            break;
-        case UsuarioTipo::PROFESSOR:
-            header("Location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
-            break;
+        switch ($this->usuarioLogado->getTipoUsuario()) {
+            case UsuarioTipo::ADMINISTRADOR:
+                header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAdministrador");
+                break;
+            case UsuarioTipo::ALUNO:
+                header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
+                break;
+            case UsuarioTipo::PROFESSOR:
+                header("Location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
+                break;
+        }
+        exit;
     }
-    exit;
-}
-
 }
 
 new HomeController();

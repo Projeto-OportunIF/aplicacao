@@ -7,7 +7,7 @@ require_once(__DIR__ . "/../../model/enum/StatusTipo.php");
 $from = $_GET['from'] ?? null;
 ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritoss.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/visualizar_inscritos.css">
 
 <h3 class="text-center">Inscritos na Oportunidade: <?= htmlspecialchars($dados['oportunidade']->getTitulo()); ?></h3>
 

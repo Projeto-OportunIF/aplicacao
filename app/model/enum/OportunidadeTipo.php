@@ -18,7 +18,6 @@ class OportunidadeTipo
             OportunidadeTipo::PROJETOPESQUISA
         ];
     }
-
     // Retorna um nome mais "bonito" para o tipo
     public static function getLabel($tipo)
     {
@@ -33,6 +32,4 @@ class OportunidadeTipo
                 return $tipo;
         }
     }
-
-   
 }

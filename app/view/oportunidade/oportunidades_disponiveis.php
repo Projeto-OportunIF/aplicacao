@@ -20,10 +20,10 @@ require_once(__DIR__ . "/../../dao/OportunidadeDAO.php");
             <div class="card-oportunidade">
                 <h3><?= htmlspecialchars($op->getTitulo()) ?></h3>
 
-              <p>
-    <strong>Professor Responsável:</strong> 
-    <?= htmlspecialchars($op->getProfessor() ? $op->getProfessor()->getNomeCompleto() : "Não definido") ?>
-</p>
+                <p>
+                    <strong>Professor Responsável:</strong>
+                    <?= htmlspecialchars($op->getProfessor() ? $op->getProfessor()->getNomeCompleto() : "Não definido") ?>
+                </p>
 
                 <p>
                     <strong>Início:</strong> <?= htmlspecialchars($op->getDataInicioFormatada()) ?><br>

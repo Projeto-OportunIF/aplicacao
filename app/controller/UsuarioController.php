@@ -7,8 +7,6 @@ require_once(__DIR__ . "/../service/UsuarioService.php");
 require_once(__DIR__ . "/../model/Usuario.php");
 require_once(__DIR__ . "/../model/enum/UsuarioTipo.php");
 
-
-
 class UsuarioController extends Controller
 {
 
@@ -136,15 +134,11 @@ class UsuarioController extends Controller
 
                 $usuario->setSenha($senhaPost);
                 $confSenha = $senhaPost;
-
-
                 // confSenha vem do form
             }
         }
         // Validação via service
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);
-
-        
 
         if (!$erros) {
             try {
@@ -196,29 +190,25 @@ class UsuarioController extends Controller
         $this->loadView("usuario/cadastro_usuario_form.php", $dados);
     }
 
+    protected function delete()
+    {
+        session_start(); // se ainda não existe
 
-  protected function delete()
-{
-    session_start(); // se ainda não existe
+        $id = $_GET['id'] ?? 0;
 
-    $id = $_GET['id'] ?? 0;
+        try {
+            $this->usuarioDao->deleteById($id);
 
-    try {
-        $this->usuarioDao->deleteById($id);
+            $_SESSION['msgSucesso'] = "Usuário excluído com sucesso!";
+            header("Location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+            exit;
+        } catch (Exception $e) {
 
-        $_SESSION['msgSucesso'] = "Usuário excluído com sucesso!";
-        header("Location: " . BASEURL . "/controller/UsuarioController.php?action=list");
-        exit;
-
-    } catch (Exception $e) {
-
-        $_SESSION['msgErro'] = $e->getMessage();
-        header("Location: " . BASEURL . "/controller/UsuarioController.php?action=list");
-        exit;
+            $_SESSION['msgErro'] = $e->getMessage();
+            header("Location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+            exit;
+        }
     }
-}
-
-
 
     protected function listJson()
     {
@@ -239,5 +229,4 @@ class UsuarioController extends Controller
         return $this->usuarioDao->findById($id);
     }
 }
-#Criar objeto da classe para assim executar o construtor
 new UsuarioController();

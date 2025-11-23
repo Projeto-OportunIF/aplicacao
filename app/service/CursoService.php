@@ -4,7 +4,6 @@ require_once(__DIR__ . "/../model/Curso.php");
 
 class CursoService
 {
-
     /* Método para validar os dados do curso que vem do formulário */
     public function validarDados(Curso $curso)
     {

@@ -34,15 +34,10 @@ class Controller
     protected function loadView(string $path, array $dados, string $msgErro = "", string $msgSucesso = "")
     {
 
-        //Verificar os dados que estão sendo recebidos na função
-        //echo "<pre>" . print_r($dados, true) . "</pre>";
-        //exit;
-
         $caminho = __DIR__ . "/../view/" . $path;
         //echo $caminho;
         if (file_exists($caminho)) {
             extract($dados);  // <-- ESSA LINHA DEIXA AS VARIÁVEIS DISPONÍVEIS NA VIEW
-            //Inclui e exibe a view a partir do controller
             require $caminho;
         } else {
             echo "Erro ao carrega a view solicitada<br>";
@@ -58,7 +53,6 @@ class Controller
             header("location: " . LOGIN_PAGE);
             return false;
         }
-
         return true;
     }
 
@@ -87,34 +81,33 @@ class Controller
     }
 
     protected function verificarPermissao(array $tiposPermitidos)
-{
-    if (session_status() != PHP_SESSION_ACTIVE)
-        session_start();
+    {
+        if (session_status() != PHP_SESSION_ACTIVE)
+            session_start();
 
-    if (!isset($_SESSION[SESSAO_USUARIO_TIPO])) {
-        $_SESSION['msgErro'] = "Você precisa estar logado para acessar esta página.";
-        header("Location: " . LOGIN_PAGE);
-        exit;
-    }
-
-    $tipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO];
-
-    if (!in_array($tipoUsuario, $tiposPermitidos)) {
-        $_SESSION['msgErro'] = "🚫 Você não tem permissão para acessar esta área.";
-
-        switch ($tipoUsuario) {
-            case UsuarioTipo::ADMINISTRADOR:
-                header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAdministrador");
-                break;
-            case UsuarioTipo::PROFESSOR:
-                header("Location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
-                break;
-            case UsuarioTipo::ALUNO:
-                header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
-                break;
+        if (!isset($_SESSION[SESSAO_USUARIO_TIPO])) {
+            $_SESSION['msgErro'] = "Você precisa estar logado para acessar esta página.";
+            header("Location: " . LOGIN_PAGE);
+            exit;
         }
-        exit;
-    }
-}
 
+        $tipoUsuario = $_SESSION[SESSAO_USUARIO_TIPO];
+
+        if (!in_array($tipoUsuario, $tiposPermitidos)) {
+            $_SESSION['msgErro'] = "🚫 Você não tem permissão para acessar esta área.";
+
+            switch ($tipoUsuario) {
+                case UsuarioTipo::ADMINISTRADOR:
+                    header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAdministrador");
+                    break;
+                case UsuarioTipo::PROFESSOR:
+                    header("Location: " . BASEURL . "/controller/HomeController.php?action=homeProfessor");
+                    break;
+                case UsuarioTipo::ALUNO:
+                    header("Location: " . BASEURL . "/controller/HomeController.php?action=homeAluno");
+                    break;
+            }
+            exit;
+        }
+    }
 }

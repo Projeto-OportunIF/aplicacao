@@ -1,8 +1,9 @@
+@ -1,184 +0,0 @@
 <?php
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro_usuario_formm.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/cadastro_usuario_form.css">
 
 <div class="container">
     <!-- Coluna esquerda com imagem -->
@@ -112,7 +113,6 @@ require_once(__DIR__ . "/../include/menu.php");
                     <?php endif; ?>
                 </div>
 
-
                 <div class="mb-3">
                     <?php if (isset($dados['resetarSenha']) && $dados['resetarSenha']): ?>
                         <!-- Edição com reset de senha -->
@@ -134,9 +134,6 @@ require_once(__DIR__ . "/../include/menu.php");
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
-
-
-               
 
                 <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
 
@@ -176,8 +173,6 @@ require_once(__DIR__ . "/../include/menu.php");
         cpfInput.dispatchEvent(new Event('input'));
     });
 </script>
-
-
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

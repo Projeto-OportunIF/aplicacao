@@ -1,11 +1,9 @@
-/* Estilo base da página */
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     background-color: #c1dba5;
 }
 
-/* Container principal para alinhar painéis lado a lado */
 .container {
     display: flex;
     height: 107vh;
@@ -15,7 +13,6 @@ body {
     width: 100%;
 }
 
-/* Painel esquerdo com informações e logo */
 .left-panel {
     background-color: #c23956;
     color: white;
@@ -31,7 +28,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Estilo de textos e logo dentro do painel esquerdo */
 .left-panel span {
     font-size: 20px;
     margin-bottom: 20px;
@@ -52,7 +48,7 @@ body {
 /* Formulário */
 .form-wrapper {
     width: 900px;
-    max-width: 95%;      /* 🔥 impede de ultrapassar a tela */
+    max-width: 95%;
     background-color: #ecf7dc;
     padding: 40px;
     display: flex;
@@ -62,10 +58,9 @@ body {
     margin-left: 200px;
     margin-top: 63px;
     margin-bottom: 123px;
-    box-sizing: border-box;   /* 🔥 mantém tudo dentro do card */
+    box-sizing: border-box;
 }
 
-/* Título do formulário */
 .form-wrapper h3 {
     color: #c23956;
     font-weight: bold;
@@ -74,14 +69,12 @@ body {
     text-align: center;
 }
 
-/* Rótulos dos campos do formulário */
 .form-label {
     font-weight: bold;
     font-size: 13px;
     margin-bottom: 1px;
 }
 
-/* Campos de entrada e select */
 .form-control,
 .form-select {
     border: none;
@@ -94,7 +87,6 @@ body {
     margin-bottom: 1px;
 }
 
-/* Select com estilo customizado */
 .form-select {
     appearance: none;
     background-color: #f1e9f6;
@@ -102,7 +94,6 @@ body {
     height: 30px;
 }
 
-/* Botão principal */
 .btn-success {
     background-color: #7aac45;
     border: none;
@@ -113,7 +104,6 @@ body {
     transition: 0.3s;
 }
 
-/* Botão secundário */
 .btn-secondary {
     background-color: #c74460;
     border: none;
@@ -130,21 +120,20 @@ body {
     transform: scale(1.05);
 }
 
-/* Centraliza conteúdo */
 .text-center {
     text-align: center;
 }
 
 .form_error_message {
-  color: #cf3b4aff;
-  font-style: italic;
-  font-family: 'Playfair Display', serif;
+    color: #cf3b4aff;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
 }
 
 @media (max-width: 1200px) {
 
     .form-wrapper {
-        width: 750px;      
+        width: 750px;
         max-width: 90%;
         margin-left: 50px;
     }
@@ -205,6 +194,7 @@ body {
         margin-top: 15px;
     }
 }
+
 @media (max-width: 480px) {
 
     .left-panel {
