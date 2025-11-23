@@ -71,7 +71,11 @@ class NotificacaoDAO
 
         $idNotificacao = $this->conn->lastInsertId();
 
-        $sql = "SELECT idUsuarios FROM usuarios WHERE idCursos IN ($idCursos)";
+       $sql = "SELECT idUsuarios 
+        FROM usuarios 
+        WHERE idCursos IN ($idCursos)
+        AND tipoUsuario != 'PROFESSOR'";
+
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($cursos);
         $idUsuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);

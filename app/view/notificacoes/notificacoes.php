@@ -19,7 +19,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
     }
 }
 ?>
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/notificacoes.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/notificacoee.css">
 
 <div class="container mt-4">
 
@@ -31,8 +31,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
         </a>
     </div>
 
-    <div class="row-notificacoes">
-
+    <div class="row"> <!-- LINHA CORRETA -->
 
         <?php if (count($dados["notificacoes"]) > 0): ?>
             <?php foreach ($dados["notificacoes"] as $notificacao): ?>
@@ -47,7 +46,6 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                     $dataEnvio = date("d/m/Y", strtotime($dataEnvio));
                 }
 
-                // Tipo da oportunidade ↓
                 $tipoOportunidade = "";
                 if (!empty($idOport)) {
                     $dao = new OportunidadeDAO();
@@ -58,7 +56,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                 }
                 ?>
 
-                <div class="col-12 col-md-14 col-lg-14 mb-4">
+                <div class="col-12 col-md-6 col-lg-4 mb-4"> <!-- AJUSTE IMPORTANTE AQUI -->
                     <div class="card-oportunidade shadow-sm p-3">
 
                         <h3 class="mb-3"><?= htmlspecialchars($mensagem) ?></h3>
@@ -72,10 +70,17 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
 
                         <p><strong>Data:</strong> <?= htmlspecialchars($dataEnvio) ?></p>
 
-                        <?php if (isset($_SESSION['usuarioLogadoTipo']) && $_SESSION['usuarioLogadoTipo'] === 'PROFESSOR'): ?>
+                        <?php if ($_SESSION['usuarioLogadoTipo'] === 'PROFESSOR'): ?>
                             <p class="descricao-fixa mt-2">
                                 Você tem um novo inscrito nessa oportunidade.
                                 Clique em <strong>"Visualizar Inscritos"</strong> para ver os detalhes.
+                            </p>
+                        <?php endif; ?>
+
+                         <?php if ($_SESSION['usuarioLogadoTipo'] === 'ALUNO'): ?>
+                            <p class="descricao-fixa mt-2">
+                                Uma nova oportunidade está disponível.
+                                Clique em <strong>"Visualizar Oportunidade"</strong> para ver os detalhes.
                             </p>
                         <?php endif; ?>
 
@@ -86,7 +91,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                                 <i class="bi bi-check-circle"></i> Marcar como lido
                             </a>
 
-                            <?php if (isset($_SESSION['usuarioLogadoTipo']) && $_SESSION['usuarioLogadoTipo'] === 'PROFESSOR'): ?>
+                            <?php if ($_SESSION['usuarioLogadoTipo'] === 'PROFESSOR'): ?>
                                 <?php if (!empty($idOport) && $oportunidade && $oportunidade->getTipoOportunidade() !== 'ESTAGIO'): ?>
                                     <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $idOport ?>"
                                         class="btn btn-visualizar flex-fill">
@@ -95,17 +100,16 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                                 <?php endif; ?>
                             <?php endif; ?>
 
-                            <?php if (isset($_SESSION['usuarioLogadoTipo']) && $_SESSION['usuarioLogadoTipo'] === 'ALUNO'): ?>
+                            <?php if ($_SESSION['usuarioLogadoTipo'] === 'ALUNO'): ?>
                                 <?php if (!empty($idOport)): ?>
                                     <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=view&idOport=<?= $idOport ?>"
                                         class="btn btn-visualizar flex-fill">
-                                        <i class="bi bi-search"></i> Visualizar Oportunidade
+                                        <i class="bi bi-people"></i> Visualizar Oportunidade
                                     </a>
                                 <?php endif; ?>
                             <?php endif; ?>
 
                         </div>
-
 
                     </div>
                 </div>
@@ -114,15 +118,17 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
 
         <?php else: ?>
 
-            <div class="sem-notificacoes ">
-                <i class="bi bi-bell-slash"></i>
-                <p>Não há notificações no momento.</p>
+            <div class="col-12">
+                <div class="sem-notificacoes text-center">
+                    <i class="bi bi-bell-slash"></i>
+                    <p>Não há notificações no momento.</p>
+                </div>
             </div>
-
 
         <?php endif; ?>
 
-    </div>
+    </div> 
+
 </div>
 
 <?php require_once(__DIR__ . "/../include/footer.php"); ?>

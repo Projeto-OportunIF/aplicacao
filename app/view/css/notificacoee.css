@@ -60,22 +60,21 @@ body {
     font-weight: 600;
 }
 
-/* Botões dentro do card */
-.btn-marcar-lido,
-.btn-visualizar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;              /* espaço entre ícone e texto */
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 10px;
-    font-weight: 600;
-    text-align: center;
+/* Botões dentro do card - versão mais fina */
+/* Forçar botões pequenos para aluno e professor */
+.card-oportunidade .btn-marcar-lido,
+.card-oportunidade .btn-visualizar {
+    padding: 6px 8px !important;
+    font-size: 14px !important;
+    border-radius: 8px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+    line-height: 1.2 !important;
     color: #fff !important;
-    white-space: nowrap;   /* NÃO deixa o texto quebrar linha */
+    white-space: normal;
+    word-break: break-word;
+    box-sizing: border-box;
 }
-
 
 .btn-marcar-lido {
     background-color: #afc38b;
@@ -169,4 +168,11 @@ body {
         display: block;
     }
 }
-
+/* Em telas menores, os botões ficam um abaixo do outro */
+@media (max-width: 576px) {
+    .btn-marcar-lido,
+    .btn-visualizar {
+        font-size: 14px;  /* reduz tamanho do texto */
+        padding: 8px 10px;
+    }
+}

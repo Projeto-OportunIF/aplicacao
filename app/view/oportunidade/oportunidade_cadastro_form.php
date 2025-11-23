@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 <!-- Link para CSS externo -->
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastro_formm.css">
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/oportunidade_cadastro_forms.css">
 <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
 
 
@@ -75,37 +75,39 @@ require_once(__DIR__ . "/../include/menu.php");
                         <?php endif; ?>
                     </div>
 
-                <div class="mb-3">
-    <label class="form-label" for="selProfessor">Professor responsável:</label>
-    <select name="idProfessor" id="selProfessor" class="form-select" required>
-        <option value="">Selecione um professor</option>
-        <?php if (!empty($dados['professores']) && is_array($dados['professores'])): ?>
-            <?php foreach ($dados['professores'] as $prof): 
-                $profId = method_exists($prof, 'getId') ? $prof->getId() : null;
-                $profNome = method_exists($prof, 'getNomeCompleto') ? $prof->getNomeCompleto() : '';
-                $selected = '';
-                if (isset($dados['oportunidade']) && $dados['oportunidade']->getProfessor() instanceof Usuario) {
-                    $selected = ($dados['oportunidade']->getProfessor()->getId() == $profId) ? 'selected' : '';
-                } elseif (isset($_POST['idProfessor']) && $_POST['idProfessor'] == $profId) {
-                    $selected = 'selected';
-                }
-            ?>
-                <option value="<?= htmlspecialchars($profId) ?>" <?= $selected ?>>
-                    <?= htmlspecialchars($profNome) ?>
-                </option>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </select>
+                    <div class="mb-3">
+                        <label class="form-label" for="selProfessor">
+                            Professor responsável:
+                            <i class="bi bi-info-circle-fill info-icon"
+                                data-info="Cuidado! Se você selecionar o nome de outro professor, a oportunidade deixará de aparecer para você.">
+                            </i>
+                        </label>
 
-    <!-- MENSAGEM DE ERRO -->
-    <?php if (isset($dados['erros'])): ?>
-        <?php if (in_array("Selecione um professor responsável.", $dados['erros'])): ?>
-            <span class="form_error_message">Selecione um professor responsável.</span>
-        <?php endif; ?>
-    <?php endif; ?>
-</div>
+                        <select name="idProfessor" id="selProfessor" class="form-select" >
+                            <option value="">Selecione um professor</option>
+                            <?php if (!empty($dados['professores']) && is_array($dados['professores'])): ?>
+                                <?php foreach ($dados['professores'] as $prof):
+                                    $profId = method_exists($prof, 'getId') ? $prof->getId() : null;
+                                    $profNome = method_exists($prof, 'getNomeCompleto') ? $prof->getNomeCompleto() : '';
+                                    $selected = '';
+                                    if (isset($dados['oportunidade']) && $dados['oportunidade']->getProfessor() instanceof Usuario) {
+                                        $selected = ($dados['oportunidade']->getProfessor()->getId() == $profId) ? 'selected' : '';
+                                    } elseif (isset($_POST['idProfessor']) && $_POST['idProfessor'] == $profId) {
+                                        $selected = 'selected';
+                                    }
+                                ?>
+                                    <option value="<?= htmlspecialchars($profId) ?>" <?= $selected ?>>
+                                        <?= htmlspecialchars($profNome) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
 
+                       <?php if (isset($dados['erros']['professor'])): ?>
+                            <span class="form_error_message"><?= $dados['erros']['professor'] ?></span>
+                        <?php endif; ?>
 
+       </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="selTipo">Tipo de Oportunidade:</label>
