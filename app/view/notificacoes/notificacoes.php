@@ -77,7 +77,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
                             </p>
                         <?php endif; ?>
 
-                         <?php if ($_SESSION['usuarioLogadoTipo'] === 'ALUNO'): ?>
+                        <?php if ($_SESSION['usuarioLogadoTipo'] === 'ALUNO'): ?>
                             <p class="descricao-fixa mt-2">
                                 Uma nova oportunidade está disponível.
                                 Clique em <strong>"Visualizar Oportunidade"</strong> para ver os detalhes.
@@ -93,10 +93,11 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
 
                             <?php if ($_SESSION['usuarioLogadoTipo'] === 'PROFESSOR'): ?>
                                 <?php if (!empty($idOport) && $oportunidade && $oportunidade->getTipoOportunidade() !== 'ESTAGIO'): ?>
-                                    <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $idOport ?>"
+                                    <a href="<?= BASEURL ?>/controller/OportunidadeController.php?action=visualizarInscritos&idOport=<?= $idOport ?>&from=notificacao"
                                         class="btn btn-visualizar flex-fill">
                                         <i class="bi bi-people"></i> Visualizar Inscritos
                                     </a>
+
                                 <?php endif; ?>
                             <?php endif; ?>
 
@@ -127,7 +128,7 @@ if (isset($_SESSION["usuarioLogadoTipo"])) {
 
         <?php endif; ?>
 
-    </div> 
+    </div>
 
 </div>
 
