@@ -34,9 +34,9 @@ require_once(__DIR__ . "/../include/menu.php");
                 </p>
 
             <?php endif; ?>
-          <p><strong>Professor Responsável:</strong> 
-    <?= htmlspecialchars($dados['oportunidade']->getProfessor() ? $dados['oportunidade']->getProfessor()->getNomeCompleto() : "Não definido") ?>
-</p>
+            <p><strong>Professor Responsável:</strong>
+                <?= htmlspecialchars($dados['oportunidade']->getProfessor() ? $dados['oportunidade']->getProfessor()->getNomeCompleto() : "Não definido") ?>
+            </p>
 
             <p><strong>Modalidade:</strong> <?= htmlspecialchars($dados['oportunidade']->getTipoOportunidade()) ?></p>
             <p><strong>Data de Início:</strong> <?= date('d/m/Y', strtotime($dados['oportunidade']->getDataInicio())) ?></p>

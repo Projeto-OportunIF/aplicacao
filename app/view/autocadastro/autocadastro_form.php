@@ -104,7 +104,6 @@ require_once(__DIR__ . "/../include/header.php");
                 <?php endif; ?>
             </div>
 
-
             <div class="mb-3 position-relative">
                 <label class="form-label" for="txtSenha">Crie uma senha:</label>
                 <input class="form-control" type="password" id="txtSenha" name="senha"

@@ -1,4 +1,3 @@
-
 body {
     background-color: #eafdc5;
 }
@@ -25,6 +24,7 @@ body {
     background-color: #6b1c2f;
     transform: translateY(-2px);
 }
+
 /* GRID PARA OS CARDS */
 .row-notificacoes {
     display: grid;
@@ -40,8 +40,8 @@ body {
     transition: transform 0.2s ease;
     height: 100%;
     display: flex;
-    flex-direction: column; 
-    justify-content: space-between; 
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-oportunidade:hover {
@@ -49,37 +49,33 @@ body {
 }
 
 .card-oportunidade h3 {
-    color:  white;
+    color: white;
     font-size: 1.1rem;
     font-weight: bold;
 }
 
-/* Para textos internos */
 .tipo-oportunidade {
     color: #fcb3c5;
     font-weight: 600;
 }
 
-/* Botões dentro do card */
-.btn-marcar-lido,
-.btn-visualizar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;              /* espaço entre ícone e texto */
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 10px;
-    font-weight: 600;
-    text-align: center;
+.card-oportunidade .btn-marcar-lido,
+.card-oportunidade .btn-visualizar {
+    padding: 6px 8px !important;
+    font-size: 14px !important;
+    border-radius: 8px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+    line-height: 1.2 !important;
     color: #fff !important;
-    white-space: nowrap;   /* NÃO deixa o texto quebrar linha */
+    white-space: normal;
+    word-break: break-word;
+    box-sizing: border-box;
 }
-
 
 .btn-marcar-lido {
     background-color: #afc38b;
-    
+
 }
 
 .btn-marcar-lido:hover {
@@ -94,69 +90,63 @@ body {
     background-color: #6b1c2f;
 }
 
-
-/* ====== MENSAGEM QUANDO NÃO HÁ OPORTUNIDADES ====== */
-.sem-notificacoes{
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin: 100px auto;
-  max-width: 600px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  animation: fadeIn 0.8s forwards;
-   grid-column: 2 / 5; /* ocupa a coluna 3 */
+.sem-notificacoes {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 100px auto;
+    max-width: 600px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+    grid-column: 2 / 5;
 }
 
 .sem-notificacoes i {
-  font-size: 24px;
-  color: #66bb6a;
-  margin-right: 8px;
-  vertical-align: middle;
+    font-size: 24px;
+    color: #66bb6a;
+    margin-right: 8px;
+    vertical-align: middle;
 }
 
 .sem-notificacoes p {
-  display: inline;
-  margin: 0;
-  vertical-align: middle;
+    display: inline;
+    margin: 0;
+    vertical-align: middle;
 }
 
-
-/* ============================= */
 /*  RESPONSIVIDADE */
-/* ============================= */
 
-/* Telas médias (tablets grandes) → 3 cards por linha */
 @media (max-width: 1200px) {
     .row-notificacoes {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-/* Tablets → 2 cards por linha */
 @media (max-width: 900px) {
     .row-notificacoes {
         grid-template-columns: repeat(2, 1fr);
     }
-     .btn-marcar-lido,
+
+    .btn-marcar-lido,
     .btn-visualizar {
         padding: 6px 10px;
         font-size: 0.9rem;
     }
 }
 
-/* Celulares → 1 card por linha */
 @media (max-width: 600px) {
     .row-notificacoes {
         grid-template-columns: 1fr;
-        
+
     }
-     .btn-marcar-lido,
+
+    .btn-marcar-lido,
     .btn-visualizar {
         padding: 5px 8px;
         font-size: 0.85rem;
@@ -170,3 +160,11 @@ body {
     }
 }
 
+@media (max-width: 576px) {
+
+    .btn-marcar-lido,
+    .btn-visualizar {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+}

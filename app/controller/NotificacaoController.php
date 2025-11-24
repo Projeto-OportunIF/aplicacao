@@ -29,53 +29,23 @@ class NotificacaoController extends Controller
     public function listar()
     {
         $dados['notificacoes'] = $this->dao->listByUsuario($this->getIdUsuarioLogado());
-
-        // print '<pre>';
-        // print_r($dados['notificacoes']);
-        // print '</pre>';
-
-        // [0] => Array
-        // (
-        //     [idNotificacoes] => 2
-        //     [mensagem] => Olá! Existe uma oportunidade de estágio
-        //     [dataEnvio] => 2025-10-30
-        //     [status] => ENVIADO
-        // )
-
         $this->loadView("notificacoes/notificacoes.php", $dados);
     }
 
     public function atualizarStatusPorUsuario()
-{
-    $idNotificacao = $_GET['id_notificacao'];
+    {
+        $idNotificacao = $_GET['id_notificacao'];
 
-    // Atualiza o status da notificação para 'LIDO'
-    $this->dao->atualizarStatusPorUsuario($this->getIdUsuarioLogado(), $idNotificacao);
+        // Atualiza o status da notificação para 'LIDO'
+        $this->dao->atualizarStatusPorUsuario($this->getIdUsuarioLogado(), $idNotificacao);
 
-    // Atualiza a contagem de notificações na sessão
-    require_once(__DIR__ . "/../service/NotificacaoService.php");
-    NotificacaoService::countNotificacoesByUsuario();
+        // Atualiza a contagem de notificações na sessão
+        require_once(__DIR__ . "/../service/NotificacaoService.php");
+        NotificacaoService::countNotificacoesByUsuario();
 
-    // Recarrega a lista de notificações
-    $this->listar();
-}
-
-
-    // private function visualizar()
-    // {
-    //     $id = $_GET['id'] ?? 0;
-    //     $notificacao = $this->dao->findById($id);
-    //     $this->dao->updateStatus($id, "lida");
-    //     include("../view/notificacao/notificacao_view.php");
-    // }
-
-    // private function deletar()
-    // {
-    //     $id = $_GET['id'] ?? 0;
-    //     $this->dao->deleteById($id);
-    //     header("Location: NotificacaoController.php?action=listar");
-    //     exit;
-    // }
+        // Recarrega a lista de notificações
+        $this->listar();
+    }
 }
 
 new NotificacaoController();

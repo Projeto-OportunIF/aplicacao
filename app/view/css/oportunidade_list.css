@@ -1,7 +1,5 @@
-/* ====== FONTE ====== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
-/* ====== ESTILO GERAL ====== */
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #eafdc5;
@@ -11,7 +9,6 @@ body {
   box-sizing: border-box;
 }
 
-/* ====== TÍTULO ====== */
 .titulo-pagina {
   text-align: center;
   font-size: 2.2rem;
@@ -21,17 +18,14 @@ body {
   word-wrap: break-word;
 }
 
-/* ====== CONTAINER DE CARDS ====== */
 .cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  /* se adapta automaticamente ao espaço */
   gap: 25px;
   padding: 30px 40px;
   justify-items: center;
 }
 
-/* ====== CARD ====== */
 .card-oportunidade {
   background-color: #a1bd70;
   color: #fff;
@@ -52,7 +46,6 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 }
 
-/* ====== CONTEÚDO DO CARD ====== */
 .card-oportunidade h3 {
   margin-top: 0;
   font-size: 1.5rem;
@@ -66,26 +59,22 @@ body {
   font-size: 1rem;
 }
 
-/* DOCUMENTO EDITAL BÁSICO */
 .link-doc {
-    color: #eeffce; /* cor que você pediu */
-    text-decoration: none;
-    font-weight: 500;
+  color: #eeffce;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 .link-doc i {
-    margin-right: 1px;
-    font-size: 1.1rem;
+  margin-right: 1px;
+  font-size: 1.1rem;
 }
 
 .link-doc:hover {
-    text-decoration: underline;
-    opacity: 0.8;
+  text-decoration: underline;
+  opacity: 0.8;
 }
 
-
-
-/* ====== BOTÃO DENTRO DO CARD ====== */
 .btn-inscrever {
   margin-top: 15px;
   padding: 10px 22px;
@@ -104,7 +93,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* ====== BOTÃO VOLTAR ====== */
 .btn-voltar {
   background-color: #c23956;
   color: #fff;
@@ -122,7 +110,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* ====== MENSAGEM QUANDO NÃO HÁ OPORTUNIDADES ====== */
 .sem-oportunidades-professor {
   background-color: #e8f5e9;
   color: #2e7d32;
@@ -152,12 +139,12 @@ body {
   vertical-align: middle;
 }
 
-/* ====== ANIMAÇÃO ====== */
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(-5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

@@ -6,10 +6,8 @@ require_once(__DIR__ . "/../util/config.php");
 class ArquivoService
 {
 
-    //Salvar um arquivo
     public function salvarArquivo(array $arquivo)
     {
-
         //Verifica se o arquivo foi enviado pelo usuário
         if ($arquivo['size'] <= 0)
             return null;

@@ -2,11 +2,8 @@
 # Nome do arquivo: NotificacaoDAO.php
 # Objetivo: gerenciar as notificações dos usuários
 
-
 require_once(__DIR__ . "/../connection/Connection.php");
 require_once(__DIR__ . "/../model/Notificacao.php");
-
-
 
 class NotificacaoDAO
 {
@@ -17,7 +14,6 @@ class NotificacaoDAO
     {
         $this->conn = Connection::getConn();
     }
-
 
     public function countNotificacoesByUsuario(int $idUsuario)
     {
@@ -33,9 +29,6 @@ class NotificacaoDAO
         $count = $stmt->fetch(PDO::FETCH_ASSOC);
         return $count;
     }
-
-
-
 
     // Enviar nova notificação
     public function notificarUsuario(string $mensagem, int $idUsuario)
@@ -55,7 +48,6 @@ class NotificacaoDAO
         $stmt->execute();
     }
 
-
     // Enviar nova notificação
     public function notificarUsuariosByCurso(string $mensagem, array $cursos, int  $idOportunidade)
     {
@@ -71,18 +63,18 @@ class NotificacaoDAO
 
         $idNotificacao = $this->conn->lastInsertId();
 
-        $sql = "SELECT idUsuarios FROM usuarios WHERE idCursos IN ($idCursos)";
+        $sql = "SELECT idUsuarios 
+        FROM usuarios 
+        WHERE idCursos IN ($idCursos)
+        AND tipoUsuario != 'PROFESSOR'";
+
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($cursos);
         $idUsuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
         foreach ($idUsuarios as $id) {
 
-
             $sql = "INSERT INTO notificacoes_usuarios (idNotificacao, idUsuario) VALUES (:idNotificacao, :idUsuario)";
-
-
             $stmt = $this->conn->prepare($sql);
             $stmt->bindValue(":idNotificacao", $idNotificacao);
             $stmt->bindValue(":idUsuario", $id["idUsuarios"]);
@@ -90,14 +82,12 @@ class NotificacaoDAO
         }
     }
 
-
     public function notificarUsuarioById(string $mensagem,  int $id)
     {
         $sql = "INSERT INTO notificacoes (mensagem, dataEnvio) VALUES (:mensagem, :dataEnvio)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(":mensagem", $mensagem);
         $stmt->bindValue(":dataEnvio", date('Y-m-d'));
-
         $stmt->execute();
 
         $idNotificacao = $this->conn->lastInsertId();
@@ -127,24 +117,11 @@ class NotificacaoDAO
         $titulo = $dados["titulo"];
         $idProfessor = $dados["idProfessor"];
 
-        // Passo 2: Busca o ID do professor
-        /*
-        $sqlProf = "SELECT idUsuarios FROM usuarios WHERE nomeCompleto = :nomeProfessor LIMIT 1";
-        $stmtProf = $this->conn->prepare($sqlProf);
-        $stmtProf->bindValue(":nomeProfessor", $nomeProfessor);
-        $stmtProf->execute();
-
-        $professor = $stmtProf->fetch(PDO::FETCH_ASSOC);
-        if (!$professor) return;
-
-        $idProfessor = $professor["idUsuarios"];
-        */
-
-        // Passo 3: Cria mensagem e link
+        // Passo 2: Cria mensagem e link
         $mensagem = "Um novo aluno se inscreveu na sua oportunidade \"$titulo\".";
         $link = BASEURL . "/controller/InscricaoController.php?action=listarInscritos&idOport=" . $idOportunidade;
 
-        // Passo 4: Insere notificação na tabela notificacoes
+        // Passo 3: Insere notificação na tabela notificacoes
         $sqlInsertNotificacao = "INSERT INTO notificacoes (mensagem, link, idOportunidade, dataEnvio)
                              VALUES (:mensagem, :link, :idOportunidade, NOW())";
         $stmtInsertNotificacao = $this->conn->prepare($sqlInsertNotificacao);
@@ -155,7 +132,7 @@ class NotificacaoDAO
 
         $idNotificacao = $this->conn->lastInsertId();
 
-        // Passo 5: Relaciona com o professor
+        // Passo 4: Relaciona com o professor
         $sqlInsertRelacao = "INSERT INTO notificacoes_usuarios (idNotificacao, idUsuario, status)
                          VALUES (:idNotificacao, :idUsuario, 'ENVIADO')";
         $stmtInsertRelacao = $this->conn->prepare($sqlInsertRelacao);
@@ -163,9 +140,6 @@ class NotificacaoDAO
         $stmtInsertRelacao->bindValue(":idUsuario", $idProfessor, PDO::PARAM_INT);
         $stmtInsertRelacao->execute();
     }
-
-
-
 
     // Listar notificações por usuário
     public function listByUsuario(int $idUsuario)
@@ -196,12 +170,8 @@ class NotificacaoDAO
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(':idUsuario', $idUsuario);
         $stmt->bindValue(':idNotificacao', $idNotificacao);
-
-
         return $stmt->execute();
     }
-
-
 
     public function mapNotificacoes($notificacoes): array
     {
@@ -234,80 +204,4 @@ class NotificacaoDAO
 
         return $listaNotificacoes;
     }
-
-
-
-
-
-
-
-    /*
-
-
-
-
-
-
-    // Listar todas as notificações
-    public function listAll()
-    {
-        $sql = "SELECT * FROM notificacoes ORDER BY id DESC";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
-
-
-    // Buscar notificação por ID
-    public function findById(int $id)
-    {
-        $sql = "SELECT * FROM notificacoes WHERE id = :id";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_OBJ);
-    }
-
-
-
-
-
-
-    // Atualizar dados da notificação
-    public function update(int $id, string $mensagem, string $dataEnvio, string $status, int $idUsuarios)
-    {
-        $sql = "UPDATE notificacoes
-                SET mensagem = :mensagem, dataEnvio = :dataEnvio, status = :status, idUsuarios = :idUsuarios
-                WHERE id = :id";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(":mensagem", $mensagem);
-        $stmt->bindValue(":dataEnvio", $dataEnvio);
-        $stmt->bindValue(":status", $status);
-        $stmt->bindValue(":idUsuarios", $idUsuarios, PDO::PARAM_INT);
-        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-        $stmt->execute();
-    }
-
-
-    // Deletar notificação por ID
-    public function deleteById(int $id)
-    {
-        $sql = "DELETE FROM notificacoes WHERE id = :id";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-        $stmt->execute();
-    }
-
-
-    // Atualizar apenas o status da notificação
-    public function updateStatus(int $id, string $novoStatus)
-    {
-        $sql = "UPDATE notificacoes SET status = :status WHERE id = :id";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(":status", $novoStatus);
-        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-        $stmt->execute();
-    }
-   
-    */
 }

@@ -5,7 +5,6 @@
 include_once(__DIR__ . "/../connection/Connection.php");
 include_once(__DIR__ . "/../model/Curso.php");
 
-
 class CursoDAO
 {
 
@@ -59,26 +58,23 @@ class CursoDAO
         $stm->execute([$curso->getNome(), $curso->getId()]);
     }
 
-  public function deleteById(int $id)
-{
-    $conn = Connection::getConn();
+    public function deleteById(int $id)
+    {
+        $conn = Connection::getConn();
 
-    try {
-        $sql = "DELETE FROM cursos WHERE idCursos = ?";
-        $stm = $conn->prepare($sql);
-        $stm->execute([$id]);
+        try {
+            $sql = "DELETE FROM cursos WHERE idCursos = ?";
+            $stm = $conn->prepare($sql);
+            $stm->execute([$id]);
+        } catch (PDOException $e) {
 
-    } catch (PDOException $e) {
+            if ($e->getCode() == "23000") {
+                throw new Exception("Você não pode excluir este curso pois ele está vinculado a um usuário.");
+            }
 
-        if ($e->getCode() == "23000") {
-            throw new Exception("Você não pode excluir este curso pois ele está vinculado a um usuário.");
+            throw $e;
         }
-
-        throw $e;
     }
-}
-
-
 
     // Método para converter registros do banco em objetos Curso
     private function mapCursos($result)

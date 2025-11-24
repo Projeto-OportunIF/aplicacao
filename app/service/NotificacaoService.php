@@ -3,9 +3,6 @@
 
 require_once(__DIR__ . "/../dao/NotificacaoDAO.php");
 
-
-
-
 class NotificacaoService
 {
     private $dao;
@@ -31,22 +28,15 @@ class NotificacaoService
         $_SESSION[SESSAO_USUARIO_NOTIFICACOES] = $notificacoes["total_notificacoes"];
     }
 
-
-
-
-    public function  notificarUsuariosByCurso($mensagem, array $cursos,  $idOportunidade=null)
+    public function  notificarUsuariosByCurso($mensagem, array $cursos,  $idOportunidade = null)
     {
         //validar se os cursos existem
 
-
         $this->dao->notificarUsuariosByCurso($mensagem, $cursos,  $idOportunidade);
     }
-
 
     public function  notificarUsuarioById($mensagem, $id)
     {
         $this->dao->notificarUsuarioById($mensagem, $id);
     }
 }
-
-

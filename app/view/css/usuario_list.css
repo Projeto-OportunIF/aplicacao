@@ -13,7 +13,8 @@ h3 {
     margin-top: 30px;
 }
 
-.btn-success, .btn-secondary {
+.btn-success,
+.btn-secondary {
     border-radius: 12px;
     padding: 7px 17px;
     font-weight: bold;
@@ -43,7 +44,7 @@ h3 {
     max-width: 1200px;
     margin: auto;
     padding: 20px;
-    
+
 }
 
 .user-cards {
@@ -60,10 +61,10 @@ h3 {
     border-radius: 25px;
     padding: 20px 30px;
     width: 350px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    display: flex;           
-    flex-direction: column;  
-    justify-content: space-between; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     text-align: left;
 }
 
@@ -79,11 +80,11 @@ h3 {
     font-size: 0.9em;
     border: none;
     transition: background-color 0.3s ease;
-    align-self: flex-start;   
+    align-self: flex-start;
 }
 
 .user-card .btn-primary {
-    background-color: #227bc5; 
+    background-color: #227bc5;
     color: white;
 }
 
@@ -92,7 +93,7 @@ h3 {
 }
 
 .user-card .btn-danger {
-    background-color: #e42525; 
+    background-color: #e42525;
     color: white;
 }
 
@@ -123,30 +124,29 @@ h3 {
     vertical-align: middle;
 }
 
-
 .msg-sucesso,
 .msg-erro {
-  padding: 12px 15px;
-  margin: 20px auto;
-  border-radius: 8px;
-  max-width: 700px;
-  text-align: center;
-  font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  animation: fadeIn 0.8s forwards;
+    padding: 12px 15px;
+    margin: 20px auto;
+    border-radius: 8px;
+    max-width: 700px;
+    text-align: center;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
 }
 
 .msg-sucesso {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
 }
 
 .msg-erro {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
 
 /*         RESPONSIVIDADE        */
@@ -158,7 +158,7 @@ h3 {
 
     .user-cards {
         gap: 40px;
-         padding-bottom: 60px
+        padding-bottom: 60px
     }
 
     .user-card {
@@ -174,7 +174,7 @@ h3 {
 
     .user-cards {
         gap: 25px;
-         padding-bottom: 60px
+        padding-bottom: 60px
     }
 
     .user-card {
@@ -186,7 +186,8 @@ h3 {
         font-size: 0.95em;
     }
 
-    .btn-success, .btn-secondary {
+    .btn-success,
+    .btn-secondary {
         width: 100%;
         text-align: center;
         margin-bottom: 10px;
@@ -217,6 +218,6 @@ h3 {
     .user-cards {
         flex-direction: column;
         align-items: center;
-         padding-bottom: 60px
+        padding-bottom: 60px
     }
 }

@@ -1,6 +1,4 @@
 <?php
-# Nome do arquivo: InscricaoService.php
-# Objetivo: validar os dados da inscrição
 
 class InscricaoService
 {

@@ -102,11 +102,40 @@ body {
 }
 
 .form_error_message {
-  color: #cf3b4aff;
-  font-style: italic;
-  font-family: 'Playfair Display', serif;
+    color: #cf3b4aff;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
 }
 
+.info-icon {
+    font-size: 16px;
+    margin-left: 6px;
+    color: #0d6efd;
+    cursor: pointer;
+    position: relative;
+}
+
+.info-icon:hover::after {
+    content: attr(data-info);
+    position: absolute;
+    left: 22px;
+    top: -4px;
+    background: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    z-index: 999;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0s ease;
+}
+
+.info-icon::after {
+    opacity: 0;
+    transform: translateY(-5px);
+}
 
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 768px) {
@@ -159,7 +188,8 @@ body {
         height: 150px;
     }
 
-    .btn-voltar, .btn-success {
+    .btn-voltar,
+    .btn-success {
         font-size: 13px;
         padding: 8px 12px;
     }

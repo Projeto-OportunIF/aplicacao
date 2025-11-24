@@ -66,7 +66,6 @@ class Oportunidade
         return $this;
     }
 
-
     public function getDescricao(): ?string
     {
         return $this->descricao;
@@ -171,30 +170,19 @@ class Oportunidade
         $this->vaga = $vaga;
     }
 
-     /**
-     * Get the value of professor
-     */
+
     public function getProfessor(): ?Usuario
     {
         return $this->professor;
     }
 
-    /**
-     * Set the value of professor
-     */
+
     public function setProfessor(?Usuario $professor): self
     {
         $this->professor = $professor;
 
         return $this;
     }
-
-
-   
-    // ----------------------
-    // NOVOS MÉTODOS PARA CURSOS
-    // ----------------------
-
 
     public function getCursos(): array
     {
@@ -226,6 +214,4 @@ class Oportunidade
         }
         return $this;
     }
-
-   
 }

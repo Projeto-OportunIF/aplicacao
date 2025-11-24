@@ -40,7 +40,6 @@ require_once(__DIR__ . "/../include/menu.php");
 
 <h2>Escolha a modalidade que deseja visualizar</h2>
 
-
 <div class="cards-container">
   <div class="card">
     <h3>Projeto de Pesquisa</h3>
@@ -71,8 +70,6 @@ require_once(__DIR__ . "/../include/menu.php");
     <a href="<?= BASEURL ?>/controller/InscricaoController.php?action=listarInscricoes" class="btn-visualizar">Visualizar</a>
   </div>
 </div>
-
-
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

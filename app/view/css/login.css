@@ -72,9 +72,9 @@ body {
 }
 
 .form_error_message {
-  color: #cf3b4aff;
-  font-style: italic;
-  font-family: 'Playfair Display', serif;
+    color: #cf3b4aff;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
 }
 
 
@@ -121,6 +121,7 @@ body {
         text-align: left;
     }
 }
+
 @media (max-width: 480px) {
     .welcome {
         font-size: 2.5em;

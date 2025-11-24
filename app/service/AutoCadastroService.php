@@ -45,7 +45,6 @@ class AutoCadastroService
             }
         }
 
-        
         // Validar email
         $email = $usuario->getEmail();
         if (!$email) {
@@ -104,8 +103,6 @@ class AutoCadastroService
                 $erros['senha'] = "A senha deve ter no mínimo 8 caracteres.";
             }
         }
-
-
 
         return $erros;
     }

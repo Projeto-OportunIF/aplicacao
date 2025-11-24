@@ -53,9 +53,9 @@ class InscricaoDAO
     }
 
     // Listar inscrições de um aluno
-public function listByAluno(int $idAluno)
-{
-    $sql = "SELECT i.*, 
+    public function listByAluno(int $idAluno)
+    {
+        $sql = "SELECT i.*, 
                    o.titulo, 
                    o.descricao, 
                    o.tipoOportunidade, 
@@ -71,12 +71,11 @@ public function listByAluno(int $idAluno)
             WHERE i.idUsuarios = :idAluno
             ORDER BY i.idInscricoes DESC";
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindValue(":idAluno", $idAluno, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_OBJ);
-}
-
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":idAluno", $idAluno, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 
     // Deletar inscrição
     public function deleteById(int $idInscricao)
@@ -87,9 +86,9 @@ public function listByAluno(int $idAluno)
         $stmt->execute();
     }
 
-   public function listByOportunidadeDetalhado(int $idOportunidade)
-{
-    $sql = "SELECT i.*, 
+    public function listByOportunidadeDetalhado(int $idOportunidade)
+    {
+        $sql = "SELECT i.*, 
                    u.nomeCompleto AS nomeAluno, 
                    u.email AS emailAluno, 
                    u.matricula AS matriculaAluno,
@@ -103,14 +102,12 @@ public function listByAluno(int $idAluno)
             WHERE i.idOportunidades = :idOportunidade
             ORDER BY i.idInscricoes DESC";
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindValue(":idOportunidade", $idOportunidade, PDO::PARAM_INT);
-    $stmt->execute();
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":idOportunidade", $idOportunidade, PDO::PARAM_INT);
+        $stmt->execute();
 
-    return $stmt->fetchAll(PDO::FETCH_OBJ);
-}
-
-
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 
     // Atualizar status e feedback
     public function updateStatus($idInscricao, $novoStatus, $feedbackProfessor = null)
@@ -129,11 +126,10 @@ public function listByAluno(int $idAluno)
         }
     }
 
-    // 🔹 Corrigido: listar inscritos de uma oportunidade
-    // 🔹 Corrigido: listar inscritos de uma oportunidade
+    // Corrigido: listar inscritos de uma oportunidade
     public function listarInscritosPorOportunidade($idOportunidade)
-{
-    $sql = "SELECT 
+    {
+        $sql = "SELECT 
                 i.idInscricoes, 
                 u.nomeCompleto AS nome, 
                 u.email AS email, 
@@ -145,11 +141,10 @@ public function listByAluno(int $idAluno)
             WHERE i.idOportunidades = :idOportunidade
             ORDER BY i.idInscricoes DESC";
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindValue(':idOportunidade', $idOportunidade, PDO::PARAM_INT);
-    $stmt->execute();
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':idOportunidade', $idOportunidade, PDO::PARAM_INT);
+        $stmt->execute();
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

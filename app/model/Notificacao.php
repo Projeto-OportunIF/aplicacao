@@ -9,7 +9,6 @@ class Notificacao
     private $idOportunidade;
     private $link;
 
-
     public function getId(): int
     {
         return $this->id;

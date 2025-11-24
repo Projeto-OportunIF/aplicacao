@@ -1,3 +1,4 @@
+@ -1,89 +0,0 @@
 <?php
 # Nome do arquivo: usuario/usuario_list.php
 # Objetivo: interface para listagem dos usuários do sistema
@@ -5,8 +6,6 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-
-
 
 <?php if (!empty($_SESSION['msgSucesso'])): ?>
   <div class="msg-sucesso">
@@ -22,13 +21,9 @@ require_once(__DIR__ . "/../include/menu.php");
   <?php unset($_SESSION['msgErro']); ?>
 <?php endif; ?>
 
-<link rel="stylesheet" href="<?= BASEURL ?>/view/css/usuario_lists.css">
-
-
+<link rel="stylesheet" href="<?= BASEURL ?>/view/css/usuario_list.css">
 
 <h3>Usuários no Sistema</h3>
-
-
 
 <div class="row mb-3 align-items-center justify-content-center">
     <div class="col-auto">
@@ -44,7 +39,6 @@ require_once(__DIR__ . "/../include/menu.php");
         </a>
     </div>
 </div>
-
 
 <div class="user-cards">
 
