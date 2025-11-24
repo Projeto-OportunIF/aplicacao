@@ -1,4 +1,3 @@
-@ -1,113 +0,0 @@
 <?php
 # Arquivo: perfilEdit.php
 # Objetivo: Formulário de edição de perfil do usuário logado

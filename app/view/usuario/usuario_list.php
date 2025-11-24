@@ -1,4 +1,3 @@
-@ -1,89 +0,0 @@
 <?php
 # Nome do arquivo: usuario/usuario_list.php
 # Objetivo: interface para listagem dos usuários do sistema
