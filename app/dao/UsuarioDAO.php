@@ -183,25 +183,24 @@ class UsuarioDAO
     }
 
 
-   public function deleteById(int $id)
-{
-    $conn = Connection::getConn();
+    public function deleteById(int $id)
+    {
+        $conn = Connection::getConn();
 
-    try {
-        $sql = "DELETE FROM usuarios WHERE idUsuarios = ?";
-        $stm = $conn->prepare($sql);
-        $stm->execute([$id]);
+        try {
+            $sql = "DELETE FROM usuarios WHERE idUsuarios = ?";
+            $stm = $conn->prepare($sql);
+            $stm->execute([$id]);
+        } catch (PDOException $e) {
+            // Código 23000 = violação de foreign key
+            if ($e->getCode() == "23000") {
+                throw new Exception("Você não pode excluir este usuário pois ele está vinculado a uma oportunidade.");
+            }
 
-    } catch (PDOException $e) {
-        // Código 23000 = violação de foreign key
-        if ($e->getCode() == "23000") {
-            throw new Exception("Você não pode excluir este usuário pois ele está vinculado a uma oportunidade.");
+            // Qualquer outro erro repassa a exceção
+            throw $e;
         }
-
-        // Qualquer outro erro repassa a exceção
-        throw $e;
     }
-}
 
 
 
@@ -222,6 +221,17 @@ class UsuarioDAO
         $result = $stm->fetchAll();
         return $result[0]["qtd_usuarios"];
     }
+    public function contarAdmins(): int
+    {
+        $conn = Connection::getConn();
+        
+        $sql = "SELECT COUNT(*) AS total FROM usuarios WHERE tipoUsuario = 'ADMIN'";
+        $stm = $conn->prepare($sql);
+        $stm->execute();
+        $result = $stm->fetch();
+        return (int) ($result['total'] ?? 0);
+    }
+
 
     private function mapUsuarios($result)
     {

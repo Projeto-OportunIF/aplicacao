@@ -192,18 +192,48 @@ class UsuarioController extends Controller
 
     protected function delete()
     {
-        session_start(); // se ainda não existe
+        // garantir sessão
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
-        $id = $_GET['id'] ?? 0;
+        $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+
+        // Tentativas de recuperar id do usuário logado (varia conforme implementação)
+        $idLogado = null;
+        if (!empty($_SESSION['usuario_id'])) {
+            $idLogado = (int) $_SESSION['usuario_id'];
+        }
+
+        // buscar usuário a ser excluído
+        $usuarioExcluir = $this->usuarioDao->findById($id);
+
+        if (!$usuarioExcluir) {
+            $_SESSION['msgErro'] = "Usuário não encontrado!";
+            header("Location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+            exit;
+        }
+
+        // verificar se o usuário a excluir é ADMIN 
+        $tipoExcluir = strtoupper((string)$usuarioExcluir->getTipoUsuario());
+
+        if ($tipoExcluir === 'ADMIN') {
+            $totalAdmins = $this->usuarioDao->contarAdmins();
+
+            // Se só houver um admin, bloquear exclusão
+            if ($totalAdmins <= 1) {
+                $_SESSION['msgErro'] = " Deve existir ao menos um administrador no sistema.";
+                header("Location: " . BASEURL . "/controller/UsuarioController.php?action=list");
+                exit;
+            }
+        }
 
         try {
             $this->usuarioDao->deleteById($id);
-
             $_SESSION['msgSucesso'] = "Usuário excluído com sucesso!";
             header("Location: " . BASEURL . "/controller/UsuarioController.php?action=list");
             exit;
         } catch (Exception $e) {
-
             $_SESSION['msgErro'] = $e->getMessage();
             header("Location: " . BASEURL . "/controller/UsuarioController.php?action=list");
             exit;
