@@ -202,8 +202,6 @@ class UsuarioDAO
         }
     }
 
-
-
     public function updateFotoPerfil(Usuario $usuario)
     {
         $conn = Connection::getConn();
@@ -224,7 +222,7 @@ class UsuarioDAO
     public function contarAdmins(): int
     {
         $conn = Connection::getConn();
-        
+
         $sql = "SELECT COUNT(*) AS total FROM usuarios WHERE tipoUsuario = 'ADMIN'";
         $stm = $conn->prepare($sql);
         $stm->execute();

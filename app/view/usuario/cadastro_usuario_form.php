@@ -71,7 +71,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
                 </div>
 
-                 <div class="mb-3">
+                <div class="mb-3">
                     <label class="form-label" for="seltipoUsuario">Tipo de usuário:</label>
                     <select class="form-select" name="tipoUsuario" id="seltipoUsuario">
                         <option value="">Selecione o usuario</option>
@@ -123,7 +123,10 @@ require_once(__DIR__ . "/../include/menu.php");
                             <!-- Edição sem reset -->
                             <label class="form-label">Senha</label>
                             <input class="form-control" type="text" name="senha"
-                                value="<?= isset($dados['senhaPadrao']) ? $dados['senhaPadrao'] : '' ?>" readonly>
+                                value="<?= $dados['senhaPadrao'] ?? 'IFPR@1234' ?>" readonly>
+                            <input type="hidden" name="senha_hidden"
+                                value="<?= $dados['senhaPadrao'] ?? 'IFPR@1234' ?>">
+
                         <?php else: ?>
                             <!-- Cadastro de novo usuário -->
                             <label class="form-label">Senha</label>
