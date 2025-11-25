@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/11/2025 às 12:59
+-- Tempo de geração: 25/11/2025 às 02:59
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -63,12 +63,10 @@ CREATE TABLE `inscricoes` (
 --
 
 INSERT INTO `inscricoes` (`idInscricoes`, `documentosAnexo`, `feedbackProfessor`, `status`, `idOportunidades`, `idUsuarios`, `dataInscricao`) VALUES
-(21, '1762187782_Desenvolvimento.pdf', 'Em linguística, a noção de texto é ampla e ainda aberta a uma definição mais precisa. Grosso modo, pode ser entendido como manifestação linguística das ideias de um autor, que serão interpretadas pelo leitor de acordo com seus conhecimentos linguísticos.', 'APROVADO', 10, 33, '2025-11-08 19:55:26'),
-(35, '', NULL, 'PENDENTE', 29, 33, '2025-11-19 11:45:13'),
-(36, '', NULL, 'PENDENTE', 30, 33, '2025-11-19 11:45:19'),
-(37, '', NULL, 'PENDENTE', 28, 33, '2025-11-19 11:45:31'),
-(38, '', NULL, 'PENDENTE', 31, 33, '2025-11-19 12:03:48'),
-(40, '', NULL, 'PENDENTE', 32, 33, '2025-11-21 16:58:18');
+(41, '', NULL, 'PENDENTE', 38, 39, '2025-11-24 22:55:50'),
+(42, '', NULL, 'PENDENTE', 38, 40, '2025-11-24 22:56:16'),
+(43, '', 'O aluno foi oficialmente aprovado para participar da oportunidade de extensão \'Clube da Música\', estando autorizado a integrar as atividades musicais do projeto.', 'APROVADO', 38, 33, '2025-11-24 22:56:43'),
+(44, '', NULL, 'PENDENTE', 38, 38, '2025-11-24 22:56:56');
 
 -- --------------------------------------------------------
 
@@ -89,30 +87,13 @@ CREATE TABLE `notificacoes` (
 --
 
 INSERT INTO `notificacoes` (`idNotificacoes`, `mensagem`, `link`, `dataEnvio`, `idOportunidade`) VALUES
-(1, 'Oieeee', NULL, '2025-10-30', NULL),
-(2, 'Olá! Existe uma oportunidade de estágio', NULL, '2025-10-30', NULL),
-(3, 'Olá! Existe uma oportunidade de estágio', NULL, '2025-10-30', NULL),
-(4, 'Olá! Existe uma oportunidade de estágio', NULL, '2025-10-30', NULL),
-(5, 'Olá! tudo bem?', NULL, '2025-10-30', NULL),
-(6, 'uma nova oportunidade foi criada: Vaga no Clu', NULL, '2025-10-30', NULL),
-(7, 'uma nova oportunidade foi criada: Nova oportu', NULL, '2025-10-30', NULL),
-(8, 'uma nova oportunidade foi criada: Musica ', NULL, '2025-10-30', NULL),
-(9, 'Uma nova oportunidade foi criada: semana academica', NULL, '2025-11-08', NULL),
-(10, 'Uma nova oportunidade foi criada: outro teste', NULL, '2025-11-08', NULL),
-(11, 'Um novo aluno se inscreveu na sua oportunidade \"outro teste\".', NULL, '2025-11-08', NULL),
-(12, 'Um novo aluno se inscreveu na sua oportunidade \"outro teste\".', NULL, '2025-11-08', NULL),
-(13, 'Uma nova oportunidade foi criada: Semana Acadêmica II', NULL, '2025-11-08', NULL),
-(14, 'Um novo aluno se inscreveu na sua oportunidade \"Semana Acadêmica II\".', '/aplicacao/app/controller/InscricaoController.php?action=listarInscritos&idOport=26', '2025-11-08', NULL),
-(15, 'Um novo aluno se inscreveu na sua oportunidade \"Semana Acadêmica II\".', '/aplicacao/app/controller/InscricaoController.php?action=listarInscritos&idOport=26', '2025-11-08', NULL),
-(16, 'Uma nova oportunidade foi criada: sla', NULL, '2025-11-08', NULL),
-(17, 'Uma nova oportunidade foi criada: Desenvolvimento de Aplicação Web', NULL, '2025-11-09', NULL),
-(18, 'Uma nova oportunidade foi criada: oportunidade', NULL, '2025-11-09', NULL),
-(19, 'Um novo aluno se inscreveu na sua oportunidade \"oportunidade\".', '/aplicacao/app/controller/InscricaoController.php?action=listarInscritos&idOport=29', '2025-11-08', 29),
-(20, 'Uma nova oportunidade foi criada: Musica', NULL, '2025-11-19', NULL),
-(21, 'Um novo aluno se inscreveu na sua oportunidade \"oportunidade\".', '/aplicacao/app/controller/InscricaoController.php?action=listarInscritos&idOport=29', '2025-11-19', 29),
-(22, 'Uma nova oportunidade foi criada: hujkj', NULL, '2025-11-19', NULL),
-(23, 'Uma nova oportunidade foi criada: Teste', NULL, '2025-11-19', 32),
-(24, 'Um novo aluno se inscreveu na sua oportunidade \"Teste\".', '/aplicacao/app/controller/InscricaoController.php?action=listarInscritos&idOport=32', '2025-11-21', 32);
+(28, 'Uma nova oportunidade foi criada: Monitoramento da Qualidade da Água em Sistemas Aquícola', NULL, '2025-11-25', 36),
+(29, 'Uma nova oportunidade foi criada: Estágio em Desenvolvimento Web com PHP', NULL, '2025-11-25', 37),
+(30, 'Uma nova oportunidade foi criada: Projeto Clube da Música – Vivências Artísticas no IFPR', NULL, '2025-11-25', 38),
+(31, 'Um novo aluno se inscreveu na sua oportunidade \"Projeto Clube da Música – Vivências Artísticas no IFPR\".', '/aplicacao/app/controller/InscricaoController.php?action=listarInscritos&idOport=38', '2025-11-24', 38),
+(32, 'Um novo aluno se inscreveu na sua oportunidade \"Projeto Clube da Música – Vivências Artísticas no IFPR\".', '/aplicacao/app/controller/InscricaoController.php?action=listarInscritos&idOport=38', '2025-11-24', 38),
+(33, 'Um novo aluno se inscreveu na sua oportunidade \"Projeto Clube da Música – Vivências Artísticas no IFPR\".', '/aplicacao/app/controller/InscricaoController.php?action=listarInscritos&idOport=38', '2025-11-24', 38),
+(34, 'Um novo aluno se inscreveu na sua oportunidade \"Projeto Clube da Música – Vivências Artísticas no IFPR\".', '/aplicacao/app/controller/InscricaoController.php?action=listarInscritos&idOport=38', '2025-11-24', 38);
 
 -- --------------------------------------------------------
 
@@ -131,26 +112,18 @@ CREATE TABLE `notificacoes_usuarios` (
 --
 
 INSERT INTO `notificacoes_usuarios` (`idNotificacao`, `idUsuario`, `status`) VALUES
-(1, 1, ''),
-(1, 1, ''),
-(2, 33, 'LIDO'),
-(3, 33, 'LIDO'),
-(4, 33, 'LIDO'),
-(5, 33, 'LIDO'),
-(6, 33, 'LIDO'),
-(7, 33, 'LIDO'),
-(8, 33, 'LIDO'),
-(9, 33, 'LIDO'),
-(10, 33, 'LIDO'),
-(13, 33, 'LIDO'),
-(16, 33, 'LIDO'),
-(17, 33, 'LIDO'),
-(18, 33, 'LIDO'),
-(20, 33, 'ENVIADO'),
-(22, 33, 'ENVIADO'),
-(23, 33, 'ENVIADO'),
-(23, 37, 'ENVIADO'),
-(24, 38, 'ENVIADO');
+(28, 33, 'ENVIADO'),
+(28, 39, 'ENVIADO'),
+(28, 40, 'ENVIADO'),
+(29, 33, 'ENVIADO'),
+(30, 33, 'ENVIADO'),
+(30, 38, 'ENVIADO'),
+(30, 39, 'ENVIADO'),
+(30, 40, 'ENVIADO'),
+(31, 41, 'ENVIADO'),
+(32, 41, 'ENVIADO'),
+(33, 41, 'ENVIADO'),
+(34, 41, 'ENVIADO');
 
 -- --------------------------------------------------------
 
@@ -176,14 +149,9 @@ CREATE TABLE `oportunidades` (
 --
 
 INSERT INTO `oportunidades` (`idOportunidades`, `titulo`, `descricao`, `tipoOportunidade`, `dataInicio`, `dataFim`, `documentoAnexo`, `vaga`, `documentoEdital`, `idProfessor`) VALUES
-(9, 'Estágio no Parque Tecnológico Itaipu (PTI)', '<p>O Itaipu Parquetec, tamb&eacute;m conhecido como PTI, oferece a oportunidade de est&aacute;gio para estudantes que desejam integrar um ambiente de inova&ccedil;&atilde;o, pesquisa e desenvolvimento tecnol&oacute;gico.&nbsp;</p><p data-start=\"717\" data-end=\"1039\" id=\"isPasted\">Todas as vagas de est&aacute;gio (incluindo est&aacute;gios n&atilde;o-obrigat&oacute;rios) s&atilde;o divulgadas e gerenciadas por meio do <strong data-start=\"848\" data-end=\"871\">Portal do Candidato</strong> do Itaipu Parquetec, em parceria com o CIEE. &Eacute; necess&aacute;rio manter o cadastro atualizado no CIEE para acessar e concorrer &agrave;s vagas. <span data-state=\"closed\"><span data-testid=\"webpage-citation-pill\"><a href=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\" alt=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\">candidato.itaipuparquetec.org.br</a></span></span><span data-state=\"closed\"><span data-testid=\"webpage-citation-pill\"><a href=\"https://www.pti.org.br/trabalheconosco?utm_source=chatgpt.com\" target=\"_blank\" rel=\"noopener\" alt=\"https://www.pti.org.br/trabalheconosco?utm_source=chatgpt.com\">Itaipu Parquetec</a></span></span></p><p data-start=\"1041\" data-end=\"1231\">Acesse o Portal do Candidato aqui: <strong data-start=\"1076\" data-end=\"1120\">[Portal do Candidato &ndash; Itaipu Parquetec]</strong>(<a data-start=\"1121\" data-end=\"1192\" rel=\"noopener\" target=\"_new\" href=\"https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml?utm_source=chatgpt.com\">https://candidato.itaipuparquetec.org.br/opportunities/internship.xhtml</a>)&nbsp;</p>', 'ESTAGIO', '2025-09-02', '2025-11-27', '', 1, 'arquivo_6904f70f1f2f1.pdf', 38),
-(10, 'Teatro em Cena: Expressão, Cultura e Cidadania', '<p data-start=\"175\" data-end=\"512\" id=\"isPasted\"><strong data-start=\"175\" data-end=\"189\">Descri&ccedil;&atilde;o:</strong><br data-start=\"189\" data-end=\"192\">O projeto de extens&atilde;o <em data-start=\"214\" data-end=\"230\">Teatro em Cena</em> tem como objetivo promover a arte teatral como ferramenta de transforma&ccedil;&atilde;o social, cultural e educacional. A iniciativa busca oferecer oficinas de interpreta&ccedil;&atilde;o, express&atilde;o corporal, improvisa&ccedil;&atilde;o e montagem de pe&ccedil;as teatrais, abertas &agrave; comunidade acad&ecirc;mica e &agrave; popula&ccedil;&atilde;o em geral.</p><p data-start=\"880\" data-end=\"1072\">O projeto tamb&eacute;m prev&ecirc; apresenta&ccedil;&otilde;es p&uacute;blicas dos trabalhos desenvolvidos, democratizando o acesso ao teatro e incentivando a participa&ccedil;&atilde;o ativa da sociedade na valoriza&ccedil;&atilde;o da cultura local.</p>', 'PROJETOEXTENSAO', '2025-09-01', '2025-12-24', '', 12, NULL, 38),
-(11, 'Tecnologias Digitais na Educação: Impactos e Possibilidades', '<p data-start=\"191\" data-end=\"451\" id=\"isPasted\">Este projeto de pesquisa tem como objetivo analisar os impactos do uso de tecnologias digitais no processo de ensino e aprendizagem, identificando desafios e oportunidades que surgem com a integra&ccedil;&atilde;o de recursos tecnol&oacute;gicos em sala de aula.</p><p data-start=\"943\" data-end=\"1172\">Espera-se que os resultados possam oferecer subs&iacute;dios para a ado&ccedil;&atilde;o mais consciente e eficaz das tecnologias digitais na educa&ccedil;&atilde;o, contribuindo para pol&iacute;ticas p&uacute;blicas, forma&ccedil;&atilde;o de professores e pr&aacute;ticas pedag&oacute;gicas inovadoras.</p>', 'PROJETOPESQUISA', '2025-09-01', '2025-10-11', 'certificado em php', 14, NULL, 38),
-(28, 'Desenvolvimento de Aplicação Web', '<p>Este projeto tem como objetivo desenvolver e avaliar uma aplica&ccedil;&atilde;o web que ofere&ccedil;a suporte emocional e informativo para pacientes em tratamento quimioter&aacute;pico. A plataforma permitir&aacute; o compartilhamento de experi&ecirc;ncias, acesso a informa&ccedil;&otilde;es verificadas sobre autocuidado, e integra&ccedil;&atilde;o com profissionais de sa&uacute;de e psic&oacute;logos volunt&aacute;rios.<br data-start=\"765\" data-end=\"768\" data-pasted=\"true\">O foco principal &eacute; promover a melhoria da qualidade de vida de pacientes que enfrentam a perda capilar e outras mudan&ccedil;as f&iacute;sicas e emocionais associadas ao tratamento.</p>', 'PROJETOPESQUISA', '2025-11-22', '2025-11-29', '', 5, 'edital_690fce7b10bd6_mudanças no mundo do trabalho.pdf', 38),
-(29, 'oportunidade', '<p>oportunidade</p>', 'PROJETOEXTENSAO', '2025-11-15', '2025-11-22', '', 12, 'edital_690fcf61f0e8e_LISTA DE EXERCÍCIOS III - Gabriela Medeiros de Sá.pdf', 38),
-(30, 'Musica', '<p>musica&nbsp;</p>', 'PROJETOEXTENSAO', '2025-11-28', '2025-11-30', '', 56, 'edital_691dbde0f2b8a_Classe UML (2).pdf', 38),
-(31, 'hujkj', '<p>ghjklhgf</p>', 'PROJETOPESQUISA', '2025-11-04', '2025-11-29', '', 67, 'edital_691ddc33bc67e_Item Analisado.pdf', 38),
-(32, 'Teste', '<p>Teste</p>', 'PROJETOPESQUISA', '2025-11-19', '2025-12-19', '', 10, 'edital_691e0db2aeb5b_Classe UML (2).pdf', 38);
+(36, 'Monitoramento da Qualidade da Água em Sistemas Aquícola', '<p>Projeto de pesquisa voltado para an&aacute;lise de par&acirc;metros f&iacute;sico-qu&iacute;micos da &aacute;gua em tanques de aquicultura. Os participantes ir&atilde;o coletar dados em campo, registrar resultados e auxiliar na elabora&ccedil;&atilde;o de relat&oacute;rios t&eacute;cnicos.</p>', 'PROJETOPESQUISA', '2025-10-31', '2025-12-04', 'medições físico-químicas da água', 12, 'edital_6925087b2dea3_APznzabZKnOeF2yWfPLHaFNUXS7OsrKkRdJbybBSQpUc6GYN-IxZs9tpxlmEe01q9tQjsq78xrSrfaTFK6ILAZBWU365gNsg0uekPvPVhDxd2Zx-68aOr2KBU8seKqo2uCwCmvq5FLRECncEwZsDCXtsRRMiHcTUuGzkF1YLghP2fSteRufSDxhrRBc3Kg.pdf', 37),
+(37, 'Estágio em Desenvolvimento Web com PHP', '<p>O estudante atuar&aacute; no suporte ao desenvolvimento de sistemas internos, realizando manuten&ccedil;&atilde;o de c&oacute;digo, cria&ccedil;&atilde;o de novas funcionalidades e testes. Necess&aacute;rio conhecimento b&aacute;sico em PHP, HTML, CSS e MySQL.</p>', 'ESTAGIO', '2025-10-30', '2025-11-20', '', 3, 'edital_69250ba8a8276_APznzabZKnOeF2yWfPLHaFNUXS7OsrKkRdJbybBSQpUc6GYN-IxZs9tpxlmEe01q9tQjsq78xrSrfaTFK6ILAZBWU365gNsg0uekPvPVhDxd2Zx-68aOr2KBU8seKqo2uCwCmvq5FLRECncEwZsDCXtsRRMiHcTUuGzkF1YLghP2fSteRufSDxhrRBc3Kg.pdf', 37),
+(38, 'Projeto Clube da Música – Vivências Artísticas no IFPR', '<p>Atividade de extens&atilde;o aberta a todos os estudantes interessados em m&uacute;sica. Os participantes poder&atilde;o aprender instrumentos, participar de ensaios, colaborar com apresenta&ccedil;&otilde;es internas e desenvolver habilidades art&iacute;sticas e colaborativas.</p>', 'PROJETOEXTENSAO', '2025-10-29', '2025-12-03', '', 60, 'edital_69250bf8cbbe2_APznzabZKnOeF2yWfPLHaFNUXS7OsrKkRdJbybBSQpUc6GYN-IxZs9tpxlmEe01q9tQjsq78xrSrfaTFK6ILAZBWU365gNsg0uekPvPVhDxd2Zx-68aOr2KBU8seKqo2uCwCmvq5FLRECncEwZsDCXtsRRMiHcTUuGzkF1YLghP2fSteRufSDxhrRBc3Kg.pdf', 41);
 
 -- --------------------------------------------------------
 
@@ -202,17 +170,14 @@ CREATE TABLE `oportunidade_curso` (
 --
 
 INSERT INTO `oportunidade_curso` (`id`, `idOportunidade`, `idCurso`) VALUES
-(54, 11, 1),
-(56, 9, 1),
-(57, 10, 1),
-(58, 10, 3),
-(63, 28, 1),
-(64, 29, 1),
-(65, 30, 4),
-(66, 30, 1),
-(67, 31, 1),
-(68, 32, 4),
-(69, 32, 1);
+(95, 37, 1),
+(96, 38, 4),
+(97, 38, 1),
+(98, 38, 3),
+(99, 38, 5),
+(100, 36, 4),
+(101, 36, 1),
+(102, 36, 5);
 
 -- --------------------------------------------------------
 
@@ -238,9 +203,12 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`idUsuarios`, `nomeCompleto`, `email`, `cpf`, `senha`, `tipoUsuario`, `matricula`, `idCursos`, `fotoPerfil`) VALUES
 (1, 'Roberta Silva', 'robertasilva@gmail.com', '123.456.789-00', '$2a$12$1BDqobBHZGsw4dmj7lXgluXvyz.dnUFljz.1yc9BH8Va0xGVeyP9G', 'ADMIN', '', NULL, 'arquivo_68af3b57e44c4.jpeg'),
-(33, 'julie', 'julie@gmail.com', '105.296.209-28', '$2y$10$V7R7fdJOKt111p7BWXK7N.GFPE970NpcoJ7fDcm/JwLnHcKDDHOQK', 'ALUNO', '20223024000', 1, NULL),
-(37, 'Jefersson', 'Jefersson@gmail.com', '552.405.190-30', '$2y$10$sj5jqy.McPgFuvsG/FVMsuAGH4tgOeyTjwYvFkZTP5NnIWXi/E/Wi', 'ALUNO', '345678', 1, NULL),
-(38, 'Daniel Di Domenico', 'daniel@gmail.com', '968.353.650-64', '$2y$10$lUW94ZiSSrja3R2adqiGgeE4pq0HCTq0PLSs9w5kn9eRwFUydzdrS', 'PROFESSOR', '123456', NULL, NULL);
+(33, 'julie', 'julie@gmail.com', '105.296.209-28', '$2y$10$6buEjUyc6irPaFWsQmYm7u5lFs5nhx.80q1hFntBtXfbILj.IJxLi', 'ALUNO', '20223024000', 1, NULL),
+(37, 'Jefersson', 'Jefersson@gmail.com', '552.405.190-30', '$2y$10$vxxb2fZ3uBT0izbw0yj02egeyqC2QkPA/M/0Cn6pLRbmj0Kr7GeYu', 'PROFESSOR', '345678', 1, NULL),
+(38, 'Daniel Di Domenico', 'daniel@gmail.com', '968.353.650-64', '$2y$10$kCITd0R0ip6Yn3WkW4CkZufS/BwKU5u9WWatXBoBwQO3fcJ9v8HbK', 'ALUNO', '123456', 3, NULL),
+(39, 'Ana Carla Ahuda', 'anacarla@gmail.com', '317.818.880-00', '$2y$10$4cOgiyTYD48E9GxbTFTkHez4IV0PUZm47OjkToTTOAJzNRZxFy1zK', 'ALUNO', '1234567', 5, NULL),
+(40, 'Julio Royer', 'julio@gmail.com', '632.342.900-40', '$2y$10$GzA0yfnKqOeQM6EcbIzbiO9vE4C.kR/nxt9KFBCYvTE5DGqVpi6Xa', 'ALUNO', '12345678', 4, NULL),
+(41, 'Isabela Martins', 'isa@gmail.com', '867.929.270-23', '$2y$10$z3kHM8v8Jk54q.K0DtJDuuEmp8lP3tKl6WzZ8zvhnmh1nF1UIffZq', 'PROFESSOR', '7654321', NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -312,31 +280,31 @@ ALTER TABLE `cursos`
 -- AUTO_INCREMENT de tabela `inscricoes`
 --
 ALTER TABLE `inscricoes`
-  MODIFY `idInscricoes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `idInscricoes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de tabela `notificacoes`
 --
 ALTER TABLE `notificacoes`
-  MODIFY `idNotificacoes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idNotificacoes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de tabela `oportunidades`
 --
 ALTER TABLE `oportunidades`
-  MODIFY `idOportunidades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `idOportunidades` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de tabela `oportunidade_curso`
 --
 ALTER TABLE `oportunidade_curso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `idUsuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Restrições para tabelas despejadas
